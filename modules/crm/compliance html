@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F8FAFC">
+  <title>CM Filings | Compliance Dashboard</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Outfit', 'sans-serif'] },
+          colors: {
+            'app-blue': '#2F74FF',
+            'app-cyan': '#3EE3D3',
+            'app-bg': '#F8FAFC'
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { font-family: 'Outfit', sans-serif; }
+    .spinner { width: 22px; height: 22px; border: 3px solid #dbeafe; border-top-color: #2F74FF; border-radius: 50%; animation: spin .8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .status-pill { display:inline-flex; align-items:center; border-radius:9999px; padding:4px 10px; font-size:12px; font-weight:600; white-space:nowrap; }
+    .status-complete { color:#15803d; background:#f0fdf4; border:1px solid #dcfce7; }
+    .status-pending { color:#a16207; background:#fefce8; border:1px solid #fef08a; }
+    .status-overdue { color:#b91c1c; background:#fef2f2; border:1px solid #fee2e2; }
+    .status-other { color:#475569; background:#f1f5f9; border:1px solid #e2e8f0; }
+    .table-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    .nav-active { color:#2F74FF; background:#eff6ff; }
+    button:disabled { opacity:.55; cursor:not-allowed; }
+  </style>
+</head>
+
+<body class="bg-app-bg font-sans min-h-screen flex flex-col">
+  <!-- Authentication gate -->
+  <section id="authGate" class="fixed inset-0 z-[100] bg-app-bg flex items-center justify-center p-5">
+    <div class="w-full max-w-md bg-white border border-gray-100 rounded-3xl shadow-xl p-7 sm:p-9">
+      <div class="flex items-center gap-3 mb-8">
+        <img src="assets/logo.png" alt="CM Filings" class="h-12 w-12 object-contain" onerror="this.style.display='none'">
+        <img src="assets/name.png" alt="CM Filings" class="h-10 w-36 object-contain" onerror="this.style.display='none'">
+      </div>
+      <div class="w-14 h-14 rounded-2xl bg-blue-50 text-app-blue flex items-center justify-center mb-5">
+        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-7a2 2 0 00-2-2H6a2 2 0 00-2 2v7a2 2 0 002 2zm2-11V7a4 4 0 118 0v3"/></svg>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-900">Admin sign in</h1>
+      <p class="text-gray-500 mt-2">Sign in with the authorized CM Filings administrator account.</p>
+      <form id="loginForm" class="mt-7 space-y-4">
+        <div>
+          <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email address</label>
+          <input id="email" type="email" autocomplete="username" required value="shanicm@gmail.com"
+            class="w-full rounded-xl border border-gray-200 px-4 py-3.5 text-gray-900 outline-none focus:border-app-blue focus:ring-2 focus:ring-blue-100">
+        </div>
+        <div>
+          <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+          <input id="password" type="password" autocomplete="current-password" required
+            class="w-full rounded-xl border border-gray-200 px-4 py-3.5 text-gray-900 outline-none focus:border-app-blue focus:ring-2 focus:ring-blue-100" placeholder="Enter admin password">
+        </div>
+        <p id="authError" class="hidden text-sm text-red-600" role="alert"></p>
+        <button id="loginButton" type="submit" class="w-full bg-app-blue text-white font-semibold rounded-xl py-3.5 shadow-lg shadow-app-blue/20 hover:bg-blue-700 transition-colors">Sign in securely</button>
+      </form>
+      <p class="text-xs text-gray-400 mt-6">Authorized account: shanicm@gmail.com</p>
+    </div>
+  </section>
+
+  <div id="appShell" class="hidden">
+    <!-- Desktop sidebar -->
+    <aside class="hidden md:flex flex-col w-64 bg-white border-r border-gray-100 h-screen fixed left-0 top-0 z-30 shadow-sm">
+      <div class="flex items-center gap-3 p-6 border-b border-gray-100">
+        <img src="assets/logo.png" alt="Logo" class="h-12 w-12 object-contain" onerror="this.style.display='none'">
+        <img src="assets/name.png" alt="CM Filings" class="h-12 w-36 object-contain" onerror="this.style.display='none'">
+      </div>
+      <div class="flex-grow py-6 px-4 space-y-2">
+        <a href="/modules/crm/clients.html" class="flex items-center gap-3 px-4 py-3 text-lg text-gray-500 hover:text-gray-900 hover:bg-gray-50 rounded-xl font-medium transition-colors">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+          Clients
+        </a>
+        <a href="/modules/crm/compliance.html" class="nav-active flex items-center gap-3 px-4 py-3 text-lg rounded-xl font-semibold transition-colors">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z"/></svg>
+          Compliance
+        </a>
+        <a href="/modules/crm/credentials.html" class="flex items-center gap-3 px-4 py-3 text-lg text-gray-500 hover:text-gray-900 hover:bg-gray-50 rounded-xl font-medium transition-colors">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+          Credentials
+        </a>
+        <a href="/module/accounts/transactions.html" class="flex items-center gap-3 px-4 py-3 text-lg text-gray-500 hover:text-gray-900 hover:bg-gray-50 rounded-xl font-medium transition-colors">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+          Transactions
+        </a>
+      </div>
+      <div class="p-4 border-t border-gray-100">
+        <button data-signout class="w-full flex items-center gap-3 px-4 py-3 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"/></svg>
+          Sign out
+        </button>
+      </div>
+    </aside>
+
+    <div class="flex-grow flex flex-col min-h-screen md:ml-64 w-full md:w-[calc(100%-16rem)]">
+      <nav class="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between h-16 sm:h-20 items-center">
+            <div class="flex items-center gap-3">
+              <img src="assets/logo.png" alt="Logo" class="h-11 w-11 object-contain md:hidden" onerror="this.style.display='none'">
+              <img src="assets/name.png" alt="CM Filings" class="h-10 w-32 object-contain md:hidden" onerror="this.style.display='none'">
+              <span class="hidden md:block text-base font-semibold text-gray-500">Compliance Management</span>
+            </div>
+            <div class="flex items-center gap-3 sm:gap-4">
+              <span id="connectionState" class="hidden sm:inline-flex items-center gap-2 text-sm text-gray-500"><span class="w-2 h-2 rounded-full bg-green-500"></span> Connected</span>
+              <div class="text-right">
+                <p class="text-sm font-semibold text-gray-800" id="userEmail">shanicm@gmail.com</p>
+                <p class="text-xs text-gray-400">Administrator</p>
+              </div>
+              <button data-signout class="md:hidden text-gray-500 p-2 rounded-lg hover:bg-gray-100" aria-label="Sign out">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10 pb-28 w-full">
+        <header class="mb-6 md:mb-9">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-8 h-8 md:w-11 md:h-11 text-app-blue"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z"/></svg>
+                <h1 class="text-3xl md:text-5xl font-bold text-gray-900">Compliance</h1>
+              </div>
+              <p class="text-gray-500 mt-2 text-base md:text-xl">Monitor client filings, deadlines and payment status.</p>
+            </div>
+            <button id="refreshButton" class="inline-flex items-center gap-2 bg-white border border-gray-200 text-gray-700 font-semibold px-4 py-3 rounded-xl hover:bg-gray-50 transition-colors">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h5M20 20v-5h-5M5.5 9A7 7 0 0118 6l2 3M18.5 15A7 7 0 016 18l-2-3"/></svg>
+              Refresh
+            </button>
+          </div>
+        </header>
+
+        <div id="loadError" class="hidden mb-5 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700"></div>
+
+        <!-- KPI cards -->
+        <section class="grid grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-5 mb-7">
+          <article class="bg-app-blue rounded-2xl md:rounded-[2rem] p-4 md:p-6 shadow-lg shadow-app-blue/20">
+            <div class="flex justify-between items-start"><p class="text-white/90 text-sm md:text-base">Total compliances</p><span class="text-app-cyan"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5h6m-7 4h8m-8 4h8m-8 4h5M6 3h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg></span></div>
+            <p id="totalCount" class="text-white text-3xl md:text-4xl font-bold mt-3">—</p>
+            <p class="text-white/75 text-xs mt-1">All records</p>
+          </article>
+          <article class="bg-white border-2 border-gray-100 rounded-2xl md:rounded-[2rem] p-4 md:p-6 shadow-sm">
+            <div class="flex justify-between items-start"><p class="text-gray-500 text-sm md:text-base">Completed</p><span class="text-green-600"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span></div>
+            <p id="completedCount" class="text-gray-900 text-3xl md:text-4xl font-bold mt-3">—</p>
+            <p class="text-gray-400 text-xs mt-1">Filed / completed</p>
+          </article>
+          <article class="bg-white border-2 border-gray-100 rounded-2xl md:rounded-[2rem] p-4 md:p-6 shadow-sm">
+            <div class="flex justify-between items-start"><p class="text-gray-500 text-sm md:text-base">Pending</p><span class="text-yellow-600"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2"/></svg></span></div>
+            <p id="pendingCount" class="text-gray-900 text-3xl md:text-4xl font-bold mt-3">—</p>
+            <p class="text-gray-400 text-xs mt-1">Awaiting action</p>
+          </article>
+          <article class="bg-app-blue rounded-2xl md:rounded-[2rem] p-4 md:p-6 shadow-lg shadow-app-blue/20">
+            <div class="flex justify-between items-start"><p class="text-white/90 text-sm md:text-base">Overdue</p><span class="text-app-cyan"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.3 3.86L2.8 17a2 2 0 001.74 3h14.92a2 2 0 001.74-3l-7.5-13.14a2 2 0 00-3.48 0z"/></svg></span></div>
+            <p id="overdueCount" class="text-white text-3xl md:text-4xl font-bold mt-3">—</p>
+            <p class="text-white/75 text-xs mt-1">Past due date and not filed</p>
+          </article>
+        </section>
+
+        <!-- Summary strip -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-5 mb-8">
+          <div class="bg-white border-2 border-gray-100 rounded-2xl p-5 shadow-sm">
+            <p class="text-gray-500 text-sm">Due in next 7 days</p><p id="dueSoonCount" class="text-2xl font-bold text-gray-900 mt-1">—</p>
+          </div>
+          <div class="bg-white border-2 border-gray-100 rounded-2xl p-5 shadow-sm">
+            <p class="text-gray-500 text-sm">Payment unpaid / pending</p><p id="unpaidCount" class="text-2xl font-bold text-gray-900 mt-1">—</p>
+          </div>
+          <div class="bg-white border-2 border-gray-100 rounded-2xl p-5 shadow-sm">
+            <p class="text-gray-500 text-sm">Clients with compliance records</p><p id="clientCount" class="text-2xl font-bold text-gray-900 mt-1">—</p>
+          </div>
+        </section>
+
+        <!-- Register -->
+        <section class="bg-white border-2 border-gray-100 rounded-[1.5rem] md:rounded-[2rem] shadow-sm overflow-hidden">
+          <div class="p-5 md:p-7 border-b border-gray-100">
+            <div class="flex flex-wrap justify-between items-center gap-3 mb-5">
+              <div><h2 class="text-gray-900 text-xl md:text-2xl font-bold">Compliance register</h2><p class="text-gray-400 text-sm mt-1">Live records from Firestore · compliance</p></div>
+              <span id="recordCount" class="text-sm text-gray-500">0 records</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
+              <input id="searchInput" type="search" placeholder="Search client, ID, compliance..." class="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-app-blue focus:ring-2 focus:ring-blue-100">
+              <select id="statusFilter" class="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-700 bg-white outline-none focus:border-app-blue"><option value="">All statuses</option><option value="completed">Completed</option><option value="pending">Pending</option><option value="overdue">Overdue</option></select>
+              <select id="periodFilter" class="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-700 bg-white outline-none focus:border-app-blue"><option value="">All periods</option></select>
+              <select id="paymentFilter" class="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-700 bg-white outline-none focus:border-app-blue"><option value="">All payment statuses</option><option value="paid">Paid</option><option value="unpaid">Unpaid</option><option value="pending">Pending</option></select>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table class="min-w-[900px] w-full text-left">
+              <thead class="bg-gray-50 text-gray-500 text-xs uppercase tracking-wide">
+                <tr>
+                  <th class="px-5 py-4 font-semibold">Client / ID</th>
+                  <th class="px-5 py-4 font-semibold">Compliance</th>
+                  <th class="px-5 py-4 font-semibold">Period</th>
+                  <th class="px-5 py-4 font-semibold">Due date</th>
+                  <th class="px-5 py-4 font-semibold">Filing status</th>
+                  <th class="px-5 py-4 font-semibold">Payment</th>
+                  <th class="px-5 py-4 font-semibold">Priority</th>
+                  <th class="px-5 py-4 font-semibold">Folder</th>
+                </tr>
+              </thead>
+              <tbody id="complianceRows" class="divide-y divide-gray-100 text-sm">
+                <tr><td colspan="8" class="px-5 py-12 text-center"><div class="flex justify-center"><div class="spinner"></div></div><p class="text-gray-400 mt-3">Loading compliance records...</p></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="emptyState" class="hidden px-5 py-12 text-center text-gray-400">No compliance records match your filters.</div>
+          <div class="px-5 py-4 bg-gray-50 border-t border-gray-100 text-xs text-gray-400">Status is calculated from your existing complianceStatus, filedAt and dueDate fields. No Firestore records are modified.</div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Mobile bottom navigation -->
+    <nav class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] z-50 md:hidden">
+      <div class="flex justify-around items-center h-20 max-w-md mx-auto px-2">
+        <a href="/modules/crm/clients.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400"><svg class="w-7 h-7 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0z"/></svg><span class="text-xs font-medium">Clients</span></a>
+        <a href="/modules/crm/compliance.html" class="flex flex-col items-center justify-center w-full h-full text-app-blue"><svg class="w-7 h-7 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.1a2.25 2.25 0 00-2-2.2M8.25 8.25H4.875A1.125 1.125 0 003.75 9.375v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375A1.125 1.125 0 0013.5 8.25H8.25z"/></svg><span class="text-xs font-bold">Compliance</span></a>
+        <a href="/modules/crm/credentials.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400"><svg class="w-7 h-7 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622"/></svg><span class="text-xs font-medium">Credentials</span></a>
+        <a href="/module/accounts/transactions.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400"><svg class="w-7 h-7 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9"/></svg><span class="text-xs font-medium">Transactions</span></a>
+      </div>
+    </nav>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import {
+      getFirestore, collection, getDocs
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAY0eJ0iAVxP2tn2RLe7wVNB8Q15Vnjd-g",
+      authDomain: "cmb-40001.firebaseapp.com",
+      projectId: "cmb-40001",
+      storageBucket: "cmb-40001.firebasestorage.app",
+      messagingSenderId: "294144253040",
+      appId: "1:294144253040:web:852b7c378ee8049f4268b5",
+      measurementId: "G-RX05KNR8Y3"
+    };
+
+    const ALLOWED_ADMIN_EMAIL = "shanicm@gmail.com";
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const $ = (id) => document.getElementById(id);
+    let allRecords = [];
+    let clientIds = new Set();
+
+    function showAuthError(message) {
+      $("authError").textContent = message;
+      $("authError").classList.remove("hidden");
+    }
+
+    function normalize(value) {
+      return String(value ?? "").trim().toLowerCase();
+    }
+
+    function toDate(value) {
+      if (!value) return null;
+      if (typeof value?.toDate === "function") return value.toDate();
+      if (typeof value === "object" && value.seconds) return new Date(value.seconds * 1000);
+      if (typeof value === "string") {
+        const raw = value.trim();
+        if (!raw) return null;
+        // Supports ISO dates and common dd-mm-yyyy / dd/mm/yyyy formats.
+        const dmy = raw.match(/^(\d{1,2})[-/](\d{1,2})[-/](\d{4})$/);
+        if (dmy) return new Date(Number(dmy[3]), Number(dmy[2]) - 1, Number(dmy[1]));
+        const parsed = new Date(raw);
+        return Number.isNaN(parsed.getTime()) ? null : parsed;
+      }
+      return null;
+    }
+
+    function filed(record) {
+      const status = normalize(record.complianceStatus);
+      return Boolean(record.filedAt) || ["filed", "completed", "complete", "done", "submitted"].includes(status);
+    }
+
+    function recordStatus(record) {
+      if (filed(record)) return "completed";
+      const due = toDate(record.dueDate);
+      if (due) {
+        const today = new Date(); today.setHours(0,0,0,0);
+        due.setHours(0,0,0,0);
+        if (due < today) return "overdue";
+      }
+      return "pending";
+    }
+
+    function formatDate(value) {
+      const date = toDate(value);
+      return date ? new Intl.DateTimeFormat("en-IN", { day:"2-digit", month:"short", year:"numeric" }).format(date) : (value ? String(value) : "—");
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+    }
+
+    function pill(status) {
+      const labels = { completed:"Completed", pending:"Pending", overdue:"Overdue" };
+      const cls = { completed:"status-complete", pending:"status-pending", overdue:"status-overdue" };
+      return `<span class="status-pill ${cls[status] || "status-other"}">${labels[status] || escapeHtml(status || "Unknown")}</span>`;
+    }
+
+    function paymentPill(value) {
+      const v = normalize(value);
+      const cls = v === "paid" ? "status-complete" : (v === "unpaid" || v === "pending" ? "status-pending" : "status-other");
+      return `<span class="status-pill ${cls}">${escapeHtml(value || "—")}</span>`;
+    }
+
+    function render() {
+      const query = normalize($("searchInput").value);
+      const statusFilter = $("statusFilter").value;
+      const periodFilter = $("periodFilter").value;
+      const paymentFilter = $("paymentFilter").value;
+
+      const filtered = allRecords.filter(r => {
+        const status = recordStatus(r);
+        const searchText = [r.clientName, r.clientId, r.complianceId, r.complianceName, r.CompliancePeriod, r.complianceAknNumber].map(normalize).join(" ");
+        return (!query || searchText.includes(query))
+          && (!statusFilter || status === statusFilter)
+          && (!periodFilter || String(r.CompliancePeriod ?? "") === periodFilter)
+          && (!paymentFilter || normalize(r.paymentStatus) === paymentFilter);
+      });
+
+      $("recordCount").textContent = `${filtered.length} of ${allRecords.length} records`;
+      $("emptyState").classList.toggle("hidden", filtered.length !== 0);
+      $("complianceRows").innerHTML = filtered.map(r => {
+        const status = recordStatus(r);
+        const folder = r.taskFolderLink ? `<a href="${escapeHtml(r.taskFolderLink)}" target="_blank" rel="noopener noreferrer" class="text-app-blue hover:underline font-semibold">Open folder ↗</a>` : `<span class="text-gray-300">—</span>`;
+        return `<tr class="hover:bg-blue-50/40">
+          <td class="px-5 py-4"><p class="font-semibold text-gray-900">${escapeHtml(r.clientName || "—")}</p><p class="text-xs text-gray-400 mt-1">${escapeHtml(r.clientId || r.complianceId || "")}</p></td>
+          <td class="px-5 py-4"><p class="font-semibold text-gray-800">${escapeHtml(r.complianceName || "—")}</p><p class="text-xs text-gray-400 mt-1">${escapeHtml(r.complianceAknNumber || "")}</p></td>
+          <td class="px-5 py-4 text-gray-600">${escapeHtml(r.CompliancePeriod || "—")}</td>
+          <td class="px-5 py-4 text-gray-600 whitespace-nowrap">${formatDate(r.dueDate)}</td>
+          <td class="px-5 py-4">${pill(status)}</td>
+          <td class="px-5 py-4">${paymentPill(r.paymentStatus)}</td>
+          <td class="px-5 py-4 text-gray-600">${escapeHtml(r.priority || "—")}</td>
+          <td class="px-5 py-4">${folder}</td>
+        </tr>`;
+      }).join("");
+      if (!filtered.length) $("complianceRows").innerHTML = "";
+    }
+
+    function updateSummary() {
+      const total = allRecords.length;
+      const completed = allRecords.filter(r => recordStatus(r) === "completed").length;
+      const overdue = allRecords.filter(r => recordStatus(r) === "overdue").length;
+      const pending = allRecords.filter(r => recordStatus(r) === "pending").length;
+      const now = new Date(); now.setHours(0,0,0,0);
+      const nextWeek = new Date(now); nextWeek.setDate(nextWeek.getDate() + 7);
+      const dueSoon = allRecords.filter(r => {
+        if (filed(r)) return false;
+        const due = toDate(r.dueDate);
+        if (!due) return false;
+        due.setHours(0,0,0,0);
+        return due >= now && due <= nextWeek;
+      }).length;
+      const unpaid = allRecords.filter(r => ["unpaid","pending"].includes(normalize(r.paymentStatus))).length;
+
+      $("totalCount").textContent = total.toLocaleString("en-IN");
+      $("completedCount").textContent = completed.toLocaleString("en-IN");
+      $("pendingCount").textContent = pending.toLocaleString("en-IN");
+      $("overdueCount").textContent = overdue.toLocaleString("en-IN");
+      $("dueSoonCount").textContent = dueSoon.toLocaleString("en-IN");
+      $("unpaidCount").textContent = unpaid.toLocaleString("en-IN");
+      $("clientCount").textContent = clientIds.size.toLocaleString("en-IN");
+    }
+
+    async function loadDashboard() {
+      $("loadError").classList.add("hidden");
+      $("complianceRows").innerHTML = `<tr><td colspan="8" class="px-5 py-12 text-center"><div class="flex justify-center"><div class="spinner"></div></div><p class="text-gray-400 mt-3">Loading compliance records...</p></td></tr>`;
+      try {
+        const [complianceSnap, clientsSnap] = await Promise.all([
+          getDocs(collection(db, "compliance")),
+          getDocs(collection(db, "clients"))
+        ]);
+        allRecords = complianceSnap.docs.map(doc => ({ firestoreDocId: doc.id, ...doc.data() }));
+        clientIds = new Set(allRecords.map(r => r.clientId).filter(Boolean));
+
+        // Populate distinct compliance periods using the existing field.
+        const periods = [...new Set(allRecords.map(r => String(r.CompliancePeriod ?? "").trim()).filter(Boolean))].sort().reverse();
+        $("periodFilter").innerHTML = `<option value="">All periods</option>` + periods.map(p => `<option value="${escapeHtml(p)}">${escapeHtml(p)}</option>`).join("");
+
+        // Use actual client collection count if available, otherwise distinct linked client IDs.
+        $("clientCount").textContent = (clientsSnap.size || clientIds.size).toLocaleString("en-IN");
+        updateSummary();
+        render();
+        $("connectionState").innerHTML = `<span class="w-2 h-2 rounded-full bg-green-500"></span> Live data loaded`;
+      } catch (error) {
+        console.error("Firestore load failed:", error);
+        $("complianceRows").innerHTML = "";
+        $("loadError").textContent = `Could not load Firestore data (${error.code || "error"}). Check that Firestore rules allow this signed-in admin to read the compliance and clients collections.`;
+        $("loadError").classList.remove("hidden");
+      }
+    }
+
+    $("loginForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      $("authError").classList.add("hidden");
+      const email = normalize($("email").value);
+      if (email !== ALLOWED_ADMIN_EMAIL) {
+        showAuthError("Access denied. Only the authorized administrator can sign in here.");
+        return;
+      }
+      $("loginButton").disabled = true;
+      $("loginButton").textContent = "Signing in...";
+      try {
+        await signInWithEmailAndPassword(auth, email, $("password").value);
+      } catch (error) {
+        showAuthError(error.code === "auth/invalid-credential" ? "Incorrect email or password." : (error.message || "Sign-in failed."));
+      } finally {
+        $("loginButton").disabled = false;
+        $("loginButton").textContent = "Sign in securely";
+      }
+    });
+
+    document.querySelectorAll("[data-signout]").forEach(btn => btn.addEventListener("click", () => signOut(auth)));
+    $("refreshButton").addEventListener("click", loadDashboard);
+    ["searchInput","statusFilter","periodFilter","paymentFilter"].forEach(id => $(id).addEventListener(id === "searchInput" ? "input" : "change", render));
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        $("appShell").classList.add("hidden");
+        $("authGate").classList.remove("hidden");
+        return;
+      }
+      if (normalize(user.email) !== ALLOWED_ADMIN_EMAIL) {
+        await signOut(auth);
+        $("appShell").classList.add("hidden");
+        $("authGate").classList.remove("hidden");
+        showAuthError("Access denied. This account is not authorized.");
+        return;
+      }
+      $("authGate").classList.add("hidden");
+      $("appShell").classList.remove("hidden");
+      $("userEmail").textContent = user.email;
+      await loadDashboard();
+    });
+  </script>
+</body>
+</html>

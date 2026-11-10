@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fff"><base href="../"><title>CRM | COREBIQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/index.css">
+<style>
+.crm-page{max-width:1600px;margin:auto;padding:22px 30px 108px;color:#20242b}
+.crm-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px}
+.crm-kicker{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#858d98;font-weight:600}
+.crm-head h1{font-size:27px;letter-spacing:-.7px;margin:5px 0 3px;font-weight:600}
+.crm-head p{font-size:13px;color:#7c8490;margin:0}
+.crm-actions{display:flex;gap:8px}
+.crm-btn{height:39px;padding:0 13px;border:1px solid #e3e6eb;border-radius:11px;background:white;color:#3d444e;font:600 12px Outfit;display:inline-flex;align-items:center;gap:8px;cursor:pointer;white-space:nowrap}
+.crm-btn svg{width:16px;height:16px}.crm-btn.primary{background:#20242b;color:white;border-color:#20242b}
+.crm-tabs-wrap{position:sticky;top:113px;z-index:25;margin:0 -30px 18px;padding:0 30px;background:rgba(247,248,250,.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.crm-tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid #e5e8ed;white-space:nowrap}.crm-tabs::-webkit-scrollbar{display:none}
+.crm-tab{height:46px;position:relative;padding:0 13px;border:0;background:transparent;color:#737b86;font:500 12px Outfit;display:inline-flex;align-items:center;gap:8px;cursor:pointer}
+.crm-tab svg{width:16px;height:16px}.crm-tab.active{color:#20242b;font-weight:650}.crm-tab.active:after{content:"";position:absolute;bottom:-1px;left:12px;right:12px;height:2px;background:#20242b;border-radius:3px}
+.crm-count{font-size:10px;padding:2px 6px;background:#eef0f3;border-radius:6px;color:#858c96}
+.crm-panel{display:none}.crm-panel.active{display:block;animation:fade .18s ease}@keyframes fade{from{opacity:.5;transform:translateY(3px)}to{opacity:1;transform:none}}
+.crm-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.crm-kpi,.crm-card,.crm-tile{background:#fff;border:1px solid #e7e9ed;border-radius:15px;box-shadow:0 2px 10px rgba(24,35,50,.025)}
+.crm-kpi{padding:15px 16px;min-width:0}.crm-kpi-top{display:flex;justify-content:space-between;align-items:center;color:#777f8a;font-size:12px;gap:8px}
+.crm-kpi-icon,.crm-tile-icon{width:34px;height:34px;border-radius:10px;background:#f0f3f8;color:#536c91;display:grid;place-items:center}.crm-kpi-icon svg,.crm-tile-icon svg{width:18px;height:18px}
+.crm-kpi-value{font-size:24px;font-weight:600;letter-spacing:-.6px;margin:9px 0 2px}.crm-kpi-note{font-size:11px;color:#858c96}.crm-kpi-note b{color:#218263}
+.crm-card{overflow:hidden}.crm-card-head{padding:17px 18px 13px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.crm-card-head h2{font-size:15px;margin:0;font-weight:600}.crm-card-head p{font-size:11px;color:#8a919b;margin:3px 0 0}
+.crm-table-wrap{overflow-x:auto}.crm-table{width:100%;border-collapse:collapse;min-width:620px}
+.crm-table th{text-align:left;padding:11px 17px;background:#fbfcfd;border-top:1px solid #eef0f3;border-bottom:1px solid #eef0f3;color:#8a919b;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.crm-table td{padding:13px 17px;border-bottom:1px solid #f0f1f3;font-size:12px;color:#515965}.crm-table tr:last-child td{border-bottom:0}
+.person{display:flex;align-items:center;gap:10px}.avatar{width:32px;height:32px;border-radius:10px;background:#edf1f6;color:#53657e;display:grid;place-items:center;font-size:10px;font-weight:650}
+.person b,.person small{display:block}.person b{font-size:12px;color:#303640}.person small{font-size:10px;color:#9299a3;margin-top:2px}
+.status{display:inline-flex;padding:4px 8px;border-radius:20px;background:#edf6f1;color:#25805f;font-size:10px;font-weight:600}.status.lead{background:#fff4e8;color:#a86a23}
+.crm-toolbar{display:flex;gap:8px;padding:0 18px 14px}.crm-search{height:36px;max-width:300px;flex:1;display:flex;align-items:center;gap:8px;padding:0 10px;border:1px solid #e5e8ed;border-radius:10px;background:#fafbfc;color:#9299a3}.crm-search svg{width:15px}.crm-search input{border:0;outline:0;background:transparent;min-width:0;width:100%;font:12px Outfit}
+.crm-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.crm-tile{padding:20px}.crm-tile-icon{margin-bottom:12px}.crm-tile h3{font-size:14px;margin:0 0 5px}.crm-tile p,.crm-intro{font-size:12px;line-height:1.5;color:#858c96;margin:0}
+@media(max-width:1100px){.crm-page{padding-left:20px;padding-right:20px}.crm-tabs-wrap{margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px}}
+@media(max-width:850px){.crm-page{padding:16px 14px 105px}.crm-head{align-items:center;margin-bottom:12px}.crm-head h1{font-size:24px}.crm-head p{font-size:12px}.crm-actions .crm-btn{width:39px;padding:0;justify-content:center}.crm-actions .btn-text{display:none}.crm-tabs-wrap{top:64px;margin:0 -14px 14px;padding:0 14px}.crm-tab{height:44px;padding:0 11px}.crm-kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.crm-kpi{padding:13px}.crm-kpi-value{font-size:22px}.crm-card-head{padding:15px 14px 12px}.crm-tiles{grid-template-columns:1fr}}
+@media(max-width:390px){.crm-page{padding-left:11px;padding-right:11px}.crm-tabs-wrap{margin-left:-11px;margin-right:-11px;padding-left:11px;padding-right:11px}.crm-tab{padding:0 9px}}
+</style></head>
+<body data-page-title="CRM">
+<div class="app-shell"><div id="desktop-sidebar-mount"></div><main class="main-shell">
+<div id="desktop-header-mount"></div><div id="mobile-header-mount"></div>
+<main class="crm-page">
+<header class="crm-head"><div><div class="crm-kicker">Customer relationship management</div><h1>CRM</h1><p>Manage leads, customers and business relationships.</p></div>
+<div class="crm-actions"><button class="crm-btn" id="crm-export"><i data-lucide="download"></i><span class="btn-text">Export</span></button><button class="crm-btn primary" id="crm-add"><i data-lucide="plus"></i><span class="btn-text">Add contact</span></button></div></header>
+<div class="crm-tabs-wrap"><nav class="crm-tabs" role="tablist" aria-label="CRM sections">
+<button class="crm-tab active" role="tab" aria-selected="true" data-tab="overview"><i data-lucide="layout-dashboard"></i>Overview</button>
+<button class="crm-tab" role="tab" aria-selected="false" data-tab="leads"><i data-lucide="user-round-search"></i>Leads <span class="crm-count">24</span></button>
+<button class="crm-tab" role="tab" aria-selected="false" data-tab="contacts"><i data-lucide="contact"></i>Contacts</button>
+<button class="crm-tab" role="tab" aria-selected="false" data-tab="companies"><i data-lucide="building-2"></i>Companies</button>
+<button class="crm-tab" role="tab" aria-selected="false" data-tab="deals"><i data-lucide="handshake"></i>Deals</button>
+<button class="crm-tab" role="tab" aria-selected="false" data-tab="activities"><i data-lucide="calendar-check"></i>Activities</button>
+</nav></div>
+<section class="crm-panel active" data-panel="overview">
+<div class="crm-kpis">
+<article class="crm-kpi"><div class="crm-kpi-top">Total leads<span class="crm-kpi-icon"><i data-lucide="user-round-search"></i></span></div><div class="crm-kpi-value">248</div><div class="crm-kpi-note"><b>+12.8%</b> vs last month</div></article>
+<article class="crm-kpi"><div class="crm-kpi-top">Active contacts<span class="crm-kpi-icon"><i data-lucide="contact"></i></span></div><div class="crm-kpi-value">1,248</div><div class="crm-kpi-note"><b>+8.2%</b> vs last month</div></article>
+<article class="crm-kpi"><div class="crm-kpi-top">Open deals<span class="crm-kpi-icon"><i data-lucide="handshake"></i></span></div><div class="crm-kpi-value">36</div><div class="crm-kpi-note">12 awaiting follow-up</div></article>
+<article class="crm-kpi"><div class="crm-kpi-top">Conversion rate<span class="crm-kpi-icon"><i data-lucide="chart-no-axes-combined"></i></span></div><div class="crm-kpi-value">18.6%</div><div class="crm-kpi-note"><b>+2.4%</b> vs last month</div></article></div>
+<section class="crm-card"><div class="crm-card-head"><div><h2>Recent contacts</h2><p>Your latest CRM records</p></div><button class="crm-btn" data-goto="contacts">View all <i data-lucide="arrow-right"></i></button></div>
+<div class="crm-table-wrap"><table class="crm-table"><thead><tr><th>Contact</th><th>Company</th><th>Type</th><th>Status</th><th>Last activity</th></tr></thead><tbody>
+<tr><td><div class="person"><span class="avatar">AK</span><span><b>Arun Kumar</b><small>arun@example.com</small></span></div></td><td>AK Traders</td><td>Customer</td><td><span class="status">Active</span></td><td>Today</td></tr>
+<tr><td><div class="person"><span class="avatar">MS</span><span><b>Meera Shah</b><small>meera@example.com</small></span></div></td><td>Shah Associates</td><td>Lead</td><td><span class="status lead">Follow-up</span></td><td>Yesterday</td></tr>
+<tr><td><div class="person"><span class="avatar">RN</span><span><b>Rahul Nair</b><small>rahul@example.com</small></span></div></td><td>Northstar Pvt Ltd</td><td>Customer</td><td><span class="status">Active</span></td><td>10 Nov 2026</td></tr>
+</tbody></table></div></section></section>
+<section class="crm-panel" data-panel="leads"><p class="crm-intro">Track prospects from first enquiry through qualification and conversion.</p><div class="crm-kpis">
+<article class="crm-kpi"><div class="crm-kpi-top">New leads</div><div class="crm-kpi-value">24</div><div class="crm-kpi-note">This month</div></article><article class="crm-kpi"><div class="crm-kpi-top">Qualified</div><div class="crm-kpi-value">16</div><div class="crm-kpi-note">Ready for proposal</div></article><article class="crm-kpi"><div class="crm-kpi-top">Follow-ups</div><div class="crm-kpi-value">8</div><div class="crm-kpi-note">Due this week</div></article><article class="crm-kpi"><div class="crm-kpi-top">Converted</div><div class="crm-kpi-value">12</div><div class="crm-kpi-note">This month</div></article></div>
+<section class="crm-card"><div class="crm-card-head"><div><h2>Lead pipeline</h2><p>Recent enquiries and prospects</p></div><button class="crm-btn primary" data-demo-action="lead"><i data-lucide="plus"></i>Add lead</button></div><div class="crm-table-wrap"><table class="crm-table"><thead><tr><th>Lead</th><th>Source</th><th>Interest</th><th>Stage</th><th>Follow-up</th></tr></thead><tbody><tr><td>Faisal Ahmed</td><td>Website</td><td>Business plan</td><td><span class="status lead">New</span></td><td>12 Nov 2026</td></tr><tr><td>Sneha Pillai</td><td>Referral</td><td>Accounting</td><td><span class="status">Qualified</span></td><td>13 Nov 2026</td></tr></tbody></table></div></section></section>
+<section class="crm-panel" data-panel="contacts"><p class="crm-intro">A central directory of the people you work with.</p><section class="crm-card"><div class="crm-card-head"><div><h2>All contacts</h2><p>Contact directory</p></div><button class="crm-btn primary" data-demo-action="contact"><i data-lucide="plus"></i>Add contact</button></div><div class="crm-toolbar"><label class="crm-search"><i data-lucide="search"></i><input type="search" placeholder="Search contacts..." id="contact-search"></label></div><div class="crm-table-wrap"><table class="crm-table"><thead><tr><th>Contact</th><th>Company</th><th>Phone</th><th>Email</th><th>Status</th></tr></thead><tbody id="contact-rows"><tr><td>Arun Kumar</td><td>AK Traders</td><td>+91 98XXX 12345</td><td>arun@example.com</td><td><span class="status">Active</span></td></tr><tr><td>Meera Shah</td><td>Shah Associates</td><td>+91 98XXX 67890</td><td>meera@example.com</td><td><span class="status lead">Follow-up</span></td></tr></tbody></table></div></section></section>
+<section class="crm-panel" data-panel="companies"><p class="crm-intro">Manage business accounts and the contacts associated with each company.</p><div class="crm-tiles"><article class="crm-tile"><span class="crm-tile-icon"><i data-lucide="building-2"></i></span><h3>AK Traders</h3><p>3 contacts · Customer account</p></article><article class="crm-tile"><span class="crm-tile-icon"><i data-lucide="building-2"></i></span><h3>Shah Associates</h3><p>5 contacts · Prospect account</p></article><article class="crm-tile"><span class="crm-tile-icon"><i data-lucide="building-2"></i></span><h3>Northstar Pvt Ltd</h3><p>8 contacts · Customer account</p></article></div></section>
+<section class="crm-panel" data-panel="deals"><p class="crm-intro">Monitor opportunities, expected values and deal stages.</p><div class="crm-kpis"><article class="crm-kpi"><div class="crm-kpi-top">Pipeline value</div><div class="crm-kpi-value">₹8.4L</div><div class="crm-kpi-note">Across open deals</div></article><article class="crm-kpi"><div class="crm-kpi-top">Open deals</div><div class="crm-kpi-value">36</div><div class="crm-kpi-note">In progress</div></article><article class="crm-kpi"><div class="crm-kpi-top">Won this month</div><div class="crm-kpi-value">12</div><div class="crm-kpi-note">Successfully closed</div></article><article class="crm-kpi"><div class="crm-kpi-top">Win rate</div><div class="crm-kpi-value">32%</div><div class="crm-kpi-note">Current period</div></article></div><section class="crm-card"><div class="crm-card-head"><div><h2>Recent deals</h2><p>Opportunity tracker</p></div><button class="crm-btn primary" data-demo-action="deal"><i data-lucide="plus"></i>Add deal</button></div><div class="crm-table-wrap"><table class="crm-table"><thead><tr><th>Deal</th><th>Company</th><th>Value</th><th>Stage</th><th>Expected close</th></tr></thead><tbody><tr><td>Annual compliance</td><td>AK Traders</td><td>₹48,000</td><td><span class="status lead">Proposal</span></td><td>20 Nov 2026</td></tr><tr><td>Accounting retainer</td><td>Northstar Pvt Ltd</td><td>₹1,20,000</td><td><span class="status">Negotiation</span></td><td>28 Nov 2026</td></tr></tbody></table></div></section></section>
+<section class="crm-panel" data-panel="activities"><p class="crm-intro">Keep calls, meetings, reminders and follow-ups in one place.</p><div class="crm-tiles"><article class="crm-tile"><span class="crm-tile-icon"><i data-lucide="phone"></i></span><h3>Client follow-up call</h3><p>Today · 11:30 AM · Arun Kumar</p></article><article class="crm-tile"><span class="crm-tile-icon"><i data-lucide="calendar-days"></i></span><h3>Proposal discussion</h3><p>Tomorrow · 2:00 PM · Shah Associates</p></article><article class="crm-tile"><span class="crm-tile-icon"><i data-lucide="clipboard-check"></i></span><h3>Prepare service estimate</h3><p>13 Nov 2026 · Northstar Pvt Ltd</p></article></div></section>
+<footer class="page-footer">© <span id="current-year"></span> COREBIQ · Count. Connect. Grow.</footer>
+</main></main></div>
+<div id="app-sidebar-mount"></div><div id="bottom-nav-mount"></div><div id="mini-container-mount"></div>
+<script src="https://unpkg.com/lucide@latest"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script><script src="js/index.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+ const tabs=[...document.querySelectorAll('[data-tab]')],panels=[...document.querySelectorAll('[data-panel]')];
+ function activate(name,writeHash=true){tabs.forEach(t=>{let on=t.dataset.tab===name;t.classList.toggle('active',on);t.setAttribute('aria-selected',String(on));});panels.forEach(p=>p.classList.toggle('active',p.dataset.panel===name));let tab=tabs.find(t=>t.dataset.tab===name);tab?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});if(writeHash)history.replaceState(null,'','#'+name);}
+ tabs.forEach(t=>t.addEventListener('click',()=>activate(t.dataset.tab)));
+ document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>activate(b.dataset.goto)));
+ if(location.hash&&tabs.some(t=>t.dataset.tab===location.hash.slice(1)))activate(location.hash.slice(1),false);
+ document.getElementById('crm-add')?.addEventListener('click',()=>alert('Connect this action to your CRM contact form.'));
+ document.getElementById('crm-export')?.addEventListener('click',()=>alert('Connect export to your CRM data source.'));
+ document.querySelectorAll('[data-demo-action]').forEach(b=>b.addEventListener('click',()=>alert('Connect this action to your CRM '+b.dataset.demoAction+' form.')));
+ document.getElementById('contact-search')?.addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('#contact-rows tr').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?'':'none');});
+ if(window.lucide)window.lucide.createIcons();
+});
+</script></body></html>

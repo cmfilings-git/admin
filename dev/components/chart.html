@@ -1,1 +1,36 @@
-<div class="chart-wrap"><canvas id="revenue-chart" aria-label="Revenue line chart" role="img"></canvas></div>
+<div class="chart-wrap">
+  <canvas id="revenue-chart" aria-label="Revenue line chart" role="img"></canvas>
+</div>
+
+<style>
+/* Gemini Material 3 Responsive Chart Canvas Container */
+.chart-wrap {
+  position: relative;
+  width: 100%;
+  height: 280px; /* Aligned with panel height & CSS spec */
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.chart-wrap canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@media (max-width: 850px) {
+  .chart-wrap {
+    height: 240px; /* Matches tablet/mobile panel proportions */
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-wrap {
+    height: 210px; /* Prevents vertical overflow on compact mobile screens */
+  }
+}
+</style>

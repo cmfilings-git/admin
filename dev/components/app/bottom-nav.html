@@ -1,111 +1,15 @@
-<nav class="app-bottom-nav" aria-label="Primary navigation">
-  <a href="index.html" data-bottom-key="home" aria-current="page">
-    <span class="bottom-icon"><i data-lucide="house"></i></span>
-    <span class="bottom-label">Home</span>
-  </a>
-  <a href="modules/crm.html" data-bottom-key="crm">
-    <span class="bottom-icon"><i data-lucide="users"></i></span>
-    <span class="bottom-label">CRM</span>
-  </a>
-  <a href="modules/erp.html" data-bottom-key="erp">
-    <span class="bottom-icon"><i data-lucide="layers"></i></span>
-    <span class="bottom-label">ERP</span>
-  </a>
-  <a href="modules/hr.html" data-bottom-key="hr">
-    <span class="bottom-icon"><i data-lucide="contact-round"></i></span>
-    <span class="bottom-label">HR</span>
-  </a>
-  <button type="button" data-bottom-menu>
-    <span class="bottom-icon"><i data-lucide="menu"></i></span>
-    <span class="bottom-label">Menu</span>
-  </button>
-</nav>
-
+<header class="mobile-app-header">
+  <a href="index.html" class="mobile-app-brand" aria-label="Home"><img src="assets/logo.png" alt="COREBIQ" class="mobile-brand-logo"></a>
+  <span class="mobile-header-spacer"></span>
+  <button class="mobile-header-action" type="button" aria-label="Search"><i data-lucide="search"></i></button>
+  <button class="mobile-header-action" type="button" aria-label="Notifications"><i data-lucide="bell"></i></button>
+  <span class="mobile-user-avatar">CB</span>
+</header>
 <style>
-.app-bottom-nav {
-  position: fixed;
-  z-index: 90;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: none;
-  grid-template-columns: repeat(5, 1fr);
-  padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px));
-  min-height: 80px; /* Material 3 standard bottom navigation bar height */
-  background: rgba(255, 255, 255, 0.94);
-  border-top: 1px solid #e5e5e5;
-  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.03);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  font: 400 12px/1.3 var(--font, 'Outfit', 'Inter', sans-serif);
-  box-sizing: border-box;
-}
-
-.app-bottom-nav a,
-.app-bottom-nav button {
-  border: 0;
-  background: transparent;
-  color: #6e6e80;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  text-decoration: none;
-  cursor: pointer;
-  padding: 4px 0;
-  -webkit-tap-highlight-color: transparent;
-  transition: color 0.2s ease;
-}
-
-/* Material 3 Active Pill Container */
-.bottom-icon {
-  width: 60px;
-  height: 32px;
-  display: grid;
-  place-items: center;
-  border-radius: 100px; /* Full pill shape */
-  background: transparent;
-  transition: background-color 0.2s ease, transform 0.15s ease;
-}
-
-.app-bottom-nav i {
-  width: 22px;
-  height: 22px;
-  stroke-width: 1.8;
-  display: block;
-}
-
-.bottom-label {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  line-height: 1;
-}
-
-/* Active State */
-.app-bottom-nav [aria-current="page"] {
-  color: #202123;
-}
-
-.app-bottom-nav [aria-current="page"] .bottom-icon {
-  background: #ececec; /* Soft grey active container */
-}
-
-.app-bottom-nav [aria-current="page"] .bottom-label {
-  font-weight: 600;
-  color: #202123;
-}
-
-/* Tap feedback */
-.app-bottom-nav a:active .bottom-icon,
-.app-bottom-nav button:active .bottom-icon {
-  transform: scale(0.94);
-}
-
-@media (max-width: 850px) {
-  .app-bottom-nav {
-    display: grid;
-  }
-}
+#mobile-header-mount{position:sticky;top:0;z-index:60}
+.mobile-app-header{height:58px;position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:10px;padding:0 16px;background:rgba(255,255,255,.96);border-bottom:1px solid #e5e5e5;backdrop-filter:blur(12px);font:600 13px var(--font);color:#202123}
+.mobile-header-action{border:0;background:transparent;color:#444;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;cursor:pointer}.mobile-header-action i{width:20px;height:20px}.mobile-header-action:hover{background:#ececec}
+.mobile-app-brand{display:flex;align-items:center}.mobile-brand-logo{width:32px;height:32px;aspect-ratio:1/1;object-fit:contain;border-radius:8px;display:block}
+.mobile-header-spacer{flex:1}.mobile-user-avatar{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#e5e5e5;color:#343434;font-size:11px;font-weight:600}
+@media(min-width:851px){#mobile-header-mount,.mobile-app-header{display:none}}
 </style>

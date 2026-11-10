@@ -1,7 +1,7 @@
 <!-- mobile-nav.html | Reusable ChatGPT-inspired light sidebar
      Include on any module page with:
      <div id="app-sidebar-mount"></div>
-     <script src="/components/mobile-nav.js"></script>
+     <script src="/components/sidebar-mobile.js"></script>
      Or use the single-file loader shown in the accompanying instructions.
 -->
 <style>

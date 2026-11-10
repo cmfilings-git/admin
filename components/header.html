@@ -1,0 +1,120 @@
+<!-- COREBIQ reusable light header | include once per module page -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+:root{
+  --cbh-bg:#fff;--cbh-text:#202123;--cbh-muted:#737780;
+  --cbh-border:#e8e8eb;--cbh-hover:#f3f4f5;--cbh-accent:#3476b5;
+}
+#corebiq-header,#corebiq-header *{box-sizing:border-box}
+#corebiq-header{
+  position:sticky;top:0;z-index:9000;width:100%;height:62px;
+  display:flex;align-items:center;gap:14px;padding:0 20px;
+  background:rgba(255,255,255,.96);border-bottom:1px solid var(--cbh-border);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  color:var(--cbh-text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+#corebiq-header button{font:inherit}
+#corebiq-header .cbh-icon-btn{
+  width:36px;height:36px;flex:0 0 36px;border:0;border-radius:9px;
+  display:grid;place-items:center;background:transparent;color:#35383e;cursor:pointer;
+}
+#corebiq-header .cbh-icon-btn:hover{background:var(--cbh-hover)}
+#corebiq-header svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#corebiq-header .cbh-brand{display:flex;align-items:center;gap:9px;min-width:0;text-decoration:none;color:inherit}
+#corebiq-header .cbh-logo{
+  width:30px;height:30px;border-radius:9px;background:#202123;color:white;
+  display:grid;place-items:center;font-size:14px;font-weight:700;letter-spacing:-.5px;flex:0 0 30px;
+}
+#corebiq-header .cbh-brand-name{font-size:14px;font-weight:650;letter-spacing:-.25px;white-space:nowrap}
+#corebiq-header .cbh-divider{height:25px;width:1px;background:var(--cbh-border);flex:0 0 1px}
+#corebiq-header .cbh-page-title{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px;font-weight:550;color:#34373d}
+#corebiq-header .cbh-spacer{flex:1}
+#corebiq-header .cbh-search{
+  height:36px;width:min(260px,25vw);display:flex;align-items:center;gap:8px;
+  padding:0 11px;border:1px solid var(--cbh-border);border-radius:9px;background:#fff;color:var(--cbh-muted);
+}
+#corebiq-header .cbh-search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--cbh-text);font:400 12px Inter,sans-serif}
+#corebiq-header .cbh-search input::placeholder{color:#92959c}
+#corebiq-header .cbh-notify{position:relative}
+#corebiq-header .cbh-dot{position:absolute;right:7px;top:6px;width:7px;height:7px;border-radius:50%;background:#3476b5;border:1px solid #fff}
+#corebiq-header .cbh-profile{
+  display:flex;align-items:center;gap:8px;padding:3px 5px 3px 3px;
+  border:0;border-radius:20px;background:transparent;cursor:pointer;color:inherit;
+}
+#corebiq-header .cbh-profile:hover{background:var(--cbh-hover)}
+#corebiq-header .cbh-avatar{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#e7edf3;color:#34495e;font-size:11px;font-weight:700}
+#corebiq-header .cbh-profile-name{max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;font-weight:550}
+@media(max-width:640px){
+ #corebiq-header{height:56px;padding:0 11px;gap:9px}
+ #corebiq-header .cbh-brand-name{display:none}
+ #corebiq-header .cbh-logo{width:29px;height:29px;flex-basis:29px}
+ #corebiq-header .cbh-divider{display:none}
+ #corebiq-header .cbh-page-title{font-size:13px}
+ #corebiq-header .cbh-search{width:36px;padding:0;justify-content:center;border:0;background:transparent}
+ #corebiq-header .cbh-search input{display:none}
+ #corebiq-header .cbh-profile-name{display:none}
+ #corebiq-header .cbh-profile{padding:2px}
+}
+</style>
+
+<header id="corebiq-header" aria-label="COREBIQ application header">
+  <button class="cbh-icon-btn" type="button" data-cbh-menu aria-label="Open navigation menu" title="Menu">
+    <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+  </button>
+  <a class="cbh-brand" href="/dashboard.html" aria-label="COREBIQ home">
+    <span class="cbh-logo" data-cbh-logo> C </span>
+    <span class="cbh-brand-name" data-cbh-brand>COREBIQ</span>
+  </a>
+  <span class="cbh-divider"></span>
+  <div class="cbh-page-title" data-cbh-title>Dashboard</div>
+  <div class="cbh-spacer"></div>
+  <label class="cbh-search" aria-label="Search">
+    <svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg>
+    <input type="search" placeholder="Search" data-cbh-search>
+  </label>
+  <button class="cbh-icon-btn cbh-notify" type="button" data-cbh-notifications aria-label="Notifications" title="Notifications">
+    <svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
+    <span class="cbh-dot" data-cbh-notify-dot hidden></span>
+  </button>
+  <button class="cbh-profile" type="button" data-cbh-profile aria-label="User profile">
+    <span class="cbh-avatar" data-cbh-avatar>CB</span>
+    <span class="cbh-profile-name" data-cbh-user>Workspace account</span>
+  </button>
+</header>
+
+<script>
+(function(){
+ const h=document.getElementById('corebiq-header');
+ if(!h||h.dataset.ready)return;h.dataset.ready='1';
+ const cfg=window.COREBIQ_HEADER||{};
+ const title=cfg.title||document.body.dataset.pageTitle||
+   document.title.split('|')[0].trim()||'Dashboard';
+ h.querySelector('[data-cbh-title]').textContent=title;
+ if(cfg.brand)h.querySelector('[data-cbh-brand]').textContent=cfg.brand;
+ if(cfg.logoText)h.querySelector('[data-cbh-logo]').textContent=cfg.logoText;
+ if(cfg.user)h.querySelector('[data-cbh-user]').textContent=cfg.user;
+ if(cfg.avatar)h.querySelector('[data-cbh-avatar]').textContent=cfg.avatar;
+ if(cfg.showNotificationDot)h.querySelector('[data-cbh-notify-dot]').hidden=false;
+
+ h.querySelector('[data-cbh-menu]').addEventListener('click',()=>{
+   if(typeof window.openMobileNav==='function')window.openMobileNav();
+   else document.dispatchEvent(new CustomEvent('corebiq:open-menu'));
+ });
+ h.querySelector('[data-cbh-notifications]').addEventListener('click',()=>{
+   if(typeof cfg.onNotifications==='function')cfg.onNotifications();
+   else document.dispatchEvent(new CustomEvent('corebiq:notifications'));
+ });
+ h.querySelector('[data-cbh-profile]').addEventListener('click',()=>{
+   if(typeof cfg.onProfile==='function')cfg.onProfile();
+   else if(cfg.profileUrl)location.href=cfg.profileUrl;
+   else document.dispatchEvent(new CustomEvent('corebiq:profile'));
+ });
+ const search=h.querySelector('[data-cbh-search]');
+ search.addEventListener('keydown',e=>{
+   if(e.key==='Enter'){
+     if(typeof cfg.onSearch==='function')cfg.onSearch(search.value);
+     else document.dispatchEvent(new CustomEvent('corebiq:search',{detail:{query:search.value}}));
+   }
+ });
+})();
+</script>

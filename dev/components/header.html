@@ -1,17 +1,152 @@
 <header class="desktop-topbar">
-  <div class="topbar-breadcrumb"><span class="breadcrumb-muted">Workspace</span><i data-lucide="chevron-right"></i><strong>Dashboard</strong></div>
+  <div class="topbar-breadcrumb">
+    <span class="breadcrumb-muted">Workspace</span>
+    <i data-lucide="chevron-right"></i>
+    <strong>Dashboard</strong>
+  </div>
   <div class="topbar-right">
-    <button class="topbar-icon" type="button" aria-label="Search" id="desktop-search-button"><i data-lucide="search"></i></button>
-    <button class="topbar-icon notification-button" type="button" aria-label="Notifications"><i data-lucide="bell"></i><b></b></button>
-    <button class="topbar-user" type="button"><span class="user-avatar">CB</span><span>Workspace account</span><i data-lucide="chevron-down"></i></button>
+    <button class="topbar-icon" type="button" aria-label="Search" id="desktop-search-button">
+      <i data-lucide="search"></i>
+    </button>
+    <button class="topbar-icon notification-button" type="button" aria-label="Notifications">
+      <i data-lucide="bell"></i>
+      <b></b>
+    </button>
+    <button class="topbar-user" type="button">
+      <span class="user-avatar">CB</span>
+      <span class="user-name">Workspace account</span>
+      <i data-lucide="chevron-down"></i>
+    </button>
   </div>
 </header>
+
 <style>
-.desktop-topbar{height:60px;background:rgba(255,255,255,.94);border-bottom:1px solid #e5e5e5;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font:12px var(--font);backdrop-filter:blur(12px)}
-.topbar-breadcrumb{display:flex;gap:9px;align-items:center}.breadcrumb-muted{color:#777}.topbar-breadcrumb strong{font-weight:600;color:#343434}.topbar-breadcrumb i{width:13px;color:#999}
-.topbar-right{display:flex;align-items:center;gap:10px}.topbar-icon{width:35px;height:35px;border:0;border-radius:8px;background:transparent;color:#555;display:grid;place-items:center;cursor:pointer;position:relative}.topbar-icon i{width:18px}.topbar-icon:hover{background:#ececec}
-.notification-button b{position:absolute;width:6px;height:6px;border-radius:50%;background:#10a37f;top:7px;right:8px}
-.topbar-user{display:flex;align-items:center;gap:8px;border:0;background:transparent;color:#454545;font-size:11px;cursor:pointer}.topbar-user>i{width:14px;color:#777}
-.user-avatar{width:28px;height:28px;border-radius:50%;background:#e5e5e5;color:#343434;display:grid;place-items:center;font-size:10px;font-weight:700}
-@media(max-width:850px){.desktop-topbar{display:none}}
+.desktop-topbar {
+  height: 64px;
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px; /* Aligns with .page-content 40px side gutters */
+  font: 14px/1.5 var(--font);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  box-sizing: border-box;
+}
+
+/* Breadcrumb Navigation */
+.topbar-breadcrumb {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.breadcrumb-muted {
+  color: #6e6e80;
+  font-weight: 400;
+}
+.topbar-breadcrumb strong {
+  font-weight: 500;
+  color: #202123;
+}
+.topbar-breadcrumb i {
+  width: 16px;
+  height: 16px;
+  color: #9ca3af;
+  stroke-width: 1.75;
+}
+
+/* Right Action Controls */
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Gemini Circular Action Icons */
+.topbar-icon {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #555;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.topbar-icon i {
+  width: 19px;
+  height: 19px;
+  stroke-width: 1.75;
+}
+.topbar-icon:hover {
+  background: #f0f0f0;
+  color: #202123;
+}
+
+/* Notification Indicator Dot */
+.notification-button b {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10a37f;
+  top: 9px;
+  right: 9px;
+  border: 1.5px solid #fff;
+}
+
+/* User Account Trigger Pill */
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  border-radius: 100px;
+  padding: 4px 12px 4px 5px;
+  margin-left: 6px;
+  background: transparent;
+  color: #202123;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.topbar-user:hover {
+  background: #f0f0f0;
+}
+.user-name {
+  white-space: nowrap;
+}
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e5e5e5;
+  color: #343434;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.topbar-user > i {
+  width: 15px;
+  height: 15px;
+  color: #6e6e80;
+  stroke-width: 1.75;
+  flex-shrink: 0;
+}
+
+@media (max-width: 850px) {
+  .desktop-topbar {
+    display: none;
+  }
+}
 </style>

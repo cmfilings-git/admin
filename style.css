@@ -1,0 +1,189 @@
+/* =========================================
+   Material Design 3 - Core Variables 
+   (Primary Blue Theme & Typography)
+   ========================================= */
+:root {
+  /* Color Palette: Primary Blue (MD3 Standard) */
+  --md-sys-color-primary: #0061a4;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #d1e4ff;
+  --md-sys-color-on-primary-container: #001d36;
+  --md-sys-color-background: #fdfcff;
+  --md-sys-color-on-background: #1a1c1e;
+  --md-sys-color-surface: #fdfcff;
+  --md-sys-color-on-surface: #1a1c1e;
+  --md-sys-color-outline: #73777f;
+
+  /* Typography: Font Families */
+  --md-sys-typescale-font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+  
+  /* Typography: Display */
+  --md-sys-typescale-display-large-font: 400 57px/64px var(--md-sys-typescale-font-family);
+  --md-sys-typescale-display-medium-font: 400 45px/52px var(--md-sys-typescale-font-family);
+  --md-sys-typescale-display-small-font: 400 36px/44px var(--md-sys-typescale-font-family);
+
+  /* Typography: Headline */
+  --md-sys-typescale-headline-large-font: 400 32px/40px var(--md-sys-typescale-font-family);
+  --md-sys-typescale-headline-medium-font: 400 28px/36px var(--md-sys-typescale-font-family);
+  --md-sys-typescale-headline-small-font: 400 24px/32px var(--md-sys-typescale-font-family);
+
+  /* Typography: Title */
+  --md-sys-typescale-title-large-font: 400 22px/28px var(--md-sys-typescale-font-family);
+  --md-sys-typescale-title-medium-font: 500 16px/24px var(--md-sys-typescale-font-family);
+  --md-sys-typescale-title-small-font: 500 14px/20px var(--md-sys-typescale-font-family);
+
+  /* Typography: Body */
+  --md-sys-typescale-body-large-font: 400 16px/24px var(--md-sys-typescale-font-family);
+  --md-sys-typescale-body-medium-font: 400 14px/20px var(--md-sys-typescale-font-family);
+  --md-sys-typescale-body-small-font: 400 12px/16px var(--md-sys-typescale-font-family);
+
+  /* Typography: Label */
+  --md-sys-typescale-label-large-font: 500 14px/20px var(--md-sys-typescale-font-family);
+  --md-sys-typescale-label-medium-font: 500 12px/16px var(--md-sys-typescale-font-family);
+  --md-sys-typescale-label-small-font: 500 11px/16px var(--md-sys-typescale-font-family);
+  
+  /* Layout constraints */
+  --layout-max-width: 1200px;
+  --layout-padding: 16px;
+}
+
+@media (min-width: 600px) {
+  :root {
+    --layout-padding: 24px;
+  }
+}
+
+/* =========================================
+   Base Styles & Typography Application
+   ========================================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: var(--md-sys-typescale-body-large-font);
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Typography Classes */
+.display-large { font: var(--md-sys-typescale-display-large-font); letter-spacing: -0.25px; }
+.display-medium { font: var(--md-sys-typescale-display-medium-font); letter-spacing: 0px; }
+.display-small { font: var(--md-sys-typescale-display-small-font); letter-spacing: 0px; }
+
+.headline-large { font: var(--md-sys-typescale-headline-large-font); letter-spacing: 0px; }
+.headline-medium { font: var(--md-sys-typescale-headline-medium-font); letter-spacing: 0px; }
+.headline-small { font: var(--md-sys-typescale-headline-small-font); letter-spacing: 0px; }
+
+.title-large { font: var(--md-sys-typescale-title-large-font); letter-spacing: 0px; }
+.title-medium { font: var(--md-sys-typescale-title-medium-font); letter-spacing: 0.15px; }
+.title-small { font: var(--md-sys-typescale-title-small-font); letter-spacing: 0.1px; }
+
+.body-large { font: var(--md-sys-typescale-body-large-font); letter-spacing: 0.5px; }
+.body-medium { font: var(--md-sys-typescale-body-medium-font); letter-spacing: 0.25px; }
+.body-small { font: var(--md-sys-typescale-body-small-font); letter-spacing: 0.4px; }
+
+.label-large { font: var(--md-sys-typescale-label-large-font); letter-spacing: 0.1px; }
+.label-medium { font: var(--md-sys-typescale-label-medium-font); letter-spacing: 0.5px; }
+.label-small { font: var(--md-sys-typescale-label-small-font); letter-spacing: 0.5px; }
+
+/* =========================================
+   Responsive Full Layout
+   ========================================= */
+.app-bar {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  padding: 16px var(--layout-padding);
+  display: flex;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.main-container {
+  flex: 1;
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  padding: var(--layout-padding);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+/* Tablet Layout */
+@media (min-width: 600px) {
+  .main-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .full-width {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Desktop Layout */
+@media (min-width: 905px) {
+  .main-container {
+    grid-template-columns: repeat(12, 1fr);
+  }
+  .card {
+    grid-column: span 4;
+  }
+  .full-width {
+    grid-column: 1 / -1;
+  }
+  .sidebar {
+    grid-column: span 3;
+  }
+  .content {
+    grid-column: span 9;
+  }
+}
+
+/* =========================================
+   Material Components (Buttons & Cards)
+   ========================================= */
+.btn-primary {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  font: var(--md-sys-typescale-label-large-font);
+  border: none;
+  border-radius: 20px; /* MD3 standard pill shape */
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary:hover {
+  background-color: #00528c;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.card {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-primary-container {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  border: none;
+}

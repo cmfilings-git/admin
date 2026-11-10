@@ -1,21 +1,284 @@
 <div class="app-drawer-backdrop" id="app-drawer-backdrop"></div>
 <aside class="app-drawer" id="app-drawer" aria-hidden="true">
-  <div class="app-drawer-head"><a href="index.html" class="app-drawer-brand"><span class="drawer-brand-mark">C</span>COREBIQ</a><button type="button" id="close-app-sidebar" aria-label="Close menu"><i data-lucide="x"></i></button></div>
-  <a class="drawer-new" href="index.html"><i data-lucide="square-pen"></i><span>Dashboard overview</span></a>
+  <div class="app-drawer-head">
+    <a href="index.html" class="app-drawer-brand">
+      <span class="drawer-brand-mark">C</span>
+      <span class="drawer-brand-name">COREBIQ</span>
+    </a>
+    <button type="button" id="close-app-sidebar" aria-label="Close menu">
+      <i data-lucide="x"></i>
+    </button>
+  </div>
+
+  <a class="drawer-new" href="index.html">
+    <i data-lucide="square-pen"></i>
+    <span>Dashboard overview</span>
+  </a>
+
   <div class="drawer-caption">WORKSPACE</div>
+
   <nav class="drawer-links">
-    <a href="index.html"><i data-lucide="house"></i><span>Home</span></a><a href="modules/crm.html"><i data-lucide="users"></i><span>CRM</span></a><a href="modules/erp.html"><i data-lucide="layers"></i><span>ERP</span></a><a href="modules/hr.html"><i data-lucide="contact-round"></i><span>HR</span></a>
-    <a href="modules/clients.html"><i data-lucide="contact"></i><span>Clients</span></a><a href="modules/transactions.html"><i data-lucide="receipt-text"></i><span>Transactions</span></a><a href="modules/reports.html"><i data-lucide="chart-line"></i><span>Reports</span></a><a href="modules/settings.html"><i data-lucide="settings"></i><span>Settings</span></a>
+    <a class="active" href="index.html">
+      <i data-lucide="house"></i>
+      <span>Home</span>
+    </a>
+    <a href="modules/crm.html">
+      <i data-lucide="users"></i>
+      <span>CRM</span>
+    </a>
+    <a href="modules/erp.html">
+      <i data-lucide="layers-3"></i>
+      <span>ERP</span>
+    </a>
+    <a href="modules/hr.html">
+      <i data-lucide="contact-round"></i>
+      <span>HR</span>
+    </a>
+    <a href="modules/clients.html">
+      <i data-lucide="contact"></i>
+      <span>Clients</span>
+    </a>
+    <a href="modules/transactions.html">
+      <i data-lucide="receipt-text"></i>
+      <span>Transactions</span>
+    </a>
+    <a href="modules/reports.html">
+      <i data-lucide="chart-no-axes-combined"></i>
+      <span>Reports</span>
+    </a>
+    <a href="modules/settings.html">
+      <i data-lucide="settings"></i>
+      <span>Settings</span>
+    </a>
   </nav>
-  <div class="drawer-account"><span class="drawer-avatar">CB</span><span><b>Workspace account</b><small>Manage account</small></span><i data-lucide="ellipsis"></i></div>
+
+  <div class="drawer-account">
+    <span class="drawer-avatar">CB</span>
+    <span class="drawer-account-info">
+      <b>Workspace account</b>
+      <small>Manage account</small>
+    </span>
+    <i data-lucide="ellipsis"></i>
+  </div>
 </aside>
+
 <style>
-.app-drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.28);z-index:100;opacity:0;visibility:hidden;transition:.2s}
-.app-drawer{position:fixed;z-index:101;inset:0 auto 0 0;width:min(290px,86vw);background:#fff;transform:translateX(-102%);transition:transform .22s ease;display:flex;flex-direction:column;padding:13px 12px;font:12px var(--font);color:#202123;box-shadow:0 8px 28px rgba(0,0,0,.13)}
-.app-drawer.open{transform:translateX(0)}.app-drawer-backdrop.show{opacity:1;visibility:visible}
-.app-drawer-head{height:40px;display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}.app-drawer-brand{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:700}.drawer-brand-mark{width:28px;height:28px;border-radius:50%;background:#202123;color:#fff;display:grid;place-items:center}
-.app-drawer-head button{border:0;background:transparent;color:#555;width:34px;height:34px;border-radius:8px;display:grid;place-items:center}.app-drawer-head button i{width:18px}
-.drawer-new{height:39px;border:1px solid #e5e5e5;border-radius:8px;display:flex;align-items:center;gap:10px;padding:0 12px;font-weight:600;margin-bottom:18px;background:#fff}.drawer-new i{width:17px}
-.drawer-caption{font-size:10px;font-weight:600;color:#777;padding:0 11px 8px}.drawer-links{display:grid;gap:2px}.drawer-links a{height:37px;border-radius:8px;display:flex;align-items:center;gap:12px;padding:0 11px;color:#454545;font-size:12px}.drawer-links a i{width:17px;height:17px}.drawer-links a:hover{background:#ececec;color:#202123}
-.drawer-account{margin-top:auto;border-top:1px solid #e5e5e5;padding:12px 6px 3px;display:flex;align-items:center;gap:9px}.drawer-avatar{width:29px;height:29px;border-radius:50%;background:#e5e5e5;color:#343434;display:grid;place-items:center;font-weight:700;font-size:10px}.drawer-account b,.drawer-account small{display:block}.drawer-account b{font-size:11px}.drawer-account small{font-size:9px;color:#777;margin-top:2px}.drawer-account>i{margin-left:auto;width:17px;color:#777}
+.app-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.32);
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.app-drawer-backdrop.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Material 3 Standard Modal Navigation Drawer (Max 360px on M3, right-side rounded) */
+.app-drawer {
+  position: fixed;
+  z-index: 101;
+  inset: 0 auto 0 0;
+  width: min(320px, 84vw);
+  background: #ffffff;
+  transform: translateX(-102%);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  padding: 16px 14px calc(16px + env(safe-area-inset-bottom, 0px));
+  border-radius: 0 24px 24px 0;
+  font: 14px/1.5 var(--font, 'Outfit', 'Inter', sans-serif);
+  color: #202123;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
+.app-drawer.open {
+  transform: translateX(0);
+}
+
+/* Drawer Header */
+.app-drawer-head {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px 0 8px;
+  margin-bottom: 12px;
+}
+.app-drawer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #202123;
+  text-decoration: none;
+}
+.drawer-brand-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #202123;
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.drawer-brand-name {
+  letter-spacing: normal;
+}
+.app-drawer-head button {
+  border: 0;
+  background: transparent;
+  color: #555;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.app-drawer-head button i {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.8;
+}
+.app-drawer-head button:hover {
+  background: #f0f0f0;
+}
+
+/* Overview Action Button - M3 Pill */
+.drawer-new {
+  height: 44px;
+  border: 1px solid #e5e5e5;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #202123;
+  margin-bottom: 18px;
+  background: #ffffff;
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.drawer-new i {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.8;
+  color: #555;
+}
+.drawer-new:hover {
+  background: #f7f7f8;
+  border-color: #d8d8d8;
+}
+
+/* Category Label */
+.drawer-caption {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  color: #777;
+  padding: 0 16px 8px;
+  text-transform: uppercase;
+}
+
+/* Navigation Links - M3 44px Height & 100px Pill */
+.drawer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 12px;
+}
+.drawer-links a {
+  height: 44px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px;
+  color: #454545;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.drawer-links a i {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.8;
+  flex-shrink: 0;
+}
+.drawer-links a:hover {
+  background: #ececec;
+  color: #202123;
+}
+.drawer-links a.active {
+  background: #e8e8e8;
+  color: #202123;
+  font-weight: 500;
+}
+
+/* Bottom Account Footer */
+.drawer-account {
+  margin-top: auto;
+  border-top: 1px solid #e5e5e5;
+  padding: 14px 10px 4px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  border-radius: 16px;
+  transition: background-color 0.2s ease;
+}
+.drawer-account:hover {
+  background: #f9f9f9;
+}
+.drawer-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #e5e5e5;
+  color: #343434;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.drawer-account-info {
+  min-width: 0;
+  flex: 1;
+}
+.drawer-account b {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.drawer-account small {
+  display: block;
+  font-size: 11px;
+  color: #777;
+  margin-top: 2px;
+}
+.drawer-account > i {
+  margin-left: auto;
+  width: 18px;
+  height: 18px;
+  color: #777;
+  flex-shrink: 0;
+}
 </style>

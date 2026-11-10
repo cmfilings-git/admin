@@ -1,0 +1,18 @@
+<div class="mini-overlay" id="mini-overlay" hidden></div>
+<section class="mini-popover" id="mini-notifications" role="dialog" aria-label="Notifications" hidden>
+ <div class="mini-heading"><strong>Notifications</strong><button type="button" data-mini-close aria-label="Close"><i data-lucide="x"></i></button></div>
+ <div class="mini-item"><span class="mini-symbol"><i data-lucide="check-circle-2"></i></span><div><strong>Task completed</strong><p>GST return review was completed.</p><small>10 minutes ago</small></div></div>
+ <div class="mini-item"><span class="mini-symbol"><i data-lucide="file-text"></i></span><div><strong>Invoice update</strong><p>A new invoice is ready for review.</p><small>1 hour ago</small></div></div>
+ <a class="mini-footer" href="notifications.html">View all notifications <i data-lucide="arrow-right"></i></a>
+</section>
+<section class="mini-popover mini-profile" id="mini-profile" role="dialog" aria-label="Profile menu" hidden>
+ <div class="mini-account"><span class="mini-account-avatar">CB</span><div><strong>Workspace account</strong><small>COREBIQ Workspace</small></div></div>
+ <a href="profile.html"><i data-lucide="user-round"></i> My profile</a>
+ <a href="settings.html"><i data-lucide="settings-2"></i> Settings</a>
+ <a href="help.html"><i data-lucide="circle-help"></i> Help & support</a>
+ <div class="mini-separator"></div>
+ <button type="button" id="mini-signout"><i data-lucide="log-out"></i> Sign out</button>
+</section>
+<style>
+.mini-overlay{position:fixed;inset:0;z-index:99;background:transparent}.mini-popover{position:fixed;z-index:100;top:65px;right:22px;width:min(340px,calc(100vw - 28px));background:#fff;border:1px solid #e8eaee;border-radius:15px;box-shadow:0 14px 48px #1b243017;padding:9px;color:#272b30;font-size:13px}.mini-popover[hidden],.mini-overlay[hidden]{display:none!important}.mini-heading{display:flex;align-items:center;justify-content:space-between;padding:10px 10px 12px}.mini-heading strong{font-size:15px}.mini-heading button{border:0;background:transparent;cursor:pointer;color:#747a84}.mini-heading svg{width:17px}.mini-item{display:flex;gap:10px;padding:12px 10px;border-top:1px solid #f0f1f3}.mini-symbol{flex:none;width:31px;height:31px;border-radius:10px;background:#eef2fa;color:#617aa3;display:grid;place-items:center}.mini-symbol svg{width:16px}.mini-item strong{font-size:12px;font-weight:600}.mini-item p{margin:4px 0;color:#626a75;font-size:12px}.mini-item small{font-size:10px;color:#9ba1aa}.mini-footer{display:flex;align-items:center;justify-content:center;gap:7px;border-top:1px solid #f0f1f3;padding:12px;color:#526f9d;font-weight:500}.mini-footer svg{width:14px}.mini-account{display:flex;gap:10px;align-items:center;padding:11px 10px 15px}.mini-account-avatar{width:37px;height:37px;display:grid;place-items:center;border-radius:50%;background:#e8edf5;color:#46566d;font-weight:600}.mini-account div{display:flex;flex-direction:column;gap:4px}.mini-account small{color:#9298a1}.mini-profile>a,.mini-profile>button{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;text-decoration:none;border:0;border-radius:9px;background:transparent;color:#454b53;font-size:13px;text-align:left;cursor:pointer}.mini-profile>a:hover,.mini-profile>button:hover{background:#f5f6f8}.mini-profile>a svg,.mini-profile>button svg{width:17px;height:17px}.mini-separator{height:1px;background:#edf0f2;margin:7px 0}@media(max-width:850px){.mini-popover{top:61px;right:12px}}
+</style>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 - Page Not Found | CM Filings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config={theme:{extend:{fontFamily:{sans:['Outfit','sans-serif']},colors:{'app-blue':'#2F74FF','app-cyan':'#3EE3D3','app-bg':'#F8FAFC'}}}};
+</script>
+</head>
+<body class="bg-app-bg font-sans min-h-screen flex flex-col text-slate-800">
+<header class="bg-white border-b border-gray-100 shadow-sm">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+<a href="/" class="flex items-center gap-3" aria-label="CM Filings home">
+<img src="/assets/logo.png" alt="CM Filings logo" class="h-11 w-11 object-contain" onerror="this.style.display='none'">
+<img src="/assets/name.png" alt="CM Filings" class="h-10 w-36 object-contain" onerror="this.style.display='none'">
+<span class="font-bold text-xl tracking-wide text-slate-900">CM FILINGS</span>
+</a><span class="hidden sm:block text-sm font-semibold text-gray-500">Admin Portal</span>
+</div></header>
+<main class="flex-grow flex items-center justify-center px-4 py-14">
+<section class="w-full max-w-2xl text-center">
+<div class="mx-auto mb-7 h-24 w-24 rounded-3xl bg-white border border-gray-100 shadow-sm flex items-center justify-center">
+<svg class="w-12 h-12 text-app-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 9l6 6m0-6l-6 6"/><circle cx="12" cy="12" r="9"/></svg>
+</div>
+<p class="text-app-blue font-semibold tracking-[0.22em] text-sm mb-3">ERROR 404</p>
+<h1 class="text-6xl sm:text-8xl font-bold text-slate-900 tracking-tight">Oops!</h1>
+<h2 class="text-2xl sm:text-3xl font-semibold text-slate-800 mt-4">Page not found</h2>
+<p class="text-gray-500 text-base sm:text-lg leading-relaxed mt-4 max-w-lg mx-auto">The page you are looking for may have been moved, renamed, or is temporarily unavailable. Please check the address or return to the dashboard.</p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-3 mt-9">
+<a href="/modules/crm/clients.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-app-blue text-white font-semibold px-7 py-3.5 rounded-xl shadow-lg shadow-app-blue/20 hover:-translate-y-0.5 transition-all">⌂ &nbsp; Go to Dashboard</a>
+<button onclick="history.back()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white border border-gray-200 text-gray-600 font-semibold px-7 py-3.5 rounded-xl hover:bg-gray-50 transition-colors">← &nbsp; Go Back</button>
+</div>
+<div class="mt-12 pt-6 border-t border-gray-200">
+<p class="text-sm font-semibold text-slate-700">CM FILINGS</p>
+<p class="text-xs text-gray-400 mt-1">Experts in Tax | Compliance | Technology</p>
+<a href="mailto:support@cmfilings.com" class="inline-block text-sm text-app-blue mt-3 hover:underline">support@cmfilings.com</a>
+</div>
+</section></main></body></html>

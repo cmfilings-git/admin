@@ -26,16 +26,9 @@
         <!-- Welcome Card -->
         <div id="welcome-mount"></div>
         
-        <!-- KPIs -->
-        <section class="kpi-grid" aria-label="Business overview">
-          <!-- Change from this: -->
-<section class="kpi-grid" aria-label="Business overview">
-  <div id="kpi-mini-mount"></div>
-</section>
-
-<!-- To this: -->
-<section class="kpi-grid" id="kpi-mini-mount" aria-label="Business overview"></section>
-          
+        <!-- KPIs (Direct Mount for 4-col Desktop / 2-col Mobile Grid) -->
+        <section class="kpi-grid" id="kpi-mini-mount" aria-label="Business overview"></section>
+        
         <!-- Main Dashboard Grid -->
         <section class="dashboard-grid">
           
@@ -52,7 +45,6 @@
                 <option value="year">This year</option>
               </select>
             </div>
-            <!-- Added chart-wrap here to enforce the new Gemini 280px height -->
             <div class="chart-wrap">
               <div id="chart-mount"></div>
             </div>
@@ -134,7 +126,6 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   <script src="js/index.js"></script>
   <script>
-    // Initialize icons and set dynamic year
     lucide.createIcons();
     document.getElementById('current-year').textContent = new Date().getFullYear();
   </script>

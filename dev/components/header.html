@@ -1,75 +1,83 @@
-<header class="desktop-topbar">
-  <div class="topbar-breadcrumb">
-    <span class="breadcrumb-muted">Workspace</span>
-    <i data-lucide="chevron-right"></i>
-    <strong>Dashboard</strong>
+<header class="mobile-topbar">
+  <div class="mobile-topbar-left">
+    <button class="topbar-icon" type="button" aria-label="Open menu" id="open-app-sidebar">
+      <i data-lucide="menu"></i>
+    </button>
+    <a class="mobile-brand" href="index.html">
+      <span class="mobile-brand-symbol">C</span>
+      <span class="mobile-brand-name">COREBIQ</span>
+    </a>
   </div>
-  <div class="topbar-right">
-    <button class="topbar-icon" type="button" aria-label="Search" id="desktop-search-button">
+
+  <div class="mobile-topbar-right">
+    <button class="topbar-icon" type="button" aria-label="Search" id="mobile-search-button">
       <i data-lucide="search"></i>
     </button>
     <button class="topbar-icon notification-button" type="button" aria-label="Notifications">
       <i data-lucide="bell"></i>
       <b></b>
     </button>
-    <button class="topbar-user" type="button">
-      <span class="user-avatar">CB</span>
-      <span class="user-name">Workspace account</span>
-      <i data-lucide="chevron-down"></i>
+    <button class="mobile-user-avatar" type="button" aria-label="Account">
+      <span>CB</span>
     </button>
   </div>
 </header>
 
 <style>
-.desktop-topbar {
-  height: 64px;
-  background: rgba(255, 255, 255, 0.92);
+.mobile-topbar {
+  display: none;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.94);
   border-bottom: 1px solid #e5e5e5;
-  display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 40px; /* Aligns with .page-content 40px side gutters */
-  font: 14px/1.5 var(--font);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  padding: 0 14px;
   position: sticky;
   top: 0;
   z-index: 30;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   box-sizing: border-box;
 }
 
-/* Breadcrumb Navigation */
-.topbar-breadcrumb {
+.mobile-topbar-left,
+.mobile-topbar-right {
   display: flex;
-  gap: 10px;
   align-items: center;
-}
-.breadcrumb-muted {
-  color: #6e6e80;
-  font-weight: 400;
-}
-.topbar-breadcrumb strong {
-  font-weight: 500;
-  color: #202123;
-}
-.topbar-breadcrumb i {
-  width: 16px;
-  height: 16px;
-  color: #9ca3af;
-  stroke-width: 1.75;
+  gap: 6px;
 }
 
-/* Right Action Controls */
-.topbar-right {
+/* Brand Display */
+.mobile-brand {
   display: flex;
   align-items: center;
   gap: 8px;
+  text-decoration: none;
+  color: #202123;
+  margin-left: 2px;
+}
+.mobile-brand-symbol {
+  width: 28px;
+  height: 28px;
+  background: #202123;
+  color: #ffffff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.mobile-brand-name {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: normal;
 }
 
-/* Gemini Circular Action Icons */
-.topbar-icon {
-  width: 40px;
-  height: 40px;
+/* M3 Icon Tap Target */
+.mobile-topbar .topbar-icon {
+  width: 38px;
+  height: 38px;
   border: 0;
   border-radius: 50%;
   background: transparent;
@@ -78,75 +86,53 @@
   place-items: center;
   cursor: pointer;
   position: relative;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.15s ease;
 }
-.topbar-icon i {
+.mobile-topbar .topbar-icon i {
   width: 19px;
   height: 19px;
-  stroke-width: 1.75;
+  stroke-width: 1.8;
 }
-.topbar-icon:hover {
-  background: #f0f0f0;
-  color: #202123;
+.mobile-topbar .topbar-icon:active {
+  background: #ececec;
 }
 
-/* Notification Indicator Dot */
-.notification-button b {
+/* Notification Dot */
+.mobile-topbar .notification-button b {
   position: absolute;
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: #10a37f;
-  top: 9px;
-  right: 9px;
+  top: 8px;
+  right: 8px;
   border: 1.5px solid #fff;
 }
 
-/* User Account Trigger Pill */
-.topbar-user {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border: 0;
-  border-radius: 100px;
-  padding: 4px 12px 4px 5px;
-  margin-left: 6px;
-  background: transparent;
-  color: #202123;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-.topbar-user:hover {
-  background: #f0f0f0;
-}
-.user-name {
-  white-space: nowrap;
-}
-.user-avatar {
+/* Compact User Avatar */
+.mobile-user-avatar {
   width: 32px;
   height: 32px;
+  border: 0;
   border-radius: 50%;
   background: #e5e5e5;
   color: #343434;
   display: grid;
   place-items: center;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  flex-shrink: 0;
+  cursor: pointer;
+  margin-left: 2px;
+  -webkit-tap-highlight-color: transparent;
 }
-.topbar-user > i {
-  width: 15px;
-  height: 15px;
-  color: #6e6e80;
-  stroke-width: 1.75;
-  flex-shrink: 0;
+.mobile-user-avatar:active {
+  transform: scale(0.95);
 }
 
 @media (max-width: 850px) {
-  .desktop-topbar {
-    display: none;
+  .mobile-topbar {
+    display: flex;
   }
 }
 </style>

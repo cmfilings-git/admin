@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Smart QR & UPI Scanner</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- HTML5 QR Code Scanner Library -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+    <style>
+        /* Clean up the default scanner UI */
+        #reader {
+            border: none !important;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            background: #000;
+        }
+        #reader video {
+            object-fit: cover;
+            border-radius: 0.75rem;
+        }
+        #reader__dashboard_section_csr span {
+            color: #fff !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col font-sans selection:bg-blue-100">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm px-6 py-4 flex items-center justify-between sticky top-0 z-10">
+        <h1 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+            <i data-lucide="scan-line" class="w-6 h-6 text-blue-600"></i>
+            Smart Scanner
+        </h1>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col p-4 max-w-md mx-auto w-full">
+        
+        <!-- Scanner Viewfinder -->
+        <div id="scannerContainer" class="bg-white rounded-2xl shadow-sm p-4 mb-4 border border-gray-100">
+            <div id="reader" class="w-full aspect-square relative"></div>
+            <p class="text-center text-sm text-gray-500 mt-4 flex items-center justify-center gap-1">
+                <i data-lucide="camera" class="w-4 h-4"></i> Point camera at a QR code
+            </p>
+        </div>
+
+        <!-- Scan Result Card -->
+        <div id="resultCard" class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 hidden flex-col gap-4 transition-all duration-300">
+            <div class="flex items-start justify-between">
+                <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Scan Result</h3>
+                <span id="badgeType" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-100">
+                    Text
+                </span>
+            </div>
+            
+            <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 break-all text-gray-800 text-sm font-mono max-h-32 overflow-y-auto" id="scanText">
+                <!-- Scanned content appears here -->
+            </div>
+
+            <div id="actionButtons" class="flex flex-col gap-3 mt-2">
+                <!-- Dynamic buttons injected here -->
+            </div>
+            
+            <button id="scanAgainBtn" class="mt-2 w-full py-3 border-2 border-gray-200 text-gray-600 rounded-xl font-semibold hover:bg-gray-50 transition-colors flex justify-center items-center gap-2">
+                <i data-lucide="refresh-cw" class="w-4 h-4"></i> Scan Another
+            </button>
+        </div>
+    </main>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        let html5QrcodeScanner;
+        const resultCard = document.getElementById('resultCard');
+        const scannerContainer = document.getElementById('scannerContainer');
+        const scanText = document.getElementById('scanText');
+        const actionButtons = document.getElementById('actionButtons');
+        const badgeType = document.getElementById('badgeType');
+        const scanAgainBtn = document.getElementById('scanAgainBtn');
+
+        // Function to handle successful scans
+        function onScanSuccess(decodedText, decodedResult) {
+            // Stop scanning to save battery and prevent multiple triggers
+            if(html5QrcodeScanner) {
+                html5QrcodeScanner.pause(true);
+            }
+
+            // Hide scanner layout, show result layout
+            scannerContainer.classList.add('hidden');
+            resultCard.classList.remove('hidden');
+            resultCard.classList.add('flex');
+
+            scanText.innerText = decodedText;
+            actionButtons.innerHTML = ''; // Clear previous buttons
+            
+            let btnHtml = '';
+            let typeText = 'Plain Text';
+            let badgeColors = 'bg-gray-100 text-gray-700 border-gray-200';
+
+            // Check if it's a UPI Intent
+            if (decodedText.toLowerCase().startsWith("upi://pay")) {
+                typeText = 'UPI Payment';
+                badgeColors = 'bg-green-50 text-green-700 border-green-200';
+                btnHtml = `
+                    <a href="${decodedText}" class="bg-green-600 text-white text-center py-3 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-green-700 transition-colors shadow-sm">
+                        <i data-lucide="indian-rupee" class="w-5 h-5"></i> Pay with UPI App
+                    </a>
+                `;
+            } 
+            // Check if it's a URL
+            else if (decodedText.toLowerCase().startsWith("http://") || decodedText.toLowerCase().startsWith("https://")) {
+                typeText = 'Web Link';
+                badgeColors = 'bg-blue-50 text-blue-700 border-blue-200';
+                btnHtml = `
+                    <a href="${decodedText}" target="_blank" rel="noopener noreferrer" class="bg-blue-600 text-white text-center py-3 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-blue-700 transition-colors shadow-sm">
+                        <i data-lucide="external-link" class="w-5 h-5"></i> Open Link
+                    </a>
+                `;
+            }
+
+            // Always add a copy button
+            btnHtml += `
+                <button onclick="copyToClipboard('${decodedText.replace(/'/g, "\\'")}')" class="bg-gray-100 text-gray-700 text-center py-3 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors border border-gray-200">
+                    <i data-lucide="copy" class="w-5 h-5"></i> Copy Data
+                </button>
+            `;
+
+            badgeType.className = `text-xs font-semibold px-2.5 py-1 rounded-full border ${badgeColors}`;
+            badgeType.innerText = typeText;
+            actionButtons.innerHTML = btnHtml;
+            
+            // Re-render icons in newly injected HTML
+            lucide.createIcons();
+        }
+
+        function onScanFailure(error) {
+            // handle scan failure, usually better to ignore and keep scanning
+            // console.warn(`Code scan error = ${error}`);
+        }
+
+        // Copy text helper
+        window.copyToClipboard = function(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Copied to clipboard!");
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        // Initialize the scanner
+        function startScanner() {
+            html5QrcodeScanner = new Html5Qrcode("reader");
+            const config = { fps: 10, qrbox: { width: 250, height: 250 }, aspectRatio: 1.0 };
+            
+            // Prefer back camera for mobile devices
+            html5QrcodeScanner.start({ facingMode: "environment" }, config, onScanSuccess, onScanFailure)
+            .catch(err => {
+                console.error("Camera startup error", err);
+                scanText.innerText = "Error accessing camera. Please ensure permissions are granted.";
+            });
+        }
+
+        // Reset and scan again
+        scanAgainBtn.addEventListener('click', () => {
+            resultCard.classList.add('hidden');
+            resultCard.classList.remove('flex');
+            scannerContainer.classList.remove('hidden');
+            
+            if(html5QrcodeScanner) {
+                html5QrcodeScanner.resume();
+            } else {
+                startScanner();
+            }
+        });
+
+        // Start scanner on load
+        window.onload = () => {
+            startScanner();
+        }
+    </script>
+</body>
+</html>

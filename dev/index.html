@@ -28,9 +28,14 @@
         
         <!-- KPIs -->
         <section class="kpi-grid" aria-label="Business overview">
-          <div id="kpi-mini-mount"></div>
-        </section>
-        
+          <!-- Change from this: -->
+<section class="kpi-grid" aria-label="Business overview">
+  <div id="kpi-mini-mount"></div>
+</section>
+
+<!-- To this: -->
+<section class="kpi-grid" id="kpi-mini-mount" aria-label="Business overview"></section>
+          
         <!-- Main Dashboard Grid -->
         <section class="dashboard-grid">
           

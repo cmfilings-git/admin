@@ -1,5 +1,139 @@
 <div class="welcome-card">
-  <div class="welcome-copy"><div class="welcome-eyebrow"><i data-lucide="sparkles"></i> WORKSPACE OVERVIEW</div><h1>Good evening, Shanid</h1><p>Here’s what’s happening across your business today.</p></div>
-  <div class="welcome-date" id="welcome-date"></div>
+  <div class="welcome-copy">
+    <div class="welcome-eyebrow">
+      <span class="eyebrow-icon-wrap">
+        <i data-lucide="sparkles"></i>
+      </span>
+      <span>WORKSPACE OVERVIEW</span>
+    </div>
+    <h1>Good evening, Shanid</h1>
+    <p>Here’s what’s happening across your business today.</p>
+  </div>
+  <div class="welcome-date" id="welcome-date">
+    <i data-lucide="calendar"></i>
+    <span id="welcome-date-text">Wednesday, 11 Nov 2026</span>
+  </div>
 </div>
-<style>.welcome-eyebrow{display:flex;align-items:center;gap:6px}.welcome-eyebrow i{width:14px;height:14px}</style>
+
+<style>
+/* Gemini Material 3 Hero Welcome Card */
+.welcome-card {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid var(--line, #e5e5e5);
+  border-radius: 24px;
+  padding: 32px 36px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+.welcome-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+/* Eyebrow Label with Chip Tint */
+.welcome-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0b57d0; /* Gemini Primary Blue */
+  background: #edf3fd; /* Soft Blue Container */
+  padding: 5px 12px 5px 9px;
+  border-radius: 100px;
+  margin-bottom: 12px;
+}
+
+.eyebrow-icon-wrap {
+  display: grid;
+  place-items: center;
+}
+
+.welcome-eyebrow i {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2.2;
+}
+
+/* Typography Scale */
+.welcome-card h1 {
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: #202123;
+  margin: 0 0 6px;
+  line-height: 1.25;
+}
+
+.welcome-card p {
+  font-size: 14px;
+  font-weight: 400;
+  color: #6e6e80;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Date Badge Pill */
+.welcome-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  background: #f7f7f8;
+  border: 1px solid #e5e5e5;
+  color: #444746;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.welcome-date i {
+  width: 15px;
+  height: 15px;
+  color: #6e6e80;
+  stroke-width: 1.8;
+}
+
+/* Responsive Rules */
+@media (max-width: 850px) {
+  .welcome-card {
+    padding: 22px 20px;
+    border-radius: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .welcome-card h1 {
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+
+  .welcome-card p {
+    font-size: 13px;
+  }
+
+  .welcome-eyebrow {
+    font-size: 10px;
+    padding: 4px 10px 4px 7px;
+    margin-bottom: 10px;
+  }
+
+  .welcome-date {
+    align-self: flex-start;
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+</style>

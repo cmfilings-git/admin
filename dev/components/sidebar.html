@@ -1,28 +1,235 @@
 <aside class="desktop-sidebar">
-  <a class="desktop-brand" href="index.html"><span class="brand-symbol">C</span><span>COREBIQ</span></a>
-  <button class="sidebar-workspace"><span class="workspace-avatar">CB</span><span><b>My workspace</b><small>Business account</small></span><i data-lucide="chevrons-up-down"></i></button>
+  <a class="desktop-brand" href="index.html">
+    <span class="brand-symbol">C</span>
+    <span>COREBIQ</span>
+  </a>
+
+  <button class="sidebar-workspace">
+    <span class="workspace-avatar">CB</span>
+    <span class="workspace-info">
+      <b>My workspace</b>
+      <small>Business account</small>
+    </span>
+    <i data-lucide="chevrons-up-down"></i>
+  </button>
+
   <div class="sidebar-label">WORKSPACE</div>
+
   <nav class="side-nav">
-    <a class="side-link active" href="index.html"><i data-lucide="layout-dashboard"></i>Dashboard</a>
-    <a class="side-link" href="modules/crm.html"><i data-lucide="users"></i>CRM</a>
-    <a class="side-link" href="modules/erp.html"><i data-lucide="layers-3"></i>ERP</a>
-    <a class="side-link" href="modules/hr.html"><i data-lucide="contact-round"></i>HR</a>
-    <a class="side-link" href="modules/clients.html"><i data-lucide="contact"></i>Clients</a>
-    <a class="side-link" href="modules/transactions.html"><i data-lucide="receipt-text"></i>Transactions</a>
-    <a class="side-link" href="modules/reports.html"><i data-lucide="chart-no-axes-combined"></i>Reports</a>
+    <a class="side-link active" href="index.html">
+      <i data-lucide="layout-dashboard"></i>
+      <span>Dashboard</span>
+    </a>
+    <a class="side-link" href="modules/crm.html">
+      <i data-lucide="users"></i>
+      <span>CRM</span>
+    </a>
+    <a class="side-link" href="modules/erp.html">
+      <i data-lucide="layers-3"></i>
+      <span>ERP</span>
+    </a>
+    <a class="side-link" href="modules/hr.html">
+      <i data-lucide="contact-round"></i>
+      <span>HR</span>
+    </a>
+    <a class="side-link" href="modules/clients.html">
+      <i data-lucide="contact"></i>
+      <span>Clients</span>
+    </a>
+    <a class="side-link" href="modules/transactions.html">
+      <i data-lucide="receipt-text"></i>
+      <span>Transactions</span>
+    </a>
+    <a class="side-link" href="modules/reports.html">
+      <i data-lucide="chart-no-axes-combined"></i>
+      <span>Reports</span>
+    </a>
   </nav>
-  <div class="sidebar-bottom"><a class="side-link" href="modules/settings.html"><i data-lucide="settings"></i>Settings</a><div class="sidebar-help">Need help? <a href="mailto:support@corebiq.com">Contact support</a></div></div>
+
+  <div class="sidebar-bottom">
+    <a class="side-link" href="modules/settings.html">
+      <i data-lucide="settings"></i>
+      <span>Settings</span>
+    </a>
+    <div class="sidebar-help">
+      <span>Need help?</span>
+      <a href="mailto:support@corebiq.com">Contact support</a>
+    </div>
+  </div>
 </aside>
+
 <style>
-.desktop-sidebar{width:260px;position:fixed;inset:0 auto 0 0;background:#f9f9f9;border-right:1px solid #e5e5e5;padding:13px 12px;display:flex;flex-direction:column;z-index:40;font:13px var(--font);color:#202123}
-.desktop-brand{height:42px;display:flex;align-items:center;gap:10px;padding:0 9px;margin-bottom:12px;font-size:15px;font-weight:650;letter-spacing:-.25px}
-.brand-symbol{width:29px;height:29px;background:#202123;color:white;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700}
-.sidebar-workspace{display:flex;align-items:center;gap:9px;padding:9px;border:0;border-radius:8px;margin-bottom:19px;background:transparent;text-align:left;color:#202123}
-.sidebar-workspace:hover{background:#ececec}.workspace-avatar{width:27px;height:27px;border-radius:7px;background:#e5e5e5;color:#343434;display:grid;place-items:center;font-size:9px;font-weight:700}
-.sidebar-workspace b,.sidebar-workspace small{display:block}.sidebar-workspace b{font-size:11px;font-weight:600}.sidebar-workspace small{font-size:9px;color:#777;margin-top:2px}.sidebar-workspace i{margin-left:auto;width:15px;color:#777}
-.sidebar-label{font-size:10px;letter-spacing:.02em;font-weight:600;color:#777;padding:0 11px 7px;margin-top:3px}
-.side-nav{display:grid;gap:2px;margin-bottom:17px}.side-link{height:37px;display:flex;align-items:center;gap:11px;padding:0 11px;border-radius:8px;color:#454545;font-size:12px;font-weight:400}
-.side-link i{width:17px;height:17px;stroke-width:1.7}.side-link:hover{background:#ececec;color:#202123}.side-link.active{background:#e8e8e8;color:#202123;font-weight:600}
-.sidebar-bottom{margin-top:auto}.sidebar-help{border-top:1px solid #e5e5e5;margin-top:10px;padding:13px 9px;color:#777;font-size:10px}.sidebar-help a{display:block;color:#202123;margin-top:4px;font-weight:600}
-@media(max-width:850px){.desktop-sidebar{display:none}}
+.desktop-sidebar {
+  width: var(--sidebar, 260px);
+  position: fixed;
+  inset: 0 auto 0 0;
+  background: #f9f9f9;
+  border-right: 1px solid #e5e5e5;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  z-index: 40;
+  font: 14px/1.5 var(--font);
+  color: #202123;
+  box-sizing: border-box;
+}
+
+/* Brand Header */
+.desktop-brand {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+  margin-bottom: 16px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: normal;
+  color: #202123;
+  text-decoration: none;
+}
+.brand-symbol {
+  width: 34px;
+  height: 34px;
+  background: #202123;
+  color: #ffffff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Workspace Selector */
+.sidebar-workspace {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  background: transparent;
+  text-align: left;
+  color: #202123;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.sidebar-workspace:hover {
+  background: #ececec;
+}
+.workspace-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: #e5e5e5;
+  color: #343434;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.workspace-info {
+  min-width: 0;
+  flex: 1;
+}
+.sidebar-workspace b {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.sidebar-workspace small {
+  display: block;
+  font-size: 11px;
+  color: #777;
+  margin-top: 2px;
+}
+.sidebar-workspace i {
+  width: 16px;
+  height: 16px;
+  color: #777;
+  flex-shrink: 0;
+}
+
+/* Section Label */
+.sidebar-label {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  color: #777;
+  padding: 0 16px 8px;
+  text-transform: uppercase;
+}
+
+/* Navigation - Gemini Material 3 Pill Styling */
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 20px;
+  flex: 1;
+  overflow-y: auto;
+}
+.side-link {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px;
+  border-radius: 100px; /* Gemini signature pill container */
+  color: #454545;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.side-link i {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.75;
+  flex-shrink: 0;
+}
+.side-link:hover {
+  background: #ececec;
+  color: #202123;
+}
+.side-link.active {
+  background: #e8e8e8;
+  color: #202123;
+  font-weight: 500;
+}
+
+/* Bottom Actions & Support */
+.sidebar-bottom {
+  margin-top: auto;
+  padding-top: 8px;
+}
+.sidebar-help {
+  border-top: 1px solid #e5e5e5;
+  margin-top: 12px;
+  padding: 16px 12px 4px;
+  color: #777;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.sidebar-help a {
+  display: inline-block;
+  color: #202123;
+  margin-top: 2px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.sidebar-help a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 850px) {
+  .desktop-sidebar {
+    display: none;
+  }
+}
 </style>

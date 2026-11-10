@@ -1,0 +1,263 @@
+```html
+<!-- cb-secondary-button.html | Reusable COREBIQ Material 3 Secondary (Tonal) Button
+     Copy the <style> and <script> sections once per page/app, 
+     then use the <button> markup wherever needed.
+     (Note: If you already have the base .cb-btn class from the primary button, 
+     you only need to add the .cb-btn-secondary specific classes!)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COREBIQ Secondary Button</title>
+<!-- Tailwind for layout utilities in this demo -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,500,0,0" rel="stylesheet" />
+
+<!-- ==========================================
+     BEGIN COMPONENT REQUIRED CSS
+     ========================================== -->
+<style>
+  :root {
+    /* Secondary/Tonal Brand Colors */
+    --cb-secondary-bg: #e0e7ff;       /* Blue 100 */
+    --cb-secondary-hover: #c7d2fe;    /* Blue 200 */
+    --cb-secondary-active: #a5b4fc;   /* Blue 300 */
+    --cb-secondary-text: #1d4ed8;     /* Blue 600 */
+    
+    /* Disabled States */
+    --cb-disabled-bg: #e2e8f0;        /* Slate 200 */
+    --cb-disabled-text: #94a3b8;      /* Slate 400 */
+  }
+
+  /* Base Button Class (Shared with Primary) */
+  .cb-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 24px;
+    border-radius: 9999px; /* Fully rounded/pill */
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    border: none;
+    cursor: pointer;
+    overflow: hidden; /* For ripple containment */
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+  }
+
+  /* Secondary Tonal Variant */
+  .cb-btn-secondary {
+    background-color: var(--cb-secondary-bg);
+    color: var(--cb-secondary-text);
+    /* Tonal buttons typically do not have a resting shadow in M3 */
+  }
+
+  .cb-btn-secondary:hover:not(:disabled) {
+    background-color: var(--cb-secondary-hover);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* Very subtle lift on hover */
+  }
+
+  .cb-btn-secondary:active:not(:disabled) {
+    background-color: var(--cb-secondary-active);
+    box-shadow: none;
+    transform: scale(0.98);
+  }
+
+  .cb-btn:focus-visible {
+    outline: 2px solid var(--cb-secondary-text);
+    outline-offset: 2px;
+  }
+
+  /* Disabled State */
+  .cb-btn:disabled {
+    background-color: var(--cb-disabled-bg);
+    color: var(--cb-disabled-text);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+
+  /* Icon styling inside button */
+  .cb-btn svg, .cb-btn .material-symbols-rounded {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  /* Ripple Effect CSS (Darker for light secondary button) */
+  .cb-ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: cb-ripple-animation 600ms linear;
+    background-color: rgba(29, 78, 216, 0.15); /* Blue 600 with low opacity */
+    pointer-events: none;
+  }
+
+  @keyframes cb-ripple-animation {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+
+  /* Loading Spinner (Matched to text color) */
+  .cb-btn-loader {
+    display: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(29, 78, 216, 0.2);
+    border-radius: 50%;
+    border-top-color: var(--cb-secondary-text);
+    animation: cb-spin 0.8s linear infinite;
+    position: absolute;
+  }
+  
+  .cb-btn-secondary.is-loading {
+    color: transparent !important;
+    pointer-events: none;
+  }
+  
+  .cb-btn-secondary.is-loading .cb-btn-loader {
+    display: block;
+  }
+  
+  @keyframes cb-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Optional Dark Mode Support */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --cb-secondary-bg: rgba(30, 64, 175, 0.3); /* Blue 800 transparent */
+      --cb-secondary-hover: rgba(30, 64, 175, 0.5); 
+      --cb-secondary-active: rgba(30, 64, 175, 0.7);
+      --cb-secondary-text: #93c5fd; /* Blue 300 */
+      --cb-disabled-bg: #334155;
+      --cb-disabled-text: #64748b;
+    }
+    .cb-ripple {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+    .cb-btn-loader {
+      border: 2px solid rgba(147, 197, 253, 0.2);
+      border-top-color: var(--cb-secondary-text);
+    }
+  }
+</style>
+<!-- ==========================================
+     END COMPONENT REQUIRED CSS
+     ========================================== -->
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 p-12 flex flex-col gap-8 items-start">
+
+  <div>
+    <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">1. Standard Secondary Button</h3>
+    <!-- COPY THIS HTML -->
+    <button type="button" class="cb-btn cb-btn-secondary">
+      View Details
+    </button>
+  </div>
+
+  <div>
+    <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">2. With Leading Icon</h3>
+    <!-- COPY THIS HTML -->
+    <button type="button" class="cb-btn cb-btn-secondary">
+      <span class="material-symbols-rounded">filter_list</span>
+      Filter Results
+    </button>
+  </div>
+
+  <div>
+    <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">3. Disabled State</h3>
+    <!-- COPY THIS HTML -->
+    <button type="button" class="cb-btn cb-btn-secondary" disabled>
+      <span class="material-symbols-rounded">block</span>
+      Unavailable
+    </button>
+  </div>
+
+  <div>
+    <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">4. Loading State (Click to demo)</h3>
+    <!-- COPY THIS HTML -->
+    <button type="button" class="cb-btn cb-btn-secondary" id="demo-load-btn" onclick="toggleLoading(this)">
+      <div class="cb-btn-loader"></div>
+      <span>Sync Data</span>
+    </button>
+  </div>
+
+<!-- ==========================================
+     BEGIN COMPONENT REQUIRED JS (Ripple Logic)
+     ========================================== -->
+<script>
+  function createRipple(event) {
+    const button = event.currentTarget;
+    
+    // Prevent ripple if disabled or loading
+    if (button.disabled || button.classList.contains('is-loading')) return;
+
+    const circle = document.createElement("span");
+    const diameter = Math.max(button.clientWidth, button.clientHeight);
+    const radius = diameter / 2;
+
+    const rect = button.getBoundingClientRect();
+    
+    // Calculate click coordinates relative to button
+    let clientX = event.clientX;
+    let clientY = event.clientY;
+    
+    // Handle touch events
+    if (event.type === 'touchstart') {
+        clientX = event.touches[0].clientX;
+        clientY = event.touches[0].clientY;
+    }
+
+    circle.style.width = circle.style.height = `${diameter}px`;
+    circle.style.left = `${clientX - rect.left - radius}px`;
+    circle.style.top = `${clientY - rect.top - radius}px`;
+    circle.classList.add("cb-ripple");
+
+    // Remove existing ripple
+    const existingRipple = button.querySelector(".cb-ripple");
+    if (existingRipple) {
+      existingRipple.remove();
+    }
+
+    button.appendChild(circle);
+  }
+
+  // Attach ripple to all cb-btns
+  function initButtons() {
+    const buttons = document.querySelectorAll('.cb-btn');
+    for (const button of buttons) {
+      button.addEventListener("mousedown", createRipple);
+      button.addEventListener("touchstart", createRipple, { passive: true });
+    }
+  }
+
+  // Run on load
+  document.addEventListener('DOMContentLoaded', initButtons);
+
+  /* --- Demo utility for loading state --- */
+  function toggleLoading(btn) {
+    btn.classList.add('is-loading');
+    setTimeout(() => {
+        btn.classList.remove('is-loading');
+    }, 2000);
+  }
+</script>
+<!-- ==========================================
+     END COMPONENT REQUIRED JS
+     ========================================== -->
+</body>
+</html>
+```

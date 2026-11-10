@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CM Filings | Admin Workspace</title>
+    
+    <!-- Google Fonts: Google Sans (Gemini M3) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Tailwind Configuration for Custom Colors & Fonts (M3/Gemini) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Google Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        'md-primary': '#0B57D0',
+                        'md-primary-container': '#D3E3FD',
+                        'md-on-primary-container': '#041E49',
+                        'md-surface': '#F8F9FA',
+                        'md-surface-container-low': '#F3F4F6',
+                        'md-surface-container-lowest': '#FFFFFF',
+                        'md-outline': '#747775',
+                        'md-outline-variant': '#C4C7C5',
+                        'md-on-surface': '#1F1F1F',
+                        'md-on-surface-variant': '#444746',
+                    },
+                    boxShadow: {
+                        'm3-elevation-1': '0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3)',
+                        'm3-elevation-2': '0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3)',
+                    },
+                    borderRadius: {
+                        'm3-medium': '12px',
+                        'm3-large': '16px',
+                        'm3-xlarge': '28px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Gemini Gradient for active states/accents */
+        .gemini-gradient-text {
+            background: linear-gradient(90deg, #4285F4 0%, #9B72CB 50%, #D96570 100%);
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-md-surface font-sans min-h-screen flex flex-col text-md-on-surface antialiased">
+
+    <!-- Sidebar Navigation (Desktop) -->
+    <aside class="hidden md:flex flex-col w-[280px] bg-md-surface-container-lowest border-r border-md-outline-variant h-screen fixed left-0 top-0 z-30">
+        <!-- Adjusted Logo to Left and Increased Size -->
+        <div class="flex items-center justify-start gap-2 p-4 md:px-6 border-b border-md-outline-variant h-[72px]">
+            <img src="assets/logo.png" alt="Logo" class="h-12 w-12 object-contain" onerror="this.src='https://placehold.co/100x100/0B57D0/white?text=Logo'">
+            <img src="assets/name.svg" alt="CM Filings" class="h-10 w-40 object-contain" onerror="this.src='https://placehold.co/300x100/ffffff/000000?text=CM+FILINGS'">
+        </div>
+        
+        <div class="flex-grow py-4 px-3 overflow-y-auto space-y-1">
+            <!-- Sidebar Links -->
+            <a href="/module/dashboard.html" class="flex items-center gap-4 px-4 py-3.5 text-[15px] font-medium text-md-on-primary-container bg-md-primary-container rounded-full transition-colors">
+                <i data-lucide="layout-dashboard" class="w-5 h-5 text-md-primary"></i>
+                Dashboard
+            </a>
+            <a href="/module/crm.html" class="flex items-center gap-4 px-4 py-3.5 text-[15px] font-medium text-md-on-surface-variant hover:bg-md-surface-container-low hover:text-md-on-surface rounded-full transition-colors">
+                <i data-lucide="users" class="w-5 h-5"></i>
+                CRM
+            </a>
+            <a href="/module/accounts.html" class="flex items-center gap-4 px-4 py-3.5 text-[15px] font-medium text-md-on-surface-variant hover:bg-md-surface-container-low hover:text-md-on-surface rounded-full transition-colors">
+                <i data-lucide="calculator" class="w-5 h-5"></i>
+                Accounts
+            </a>
+            <a href="/module/hr.html" class="flex items-center gap-4 px-4 py-3.5 text-[15px] font-medium text-md-on-surface-variant hover:bg-md-surface-container-low hover:text-md-on-surface rounded-full transition-colors">
+                <i data-lucide="briefcase" class="w-5 h-5"></i>
+                HR
+            </a>
+            <a href="/module/reports.html" class="flex items-center gap-4 px-4 py-3.5 text-[15px] font-medium text-md-on-surface-variant hover:bg-md-surface-container-low hover:text-md-on-surface rounded-full transition-colors">
+                <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+                Reports
+            </a>
+            <a href="/module/import-exports.html" class="flex items-center gap-4 px-4 py-3.5 text-[15px] font-medium text-md-on-surface-variant hover:bg-md-surface-container-low hover:text-md-on-surface rounded-full transition-colors">
+                <i data-lucide="arrow-right-left" class="w-5 h-5"></i>
+                Import & Exports
+            </a>
+            <a href="/module/gst.html" class="flex items-center gap-4 px-4 py-3.5 text-[15px] font-medium text-md-on-surface-variant hover:bg-md-surface-container-low hover:text-md-on-surface rounded-full transition-colors">
+                <i data-lucide="receipt-indian-rupee" class="w-5 h-5"></i>
+                GST
+            </a>
+            <!-- Updated Templates Icon in Sidebar -->
+            <a href="/module/templates.html" class="flex items-center gap-4 px-4 py-3.5 text-[15px] font-medium text-md-on-surface-variant hover:bg-md-surface-container-low hover:text-md-on-surface rounded-full transition-colors">
+                <i data-lucide="layout-template" class="w-5 h-5"></i>
+                Templates
+            </a>
+            <a href="/module/tools.html" class="flex items-center gap-4 px-4 py-3.5 text-[15px] font-medium text-md-on-surface-variant hover:bg-md-surface-container-low hover:text-md-on-surface rounded-full transition-colors">
+                <i data-lucide="wrench" class="w-5 h-5"></i>
+                Tools
+            </a>
+            <div class="pt-2 pb-1"><div class="border-t border-md-outline-variant mx-4"></div></div>
+            <a href="/module/ai-integrations.html" class="flex items-center gap-4 px-4 py-3.5 text-[15px] font-medium text-md-on-surface-variant hover:bg-md-surface-container-low hover:text-md-on-surface rounded-full transition-colors group">
+                <i data-lucide="sparkles" class="w-5 h-5 group-hover:text-[#9B72CB]"></i>
+                AI & Integrations
+            </a>
+            <a href="/module/settings.html" class="flex items-center gap-4 px-4 py-3.5 text-[15px] font-medium text-md-on-surface-variant hover:bg-md-surface-container-low hover:text-md-on-surface rounded-full transition-colors">
+                <i data-lucide="settings" class="w-5 h-5"></i>
+                Settings
+            </a>
+        </div>
+    </aside>
+
+    <!-- Wrapper for Content to accommodate Desktop Sidebar padding -->
+    <div class="flex-grow flex flex-col min-h-screen md:ml-[280px] w-full md:w-[calc(100%-280px)]">
+
+    <!-- Top Navigation App Bar (M3) -->
+    <nav class="bg-[rgba(248,249,250,0.9)] backdrop-blur-md border-b border-md-outline-variant sticky top-0 z-20 h-[72px]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+            <div class="flex justify-between items-center h-full">
+                <!-- Mobile Brand (Left Aligned & Increased Size, Removed Menu Icon) -->
+                <div class="flex items-center justify-start gap-2">
+                    <img src="assets/logo.png" alt="Logo" class="h-10 w-10 object-contain md:hidden" onerror="this.src='https://placehold.co/100x100/0B57D0/white?text=Logo'">
+                    <img src="assets/name.svg" alt="CM Filings" class="h-8 w-36 object-contain md:hidden" onerror="this.src='https://placehold.co/300x100/ffffff/000000?text=CM+FILINGS'">
+                </div>
+                
+                <!-- Search (Placeholder for M3 Search bar) -->
+                <div class="hidden md:flex flex-1 max-w-2xl px-8">
+                    <div class="relative w-full">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i data-lucide="search" class="w-5 h-5 text-md-outline"></i>
+                        </div>
+                        <input type="text" class="block w-full pl-11 pr-4 py-3 bg-md-surface-container-lowest border border-md-outline-variant rounded-full text-[15px] focus:outline-none focus:border-md-primary focus:ring-1 focus:ring-md-primary transition-colors" placeholder="Search across workspace...">
+                    </div>
+                </div>
+
+                <!-- Profile & Notifications -->
+                <div class="flex items-center gap-2 sm:gap-4 ml-auto">
+                    <a href="/module/notifications.html" class="p-2.5 text-md-on-surface-variant hover:bg-md-surface-container-low rounded-full relative transition-colors">
+                        <i data-lucide="bell" class="w-5.5 h-5.5"></i>
+                        <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border border-md-surface"></span>
+                    </a>
+                    <a href="/module/profile.html" class="hidden sm:flex items-center gap-3 ml-2 hover:bg-md-surface-container-low p-1.5 pr-3 rounded-full transition-colors">
+                        <div class="h-9 w-9 rounded-full bg-md-primary-container text-md-primary flex items-center justify-center font-medium">A</div>
+                        <span class="text-[14px] font-medium text-md-on-surface-variant">Admin</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-28 w-full">
+        
+        <header class="mb-8 md:mb-12 flex justify-between items-end">
+            <div>
+                <div class="inline-flex items-center gap-2 mb-2 px-3 py-1 bg-md-surface-container-lowest border border-md-outline-variant rounded-full text-xs font-semibold text-md-on-surface-variant uppercase tracking-wider">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-md-primary"></i> Good morning
+                </div>
+                <h1 class="text-3xl md:text-[40px] font-normal text-md-on-surface tracking-tight leading-tight">Welcome to <span class="gemini-gradient-text font-medium">Dashboard</span></h1>
+            </div>
+        </header>
+
+        <!-- Responsive Grid for Modules (M3 Cards) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+            
+            <!-- Module 1: CRM -->
+            <a href="/module/crm.html" class="group block bg-md-surface-container-lowest border border-md-outline-variant rounded-m3-xlarge p-6 transition-all duration-300 hover:border-md-primary hover:shadow-m3-elevation-1">
+                <div class="w-12 h-12 rounded-m3-medium bg-md-primary-container text-md-primary flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                    <i data-lucide="users" class="w-6 h-6"></i>
+                </div>
+                <h2 class="text-xl font-medium text-md-on-surface mb-2 tracking-tight">CRM</h2>
+                <p class="text-md-on-surface-variant text-[15px] leading-relaxed">
+                    Manage client profiles, onboarding data, and contact relationships.
+                </p>
+            </a>
+
+            <!-- Module 2: Accounts -->
+            <a href="/module/accounts.html" class="group block bg-md-surface-container-lowest border border-md-outline-variant rounded-m3-xlarge p-6 transition-all duration-300 hover:border-md-primary hover:shadow-m3-elevation-1">
+                <div class="w-12 h-12 rounded-m3-medium bg-md-primary-container text-md-primary flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                    <i data-lucide="calculator" class="w-6 h-6"></i>
+                </div>
+                <h2 class="text-xl font-medium text-md-on-surface mb-2 tracking-tight">Accounts</h2>
+                <p class="text-md-on-surface-variant text-[15px] leading-relaxed">
+                    Track transactions, billing, invoicing, and financial health.
+                </p>
+            </a>
+
+            <!-- Module 3: HR -->
+            <a href="/module/hr.html" class="group block bg-md-surface-container-lowest border border-md-outline-variant rounded-m3-xlarge p-6 transition-all duration-300 hover:border-md-primary hover:shadow-m3-elevation-1">
+                <div class="w-12 h-12 rounded-m3-medium bg-md-primary-container text-md-primary flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                    <i data-lucide="briefcase" class="w-6 h-6"></i>
+                </div>
+                <h2 class="text-xl font-medium text-md-on-surface mb-2 tracking-tight">HR</h2>
+                <p class="text-md-on-surface-variant text-[15px] leading-relaxed">
+                    Manage employee records, payroll, leaves, and team resources.
+                </p>
+            </a>
+
+            <!-- Module 4: Reports -->
+            <a href="/module/reports.html" class="group block bg-md-surface-container-lowest border border-md-outline-variant rounded-m3-xlarge p-6 transition-all duration-300 hover:border-md-primary hover:shadow-m3-elevation-1">
+                <div class="w-12 h-12 rounded-m3-medium bg-md-primary-container text-md-primary flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                    <i data-lucide="bar-chart-3" class="w-6 h-6"></i>
+                </div>
+                <h2 class="text-xl font-medium text-md-on-surface mb-2 tracking-tight">Reports</h2>
+                <p class="text-md-on-surface-variant text-[15px] leading-relaxed">
+                    Generate insightful analytics and comprehensive business reports.
+                </p>
+            </a>
+
+            <!-- Module 5: Import & Exports -->
+            <a href="/module/import-exports.html" class="group block bg-md-surface-container-lowest border border-md-outline-variant rounded-m3-xlarge p-6 transition-all duration-300 hover:border-md-primary hover:shadow-m3-elevation-1">
+                <div class="w-12 h-12 rounded-m3-medium bg-md-primary-container text-md-primary flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                    <i data-lucide="arrow-right-left" class="w-6 h-6"></i>
+                </div>
+                <h2 class="text-xl font-medium text-md-on-surface mb-2 tracking-tight">Import & Exports</h2>
+                <p class="text-md-on-surface-variant text-[15px] leading-relaxed">
+                    Bulk data management, file imports, and data extraction tools.
+                </p>
+            </a>
+
+            <!-- Module 6: GST -->
+            <a href="/module/gst.html" class="group block bg-md-surface-container-lowest border border-md-outline-variant rounded-m3-xlarge p-6 transition-all duration-300 hover:border-md-primary hover:shadow-m3-elevation-1">
+                <div class="w-12 h-12 rounded-m3-medium bg-md-primary-container text-md-primary flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                    <i data-lucide="receipt-indian-rupee" class="w-6 h-6"></i>
+                </div>
+                <h2 class="text-xl font-medium text-md-on-surface mb-2 tracking-tight">GST</h2>
+                <p class="text-md-on-surface-variant text-[15px] leading-relaxed">
+                    GST compliance, workflows, filing tracking, and return prep.
+                </p>
+            </a>
+
+            <!-- Module 7: Templates (Fixed Icon) -->
+            <a href="/module/templates.html" class="group block bg-md-surface-container-lowest border border-md-outline-variant rounded-m3-xlarge p-6 transition-all duration-300 hover:border-md-primary hover:shadow-m3-elevation-1">
+                <div class="w-12 h-12 rounded-m3-medium bg-md-primary-container text-md-primary flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                    <i data-lucide="layout-template" class="w-6 h-6"></i>
+                </div>
+                <h2 class="text-xl font-medium text-md-on-surface mb-2 tracking-tight">Templates</h2>
+                <p class="text-md-on-surface-variant text-[15px] leading-relaxed">
+                    Access standard document formats, letters, and forms.
+                </p>
+            </a>
+
+            <!-- Module 8: AI & Integrations -->
+            <a href="/module/ai-integrations.html" class="group block bg-md-surface-container-lowest border border-md-outline-variant rounded-m3-xlarge p-6 transition-all duration-300 hover:border-md-primary hover:shadow-m3-elevation-1 relative overflow-hidden">
+                <div class="absolute -right-4 -top-4 w-24 h-24 bg-gradient-to-br from-[#4285F4]/10 via-[#9B72CB]/10 to-[#D96570]/10 rounded-full blur-xl pointer-events-none"></div>
+                <div class="w-12 h-12 rounded-m3-medium bg-[rgba(155,114,203,0.15)] text-[#9B72CB] flex items-center justify-center mb-5 group-hover:scale-105 transition-transform relative z-10">
+                    <i data-lucide="sparkles" class="w-6 h-6"></i>
+                </div>
+                <h2 class="text-xl font-medium text-md-on-surface mb-2 tracking-tight relative z-10">AI & Integrations</h2>
+                <p class="text-md-on-surface-variant text-[15px] leading-relaxed relative z-10">
+                    Automate workflows and connect external business tools.
+                </p>
+            </a>
+
+        </div>
+
+    </main>
+
+    </div> <!-- End of Desktop Wrapper -->
+
+    <!-- Fixed Bottom Navigation Bar (Mobile M3 Nav) -->
+    <nav class="fixed bottom-0 left-0 w-full bg-md-surface-container-lowest border-t border-md-outline-variant z-50 md:hidden pb-safe">
+        <div class="flex justify-between items-center h-[80px] px-2 sm:px-4 max-w-md mx-auto">
+            
+            <!-- Home (Active) -->
+            <a href="/module/dashboard.html" class="flex flex-col items-center justify-center w-full h-full text-md-on-surface">
+                <div class="w-16 h-8 rounded-full bg-md-primary-container flex items-center justify-center mb-1 transition-colors">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5 text-md-on-primary-container fill-md-primary/20"></i>
+                </div>
+                <span class="text-[12px] font-semibold text-md-on-surface">Home</span>
+            </a>
+            
+            <!-- CRM (Inactive) -->
+            <a href="/module/crm.html" class="flex flex-col items-center justify-center w-full h-full text-md-on-surface-variant hover:text-md-on-surface transition-colors group">
+                <div class="w-16 h-8 rounded-full flex items-center justify-center mb-1 group-hover:bg-md-surface-container-low transition-colors">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                </div>
+                <span class="text-[12px] font-medium">CRM</span>
+            </a>
+
+            <!-- Accounts (Inactive) -->
+            <a href="/module/accounts.html" class="flex flex-col items-center justify-center w-full h-full text-md-on-surface-variant hover:text-md-on-surface transition-colors group">
+                <div class="w-16 h-8 rounded-full flex items-center justify-center mb-1 group-hover:bg-md-surface-container-low transition-colors">
+                    <i data-lucide="calculator" class="w-5 h-5"></i>
+                </div>
+                <span class="text-[12px] font-medium">Accounts</span>
+            </a>
+
+            <!-- HR (Inactive) -->
+            <a href="/module/hr.html" class="flex flex-col items-center justify-center w-full h-full text-md-on-surface-variant hover:text-md-on-surface transition-colors group">
+                <div class="w-16 h-8 rounded-full flex items-center justify-center mb-1 group-hover:bg-md-surface-container-low transition-colors">
+                    <i data-lucide="briefcase" class="w-5 h-5"></i>
+                </div>
+                <span class="text-[12px] font-medium">HR</span>
+            </a>
+
+            <!-- Menu (Inactive) -->
+            <a href="#" class="flex flex-col items-center justify-center w-full h-full text-md-on-surface-variant hover:text-md-on-surface transition-colors group">
+                <div class="w-16 h-8 rounded-full flex items-center justify-center mb-1 group-hover:bg-md-surface-container-low transition-colors">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </div>
+                <span class="text-[12px] font-medium">Menu</span>
+            </a>
+            
+        </div>
+    </nav>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

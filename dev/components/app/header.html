@@ -1,15 +1,94 @@
-.<header class="mobile-app-header">
-  <a href="index.html" class="mobile-app-brand" aria-label="Home"><img src="assets/logo.png" alt="COREBIQ" class="mobile-brand-logo"></a>
+<header class="mobile-app-header">
+  <a href="index.html" class="mobile-app-brand" aria-label="Home">
+    <img src="assets/logo.png" alt="COREBIQ" class="mobile-brand-logo">
+  </a>
   <span class="mobile-header-spacer"></span>
-  <button class="mobile-header-action" type="button" aria-label="Search"><i data-lucide="search"></i></button>
-  <button class="mobile-header-action" type="button" aria-label="Notifications"><i data-lucide="bell"></i></button>
-  <span class="mobile-user-avatar">CB</span>
+  <button class="mobile-header-action" type="button" aria-label="Search">
+    <i data-lucide="search"></i>
+  </button>
+  <button class="mobile-header-action" type="button" aria-label="Notifications">
+    <i data-lucide="bell"></i>
+  </button>
+  <div class="mobile-user-avatar" aria-label="User Profile">CB</div>
 </header>
+
 <style>
-#mobile-header-mount{position:sticky;top:0;z-index:60}
-.mobile-app-header{height:58px;position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:10px;padding:0 16px;background:rgba(255,255,255,.96);border-bottom:1px solid #e5e5e5;backdrop-filter:blur(12px);font:600 13px var(--font);color:#202123}
-.mobile-header-action{border:0;background:transparent;color:#444;width:36px;height:36px;border-radius:5px;display:grid;place-items:center;cursor:pointer}.mobile-header-action i{width:20px;height:20px}.mobile-header-action:hover{background:#ececec}
-.mobile-app-brand{display:flex;align-items:center}.mobile-brand-logo{width:34px;height:34px;aspect-ratio:1/1;object-fit:contain;border-radius:0px;display:block}
-.mobile-header-spacer{flex:1}.mobile-user-avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#e5e5e5;color:#343434;font-size:13px;font-weight:600}
-@media(min-width:851px){#mobile-header-mount,.mobile-app-header{display:none}}
+.mobile-app-header {
+  height: 58px;
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid #e5e5e5;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font: 600 13px var(--font, sans-serif);
+  color: #202123;
+}
+
+.mobile-app-brand {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-brand-logo {
+  width: 34px;
+  height: 34px;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  display: block;
+}
+
+.mobile-header-spacer {
+  flex: 1;
+}
+
+.mobile-header-action {
+  border: 0;
+  background: transparent;
+  color: #444;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.mobile-header-action i {
+  width: 20px;
+  height: 20px;
+}
+
+.mobile-header-action:hover {
+  background: #f0f0f0;
+}
+
+.mobile-header-action:active {
+  background: #e5e5e5;
+}
+
+.mobile-user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #e5e5e5;
+  color: #343434;
+  font-size: 13px;
+  font-weight: 600;
+  user-select: none;
+}
+
+@media (min-width: 851px) {
+  .mobile-app-header {
+    display: none;
+  }
+}
 </style>

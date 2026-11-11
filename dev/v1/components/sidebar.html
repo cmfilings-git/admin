@@ -1,0 +1,247 @@
+<aside class="desktop-sidebar">
+  <a class="desktop-brand" href="index.html">
+    <img class="brand-symbol" src="assets/logo.png" alt="">
+    <img class="brand-name-image" src="assets/name.png" alt="COREBIQ">
+  </a>
+
+  <button class="sidebar-workspace">
+    <span class="workspace-avatar">CB</span>
+    <span class="workspace-info">
+      <b>My workspace</b>
+      <small>Business account</small>
+    </span>
+    <i data-lucide="chevrons-up-down"></i>
+  </button>
+
+  <div class="sidebar-label">WORKSPACE</div>
+
+  <nav class="side-nav">
+    <a class="side-link" href="index.html" data-nav-key="home">
+      <i data-lucide="layout-dashboard"></i>
+      <span>Dashboard</span>
+    </a>
+    <a class="side-link" href="modules/crm/crm.html" data-nav-key="crm">
+      <i data-lucide="users"></i>
+      <span>CRM</span>
+    </a>
+    <a class="side-link" href="modules/erp/erp.html" data-nav-key="erp">
+      <i data-lucide="layers-3"></i>
+      <span>ERP</span>
+    </a>
+    <a class="side-link" href="modules/inventory/inventory.html" data-nav-key="inventory">
+      <i data-lucide="boxes"></i>
+      <span>Inventory</span>
+    </a>
+    <a class="side-link" href="modules/hr/hr.html" data-nav-key="hr">
+      <i data-lucide="contact-round"></i>
+      <span>HR</span>
+    </a>
+    <a class="side-link" href="modules/clients/clients.html" data-nav-key="clients">
+      <i data-lucide="contact"></i>
+      <span>Clients</span>
+    </a>
+    <a class="side-link" href="modules/transactions/transactions.html" data-nav-key="transactions">
+      <i data-lucide="receipt-text"></i>
+      <span>Transactions</span>
+    </a>
+    <a class="side-link" href="modules/reports/reports.html" data-nav-key="reports">
+      <i data-lucide="chart-no-axes-combined"></i>
+      <span>Reports</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <a class="side-link" href="modules/settings/settings.html" data-nav-key="settings">
+      <i data-lucide="settings"></i>
+      <span>Settings</span>
+    </a>
+    <div class="sidebar-help">
+      <span>Need help?</span>
+      <a href="mailto:support@corebiq.com">Contact support</a>
+    </div>
+    <div class="sidebar-appearance">
+      <span class="appearance-label"><i data-lucide="sun"></i>Appearance</span>
+      <button class="appearance-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to dark theme" data-theme-toggle>
+        <span class="appearance-toggle-thumb"></span>
+      </button>
+    </div>
+  </div>
+</aside>
+
+<style>
+.desktop-sidebar {
+  width: var(--sidebar, 260px);
+  position: fixed;
+  inset: 0 auto 0 0;
+  background: var(--surface, #fff);
+  border-right: 1px solid var(--line, #e1e7f0);
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  z-index: 40;
+  font: 14px/1.5 var(--font);
+  color: var(--text, #1f2937);
+  box-sizing: border-box;
+}
+
+/* Brand Header */
+.desktop-brand {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+  margin-bottom: 16px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: normal;
+  color: var(--text, #1f2937);
+  text-decoration: none;
+}
+.brand-symbol {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  border-radius: var(--radius-sm, 8px);
+  flex-shrink: 0;
+}
+.brand-name-image {
+  display: block;
+  width: 108px;
+  max-height: 28px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+/* Workspace Selector */
+.sidebar-workspace {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md, 12px);
+  margin-bottom: 20px;
+  background: transparent;
+  text-align: left;
+  color: var(--text, #1f2937);
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.sidebar-workspace:hover {
+  background: var(--surface-low, #f3f6fb);
+}
+.workspace-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--primary-soft, #e8f0fe);
+  color: var(--primary, #1a73e8);
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.workspace-info {
+  min-width: 0;
+  flex: 1;
+}
+.sidebar-workspace b {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.sidebar-workspace small {
+  display: block;
+  font-size: 11px;
+  color: var(--muted, #687386);
+  margin-top: 2px;
+}
+.sidebar-workspace i {
+  width: 16px;
+  height: 16px;
+  color: #777;
+  flex-shrink: 0;
+}
+
+/* Section Label */
+.sidebar-label {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  color: #777;
+  padding: 0 16px 8px;
+  text-transform: uppercase;
+}
+
+/* Navigation - Gemini Material 3 Pill Styling */
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 20px;
+  flex: 1;
+  overflow-y: auto;
+}
+.side-link {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px;
+  border-radius: var(--radius-sm, 8px);
+  color: var(--muted, #687386);
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.side-link i {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.75;
+  flex-shrink: 0;
+}
+.side-link:hover {
+  background: var(--surface-low, #f3f6fb);
+  color: var(--text, #1f2937);
+}
+.side-link.active {
+  background: var(--primary-soft, #e8f0fe);
+  color: var(--primary, #1a73e8);
+  font-weight: 500;
+}
+
+/* Bottom Actions & Support */
+.sidebar-bottom {
+  margin-top: auto;
+  padding-top: 8px;
+}
+.sidebar-help {
+  border-top: 1px solid var(--line, #e1e7f0);
+  margin-top: 12px;
+  padding: 16px 12px 4px;
+  color: #777;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.sidebar-help a {
+  display: inline-block;
+  color: var(--primary, #1a73e8);
+  margin-top: 2px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.sidebar-help a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 850px) {
+  .desktop-sidebar {
+    display: none;
+  }
+}
+</style>

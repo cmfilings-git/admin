@@ -1,0 +1,165 @@
+<nav class="app-bottom-nav" aria-label="Primary navigation">
+  <a href="index.html" data-bottom-key="home" data-nav-key="home">
+    <span class="bottom-icon"><i data-lucide="house"></i></span>
+    <span class="bottom-label">Home</span>
+  </a>
+  <a href="modules/crm/crm.html" data-bottom-key="crm" data-nav-key="crm">
+    <span class="bottom-icon"><i data-lucide="users"></i></span>
+    <span class="bottom-label">CRM</span>
+  </a>
+  <a href="modules/erp/erp.html" data-bottom-key="erp" data-nav-key="erp">
+    <span class="bottom-icon"><i data-lucide="layers"></i></span>
+    <span class="bottom-label">ERP</span>
+  </a>
+  <a href="modules/hr/hr.html" data-bottom-key="hr" data-nav-key="hr">
+    <span class="bottom-icon"><i data-lucide="contact-round"></i></span>
+    <span class="bottom-label">HR</span>
+  </a>
+  <button type="button" data-bottom-menu>
+    <span class="bottom-icon"><i data-lucide="layout-grid"></i></span>
+    <span class="bottom-label">Menu</span>
+  </button>
+</nav>
+
+<style>
+.app-bottom-nav {
+  position: fixed;
+  z-index: 90;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  grid-template-columns: repeat(5, 1fr);
+  width: 100%;
+  min-height: 72px;
+  padding: 7px 8px calc(7px + env(safe-area-inset-bottom, 0px));
+  border: 0;
+  border-top: 1px solid var(--line, #e1e7f0);
+  border-radius: 0;
+  background: color-mix(in srgb, var(--surface, #fff) 96%, transparent);
+  box-shadow: 0 -4px 18px rgba(23, 36, 58, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  font: 400 12px/1.3 var(--font, 'Outfit', 'Inter', sans-serif);
+  box-sizing: border-box;
+}
+
+.app-bottom-nav a,
+.app-bottom-nav button {
+  border: 0;
+  background: transparent;
+  color: var(--muted, #687386);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  min-width: 0;
+  padding: 4px 0;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.2s ease;
+}
+
+/* Bottom navigation icon container */
+.bottom-icon {
+  width: 44px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-sm, 8px);
+  background: transparent;
+  transition: transform 0.15s ease;
+}
+
+.app-bottom-nav i {
+  width: 22px;
+  height: 22px;
+  stroke-width: 1.8;
+  display: block;
+}
+
+.bottom-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+/* Active State */
+.app-bottom-nav [aria-current="page"] {
+  color: var(--primary, #1a73e8);
+}
+
+.app-bottom-nav [aria-current="page"] .bottom-icon {
+  background: transparent;
+  border: 0;
+}
+
+.app-bottom-nav [aria-current="page"] .bottom-icon svg {
+  animation: bottom-nav-icon-enter 0.42s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.app-bottom-nav [aria-current="page"] .bottom-label {
+  font-weight: 600;
+  color: var(--primary, #1a73e8);
+}
+
+.app-bottom-nav a:focus-visible,
+.app-bottom-nav button:focus-visible {
+  outline: 2px solid var(--primary, #1a73e8);
+  outline-offset: -2px;
+  border-radius: 14px;
+}
+
+/* Tap feedback */
+.app-bottom-nav a:active,
+.app-bottom-nav button:active { color: #202124; }
+.app-bottom-nav a:active .bottom-label,
+.app-bottom-nav button:active .bottom-label { color: #202124; }
+.app-bottom-nav a:active .bottom-icon,
+.app-bottom-nav button:active .bottom-icon { transform: scale(0.94); }
+.app-bottom-nav a:active .bottom-icon svg,
+.app-bottom-nav button:active .bottom-icon svg { animation: bottom-nav-touch-blink .5s ease-out; }
+
+@keyframes bottom-nav-touch-blink {
+  0%, 100% { opacity: 1; }
+  35% { opacity: .2; }
+  65% { opacity: 1; }
+}
+
+@keyframes bottom-nav-icon-enter {
+  0% { opacity: .65; transform: translateY(3px) scale(.82); }
+  65% { opacity: 1; transform: translateY(-2px) scale(1.1); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-bottom-nav [aria-current="page"] .bottom-icon svg,
+  .app-bottom-nav a:active .bottom-icon svg,
+  .app-bottom-nav button:active .bottom-icon svg { animation: none; }
+}
+
+@media (max-width: 850px) {
+  .app-bottom-nav {
+    display: grid;
+  }
+}
+
+@media (max-width: 390px) {
+  .app-bottom-nav {
+    min-height: 68px;
+  }
+
+  .bottom-icon {
+    width: 40px;
+    height: 29px;
+  }
+
+  .app-bottom-nav i {
+    width: 20px;
+    height: 20px;
+  }
+}
+</style>

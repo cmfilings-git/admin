@@ -1358,3 +1358,34 @@ body[data-page-title] .client-page .action-bar {
     line-height: 1.2;
   }
 }
+
+@media (max-width: 850px) {
+  .crm-tabs-wrap {
+    width: auto;
+    max-width: none;
+  }
+
+  .crm-tabs {
+    gap: 5px;
+    padding: 0;
+  }
+
+  .crm-tab {
+    height: 44px;
+    padding-inline: 13px;
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  .crm-tab svg {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+  }
+}
+
+@media (max-width: 390px) {
+  .crm-tab {
+    padding-inline: 11px;
+  }
+}

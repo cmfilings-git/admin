@@ -1,0 +1,237 @@
+<div class="app-drawer-backdrop" id="app-drawer-backdrop"></div>
+<aside class="app-drawer" id="app-drawer" aria-hidden="true">
+  <div class="app-drawer-head">
+    <a href="index.html" class="app-drawer-brand">
+      <img class="drawer-brand-mark" src="assets/logo.png" alt="">
+      <img class="drawer-brand-name" src="assets/name.png" alt="COREBIQ">
+    </a>
+    <button type="button" id="close-app-sidebar" aria-label="Close menu">
+      <i data-lucide="x"></i>
+    </button>
+  </div>
+
+  <a class="drawer-new" href="index.html">
+    <i data-lucide="square-pen"></i>
+    <span>Dashboard overview</span>
+  </a>
+
+  <div class="drawer-caption">WORKSPACE</div>
+
+  <nav class="drawer-links">
+    <a href="index.html" data-nav-key="home">
+      <i data-lucide="house"></i>
+      <span>Home</span>
+    </a>
+    <a href="modules/crm/crm.html" data-nav-key="crm">
+      <i data-lucide="users"></i>
+      <span>CRM</span>
+    </a>
+    <a href="modules/erp/erp.html" data-nav-key="erp">
+      <i data-lucide="layers-3"></i>
+      <span>ERP</span>
+    </a>
+    <a href="modules/inventory/inventory.html" data-nav-key="inventory">
+      <i data-lucide="boxes"></i>
+      <span>Inventory</span>
+    </a>
+    <a href="modules/hr/hr.html" data-nav-key="hr">
+      <i data-lucide="contact-round"></i>
+      <span>HR</span>
+    </a>
+    <a href="modules/clients/clients.html" data-nav-key="clients">
+      <i data-lucide="contact"></i>
+      <span>Clients</span>
+    </a>
+    <a href="modules/transactions/transactions.html" data-nav-key="transactions">
+      <i data-lucide="receipt-text"></i>
+      <span>Transactions</span>
+    </a>
+    <a href="modules/reports/reports.html" data-nav-key="reports">
+      <i data-lucide="chart-no-axes-combined"></i>
+      <span>Reports</span>
+    </a>
+    <a href="modules/settings/settings.html" data-nav-key="settings">
+      <i data-lucide="settings"></i>
+      <span>Settings</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-appearance drawer-appearance">
+    <span class="appearance-label"><i data-lucide="sun"></i>Appearance</span>
+    <button class="appearance-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to dark theme" data-theme-toggle>
+      <span class="appearance-toggle-thumb"></span>
+    </button>
+  </div>
+</aside>
+
+<style>
+.app-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.32);
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.app-drawer-backdrop.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Material 3 Standard Modal Navigation Drawer (Max 360px on M3, right-side rounded) */
+.app-drawer {
+  position: fixed;
+  z-index: 101;
+  inset: 0 auto 0 0;
+  width: min(320px, 84vw);
+  background: var(--surface, #fff);
+  transform: translateX(-102%);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  padding: 16px 14px calc(16px + env(safe-area-inset-bottom, 0px));
+  border-radius: 0 var(--radius-xl, 24px) var(--radius-xl, 24px) 0;
+  font: 16px/1.5 var(--font, 'Outfit', 'Inter', sans-serif);
+  color: var(--text, #1f2937);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
+.app-drawer.open {
+  transform: translateX(0);
+}
+
+/* Drawer Header */
+.app-drawer-head {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px 0 8px;
+  margin-bottom: 12px;
+}
+.app-drawer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text, #1f2937);
+  text-decoration: none;
+}
+.drawer-brand-mark {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  border-radius: var(--radius-sm, 8px);
+  flex-shrink: 0;
+}
+.drawer-brand-name {
+  display: block;
+  width: 108px;
+  max-height: 28px;
+  object-fit: contain;
+  object-position: left center;
+}
+.app-drawer-head button {
+  border: 0;
+  background: transparent;
+  color: var(--muted, #687386);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm, 8px);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.app-drawer-head button i {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.8;
+}
+.app-drawer-head button:hover {
+  background: var(--surface-low, #f3f6fb);
+}
+
+/* Overview Action Button - M3 Pill */
+.drawer-new {
+  height: 44px;
+  border: 1px solid var(--line, #e1e7f0);
+  border-radius: var(--radius-sm, 8px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text, #1f2937);
+  margin-bottom: 18px;
+  background: #ffffff;
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.drawer-new i {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.8;
+  color: var(--primary, #1a73e8);
+}
+.drawer-new:hover {
+  background: var(--surface-low, #f3f6fb);
+  border-color: var(--line, #e1e7f0);
+}
+
+/* Category Label */
+.drawer-caption {
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  color: var(--muted, #687386);
+  padding: 0 16px 8px;
+  text-transform: uppercase;
+}
+
+/* Navigation Links - M3 44px Height & 100px Pill */
+.drawer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 12px;
+}
+.drawer-links a {
+  height: 44px;
+  border-radius: var(--radius-sm, 8px);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px;
+  color: var(--muted, #687386);
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.drawer-links a i {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.8;
+  flex-shrink: 0;
+}
+.drawer-links a:hover {
+  background: var(--surface-low, #f3f6fb);
+  color: var(--text, #1f2937);
+}
+.drawer-links a.active {
+  background: var(--primary-soft, #e8f0fe);
+  color: var(--primary, #1a73e8);
+  font-weight: 500;
+}
+
+/* Appearance control stays at the bottom of the drawer. */
+.drawer-appearance { margin-top: auto; }
+</style>

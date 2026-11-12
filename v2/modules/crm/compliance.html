@@ -1,0 +1,802 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#fff"><base href="../../"><title>CRM · Compliance | COREBIQ</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/global-typography.css"><link rel="stylesheet" href="css/global-style.css"><script src="https://cdn.tailwindcss.com"></script><script>tailwind.config={theme:{extend:{fontFamily:{sans:['Outfit','sans-serif']},colors:{'app-blue':'#2F74FF','app-bg':'#F8FAFC'}}}};</script><style>body{font-family:Outfit,sans-serif}.client-page{max-width:1600px;margin:auto;padding:20px 30px 105px}.field{width:100%;border:1px solid #dfe5ee;border-radius:10px;padding:10px 12px;background:#fff;outline:none;font:13px Outfit;color:#334155}.field:focus{border-color:#2F74FF;box-shadow:0 0 0 3px #2f74ff18}.label{display:block;font-size:12px;font-weight:600;color:#526071;margin-bottom:6px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:10px;padding:10px 14px;font:600 13px Outfit;cursor:pointer}.primary{background:#2F74FF;color:#fff;border:1px solid #2F74FF}.light{background:#fff;border:1px solid #e2e8f0;color:#475569}.danger{background:#fff1f2;color:#be123c;border:1px solid #ffe4e6}.hiddenx{display:none!important}.client-tabs-wrap{position:sticky;top:113px;z-index:25;margin:0 -30px 18px;padding:0 30px;background:rgba(247,248,250,.95);backdrop-filter:blur(14px);border-bottom:1px solid #e7e9ed}.client-tabs{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;white-space:nowrap}.client-tabs a{height:44px;display:inline-flex;align-items:center;gap:8px;padding:0 13px;color:#707985;font-size:12px;font-weight:500;position:relative;text-decoration:none}.client-tabs a.active{color:#20242b;font-weight:650}.client-tabs a.active:after{content:"";position:absolute;bottom:0;left:12px;right:12px;height:2px;background:#20242b;border-radius:2px}.client-tabs svg{width:16px;height:16px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.stat{background:#fff;border:1px solid #e7e9ed;border-radius:15px;padding:15px 16px}.stat-label{font-size:12px;color:#7b8490}.stat-value{font-size:26px;font-weight:600;margin-top:5px}.table-wrap,.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}table{width:100%;border-collapse:collapse;min-width:850px}th{text-align:left;background:#f8fafc;color:#718096;font-size:11px;text-transform:uppercase;padding:13px;border-bottom:1px solid #e8edf4}td{padding:13px;border-bottom:1px solid #edf0f5;font-size:12px;color:#334155}tbody tr:hover{background:#fbfdff}.badge,.status-pill{border-radius:99px;padding:4px 9px;font-size:11px;font-weight:700}.badge.active,.status-complete{background:#dcfce7;color:#166534}.badge.inactive,.status-other{background:#f1f5f9;color:#64748b}.status-pending{background:#fefce8;color:#a16207}.status-overdue{background:#fef2f2;color:#b91c1c}.modal{position:fixed;inset:0;z-index:130;display:none;align-items:center;justify-content:center;padding:12px;background:#0f172a88;backdrop-filter:blur(3px)}.modal.show{display:flex}.modal-box{background:#fff;border-radius:18px;width:100%;max-width:780px;max-height:95vh;overflow:auto;box-shadow:0 25px 70px #0f172a30}.modal-head{position:sticky;top:0;background:#fff;border-bottom:1px solid #eef0f3;padding:17px 20px;display:flex;justify-content:space-between;align-items:center;z-index:2}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.toast{position:fixed;right:18px;bottom:90px;z-index:150;padding:12px 16px;border-radius:12px;color:white;font-size:13px;box-shadow:0 10px 30px #0f172a25}.spinner{width:22px;height:22px;border:3px solid #dbeafe;border-top-color:#2F74FF;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:850px){.client-page{padding:15px 14px 105px}.client-tabs-wrap{top:64px;margin:0 -14px 14px;padding:0 14px}.client-tabs a{height:44px;padding:0 11px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.form-grid{grid-template-columns:1fr}.modal-box{max-height:97vh}}</style></head><body data-page-title="Compliance"><div id="app" class="hiddenx"><div class="app-shell"><div id="desktop-sidebar-mount"></div><main class="main-shell"><div id="desktop-header-mount"></div><div id="mobile-header-mount"></div><main class="client-page"><div class="client-tabs-wrap"><nav class="client-tabs" aria-label="CRM submodules"><a href="modules/crm/crm.html"><i data-lucide="layout-dashboard"></i>Overview</a><a href="modules/crm/crm.html#leads"><i data-lucide="user-round-search"></i>Leads</a><a href="modules/crm/clients.html"><i data-lucide="contact"></i>Clients</a><a href="modules/crm/crm.html#companies"><i data-lucide="building-2"></i>Companies</a><a href="modules/crm/crm.html#deals"><i data-lucide="handshake"></i>Deals</a><a href="modules/crm/crm.html#activities"><i data-lucide="calendar-check"></i>Activities</a><a href="modules/crm/compliance.html" class="active" aria-current="page"><i data-lucide="clipboard-check"></i>Compliance</a><a href="modules/crm/credentials.html"><i data-lucide="shield-check"></i>Credentials</a></nav></div><main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10 pb-28 w-full">
+        <header class="crm-head mb-6 md:mb-9">
+          <div>
+            <div class="crm-kicker">Customer relationship management</div>
+            <div class="crm-title-row"><span class="crm-title-icon" aria-hidden="true"><i data-lucide="layout-dashboard"></i></span><h1>CRM Dashboard</h1></div>
+            <p class="text-gray-500 mt-2 text-base md:text-xl">Monitor client filings, deadlines and payment status.</p>
+          </div>
+          <div class="crm-head-actions">
+            <button id="refreshButton" class="crm-icon-btn" type="button" aria-label="Refresh compliance" title="Refresh compliance"><i data-lucide="refresh-cw"></i></button>
+            <button id="addComplianceButton" type="button" class="crm-btn primary"><i data-lucide="plus" aria-hidden="true"></i><span>Add</span></button></div>
+        </header>
+
+        <div id="loadError" class="hidden mb-5 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700"></div>
+
+        <!-- KPI cards -->
+        <section class="grid grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-5 mb-7 compliance-kpi-grid">
+          <article class="crm-compliance-kpi crm-stat-card">
+            <div class="text-sm text-slate-500">Upcoming Date</div>
+            <b id="upcomingCount" class="text-3xl">—</b>
+          </article>
+          <article class="crm-compliance-kpi crm-stat-card">
+            <div class="text-sm text-slate-500">Pending</div>
+            <b id="pendingCount" class="text-3xl">—</b>
+          </article>
+          <article class="crm-compliance-kpi crm-stat-card">
+            <div class="text-sm text-slate-500">Not Paid</div>
+            <b id="notPaidCount" class="text-3xl">—</b>
+          </article>
+          <article class="crm-compliance-kpi crm-stat-card">
+            <div class="text-sm text-slate-500">Overdue</div>
+            <b id="overdueCount" class="text-3xl">—</b>
+          </article>
+        </section>
+
+        <!-- Summary strip -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-5 mb-8 compliance-summary-grid">
+          <div class="bg-white border-2 border-gray-100 rounded-2xl p-5 shadow-sm">
+            <p class="compliance-kpi-label">Due in next 7 days</p><p id="dueSoonCount" class="text-2xl font-bold text-gray-900 mt-1">—</p>
+          </div>
+          <div class="bg-white border-2 border-gray-100 rounded-2xl p-5 shadow-sm">
+            <p class="compliance-kpi-label">Payment unpaid / pending</p><p id="unpaidCount" class="text-2xl font-bold text-gray-900 mt-1">—</p>
+          </div>
+          <div class="bg-white border-2 border-gray-100 rounded-2xl p-5 shadow-sm">
+            <p class="compliance-kpi-label">Clients with compliance records</p><p id="clientCount" class="text-2xl font-bold text-gray-900 mt-1">—</p>
+          </div>
+        </section>
+
+        <!-- Register -->
+        <section class="crm-record-card bg-white border-2 border-gray-100 rounded-[1.5rem] md:rounded-[2rem] shadow-sm overflow-hidden">
+          <div class="p-5 md:p-7 border-b border-gray-100">
+            <div class="flex flex-wrap justify-between items-center gap-3 mb-5">
+              <div><h2 class="text-gray-900 text-xl md:text-2xl font-bold">Compliance register</h2><p class="text-gray-400 text-sm mt-1">Live records from Firestore · compliance</p></div>
+              <span id="recordCount" class="text-sm text-gray-500">0 records</span>
+            </div>
+            <div class="crm-compliance-toolbar">
+              <input id="searchInput" type="search" placeholder="Search client, ID, compliance..." class="crm-compliance-search" aria-label="Search compliance records">
+              <div class="crm-filter-wrap">
+                <button id="filterToggle" class="crm-filter-button" type="button" aria-expanded="false" aria-controls="complianceFilterPopover"><i data-lucide="list-filter"></i><span>Filter</span><span id="activeFilterCount" class="crm-filter-count" hidden>0</span></button>
+                <div id="complianceFilterPopover" class="crm-filter-popover" hidden>
+                  <nav class="crm-filter-categories" aria-label="Compliance filter categories">
+                    <button type="button" class="active" data-filter-category="view"><span>Record view</span><i data-lucide="chevron-right"></i></button>
+                    <button type="button" data-filter-category="client"><span>Client</span><i data-lucide="chevron-right"></i></button>
+                    <button type="button" data-filter-category="date"><span>Date</span><i data-lucide="chevron-right"></i></button>
+                    <button type="button" data-filter-category="period"><span>Period</span><i data-lucide="chevron-right"></i></button>
+                    <button type="button" data-filter-category="compliance"><span>Compliance Name</span><i data-lucide="chevron-right"></i></button>
+                    <button type="button" data-filter-category="filing"><span>Filing Status</span><i data-lucide="chevron-right"></i></button>
+                    <button type="button" data-filter-category="payment"><span>Payment Status</span><i data-lucide="chevron-right"></i></button>
+                    <button type="button" data-filter-category="priority"><span>Priority</span><i data-lucide="chevron-right"></i></button>
+                  </nav>
+                  <div class="crm-filter-content" aria-live="polite">
+                    <section class="crm-filter-panel active" data-filter-panel="view"><h3>Record view</h3><label>Show<select id="viewFilter" class="crm-filter-control"><option value="outstanding">Not done</option><option value="all">All records</option></select></label></section>
+                    <section class="crm-filter-panel" data-filter-panel="client"><h3>Client</h3><label>Client<select id="clientFilter" class="crm-filter-control" aria-label="Filter compliances by client" data-search-placeholder="Search clients"><option value="">All clients</option></select></label></section>
+                    <section class="crm-filter-panel" data-filter-panel="date"><h3>Date</h3><label>Due from<input id="dateFromFilter" class="crm-filter-control" type="date"></label><label>Due to<input id="dateToFilter" class="crm-filter-control" type="date"></label></section>
+                    <section class="crm-filter-panel" data-filter-panel="period"><h3>Period</h3><label>Compliance period<select id="periodFilter" class="crm-filter-control"><option value="">All periods</option></select></label></section>
+                    <section class="crm-filter-panel" data-filter-panel="compliance"><h3>Compliance Name</h3><label>Compliance<select id="complianceNameFilter" class="crm-filter-control"><option value="">All compliances</option></select></label></section>
+                    <section class="crm-filter-panel" data-filter-panel="filing"><h3>Filing Status</h3><label>Status<select id="statusFilter" class="crm-filter-control"><option value="">All statuses</option><option value="completed">Completed</option><option value="pending">Pending</option><option value="overdue">Overdue</option></select></label></section>
+                    <section class="crm-filter-panel" data-filter-panel="payment"><h3>Payment Status</h3><label>Status<select id="paymentFilter" class="crm-filter-control"><option value="">All payment statuses</option><option value="paid">Paid</option><option value="unpaid">Unpaid</option><option value="pending">Pending</option></select></label></section>
+                    <section class="crm-filter-panel" data-filter-panel="priority"><h3>Priority</h3><label>Priority<select id="priorityFilter" class="crm-filter-control"><option value="">All priorities</option><option>Low</option><option>Medium</option><option>High</option></select></label></section>
+                  </div>
+                  <div class="crm-filter-footer"><button id="clearComplianceFilters" class="crm-clear-filters" type="button"><i data-lucide="rotate-ccw"></i><span>Clear filters</span></button></div>
+                  <input id="sortFilter" type="hidden" value="due">
+                </div>
+              </div>
+              <div class="crm-add-wrap">
+                <button id="bulkActionsToggle" class="crm-icon-btn" type="button" title="More actions" aria-label="More actions" aria-expanded="false" aria-controls="bulkActionsMenu"><i data-lucide="ellipsis"></i></button>
+                <div id="bulkActionsMenu" class="crm-add-menu" hidden>
+                  <button id="deleteSelected" type="button" disabled><i data-lucide="trash-2"></i>Delete selected</button>
+                  <button id="copySelected" type="button" disabled><i data-lucide="calendar-plus"></i>Copy to new date</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table class="min-w-[1040px] w-full text-left">
+              <thead class="bg-gray-50 text-gray-500 text-xs uppercase tracking-wide">
+                <tr>
+                  <th class="px-5 py-4 font-semibold"><input id="selectVisibleCompliance" type="checkbox" aria-label="Select visible compliance records"></th>
+                  <th class="px-5 py-4 font-semibold"><button class="crm-sort-button" type="button" data-sort-key="clientName">Client / ID <i data-lucide="arrow-up-down"></i></button></th>
+                  <th class="px-5 py-4 font-semibold"><button class="crm-sort-button" type="button" data-sort-key="complianceName">Compliance <i data-lucide="arrow-up-down"></i></button></th>
+                  <th class="px-5 py-4 font-semibold"><button class="crm-sort-button" type="button" data-sort-key="CompliancePeriod">Period <i data-lucide="arrow-up-down"></i></button></th>
+                  <th class="px-5 py-4 font-semibold"><button class="crm-sort-button" type="button" data-sort-key="dueDate">Due date <i data-lucide="arrow-up-down"></i></button></th>
+                  <th class="px-5 py-4 font-semibold"><button class="crm-sort-button" type="button" data-sort-key="filingStatus">Filing status <i data-lucide="arrow-up-down"></i></button></th>
+                  <th class="px-5 py-4 font-semibold"><button class="crm-sort-button" type="button" data-sort-key="paymentStatus">Payment <i data-lucide="arrow-up-down"></i></button></th>
+                  <th class="px-5 py-4 font-semibold"><button class="crm-sort-button" type="button" data-sort-key="priority">Priority <i data-lucide="arrow-up-down"></i></button></th>
+                  <th class="px-5 py-4 font-semibold">Folder</th>
+                  <th class="px-5 py-4 font-semibold">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="complianceRows" class="divide-y divide-gray-100 text-sm">
+                <tr><td colspan="10" class="px-5 py-12 text-center"><div class="flex justify-center"><div class="spinner"></div></div><p class="text-gray-400 mt-3">Loading compliance records...</p></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="emptyState" class="hidden px-5 py-12 text-center text-gray-400">No compliance records match your filters.</div>
+          <div id="compliancePagination" class="crm-pagination"></div>
+          <div class="px-5 py-4 bg-gray-50 border-t border-gray-100 text-xs text-gray-400">The default view shows records that are not filed and not paid. Select All records to include completed items.</div>
+        </section>
+      </main></main></main></div><div id="app-sidebar-mount"></div><div id="bottom-nav-mount"></div><div id="mini-container-mount"></div></div>
+    <div id="complianceModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/50 p-3 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="complianceModalTitle">
+      <div class="w-full max-w-3xl max-h-[95vh] overflow-y-auto rounded-2xl bg-white shadow-2xl">
+        <div class="sticky top-0 z-10 flex items-center justify-between border-b border-gray-100 bg-white px-5 py-4 sm:px-7">
+          <div><h2 id="complianceModalTitle" class="text-xl font-bold text-gray-900">Add Compliance</h2><p class="mt-1 text-sm text-gray-500">New records start with filing and payment status pending.</p></div>
+          <button id="closeComplianceModal" type="button" class="rounded-lg p-2 text-gray-500 hover:bg-gray-100" aria-label="Close compliance form"><i data-lucide="x"></i></button>
+        </div>
+        <form id="complianceForm" class="space-y-5 p-5 sm:p-7">
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <label><span class="label">Client *</span><select id="complianceClient" class="field" required><option value="">Select a client</option></select></label>
+            <label><span class="label">Compliance name *</span><input id="complianceNameInput" class="field" required maxlength="160"></label>
+            <label><span class="label">Compliance ID</span><input id="complianceIdInput" class="field" maxlength="120"></label>
+            <label><span class="label">AKN number</span><input id="complianceAknInput" class="field" maxlength="120"></label>
+            <label><span class="label">Compliance period</span><input id="compliancePeriodInput" class="field" maxlength="80"></label>
+            <label><span class="label">Due date *</span><input id="complianceDueDate" class="field" type="date" required></label>
+            <fieldset class="sm:col-span-2">
+              <legend class="label">Compliance schedule *</legend>
+              <div class="grid grid-cols-2 gap-2">
+                <label class="flex cursor-pointer items-center gap-2 rounded-xl border border-gray-200 px-4 py-3 text-sm font-medium text-gray-700"><input type="radio" name="complianceType" value="Running Compliance" checked>Running Compliance</label>
+                <label class="flex cursor-pointer items-center gap-2 rounded-xl border border-gray-200 px-4 py-3 text-sm font-medium text-gray-700"><input type="radio" name="complianceType" value="Onetime">Onetime</label>
+              </div>
+            </fieldset>
+            <label id="nextComplianceDateField" class="sm:col-span-2"><span class="label">Next Compliance date *</span><input id="nextComplianceDate" class="field" type="date" required><span class="mt-1 block text-xs text-gray-500">A pending copy of this compliance will be created for this date.</span></label>
+            <label><span class="label">Priority</span><select id="compliancePriority" class="field"><option value="">Select priority</option><option>Low</option><option>Medium</option><option>High</option></select></label>
+            <label><span class="label">Task folder URL</span><input id="complianceFolder" class="field" type="url" inputmode="url"></label>
+          </div>
+          <p id="complianceFormError" class="text-sm text-rose-600" role="alert"></p>
+          <div class="flex flex-col-reverse justify-end gap-2 border-t border-gray-100 pt-4 sm:flex-row">
+            <button id="cancelComplianceForm" type="button" class="btn light">Cancel</button>
+            <button id="saveCompliance" type="submit" class="btn primary"><i data-lucide="save" aria-hidden="true"></i>Save Compliance</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="copyDateModal" class="crm-modal" hidden>
+      <button class="crm-modal-backdrop" type="button" data-close-copy aria-label="Close copy date form"></button>
+      <section class="crm-modal-panel" role="dialog" aria-modal="true" aria-labelledby="copyDateTitle">
+        <header class="crm-modal-head"><div><h2 id="copyDateTitle">Copy compliance to a new date</h2><p>Selected records will be copied with filing and payment status set to pending.</p></div><button class="crm-icon-btn" type="button" data-close-copy aria-label="Close"><i data-lucide="x"></i></button></header>
+        <form id="copyDateForm" class="crm-contact-form"><label>New due date<input id="copyDueDate" class="crm-control" type="date" required></label><p id="copyDateError" class="crm-contact-error" role="alert"></p><div class="crm-modal-actions"><button class="crm-btn" type="button" data-close-copy>Cancel</button><button class="crm-btn primary" type="submit"><i data-lucide="copy"></i>Copy records</button></div></form>
+      </section>
+    </div>
+    <div id="toast" class="toast hiddenx"></div><script src="https://unpkg.com/lucide@latest"></script><script src="js/index.js"></script><script type="module">
+    import { getApp, getApps, initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getAuth, onAuthStateChanged, signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import {
+      getFirestore, collection, doc, getDocs, serverTimestamp, updateDoc, writeBatch
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { enhanceSearchableSelect, prepareLucideIconMarkers } from "./js/searchable-select.js";
+
+    const {firebaseConfig}=await import(new URL("firebase/firebase-config.js",document.baseURI));
+
+    const ALLOWED_ADMIN_EMAIL = "shanicm@gmail.com";
+    const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const $ = (id) => document.getElementById(id);
+    let allRecords = [];
+    let clients = [];
+    let editingComplianceId = "";
+    let currentPage = 1;
+    let sortColumn = "";
+    let sortDirection = 1;
+    const selectedComplianceIds = new Set();
+    const PAGE_SIZE = 10;
+    const renderComplianceWithSortMarkers = render;
+    render = () => {
+      prepareLucideIconMarkers("[data-sort-key]");
+      renderComplianceWithSortMarkers();
+    };
+
+    function normalize(value) {
+      return String(value ?? "").trim().toLowerCase();
+    }
+
+    function toDate(value) {
+      if (!value) return null;
+      if (typeof value?.toDate === "function") return value.toDate();
+      if (typeof value === "object" && value.seconds) return new Date(value.seconds * 1000);
+      if (typeof value === "string") {
+        const raw = value.trim();
+        if (!raw) return null;
+        // Supports ISO dates and common dd-mm-yyyy / dd/mm/yyyy formats.
+        const dmy = raw.match(/^(\d{1,2})[-/](\d{1,2})[-/](\d{4})$/);
+        if (dmy) return new Date(Number(dmy[3]), Number(dmy[2]) - 1, Number(dmy[1]));
+        const parsed = new Date(raw);
+        return Number.isNaN(parsed.getTime()) ? null : parsed;
+      }
+      return null;
+    }
+
+    function filed(record) {
+      const status = normalize(record.complianceStatus);
+      return Boolean(record.filedAt) || ["filed", "completed", "complete", "done", "submitted"].includes(status);
+    }
+
+    function recordStatus(record) {
+      if (filed(record)) return "completed";
+      const due = toDate(record.dueDate);
+      if (due) {
+        const today = new Date(); today.setHours(0,0,0,0);
+        due.setHours(0,0,0,0);
+        if (due < today) return "overdue";
+      }
+      return "pending";
+    }
+
+    function formatDate(value) {
+      const date = toDate(value);
+      return date ? new Intl.DateTimeFormat("en-IN", { day:"2-digit", month:"short", year:"numeric" }).format(date) : (value ? String(value) : "—");
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+    }
+
+    async function loadClients() {
+      const clientsSnap = await getDocs(collection(db, "clients"));
+      clients = clientsSnap.docs.map(clientDoc => ({ id: clientDoc.id, ...clientDoc.data() }));
+      clients.sort((a, b) => String(a.clientName || "").localeCompare(String(b.clientName || "")));
+      const clientFilterValue = $("clientFilter").value;
+      $("clientFilter").innerHTML = `<option value="">All clients</option>` + clients.map(client =>
+        `<option value="${escapeHtml(client.clientId || client.id)}">${escapeHtml(client.clientName || "Unnamed client")} · ${escapeHtml(client.clientId || client.id)}</option>`
+      ).join("");
+      $("clientFilter").value = clientFilterValue;
+      $("clientFilter").dispatchEvent(new Event("change", { bubbles: true }));
+      $("complianceClient").innerHTML = `<option value="">Select a client</option>` + clients.map(client =>
+        `<option value="${escapeHtml(client.id)}">${escapeHtml(client.clientName || "Unnamed client")} · ${escapeHtml(client.clientId || client.id)}</option>`
+      ).join("");
+      $("complianceClient").dispatchEvent(new Event("change", { bubbles: true }));
+    }
+
+    function pill(status) {
+      const labels = { completed:"Completed", pending:"Pending", overdue:"Overdue" };
+      const cls = { completed:"status-complete", pending:"status-pending", overdue:"status-overdue" };
+      return `<span class="status-pill ${cls[status] || "status-other"}">${labels[status] || escapeHtml(status || "Unknown")}</span>`;
+    }
+
+    function paymentPill(value) {
+      const v = normalize(value);
+      const cls = v === "paid" ? "status-complete" : (v === "unpaid" || v === "pending" ? "status-pending" : "status-other");
+      return `<span class="status-pill ${cls}">${escapeHtml(value || "—")}</span>`;
+    }
+
+    function render() {
+      const query = normalize($("searchInput").value);
+      const statusFilter = $("statusFilter").value;
+      const periodFilter = $("periodFilter").value;
+      const paymentFilter = $("paymentFilter").value;
+      const sortFilter = $("sortFilter").value;
+      const clientFilter = normalize($("clientFilter").value);
+      const viewFilter = $("viewFilter").value;
+      const dateFrom = toDate($("dateFromFilter").value);
+      const dateTo = toDate($("dateToFilter").value);
+      const complianceNameFilter = normalize($("complianceNameFilter").value);
+      const priorityFilter = normalize($("priorityFilter").value);
+      updateFilterCount();
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const upcomingCount = allRecords.filter(record => {
+        if (filed(record)) return false;
+        const dueDate = toDate(record.dueDate);
+        if (!dueDate) return false;
+        dueDate.setHours(0, 0, 0, 0);
+        return dueDate >= today;
+      }).length;
+      $("upcomingCount").textContent = upcomingCount.toLocaleString("en-IN");
+      $("pendingCount").textContent = allRecords.filter(record => recordStatus(record) === "pending").length.toLocaleString("en-IN");
+      $("notPaidCount").textContent = allRecords.filter(record => normalize(record.paymentStatus) !== "paid").length.toLocaleString("en-IN");
+      $("overdueCount").textContent = allRecords.filter(record => recordStatus(record) === "overdue").length.toLocaleString("en-IN");
+
+      const filtered = allRecords.filter(r => {
+        const status = recordStatus(r);
+        const searchText = [r.clientName, r.clientId, r.complianceId, r.complianceName, r.CompliancePeriod, r.complianceAknNumber].map(normalize).join(" ");
+        return (!query || searchText.includes(query))
+          && (viewFilter === "all" || (!filed(r) && normalize(r.paymentStatus) !== "paid"))
+          && (!clientFilter || normalize(r.clientId) === clientFilter || normalize(r.clientName) === clientFilter)
+          && (!dateFrom || (toDate(r.dueDate) && toDate(r.dueDate) >= dateFrom))
+          && (!dateTo || (toDate(r.dueDate) && toDate(r.dueDate) <= dateTo))
+          && (!complianceNameFilter || normalize(r.complianceName) === complianceNameFilter)
+          && (!priorityFilter || normalize(r.priority) === priorityFilter)
+          && (!statusFilter || status === statusFilter)
+          && (!periodFilter || String(r.CompliancePeriod ?? "") === periodFilter)
+          && (!paymentFilter || normalize(r.paymentStatus) === paymentFilter);
+      });
+      filtered.sort((a, b) => {
+        const key = sortColumn || (sortFilter === "client" ? "clientName" : sortFilter === "compliance" ? "complianceName" : "dueDate");
+        const direction = sortColumn ? sortDirection : sortFilter === "due-desc" ? -1 : 1;
+        if (key === "dueDate") {
+          const dateA = toDate(a.dueDate)?.getTime();
+          const dateB = toDate(b.dueDate)?.getTime();
+          if (dateA == null) return dateB == null ? 0 : 1;
+          if (dateB == null) return -1;
+          return (dateA - dateB) * direction;
+        }
+        const valueA = key === "filingStatus" ? recordStatus(a) : a[key];
+        const valueB = key === "filingStatus" ? recordStatus(b) : b[key];
+        return String(valueA || "").localeCompare(String(valueB || ""), undefined, { sensitivity: "base", numeric: true }) * direction;
+      });
+
+      const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+      currentPage = Math.min(currentPage, pageCount);
+      const firstIndex = (currentPage - 1) * PAGE_SIZE;
+      const visibleRecords = filtered.slice(firstIndex, firstIndex + PAGE_SIZE);
+      $("recordCount").textContent = `${filtered.length ? firstIndex + 1 : 0}–${Math.min(firstIndex + PAGE_SIZE, filtered.length)} of ${filtered.length} matching · ${selectedComplianceIds.size} selected`;
+      $("emptyState").classList.toggle("hidden", filtered.length !== 0);
+      $("complianceRows").innerHTML = visibleRecords.map(r => {
+        const status = recordStatus(r);
+        const folderUrl = safeExternalUrl(r.taskFolderLink);
+        const folder = folderUrl ? `<span class="text-gray-600">Linked</span>` : `<span class="text-gray-300">—</span>`;
+        const client = clients.find(item => normalize(item.clientId || item.id) === normalize(r.clientId) || normalize(item.clientName) === normalize(r.clientName));
+        const phoneDigits = String(client?.clientMobile || r.clientMobile || "").replace(/\D/g, "");
+        const whatsappNumber = phoneDigits.length === 10 ? `91${phoneDigits}` : phoneDigits;
+        const reminder = `Hello ${r.clientName || ""}, this is a reminder that payment for ${r.complianceName || "your compliance"}${r.CompliancePeriod ? ` (${r.CompliancePeriod})` : ""} is pending. Please arrange payment at your earliest convenience.`;
+        const whatsappUrl = whatsappNumber ? `https://wa.me/${encodeURIComponent(whatsappNumber)}?text=${encodeURIComponent(reminder)}` : "";
+        const filingMessage = `Hello ${r.clientName || ""}, the filing status for ${r.complianceName || "your compliance"}${r.CompliancePeriod ? ` (${r.CompliancePeriod})` : ""} is ${status}. Due date: ${formatDate(r.dueDate)}.`;
+        const filingWhatsappUrl = whatsappNumber ? `https://wa.me/${encodeURIComponent(whatsappNumber)}?text=${encodeURIComponent(filingMessage)}` : "";
+        const action = `<div class="crm-row-menu-wrap"><button class="crm-row-action crm-row-menu-toggle" type="button" data-row-menu-toggle aria-label="Actions for ${escapeHtml(r.clientName || "compliance record")}" aria-expanded="false" title="Actions"><i data-lucide="ellipsis"></i></button><div class="crm-row-menu" hidden><button type="button" data-edit-compliance="${escapeHtml(r.firestoreDocId)}"><i data-lucide="pencil"></i><span>Edit</span></button>${whatsappUrl ? `<a href="${escapeHtml(whatsappUrl)}" target="_blank" rel="noopener noreferrer"><i data-lucide="message-circle"></i><span>Send Payment Reminder</span><i class="crm-row-menu-cta" data-lucide="arrow-up-right"></i></a><a href="${escapeHtml(filingWhatsappUrl)}" target="_blank" rel="noopener noreferrer"><i data-lucide="file-check-2"></i><span>Send Filing Status</span><i class="crm-row-menu-cta" data-lucide="arrow-up-right"></i></a>` : `<button type="button" disabled><i data-lucide="message-circle"></i><span>Mobile number missing</span></button>`}${folderUrl ? `<a href="${escapeHtml(folderUrl)}" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link"></i><span>Open folder</span></a>` : ""}</div></div>`;
+        return `<tr>
+          <td class="px-5 py-4"><input type="checkbox" data-select-compliance="${escapeHtml(r.firestoreDocId)}" aria-label="Select compliance for ${escapeHtml(r.clientName || "client")}" ${selectedComplianceIds.has(r.firestoreDocId) ? "checked" : ""}></td>
+          <td class="px-5 py-4"><p class="crm-compliance-client-name font-semibold text-gray-900">${escapeHtml(r.clientName || "—")}</p><p class="crm-compliance-client-id text-xs text-gray-400 mt-1">${escapeHtml(r.clientId || r.complianceId || "")}</p></td>
+          <td class="px-5 py-4"><p class="crm-compliance-name font-semibold text-gray-800">${escapeHtml(r.complianceName || "—")}</p><p class="crm-compliance-reference text-xs text-gray-400 mt-1">${escapeHtml(r.complianceAknNumber || "")}</p></td>
+          <td class="px-5 py-4 text-gray-600">${escapeHtml(r.CompliancePeriod || "—")}</td>
+          <td class="px-5 py-4 text-gray-600 whitespace-nowrap">${formatDate(r.dueDate)}</td>
+          <td class="px-5 py-4">${pill(status)}</td>
+          <td class="px-5 py-4">${paymentPill(r.paymentStatus)}</td>
+          <td class="px-5 py-4 text-gray-600">${escapeHtml(r.priority || "—")}</td>
+          <td class="px-5 py-4">${folder}</td>
+          <td class="px-5 py-4">${action}</td>
+        </tr>`;
+      }).join("");
+      if (!filtered.length) $("complianceRows").innerHTML = "";
+      const allVisibleSelected = visibleRecords.length > 0 && visibleRecords.every(record => selectedComplianceIds.has(record.firestoreDocId));
+      $("selectVisibleCompliance").checked = allVisibleSelected;
+      $("selectVisibleCompliance").indeterminate = visibleRecords.some(record => selectedComplianceIds.has(record.firestoreDocId)) && !allVisibleSelected;
+      $("compliancePagination").innerHTML = `<span>Page ${currentPage} of ${pageCount}</span><button type="button" aria-label="Previous page" data-page="-1" ${currentPage <= 1 ? "disabled" : ""}><i data-lucide="chevron-left"></i></button><button type="button" aria-label="Next page" data-page="1" ${currentPage >= pageCount ? "disabled" : ""}><i data-lucide="chevron-right"></i></button>`;
+      updateBulkActionState();
+      document.querySelectorAll("[data-sort-key]").forEach(button => button.querySelector("i").setAttribute("data-lucide", button.dataset.sortKey === sortColumn ? (sortDirection < 0 ? "arrow-down" : "arrow-up") : "arrow-up-down"));
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function updateBulkActionState() {
+      const hasSelection = selectedComplianceIds.size > 0;
+      $("deleteSelected").disabled = !hasSelection;
+      $("copySelected").disabled = !hasSelection;
+    }
+
+    function closeBulkActions() {
+      $("bulkActionsMenu").hidden = true;
+      $("bulkActionsToggle").setAttribute("aria-expanded", "false");
+    }
+
+    function closeRowActionMenus() {
+      document.querySelectorAll(".crm-row-menu:not([hidden])").forEach(menu => {
+        menu.hidden = true;
+        menu.parentElement.querySelector("[data-row-menu-toggle]")?.setAttribute("aria-expanded", "false");
+      });
+    }
+
+    function updateFilterCount() {
+      const activeFilters = [
+        $("clientFilter").value,
+        $("dateFromFilter").value,
+        $("dateToFilter").value,
+        $("periodFilter").value,
+        $("complianceNameFilter").value,
+        $("statusFilter").value,
+        $("paymentFilter").value,
+        $("priorityFilter").value,
+        $("viewFilter").value === "all" ? "all" : ""
+      ].filter(Boolean).length;
+      $("activeFilterCount").textContent = String(activeFilters);
+      $("activeFilterCount").hidden = activeFilters === 0;
+    }
+
+    function closeFilterPopover() {
+      $("complianceFilterPopover").hidden = true;
+      $("filterToggle").setAttribute("aria-expanded", "false");
+    }
+
+    function showFilterPanel(category) {
+      document.querySelectorAll("[data-filter-category]").forEach(button => {
+        const selected = button.dataset.filterCategory === category;
+        button.classList.toggle("active", selected);
+        if (selected) button.setAttribute("aria-current", "true");
+        else button.removeAttribute("aria-current");
+      });
+      document.querySelectorAll("[data-filter-panel]").forEach(panel => {
+        const selected = panel.dataset.filterPanel === category;
+        panel.classList.toggle("active", selected);
+        panel.hidden = !selected;
+      });
+    }
+
+    function showToast(message, success = true) {
+      const toast = $("toast");
+      toast.textContent = message;
+      toast.style.background = success ? "#166534" : "#be123c";
+      toast.classList.remove("hiddenx");
+      setTimeout(() => toast.classList.add("hiddenx"), 3000);
+    }
+
+    async function deleteSelectedCompliance() {
+      const ids = [...selectedComplianceIds];
+      if (!ids.length || !confirm(`Delete ${ids.length} selected compliance record${ids.length === 1 ? "" : "s"}? This cannot be undone.`)) return;
+      try {
+        const batch = writeBatch(db);
+        ids.forEach(id => batch.delete(doc(db, "compliance", id)));
+        await batch.commit();
+        selectedComplianceIds.clear();
+        closeBulkActions();
+        await loadComplianceRegister();
+        showToast(`${ids.length} compliance record${ids.length === 1 ? "" : "s"} deleted.`);
+      } catch (error) {
+        console.error("Could not delete selected compliance records:", error);
+        showToast(`Could not delete selected records (${error.code || "error"}).`, false);
+      }
+    }
+
+    function openCopyDateModal() {
+      if (!selectedComplianceIds.size) return;
+      closeBulkActions();
+      $("copyDateError").textContent = "";
+      $("copyDateModal").hidden = false;
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeCopyDateModal() {
+      $("copyDateModal").hidden = true;
+      $("copyDateForm").reset();
+      $("copyDateError").textContent = "";
+      document.body.style.overflow = "";
+    }
+
+    async function copySelectedCompliance(event) {
+      event.preventDefault();
+      const dueDate = $("copyDueDate").value;
+      const recordsToCopy = allRecords.filter(record => selectedComplianceIds.has(record.firestoreDocId));
+      if (!dueDate || !recordsToCopy.length) {
+        $("copyDateError").textContent = "Select a new date and at least one compliance record.";
+        return;
+      }
+      try {
+        const batch = writeBatch(db);
+        recordsToCopy.forEach(({ firestoreDocId, ...record }) => {
+          batch.set(doc(collection(db, "compliance")), {
+            ...record,
+            dueDate,
+            complianceStatus: "pending",
+            filedAt: null,
+            paymentStatus: "pending",
+            nextComplianceDate: "",
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp()
+          });
+        });
+        await batch.commit();
+        selectedComplianceIds.clear();
+        closeCopyDateModal();
+        await loadComplianceRegister();
+        showToast(`${recordsToCopy.length} compliance cop${recordsToCopy.length === 1 ? "y" : "ies"} created.`);
+      } catch (error) {
+        console.error("Could not copy selected compliance records:", error);
+        $("copyDateError").textContent = `Could not copy selected records (${error.code || "error"}).`;
+      }
+    }
+
+    function safeExternalUrl(value) {
+      if (!value) return "";
+      try {
+        const url = new URL(value);
+        return url.protocol === "https:" || url.protocol === "http:" ? url.href : "";
+      } catch {
+        return "";
+      }
+    }
+
+    async function loadComplianceRegister() {
+      $("loadError").classList.add("hidden");
+      $("complianceRows").innerHTML = `<tr><td colspan="10" class="px-5 py-12 text-center"><div class="flex justify-center"><div class="spinner"></div></div><p class="text-gray-400 mt-3">Loading compliance records...</p></td></tr>`;
+      try {
+        await loadClients();
+        const complianceSnap = await getDocs(collection(db, "compliance"));
+        allRecords = complianceSnap.docs.map(doc => ({ firestoreDocId: doc.id, ...doc.data() }));
+
+        // Populate distinct compliance periods using the existing field.
+        const periods = [...new Set(allRecords.map(r => String(r.CompliancePeriod ?? "").trim()).filter(Boolean))].sort().reverse();
+        $("periodFilter").innerHTML = `<option value="">All periods</option>` + periods.map(p => `<option value="${escapeHtml(p)}">${escapeHtml(p)}</option>`).join("");
+        const complianceNames = [...new Set(allRecords.map(r => String(r.complianceName ?? "").trim()).filter(Boolean))].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base", numeric: true }));
+        $("complianceNameFilter").innerHTML = `<option value="">All compliances</option>` + complianceNames.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("");
+
+        render();
+      } catch (error) {
+        console.error("Firestore load failed:", error);
+        $("complianceRows").innerHTML = "";
+        $("loadError").textContent = `Could not load Firestore data (${error.code || "error"}). Check that Firestore rules allow this signed-in admin to read the compliance collection.`;
+        $("loadError").classList.remove("hidden");
+      }
+    }
+
+    function closeComplianceForm() {
+      $("complianceModal").classList.add("hidden");
+      $("complianceForm").reset();
+      $("complianceFormError").textContent = "";
+      $("complianceModalTitle").textContent = "Add Compliance";
+      $("saveCompliance").innerHTML = '<i data-lucide="save" aria-hidden="true"></i>Save Compliance';
+      editingComplianceId = "";
+      $("nextComplianceDateField").classList.remove("hidden");
+      $("nextComplianceDate").required = true;
+      document.body.style.overflow = "";
+    }
+
+    async function openComplianceForm() {
+      $("complianceFormError").textContent = "";
+      try {
+        if (!clients.length) await loadClients();
+        $("complianceForm").reset();
+        editingComplianceId = "";
+        $("complianceModalTitle").textContent = "Add Compliance";
+        $("saveCompliance").innerHTML = '<i data-lucide="save" aria-hidden="true"></i>Save Compliance';
+        $("complianceClient").value = "";
+        $("complianceClient").dispatchEvent(new Event("change", { bubbles: true }));
+        updateComplianceType();
+        $("complianceModal").classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+        if (window.lucide) window.lucide.createIcons();
+      } catch (error) {
+        $("complianceFormError").textContent = `Could not load clients (${error.code || "error"}). Check Firestore access and try again.`;
+        $("complianceModal").classList.remove("hidden");
+      }
+    }
+
+    function dateInputValue(value) {
+      if (typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+      const date = toDate(value);
+      if (!date) return "";
+      return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+    }
+
+    async function openEditComplianceForm(recordId) {
+      const record = allRecords.find(item => item.firestoreDocId === recordId);
+      if (!record) return;
+      try {
+        if (!clients.length) await loadClients();
+        $("complianceForm").reset();
+        editingComplianceId = recordId;
+        $("complianceModalTitle").textContent = "Edit Compliance";
+        $("saveCompliance").innerHTML = '<i data-lucide="save" aria-hidden="true"></i>Update Compliance';
+        const client = clients.find(item => normalize(item.clientId || item.id) === normalize(record.clientId) || normalize(item.clientName) === normalize(record.clientName));
+        $("complianceClient").value = client?.id || "";
+        $("complianceClient").dispatchEvent(new Event("change", { bubbles: true }));
+        $("complianceNameInput").value = record.complianceName || "";
+        $("complianceIdInput").value = record.complianceId || "";
+        $("complianceAknInput").value = record.complianceAknNumber || "";
+        $("compliancePeriodInput").value = record.CompliancePeriod || "";
+        $("complianceDueDate").value = dateInputValue(record.dueDate);
+        $("nextComplianceDate").value = dateInputValue(record.nextComplianceDate);
+        $("compliancePriority").value = record.priority || "";
+        $("complianceFolder").value = record.taskFolderLink || "";
+        document.querySelector(`input[name="complianceType"][value="${record.complianceType === "Running Compliance" ? "Running Compliance" : "Onetime"}"]`).checked = true;
+        updateComplianceType();
+        $("complianceFormError").textContent = "";
+        $("complianceModal").classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+        if (window.lucide) window.lucide.createIcons();
+      } catch (error) {
+        console.error("Could not open compliance record:", error);
+        showToast(`Could not open record (${error.code || "error"}).`, false);
+      }
+    }
+
+    function updateComplianceType() {
+      const isRunning = document.querySelector('input[name="complianceType"]:checked').value === "Running Compliance";
+      $("nextComplianceDateField").classList.toggle("hidden", !isRunning);
+      $("nextComplianceDate").required = isRunning;
+    }
+
+    async function saveCompliance(event) {
+      event.preventDefault();
+      $("complianceFormError").textContent = "";
+      const selectedClient = clients.find(client => client.id === $("complianceClient").value);
+      const complianceType = document.querySelector('input[name="complianceType"]:checked').value;
+      const dueDate = $("complianceDueDate").value;
+      const nextComplianceDate = $("nextComplianceDate").value;
+      if (!selectedClient) {
+        $("complianceFormError").textContent = "Select a client.";
+        return;
+      }
+      if (complianceType === "Running Compliance" && (!nextComplianceDate || nextComplianceDate <= dueDate)) {
+        $("complianceFormError").textContent = "Next Compliance date must be later than the due date.";
+        return;
+      }
+
+      const saveButton = $("saveCompliance");
+      saveButton.disabled = true;
+      saveButton.textContent = "Saving…";
+      const timestamp = serverTimestamp();
+      const record = {
+        clientName: selectedClient.clientName || "",
+        clientId: selectedClient.clientId || selectedClient.id,
+        complianceId: $("complianceIdInput").value.trim(),
+        complianceName: $("complianceNameInput").value.trim(),
+        complianceAknNumber: $("complianceAknInput").value.trim(),
+        CompliancePeriod: $("compliancePeriodInput").value.trim(),
+        dueDate,
+        complianceType,
+        nextComplianceDate: complianceType === "Running Compliance" ? nextComplianceDate : "",
+        priority: $("compliancePriority").value,
+        taskFolderLink: $("complianceFolder").value.trim()
+      };
+
+      try {
+        if (editingComplianceId) {
+          const existing = allRecords.find(item => item.firestoreDocId === editingComplianceId);
+          await updateDoc(doc(db, "compliance", editingComplianceId), {
+            ...record,
+            complianceStatus: existing?.complianceStatus || "pending",
+            filedAt: existing?.filedAt ?? null,
+            paymentStatus: existing?.paymentStatus || "pending",
+            updatedAt: timestamp
+          });
+          closeComplianceForm();
+          await loadComplianceRegister();
+          showToast("Compliance updated.");
+        } else {
+          const batch = writeBatch(db);
+          batch.set(doc(collection(db, "compliance")), {
+            ...record,
+            complianceStatus: "pending",
+            filedAt: null,
+            paymentStatus: "pending",
+            createdAt: timestamp,
+            updatedAt: timestamp
+          });
+          if (complianceType === "Running Compliance") {
+            batch.set(doc(collection(db, "compliance")), {
+              ...record,
+              dueDate: nextComplianceDate,
+              nextComplianceDate: "",
+              complianceStatus: "pending",
+              filedAt: null,
+              paymentStatus: "pending",
+              createdAt: timestamp,
+              updatedAt: timestamp
+            });
+          }
+          await batch.commit();
+          closeComplianceForm();
+          await loadComplianceRegister();
+          showToast(complianceType === "Running Compliance" ? "Compliance and next pending copy created." : "Compliance created.");
+        }
+      } catch (error) {
+        console.error("Could not save compliance:", error);
+        $("complianceFormError").textContent = `Could not save compliance (${error.code || "error"}). Check Firestore permissions and try again.`;
+      } finally {
+        saveButton.disabled = false;
+        saveButton.innerHTML = editingComplianceId ? '<i data-lucide="save" aria-hidden="true"></i>Update Compliance' : '<i data-lucide="save" aria-hidden="true"></i>Save Compliance';
+        if (window.lucide) window.lucide.createIcons();
+      }
+    }
+
+    enhanceSearchableSelect($("clientFilter"));
+    enhanceSearchableSelect($("complianceClient"));
+    document.querySelectorAll("[data-filter-panel]").forEach(panel => { panel.hidden = !panel.classList.contains("active"); });
+    document.addEventListener("click",e=>{if(e.target.closest("[data-signout]"))signOut(auth)});window.addEventListener("corebiq:signout-request",()=>signOut(auth));
+    $("filterToggle").addEventListener("click", () => {
+      const isOpening = $("complianceFilterPopover").hidden;
+      $("complianceFilterPopover").hidden = !isOpening;
+      $("filterToggle").setAttribute("aria-expanded", String(isOpening));
+      if (isOpening) showFilterPanel(document.querySelector("[data-filter-category].active")?.dataset.filterCategory || "view");
+    });
+    $("clearComplianceFilters").addEventListener("click", () => {
+      ["clientFilter", "dateFromFilter", "dateToFilter", "periodFilter", "complianceNameFilter", "statusFilter", "paymentFilter", "priorityFilter"].forEach(id => { $(id).value = ""; });
+      $("viewFilter").value = "outstanding";
+      $("clientFilter").dispatchEvent(new Event("change", { bubbles: true }));
+      currentPage = 1;
+      showFilterPanel("view");
+      render();
+      closeFilterPopover();
+    });
+    document.querySelectorAll("[data-filter-category]").forEach(button => button.addEventListener("click", () => showFilterPanel(button.dataset.filterCategory)));
+    document.addEventListener("pointerdown", event => {
+      if (!event.target.closest(".crm-filter-wrap")) closeFilterPopover();
+    });
+    $("refreshButton").addEventListener("click", loadComplianceRegister);
+    $("addComplianceButton").addEventListener("click", openComplianceForm);
+    $("closeComplianceModal").addEventListener("click", closeComplianceForm);
+    $("cancelComplianceForm").addEventListener("click", closeComplianceForm);
+    $("complianceModal").addEventListener("click", event => { if (event.target === $("complianceModal")) closeComplianceForm(); });
+    $("complianceForm").addEventListener("submit", saveCompliance);
+    $("selectVisibleCompliance").addEventListener("change", () => {
+      const shouldSelect = $("selectVisibleCompliance").checked;
+      $("complianceRows").querySelectorAll("[data-select-compliance]").forEach(checkbox => {
+        checkbox.checked = shouldSelect;
+        if (shouldSelect) selectedComplianceIds.add(checkbox.dataset.selectCompliance);
+        else selectedComplianceIds.delete(checkbox.dataset.selectCompliance);
+      });
+      render();
+    });
+    $("complianceRows").addEventListener("change", event => {
+      const checkbox = event.target.closest("[data-select-compliance]");
+      if (!checkbox) return;
+      if (checkbox.checked) selectedComplianceIds.add(checkbox.dataset.selectCompliance);
+      else selectedComplianceIds.delete(checkbox.dataset.selectCompliance);
+      render();
+    });
+    $("complianceRows").addEventListener("click", event => {
+      const toggle = event.target.closest("[data-row-menu-toggle]");
+      if (toggle) {
+        const menu = toggle.parentElement.querySelector(".crm-row-menu");
+        const shouldOpen = menu.hidden;
+        closeRowActionMenus();
+        if (shouldOpen) {
+          menu.hidden = false;
+          const buttonRect = toggle.getBoundingClientRect();
+          const menuRect = menu.getBoundingClientRect();
+          const left = Math.max(14, Math.min(buttonRect.right - menuRect.width, window.innerWidth - menuRect.width - 14));
+          const top = buttonRect.bottom + menuRect.height + 8 <= window.innerHeight
+            ? buttonRect.bottom + 4
+            : Math.max(8, buttonRect.top - menuRect.height - 4);
+          menu.style.left = `${left}px`;
+          menu.style.top = `${top}px`;
+          toggle.setAttribute("aria-expanded", "true");
+        }
+        return;
+      }
+      const editButton = event.target.closest("[data-edit-compliance]");
+      if (editButton) {
+        closeRowActionMenus();
+        openEditComplianceForm(editButton.dataset.editCompliance);
+      }
+    });
+    document.addEventListener("pointerdown", event => {
+      if (!event.target.closest(".crm-row-menu-wrap")) closeRowActionMenus();
+    });
+    $("bulkActionsToggle").addEventListener("click", () => {
+      $("bulkActionsMenu").hidden = !$("bulkActionsMenu").hidden;
+      $("bulkActionsToggle").setAttribute("aria-expanded", String(!$("bulkActionsMenu").hidden));
+    });
+    $("deleteSelected").addEventListener("click", deleteSelectedCompliance);
+    $("copySelected").addEventListener("click", openCopyDateModal);
+    $("copyDateForm").addEventListener("submit", copySelectedCompliance);
+    $("copyDateModal").addEventListener("click", event => { if (event.target === $("copyDateModal")) closeCopyDateModal(); });
+    document.querySelectorAll("[data-close-copy]").forEach(button => button.addEventListener("click", closeCopyDateModal));
+    document.addEventListener("pointerdown", event => { if (!event.target.closest("#bulkActionsMenu, #bulkActionsToggle, .crm-add-wrap")) closeBulkActions(); });
+    document.addEventListener("keydown", event => {
+      if (event.key !== "Escape") return;
+      closeBulkActions();
+      closeRowActionMenus();
+      closeFilterPopover();
+      if (!$ ("copyDateModal").hidden) closeCopyDateModal();
+    });
+    document.querySelectorAll('input[name="complianceType"]').forEach(input => input.addEventListener("change", updateComplianceType));
+    $("complianceDueDate").addEventListener("change", () => { $("nextComplianceDate").min = $("complianceDueDate").value; });
+    ["searchInput","statusFilter","clientFilter","periodFilter","paymentFilter","viewFilter","dateFromFilter","dateToFilter","complianceNameFilter","priorityFilter"].forEach(id => $(id).addEventListener(id === "searchInput" ? "input" : "change", () => { currentPage = 1; render(); }));
+    $("compliancePagination").addEventListener("click", event => {
+      const button = event.target.closest("button[data-page]");
+      if (!button) return;
+      currentPage += Number(button.dataset.page);
+      render();
+    });
+    $("complianceRows").closest("table").addEventListener("click", event => {
+      const button = event.target.closest("[data-sort-key]");
+      if (!button) return;
+      const key = button.dataset.sortKey;
+      sortDirection = sortColumn === key ? -sortDirection : 1;
+      sortColumn = key;
+      currentPage = 1;
+      render();
+    });
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user || normalize(user.email) !== ALLOWED_ADMIN_EMAIL) {
+        if (user) await signOut(auth);
+        const next = encodeURIComponent(location.pathname.replace(/^\//, "") + location.search + location.hash);
+        location.replace(new URL(`auth/login.html?next=${next}`, document.baseURI).href);
+        return;
+      }
+      $("app").classList.remove("hiddenx");
+      await loadComplianceRegister();
+      if (location.hash === "#add") openComplianceForm();
+    });
+  </script></body></html>

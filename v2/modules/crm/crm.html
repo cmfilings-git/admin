@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f9fc">
+  <base href="../../">
+  <title>CRM | COREBIQ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global-typography.css">
+  <link rel="stylesheet" href="css/global-style.css">
+</head>
+<body data-page-title="CRM">
+  <div id="crm-app" hidden>
+    <div class="app-shell">
+      <div id="desktop-sidebar-mount"></div>
+      <main class="main-shell">
+        <div id="desktop-header-mount"></div>
+        <div id="mobile-header-mount"></div>
+        <main class="crm-page">
+          <header class="crm-head">
+            <div>
+              <div class="crm-kicker">Customer relationship management</div>
+              <div class="crm-title-row"><span class="crm-title-icon" aria-hidden="true"><i data-lucide="layout-dashboard"></i></span><h1>CRM Dashboard</h1></div>
+            </div>
+            <div class="crm-head-actions">
+              <button id="refreshCrm" class="crm-icon-btn" type="button" title="Refresh dashboard" aria-label="Refresh dashboard"><i data-lucide="refresh-cw"></i></button>
+              <div class="crm-add-wrap">
+                <button id="addMenuToggle" class="crm-btn primary" type="button" aria-expanded="false" aria-controls="addActionMenu"><i data-lucide="plus"></i><span>Add</span></button>
+                <div id="addActionMenu" class="crm-add-menu" hidden>
+                  <a href="modules/crm/clients.html#add"><i data-lucide="user-round-plus"></i>Add New Client</a>
+                  <a href="modules/crm/credentials.html#add"><i data-lucide="key-round"></i>Add Credentials</a>
+                  <a href="modules/crm/compliance.html#add"><i data-lucide="clipboard-plus"></i>Add Compliance</a>
+                  <a href="modules/crm/compliance.html#add"><i data-lucide="list-plus"></i>Add Task</a>
+                  <button id="menuAddContact" type="button"><i data-lucide="contact-round"></i>Add Contact</button>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          <div class="crm-tabs-wrap">
+            <nav class="crm-tabs" aria-label="CRM sections">
+              <a class="crm-tab active" href="modules/crm/crm.html" aria-current="page"><i data-lucide="layout-dashboard"></i>Dashboard</a>
+              <a class="crm-tab" href="modules/crm/clients.html"><i data-lucide="contact-round"></i>Clients</a>
+              <a class="crm-tab" href="modules/crm/credentials.html"><i data-lucide="shield-check"></i>Credentials</a>
+              <a class="crm-tab" href="modules/crm/compliance.html"><i data-lucide="clipboard-check"></i>Compliance</a>
+              <a class="crm-tab" href="modules/crm/crm.html#contacts"><i data-lucide="contact"></i>Contacts</a>
+              <a class="crm-tab" href="modules/crm/crm.html#tasks"><i data-lucide="list-checks"></i>Tasks</a>
+            </nav>
+          </div>
+
+          <section class="crm-panel active" data-panel="dashboard">
+            <div class="crm-dashboard-kpis">
+              <article class="crm-kpi">
+                <div class="crm-kpi-top"><span class="crm-kpi-label">Total Clients</span><span class="crm-kpi-icon"><i data-lucide="contact-round"></i></span></div>
+                <div class="crm-kpi-value" id="total-clients">—</div>
+                <div class="crm-kpi-note">Records in the clients collection</div>
+              </article>
+              <article class="crm-kpi">
+                <div class="crm-kpi-top"><span class="crm-kpi-label">Total Credentials Stored</span><span class="crm-kpi-icon"><i data-lucide="key-round"></i></span></div>
+                <div class="crm-kpi-value" id="total-credentials">—</div>
+                <div class="crm-kpi-note">Records in the credentials collection</div>
+              </article>
+              <article class="crm-kpi">
+                <div class="crm-kpi-top"><span class="crm-kpi-label">Pending Compliances</span><span class="crm-kpi-icon"><i data-lucide="clipboard-list"></i></span></div>
+                <div class="crm-kpi-value" id="pending-compliances">—</div>
+                <div class="crm-kpi-note">Not yet filed or completed</div>
+              </article>
+              <article class="crm-kpi">
+                <div class="crm-kpi-top"><span class="crm-kpi-label">Upcoming Compliance</span><span class="crm-kpi-icon"><i data-lucide="calendar-clock"></i></span></div>
+                <div class="crm-kpi-value" id="upcoming-compliances">—</div>
+                <div class="crm-kpi-note">Open items with a due date today or later</div>
+              </article>
+            </div>
+
+            <div class="crm-dashboard-grid">
+              <section class="crm-card">
+                <div class="crm-card-head">
+                  <div><h2>Recent clients</h2><p>Live records from Firestore · clients</p></div>
+                  <a class="crm-btn" href="modules/crm/clients.html">View clients <i data-lucide="arrow-up-right"></i></a>
+                </div>
+                <div class="crm-table-wrap">
+                  <table class="crm-table crm-recent-clients-table">
+                    <thead><tr><th>Client</th><th>Client ID</th><th>Email</th><th>Status</th></tr></thead>
+                    <tbody id="recent-client-rows"><tr><td colspan="4">Loading clients…</td></tr></tbody>
+                  </table>
+                </div>
+              </section>
+              <section class="crm-card">
+                <div class="crm-card-head">
+                  <div><h2>Upcoming compliance</h2><p>Open filings ordered by due date</p></div>
+                  <a class="crm-btn" href="modules/crm/compliance.html">View compliance <i data-lucide="arrow-up-right"></i></a>
+                </div>
+                <div class="crm-table-wrap">
+                  <table class="crm-table">
+                    <thead><tr><th>Client</th><th>Compliance</th><th>Due date</th></tr></thead>
+                    <tbody id="upcoming-compliance-rows"><tr><td colspan="3">Loading compliance…</td></tr></tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+            <p class="crm-data-error" id="crm-data-error" role="alert" hidden></p>
+          </section>
+
+          <section class="crm-panel" data-panel="contacts">
+            <div class="crm-dashboard-kpis crm-section-kpis">
+              <article class="crm-kpi"><div class="crm-kpi-top"><span class="crm-kpi-label">Total Contacts</span><span class="crm-kpi-icon"><i data-lucide="contact-round"></i></span></div><div class="crm-kpi-value" id="contact-total-count">—</div><div class="crm-kpi-note">Client contact records</div></article>
+              <article class="crm-kpi"><div class="crm-kpi-top"><span class="crm-kpi-label">With Phone</span><span class="crm-kpi-icon"><i data-lucide="phone"></i></span></div><div class="crm-kpi-value" id="contact-phone-count">—</div><div class="crm-kpi-note">Available to call or message</div></article>
+              <article class="crm-kpi"><div class="crm-kpi-top"><span class="crm-kpi-label">With Email</span><span class="crm-kpi-icon"><i data-lucide="mail"></i></span></div><div class="crm-kpi-value" id="contact-email-count">—</div><div class="crm-kpi-note">Email addresses saved</div></article>
+              <article class="crm-kpi"><div class="crm-kpi-top"><span class="crm-kpi-label">Missing Details</span><span class="crm-kpi-icon"><i data-lucide="user-round-pen"></i></span></div><div class="crm-kpi-value" id="contact-missing-count">—</div><div class="crm-kpi-note">Need phone or email</div></article>
+            </div>
+            <section class="crm-card">
+              <div class="crm-card-head">
+                <div><h2>Contacts</h2><p>Contact details from the clients collection</p></div>
+                <div class="crm-list-tools">
+                  <label class="crm-search"><i data-lucide="search"></i><input id="contact-search" type="search" placeholder="Search contacts" aria-label="Search contacts"></label>
+                  <select class="crm-control" id="contact-status-filter" aria-label="Filter contacts by status"><option value="">All statuses</option><option>Active</option><option>Inactive</option></select>
+                  <select class="crm-control" id="contact-sort" aria-label="Sort contacts"><option value="name">Name A–Z</option><option value="name-desc">Name Z–A</option><option value="contact">Contact person</option></select>
+                  <button class="crm-btn primary" id="addContactButton" type="button"><i data-lucide="plus"></i><span>Add contact</span></button>
+                </div>
+              </div>
+              <div id="contact-rows" class="crm-contact-grid"><div class="crm-contact-empty">Loading contacts…</div></div>
+              <div id="contactPagination" class="crm-pagination"></div>
+            </section>
+          </section>
+
+          <section class="crm-panel" data-panel="tasks">
+            <div class="crm-dashboard-kpis crm-section-kpis">
+              <article class="crm-kpi"><div class="crm-kpi-top"><span class="crm-kpi-label">Total Tasks</span><span class="crm-kpi-icon"><i data-lucide="list-checks"></i></span></div><div class="crm-kpi-value" id="task-total-count">—</div><div class="crm-kpi-note">Compliance work items</div></article>
+              <article class="crm-kpi"><div class="crm-kpi-top"><span class="crm-kpi-label">Pending</span><span class="crm-kpi-icon"><i data-lucide="clock-3"></i></span></div><div class="crm-kpi-value" id="task-pending-count">—</div><div class="crm-kpi-note">Not yet filed</div></article>
+              <article class="crm-kpi"><div class="crm-kpi-top"><span class="crm-kpi-label">Overdue</span><span class="crm-kpi-icon"><i data-lucide="calendar-x-2"></i></span></div><div class="crm-kpi-value" id="task-overdue-count">—</div><div class="crm-kpi-note">Past due date</div></article>
+              <article class="crm-kpi"><div class="crm-kpi-top"><span class="crm-kpi-label">Completed</span><span class="crm-kpi-icon"><i data-lucide="circle-check"></i></span></div><div class="crm-kpi-value" id="task-completed-count">—</div><div class="crm-kpi-note">Filed or completed</div></article>
+            </div>
+            <section class="crm-card">
+              <div class="crm-card-head">
+                <div><h2>Pending work</h2><p>Tax and business compliance items needing attention</p></div>
+                <div class="crm-list-tools">
+                  <label class="crm-search"><i data-lucide="search"></i><input id="task-search" type="search" placeholder="Search pending work" aria-label="Search pending work"></label>
+                  <label class="crm-search crm-client-filter"><i data-lucide="users-round"></i><select id="taskClientFilter" aria-label="Filter tasks by client"><option value="">All clients</option></select></label>
+                  <select class="crm-control" id="task-status-filter" aria-label="Filter pending work"><option value="open">Open items</option><option value="">All statuses</option><option value="pending">Pending</option><option value="overdue">Overdue</option><option value="completed">Completed</option></select>
+                  <select class="crm-control" id="task-sort" aria-label="Sort pending work"><option value="due">Due date</option><option value="client">Client</option></select>
+                  <button class="crm-icon-btn crm-more-action" type="button" title="Refresh task list" aria-label="Refresh task list" id="refreshTasks"><i data-lucide="refresh-cw"></i></button>
+                  <a class="crm-btn" href="modules/crm/compliance.html"><span>View compliance</span><i data-lucide="arrow-up-right"></i></a>
+                </div>
+              </div>
+              <div class="crm-table-wrap">
+                <table class="crm-table">
+                  <thead><tr><th><button class="crm-sort-button" type="button" data-task-sort="client">Client <i data-lucide="arrow-up-down"></i></button></th><th><button class="crm-sort-button" type="button" data-task-sort="compliance">Compliance <i data-lucide="arrow-up-down"></i></button></th><th><button class="crm-sort-button" type="button" data-task-sort="due">Due date <i data-lucide="arrow-up-down"></i></button></th><th>Status</th><th>Actions</th></tr></thead>
+                  <tbody id="task-rows"><tr><td colspan="5">Loading pending work…</td></tr></tbody>
+                </table>
+              </div>
+              <div id="taskPagination" class="crm-pagination"></div>
+            </section>
+          </section>
+        </main>
+      </main>
+    </div>
+    <div id="contactModal" class="crm-modal" hidden>
+      <button class="crm-modal-backdrop" type="button" data-close-contact aria-label="Close contact form"></button>
+      <section class="crm-modal-panel" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+        <header class="crm-modal-head"><div><h2 id="contactModalTitle">Add Contact Details</h2><p>Update an existing client's contact information.</p></div><button class="crm-icon-btn" type="button" data-close-contact aria-label="Close"><i data-lucide="x"></i></button></header>
+        <form id="addContactForm" class="crm-contact-form">
+          <label>Existing client<select id="contactClientSelect" class="crm-control" required><option value="">Select a client</option></select></label>
+          <label>Contact person<input id="contactPersonInput" class="crm-control" type="text" autocomplete="name" maxlength="120" placeholder="Name"></label>
+          <label>Phone<input id="contactPhoneInput" class="crm-control" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" placeholder="Phone number"></label>
+          <label>Email<input id="contactEmailInput" class="crm-control" type="email" autocomplete="email" inputmode="email" placeholder="Email address"></label>
+          <button id="phoneContactPicker" class="crm-btn" type="button"><i data-lucide="contact"></i><span>Pick from phone contacts</span></button>
+          <p id="contactFormError" class="crm-contact-error" role="alert"></p>
+          <div class="crm-modal-actions"><button class="crm-btn" type="button" data-close-contact>Cancel</button><button id="saveContactDetails" class="crm-btn primary" type="submit"><i data-lucide="save"></i>Save contact</button></div>
+        </form>
+      </section>
+    </div>
+    <div id="app-sidebar-mount"></div>
+    <div id="bottom-nav-mount"></div>
+    <div id="mini-container-mount"></div>
+  </div>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/index.js"></script>
+  <script type="module" src="modules/crm/crm.js"></script>
+</body>
+</html>

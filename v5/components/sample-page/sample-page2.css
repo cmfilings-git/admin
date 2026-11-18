@@ -1,0 +1,519 @@
+/* ==========================================================================
+   1. DESIGN TOKENS — GEMINI STYLE + SEA BLUE THEME
+   ========================================================================== */
+:root {
+  /* Primary: Sea Blue */
+  --sea-50:  #f0f9ff;
+  --sea-100: #e0f2fe;
+  --sea-200: #bae6fd;
+  --sea-300: #7dd3fc;
+  --sea-500: #0284c7;
+  --sea-600: #0369a1; /* Main Primary */
+  --sea-700: #075985; /* Hover / Active */
+  --sea-900: #0c4a6e;
+
+  /* Gemini-style Neutrals & Surfaces */
+  --bg-page:      #f8fafc;
+  --bg-surface:   #ffffff;
+  --bg-subtle:    #f0f4f9; /* Signature soft cool-gray surface */
+  --bg-hover:     #e8f1f8;
+  --border-light: #e2e8f0;
+  --border-mid:   #cbd5e1;
+
+  /* Ink / Text */
+  --ink-primary:   #1f1f1f;
+  --ink-secondary: #444746;
+  --ink-muted:     #64748b;
+
+  /* Semantic Status */
+  --status-pending-bg:  #fef3c7;
+  --status-pending-fg:  #92400e;
+  --status-complete-bg: #dcfce7;
+  --status-complete-fg: #166534;
+  --status-paid-bg:     #e0f2fe;
+  --status-paid-fg:     #075985;
+
+  /* Typography */
+  --font-display: "Plus Jakarta Sans", "Google Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono:    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Radii & Elevation */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   20px;
+  --radius-pill: 9999px;
+
+  --shadow-sm: 0 1px 2px rgba(12, 74, 110, 0.05);
+  --shadow-md: 0 8px 24px -6px rgba(12, 74, 110, 0.08), 0 2px 6px rgba(12, 74, 110, 0.04);
+  --shadow-menu: 0 12px 32px -4px rgba(12, 74, 110, 0.14), 0 2px 8px rgba(12, 74, 110, 0.06);
+  --focus-ring: 0 0 0 3px rgba(2, 132, 199, 0.28);
+}
+
+/* ==========================================================================
+   2. GLOBAL TYPOGRAPHY & BASE
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem; /* 15px — Gemini body comfort */
+  line-height: 1.6;
+  color: var(--ink-primary);
+  background-color: var(--bg-page);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--ink-primary);
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+h1 { font-size: 1.75rem; font-weight: 600; }  /* 28px */
+h2 { font-size: 1.375rem; font-weight: 600; } /* 22px */
+h3 { font-size: 1.125rem; font-weight: 600; } /* 18px */
+h4 { font-size: 0.9375rem; font-weight: 600; }
+
+p {
+  margin: 0;
+  color: var(--ink-secondary);
+}
+
+a {
+  color: var(--sea-600);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+a:hover {
+  color: var(--sea-700);
+  text-decoration: underline;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Custom Sea Blue Checkboxes */
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--sea-600);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   3. HERO SUBMODULE CARD
+   ========================================================================== */
+.kpi-hero-submodule-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-block-end: 22px;
+  padding: 22px 24px;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, var(--bg-surface) 0%, var(--sea-50) 100%) padding-box,
+    linear-gradient(135deg, var(--sea-300) 0%, var(--border-light) 50%, var(--sea-500) 100%) border-box;
+  box-shadow: var(--shadow-md);
+}
+
+.kpi-hero-submodule-page #modulepage-row1-mount:empty {
+  min-height: 36px;
+}
+
+.kpi-hero-submodule-page .crm-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin: 0;
+}
+
+.kpi-hero-submodule-page-description {
+  max-width: 68ch;
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.55;
+  color: var(--ink-secondary);
+  text-wrap: pretty;
+}
+
+/* ==========================================================================
+   4. BUTTONS (GEMINI PILL STYLE + SEA BLUE)
+   ========================================================================== */
+.crm-btn,
+.crm-btn-primary,
+.crm-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 18px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.crm-btn-primary {
+  background-color: var(--sea-600);
+  color: #ffffff;
+}
+
+.crm-btn-primary:hover {
+  background-color: var(--sea-700);
+}
+
+.crm-btn-secondary {
+  background-color: var(--bg-subtle);
+  color: var(--sea-900);
+  border-color: var(--border-light);
+}
+
+.crm-btn-secondary:hover {
+  background-color: var(--sea-100);
+  border-color: var(--sea-200);
+}
+
+/* ==========================================================================
+   5. TABLE CONTAINER & DESKTOP TABLE
+   ========================================================================== */
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.sample-saved-forms-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.8125rem; /* 13px */
+}
+
+.sample-saved-forms-table thead {
+  background-color: var(--bg-subtle);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.sample-saved-forms-table thead th {
+  font-family: var(--font-display);
+  font-size: 0.6875rem; /* 11px */
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  padding: 12px;
+  white-space: nowrap;
+}
+
+.sample-saved-forms-table tbody tr {
+  border-bottom: 1px solid var(--border-light);
+  transition: background-color 0.15s ease;
+}
+
+.sample-saved-forms-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.sample-saved-forms-table tbody tr:hover {
+  background-color: var(--sea-50);
+}
+
+.sample-saved-forms-table tbody td {
+  padding: 12px;
+  color: var(--ink-secondary);
+  vertical-align: middle;
+}
+
+.sample-form-id {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--sea-700);
+  background: var(--sea-50);
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+
+.crm-compliance-name,
+.crm-compliance-client-name {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink-primary);
+  line-height: 1.35;
+}
+
+.crm-compliance-reference,
+.crm-compliance-client-id {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  margin-top: 2px;
+}
+
+/* Hide mobile-only elements on desktop */
+.sample-saved-forms-table .sample-mobile-head,
+.sample-saved-forms-table .sample-mobile-description,
+.sample-saved-forms-table .sample-mobile-client-label {
+  display: none;
+}
+
+/* ==========================================================================
+   6. STATUS PILLS
+   ========================================================================== */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.status-pill.status-pending {
+  background-color: var(--status-pending-bg);
+  color: var(--status-pending-fg);
+}
+
+.status-pill.status-complete {
+  background-color: var(--status-complete-bg);
+  color: var(--status-complete-fg);
+}
+
+.status-pill.status-other {
+  background-color: var(--status-paid-bg);
+  color: var(--status-paid-fg);
+}
+
+/* ==========================================================================
+   7. ROW ACTION BUTTON & DROPDOWN MENU
+   ========================================================================== */
+.crm-row-menu-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.crm-row-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.crm-row-action:hover,
+.crm-row-action[aria-expanded="true"] {
+  background-color: var(--sea-100);
+  color: var(--sea-700);
+}
+
+.crm-row-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 40;
+  min-width: 180px;
+  padding: 6px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-menu);
+}
+
+.crm-row-menu[hidden] {
+  display: none;
+}
+
+.crm-row-menu [role="menuitem"] {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ink-primary);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.crm-row-menu [role="menuitem"]:hover {
+  background-color: var(--sea-50);
+  color: var(--sea-700);
+}
+
+/* ==========================================================================
+   8. PAGINATION & FOOTER BAR
+   ========================================================================== */
+.crm-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--bg-surface);
+  border-inline: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+}
+
+/* ==========================================================================
+   9. RESPONSIVE MOBILE LAYOUT (ZERO OVERFLOW)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .kpi-hero-submodule-page {
+    border-radius: 16px;
+    padding: 16px;
+    gap: 8px;
+    margin-block-end: 18px;
+  }
+
+  .kpi-hero-submodule-page-description {
+    font-size: 0.8125rem;
+  }
+
+  .table-scroll {
+    overflow-x: visible;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .sample-saved-forms-table {
+    display: block;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .sample-saved-forms-table thead,
+  .sample-saved-forms-table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .sample-saved-forms-table thead tr:first-child {
+    display: none;
+  }
+
+  /* 5-Column Mobile Grid: ID | Name | Description | Status | Action */
+  .sample-saved-forms-table .sample-mobile-head,
+  .sample-saved-forms-table tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.35fr) minmax(0, 1.1fr) auto 32px;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    padding: 10px 8px;
+  }
+
+  .sample-saved-forms-table .sample-mobile-head th {
+    padding: 0;
+    font-size: 0.625rem;
+    min-width: 0;
+  }
+
+  .sample-saved-forms-table tbody td {
+    display: none;
+    padding: 0;
+    min-width: 0;
+    font-size: 0.75rem;
+  }
+
+  .sample-saved-forms-table tbody td:nth-child(2) {
+    display: block;
+    grid-column: 1;
+  }
+
+  .sample-saved-forms-table tbody td:nth-child(2) .sample-form-id {
+    font-size: 0.6875rem;
+    padding: 2px 5px;
+    word-break: break-all;
+  }
+
+  .sample-saved-forms-table tbody td:nth-child(3) {
+    display: block;
+    grid-column: 2;
+  }
+
+  .sample-saved-forms-table tbody td:nth-child(3) .crm-compliance-name {
+    font-size: 0.8125rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .sample-saved-forms-table tbody td:nth-child(3) .crm-compliance-reference {
+    display: none;
+  }
+
+  .sample-saved-forms-table tbody td.sample-mobile-description {
+    display: block;
+    grid-column: 3;
+    color: var(--ink-muted);
+    font-size: 0.6875rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .sample-saved-forms-table tbody td:nth-child(9) {
+    display: flex;
+    justify-content: center;
+    grid-column: 4;
+  }
+
+  .sample-saved-forms-table tbody td:nth-child(14) {
+    display: flex;
+    justify-content: flex-end;
+    grid-column: 5;
+  }
+
+  .sample-saved-forms-table .status-pill {
+    font-size: 0.625rem;
+    padding: 2px 6px;
+  }
+}
+
+@media (forced-colors: active) {
+  .kpi-hero-submodule-page {
+    border-color: CanvasText;
+  }
+}

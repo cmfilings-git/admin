@@ -1,0 +1,698 @@
+/* ==========================================================================
+   modules/crm/compliance/compliance.css
+   Uses tokens & primitives from css/core-ui.css (Gemini Blue + Square UI)
+   ========================================================================== */
+
+/* 1. PAGE SHELL & LAYOUT
+   ========================================================================== */
+.app-shell {
+  display: flex;
+  min-height: 100dvh;
+  background-color: var(--bg-page);
+}
+
+.main-shell {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.compliance-page-content {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px 24px 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.nowrap { white-space: nowrap; }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+
+/* 2. HERO SUBMODULE HEADER
+   ========================================================================== */
+.kpi-hero-submodule-page {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 24px;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, var(--bg-surface) 0%, var(--primary-50) 100%) padding-box,
+    linear-gradient(135deg, var(--primary-200) 0%, var(--border-light) 50%, var(--primary-500) 100%) border-box;
+  box-shadow: var(--shadow-md);
+}
+
+#modulepage-row1-mount:empty {
+  min-height: 36px;
+}
+
+#modulepage-row1-mount .crm-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 14px;
+  margin: 0;
+}
+
+#modulepage-row1-mount .crm-head > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+#modulepage-row1-mount .crm-head > div:last-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Square Buttons inside mounted Row 1 */
+#modulepage-row1-mount button:not([data-modulepage-add]) {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-btn);
+  background: var(--bg-tonal);
+  color: var(--ink-primary);
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+#modulepage-row1-mount button:not([data-modulepage-add]):hover {
+  background: var(--bg-tonal-hov);
+}
+
+#modulepage-row1-mount [data-modulepage-add] {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px;
+  border: none;
+  border-radius: var(--radius-btn);
+  background: var(--primary-600);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+#modulepage-row1-mount [data-modulepage-add]:hover {
+  background: var(--primary-700);
+}
+
+.kpi-hero-submodule-page-description {
+  max-width: 68ch;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--ink-secondary);
+}
+
+/* 3. SUMMARY KPI GRID
+   ========================================================================== */
+.compliance-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.compliance-summary-card {
+  padding: 18px 20px;
+}
+
+.compliance-kpi-label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+}
+
+.compliance-kpi-value {
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ink-primary);
+  line-height: 1.2;
+}
+
+/* 4. RECORD CARD & TOOLBAR (MOUNTED ROW 3)
+   ========================================================================== */
+.crm-record-card {
+  overflow: hidden;
+}
+
+.crm-record-card-head {
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+#modulepage-row3-mount .crm-toolbar,
+#modulepage-row3-mount .crm-controls,
+#modulepage-row3-mount > div:last-child {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+#sampleComplianceSearch {
+  flex: 1 1 200px;
+  min-width: 0;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--border-mid);
+  border-radius: var(--radius-btn);
+  background: var(--bg-surface);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--ink-primary);
+}
+
+#sampleComplianceSearch:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: var(--focus-ring);
+}
+
+#sampleComplianceFilterToggle,
+#sampleComplianceActionsToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-btn);
+  background: var(--bg-tonal);
+  color: var(--ink-primary);
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+#sampleComplianceActionsToggle {
+  width: 36px;
+  padding: 0;
+}
+
+#sampleComplianceFilterToggle:hover,
+#sampleComplianceActionsToggle:hover {
+  background: var(--bg-tonal-hov);
+  border-color: var(--border-mid);
+}
+
+#sampleComplianceRecordCount,
+#sampleComplianceSelectedCount {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+}
+
+/* Filter Popover Tabs */
+[data-filter-category] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  border-radius: var(--radius-btn);
+  background: transparent;
+  color: var(--ink-secondary);
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+[data-filter-category]:hover {
+  background: var(--bg-tonal);
+}
+
+[data-filter-category].active {
+  background: var(--primary-100);
+  color: var(--primary-900);
+  font-weight: 600;
+}
+
+[data-filter-panel][hidden] {
+  display: none;
+}
+
+/* 5. DESKTOP TABLE
+   ========================================================================== */
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sample-saved-forms-table {
+  width: 100%;
+  min-width: 1120px;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.8125rem;
+}
+
+.sample-saved-forms-table thead {
+  background: var(--bg-tonal);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.sample-saved-forms-table thead th {
+  padding: 11px 12px;
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+.sample-saved-forms-table .col-check {
+  width: 40px;
+}
+
+.sample-saved-forms-table tbody tr {
+  border-bottom: 1px solid var(--border-light);
+  transition: background-color 0.12s ease;
+}
+
+.sample-saved-forms-table tbody tr[hidden] {
+  display: none;
+}
+
+.sample-saved-forms-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.sample-saved-forms-table tbody tr:hover {
+  background-color: var(--primary-50);
+}
+
+.sample-saved-forms-table tbody td {
+  padding: 11px 12px;
+  color: var(--ink-secondary);
+  vertical-align: middle;
+}
+
+.sample-form-id {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--primary-700);
+  background: var(--primary-50);
+  border: 1px solid var(--primary-100);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.crm-compliance-name,
+.crm-compliance-client-name {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink-primary);
+  line-height: 1.3;
+}
+
+.crm-compliance-reference,
+.crm-compliance-client-id {
+  margin-top: 2px;
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
+
+.sample-saved-forms-table .sample-mobile-head,
+.sample-saved-forms-table .sample-mobile-description,
+.sample-saved-forms-table .sample-mobile-client-label {
+  display: none;
+}
+
+/* Fixed Row Action Menu (positioned by JS) */
+.crm-row-menu-wrap {
+  display: inline-flex;
+  align-items: center;
+}
+
+.crm-row-menu {
+  position: fixed;
+  z-index: 70;
+}
+
+.crm-row-menu[hidden] {
+  display: none;
+}
+
+.crm-pagination {
+  padding: 12px 18px;
+  border-top: 1px solid var(--border-light);
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+}
+
+.crm-table-footnote {
+  padding: 11px 18px;
+  background: var(--bg-tonal);
+  border-top: 1px solid var(--border-light);
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
+
+/* 6. MODAL & FORM
+   ========================================================================== */
+.compliance-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(2px);
+}
+
+.compliance-modal-card {
+  width: 100%;
+  max-width: 560px;
+  max-height: 90dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.compliance-modal-sticky-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 22px 14px;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--bg-surface);
+}
+
+.compliance-modal-sticky-header p {
+  margin-top: 3px;
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+}
+
+.compliance-modal-body {
+  padding: 18px 22px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.compliance-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 22px;
+  border-top: 1px solid var(--border-light);
+  background: var(--bg-tonal);
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.form-group > span,
+.form-group > legend {
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ink-secondary);
+}
+
+.radio-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.radio-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--border-mid);
+  border-radius: var(--radius-btn);
+  background: var(--bg-surface);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.radio-card:has(input:checked) {
+  background: var(--primary-50);
+  border-color: var(--primary-500);
+  color: var(--primary-900);
+}
+
+#complianceFormError {
+  min-height: 18px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--status-danger-fg);
+}
+
+/* Custom Client Search Select (Injected by JS) */
+.crm-search-select {
+  position: relative;
+  width: 100%;
+}
+
+.crm-search-select-native {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.crm-search-select-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 30;
+  max-height: 210px;
+  overflow-y: auto;
+  padding: 4px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-menu);
+}
+
+.crm-search-select-list[hidden] { display: none; }
+
+.crm-search-select-option {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--ink-primary);
+  text-align: left;
+  cursor: pointer;
+}
+
+.crm-search-select-option:hover {
+  background: var(--bg-tonal);
+  color: var(--primary-600);
+}
+
+.crm-search-select-empty {
+  padding: 10px;
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+  text-align: center;
+}
+
+/* 7. MOBILE RESPONSIVE FIT (ZERO OVERFLOW, SINGLE-LINE ROWS)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .compliance-page-content {
+    padding: 16px 14px 96px;
+    gap: 14px;
+  }
+
+  .kpi-hero-submodule-page {
+    padding: 16px;
+  }
+
+  .compliance-summary-grid,
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .crm-record-card-head {
+    padding: 14px;
+  }
+
+  .table-scroll {
+    overflow-x: visible;
+  }
+
+  .sample-saved-forms-table {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .sample-saved-forms-table thead,
+  .sample-saved-forms-table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .sample-saved-forms-table thead tr:first-child {
+    display: none;
+  }
+
+  /* 5-Column Mobile Grid: ID | Name | Description | Status | Action */
+  .sample-saved-forms-table .sample-mobile-head,
+  .sample-saved-forms-table tbody tr {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1.35fr) minmax(0, 1fr) auto 28px;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    padding: 10px 8px;
+  }
+
+  .sample-saved-forms-table .sample-mobile-head th {
+    padding: 0;
+    font-size: 0.625rem;
+    min-width: 0;
+  }
+
+  .sample-saved-forms-table tbody td {
+    display: none;
+    padding: 0;
+    min-width: 0;
+    font-size: 0.75rem;
+  }
+
+  /* Force all 5 cells onto row 1 */
+  .sample-saved-forms-table tbody td:nth-child(2),
+  .sample-saved-forms-table tbody td:nth-child(3),
+  .sample-saved-forms-table tbody td.sample-mobile-description,
+  .sample-saved-forms-table tbody td:nth-child(9),
+  .sample-saved-forms-table tbody td:nth-child(14) {
+    grid-row: 1;
+  }
+
+  .sample-saved-forms-table tbody td:nth-child(2) {
+    display: block;
+    grid-column: 1;
+  }
+
+  .sample-saved-forms-table tbody td:nth-child(2) .sample-form-id {
+    font-size: 0.625rem;
+    padding: 2px 5px;
+  }
+
+  .sample-saved-forms-table tbody td:nth-child(3) {
+    display: block;
+    grid-column: 2;
+  }
+
+  .sample-saved-forms-table tbody td:nth-child(3) .crm-compliance-name {
+    font-size: 0.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .sample-saved-forms-table tbody td:nth-child(3) .crm-compliance-reference {
+    display: none;
+  }
+
+  .sample-saved-forms-table tbody td.sample-mobile-description {
+    display: block;
+    grid-column: 3;
+    color: var(--ink-muted);
+    font-size: 0.6875rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .sample-saved-forms-table tbody td:nth-child(9) {
+    display: flex;
+    justify-content: center;
+    grid-column: 4;
+  }
+
+  .sample-saved-forms-table tbody td:nth-child(14) {
+    display: flex;
+    justify-content: flex-end;
+    grid-column: 5;
+  }
+
+  .sample-saved-forms-table .status-pill {
+    font-size: 0.625rem;
+    padding: 2px 6px;
+  }
+
+  .sample-saved-forms-table .crm-row-action {
+    width: 28px;
+    height: 28px;
+  }
+
+  #sample-toast {
+    left: 14px;
+    right: 14px;
+    bottom: 16px;
+    text-align: center;
+  }
+}
+
+@media (forced-colors: active) {
+  .kpi-hero-submodule-page {
+    border-color: CanvasText;
+  }
+}

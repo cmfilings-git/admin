@@ -472,3 +472,37 @@ body[data-theme="dark"] {
 [data-theme="dark"] .appearance-toggle[aria-checked="true"] .appearance-toggle-thumb {
   background-color: #041e49;
 }
+
+/* Inline Square Loader Bar */
+.ui-loader-bar {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--bg-tonal, #f0f4f9);
+}
+
+.ui-loader-bar::before,
+.ui-loader-bar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--primary-600, #0b57d0);
+  border-radius: 2px;
+  will-change: left, right;
+}
+
+.ui-loader-bar::before {
+  animation: corebiq-bar-primary 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+}
+
+.ui-loader-bar::after {
+  animation: corebiq-bar-secondary 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) 1.15s infinite;
+}
+
+.ui-loader-bar[hidden] {
+  display: none !important;
+}

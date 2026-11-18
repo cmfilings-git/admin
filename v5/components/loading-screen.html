@@ -1,141 +1,82 @@
 <div
   id="app-loading-screen"
-  class="app-loading-overlay"
-  role="status"
-  aria-live="polite"
+  class="app-loader-bar-wrap"
+  role="progressbar"
+  aria-label="Loading"
   aria-busy="true"
   aria-hidden="true"
   hidden
 >
-  <div class="app-loading-card">
-    <div class="app-loading-spinner" aria-hidden="true">
-      <svg viewBox="0 0 40 40" fill="none">
-        <circle class="app-loading-track" cx="20" cy="20" r="16"></circle>
-        <circle class="app-loading-arc" cx="20" cy="20" r="16"></circle>
-      </svg>
-    </div>
-    <div class="app-loading-copy">
-      <span id="app-loading-title" class="app-loading-title">Loading</span>
-      <span id="app-loading-subtitle" class="app-loading-subtitle">Please wait a moment…</span>
-    </div>
+  <div class="app-loader-bar-track">
+    <div class="app-loader-bar-fill primary"></div>
+    <div class="app-loader-bar-fill secondary"></div>
   </div>
 </div>
 
 <style>
-  .app-loading-overlay {
+  .app-loader-bar-wrap {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 9999;
-    display: grid;
-    place-items: center;
-    padding: 16px;
-    background: rgba(15, 23, 42, 0.26);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    animation: app-loading-fade 0.16s ease-out;
+    pointer-events: none;
   }
 
-  .app-loading-overlay[hidden] {
+  .app-loader-bar-wrap[hidden] {
     display: none !important;
   }
 
-  :root[data-theme="dark"] .app-loading-overlay,
-  body[data-theme="dark"] .app-loading-overlay {
-    background: rgba(0, 0, 0, 0.56);
+  .app-loader-bar-track {
+    position: relative;
+    width: 100%;
+    height: 3px;
+    overflow: hidden;
+    background: var(--primary-100, #d3e3fd);
   }
 
-  .app-loading-card {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    min-width: 220px;
-    max-width: 320px;
-    padding: 16px 20px;
-    background: var(--bg-surface, #ffffff);
-    border: 1px solid var(--border-light, #e2e8f0);
-    border-radius: var(--radius-lg, 14px);
-    box-shadow: var(--shadow-menu, 0 10px 28px -4px rgba(4, 30, 73, 0.14));
-    font-family: var(--font-sans, "Inter", sans-serif);
-    box-sizing: border-box;
+  .app-loader-bar-fill {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background: var(--primary-600, #0b57d0);
+    will-change: left, right;
   }
 
-  .app-loading-spinner {
-    width: 34px;
-    height: 34px;
-    flex-shrink: 0;
-    display: grid;
-    place-items: center;
+  .app-loader-bar-fill.primary {
+    animation: corebiq-bar-primary 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
   }
 
-  .app-loading-spinner svg {
-    width: 34px;
-    height: 34px;
-    animation: app-loading-rotate 1.4s linear infinite;
+  .app-loader-bar-fill.secondary {
+    animation: corebiq-bar-secondary 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) 1.15s infinite;
   }
 
-  .app-loading-track {
-    stroke: var(--bg-tonal, #f0f4f9);
-    stroke-width: 3.5;
+  @keyframes corebiq-bar-primary {
+    0%   { left: -35%; right: 100%; }
+    60%  { left: 100%; right: -90%; }
+    100% { left: 100%; right: -90%; }
   }
 
-  .app-loading-arc {
-    stroke: var(--primary-600, #0b57d0);
-    stroke-width: 3.5;
-    stroke-linecap: round;
-    stroke-dasharray: 80 100;
-    stroke-dashoffset: 0;
-    animation: app-loading-dash 1.4s ease-in-out infinite;
-  }
-
-  .app-loading-copy {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 0;
-  }
-
-  .app-loading-title {
-    font-family: var(--font-display, "Plus Jakarta Sans", sans-serif);
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: var(--ink-primary, #1f1f1f);
-    line-height: 1.25;
-  }
-
-  .app-loading-subtitle {
-    font-size: 0.75rem;
-    color: var(--ink-muted, #64748b);
-    line-height: 1.35;
-  }
-
-  @keyframes app-loading-fade {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes app-loading-rotate {
-    100% { transform: rotate(360deg); }
-  }
-
-  @keyframes app-loading-dash {
-    0% {
-      stroke-dasharray: 12 100;
-      stroke-dashoffset: 0;
-    }
-    50% {
-      stroke-dasharray: 64 100;
-      stroke-dashoffset: -24;
-    }
-    100% {
-      stroke-dasharray: 12 100;
-      stroke-dashoffset: -100;
-    }
+  @keyframes corebiq-bar-secondary {
+    0%   { left: -200%; right: 100%; }
+    60%  { left: 107%;  right: -8%; }
+    100% { left: 107%;  right: -8%; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .app-loading-spinner svg,
-    .app-loading-arc {
-      animation-duration: 3s;
+    .app-loader-bar-fill.primary {
+      left: 0;
+      right: 0;
+      animation: corebiq-bar-pulse 1.6s ease-in-out infinite;
     }
+    .app-loader-bar-fill.secondary {
+      display: none;
+    }
+  }
+
+  @keyframes corebiq-bar-pulse {
+    0%, 100% { opacity: 0.35; }
+    50%      { opacity: 1; }
   }
 </style>

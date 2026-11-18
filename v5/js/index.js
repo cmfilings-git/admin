@@ -23,6 +23,13 @@ const componentMap = {
   "app-loading-screen-mount": "components/loading-screen.html"
 };
 
+<style>
+  /* KPI Grid Container */
+  .kpi-grid { ... }
+  /* Reusable KPI Mini Card */
+  .kpi-mini { ... }
+</style>
+
 async function loadComponent(mountId, url) {
   const mount = document.getElementById(mountId);
   if (!mount) return;

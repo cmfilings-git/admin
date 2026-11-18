@@ -334,3 +334,57 @@ input[type="radio"] {
   font-weight: 500;
   box-shadow: var(--shadow-menu);
 }
+
+/* ==========================================================================
+   7. APP SHELL & RESPONSIVE NAV VISIBILITY
+   ========================================================================== */
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+/* Desktop (> 900px): show desktop sidebar & header, hide mobile nav */
+@media (min-width: 901px) {
+  #desktop-sidebar-mount {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  #desktop-sidebar-mount > * {
+    position: sticky !important;
+    top: 0;
+    height: 100dvh;
+  }
+
+  #desktop-header-mount {
+    display: block;
+  }
+
+  #mobile-header-mount,
+  #bottom-nav-mount,
+  #app-sidebar-mount {
+    display: none !important;
+  }
+}
+
+/* Mobile & Tablet (<= 900px): hide desktop shell, show mobile header & bottom nav */
+@media (max-width: 900px) {
+  #desktop-sidebar-mount,
+  #desktop-header-mount {
+    display: none !important;
+  }
+
+  #mobile-header-mount,
+  #bottom-nav-mount,
+  #app-sidebar-mount {
+    display: block;
+  }
+
+  .app-shell,
+  .main-shell {
+    width: 100%;
+    max-width: 100vw;
+    margin-left: 0 !important;
+  }
+}

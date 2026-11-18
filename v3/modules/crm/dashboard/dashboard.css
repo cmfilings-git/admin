@@ -1,0 +1,13 @@
+.crm-page {
+  width: 100%;
+  min-width: 0;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 22px 30px 108px;
+}
+
+@media (max-width: 850px) {
+  .crm-page {
+    padding: 16px 14px 105px;
+  }
+}

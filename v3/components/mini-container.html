@@ -1,0 +1,85 @@
+<div class="mini-overlay" id="mini-overlay" hidden></div>
+<section class="mini-popover mini-search" id="mini-search" role="dialog" aria-label="Master search" aria-hidden="true" hidden>
+  <form class="master-search-form" id="master-search-form" role="search">
+    <i data-lucide="search" aria-hidden="true"></i>
+    <input id="master-search-input" type="search" placeholder="Search COREBIQ..." autocomplete="off" aria-label="Search all workspace content">
+  </form>
+  <div class="master-search-results" id="master-search-results" role="listbox" aria-label="Search results" hidden></div>
+</section>
+<section class="mini-popover" id="mini-notifications" role="dialog" aria-label="Recent activity notifications" aria-hidden="true" hidden>
+  <div class="mini-heading">
+    <div><strong>Recent activity</strong><small>Latest workspace updates</small></div>
+    <button type="button" data-mini-close aria-label="Close notifications"><i data-lucide="x"></i></button>
+  </div>
+  <div class="mini-notifications-list" id="mini-notifications-list"></div>
+</section>
+<section class="mini-popover mini-profile" id="mini-profile" role="dialog" aria-label="Signed-in profile" aria-hidden="true" hidden>
+  <div class="mini-account">
+    <span class="mini-account-avatar" data-profile-avatar>
+      <img data-profile-photo alt="" hidden>
+      <span data-profile-initials>--</span>
+    </span>
+    <span class="mini-account-info"><strong data-profile-name>Checking account…</strong><small data-profile-email></small></span>
+  </div>
+  <div class="mini-separator"></div>
+  <a href="modules/settings/settings.html"><i data-lucide="settings-2"></i> Workspace settings</a>
+  <button type="button" id="mini-signout" hidden><i data-lucide="log-out"></i> Sign out</button>
+  <p class="mini-error" id="mini-profile-error" role="alert" hidden></p>
+</section>
+<style>
+.mini-overlay{position:fixed;inset:0;z-index:109;background:transparent;opacity:0;transition:opacity .16s ease}
+.mini-overlay.is-open{opacity:1}
+.mini-overlay[hidden],.mini-popover[hidden]{display:none!important}
+.mini-popover{position:fixed;z-index:110;top:72px;right:22px;width:min(360px,calc(100vw - 28px));max-height:min(480px,calc(100vh - 92px));overflow:auto;padding:8px;background:#fff;border:1px solid #e6e8ec;border-radius:16px;box-shadow:0 16px 42px rgba(20,28,40,.16);color:#20242b;font:400 13px/1.45 var(--font);opacity:0;transform:translateY(-7px) scale(.98);transform-origin:top right;transition:opacity .18s ease,transform .18s ease}
+.mini-popover.is-open{opacity:1;transform:translateY(0) scale(1)}
+.mini-search{left:50%;right:auto;width:min(560px,calc(100vw - 28px));max-height:calc(100vh - 92px);padding:0;overflow:visible;border:0;border-radius:0;background:transparent;box-shadow:none;transform:translateX(-50%) translateY(-7px) scale(.98);transform-origin:top center}
+.mini-search.is-open{transform:translateX(-50%)}
+.master-search-form{width:100%;min-width:0;height:52px;display:flex;align-items:center;gap:12px;margin:0;padding:0 18px;box-sizing:border-box;border:1px solid #e1e7f0;border-radius:999px;background:#fff;box-shadow:0 8px 28px rgba(20,28,40,.14)}
+.master-search-form:focus-within{border-color:var(--primary);box-shadow:0 0 0 3px rgba(26,115,232,.12),0 8px 28px rgba(20,28,40,.14)}
+.master-search-form>svg{width:20px;height:20px;flex:none;color:#59616b;stroke-width:1.8}
+.master-search-form input{display:block;flex:1 1 0;width:0;min-width:0;height:100%;margin:0;padding:0;border:0;border-radius:0;outline:0;box-shadow:none;background:transparent;color:#20242b;font:400 14px/1.4 var(--font);appearance:none;-webkit-appearance:none}
+.master-search-form input::-webkit-search-decoration,
+.master-search-form input::-webkit-search-cancel-button,
+.master-search-form input::-webkit-search-results-button,
+.master-search-form input::-webkit-search-results-decoration{-webkit-appearance:none;appearance:none}
+.master-search-form input::placeholder{color:#8a919b}
+.master-search-results{max-height:min(350px,50vh);overflow-y:auto;margin-top:8px;padding:6px;border:1px solid #e6e8ec;border-radius:18px;background:#fff;box-shadow:0 12px 32px rgba(20,28,40,.14)}
+.master-search-results[hidden]{display:none}
+.master-search-empty{padding:18px 10px;color:#727983;font-size:12px}
+.master-search-result{display:flex;align-items:center;gap:11px;padding:10px;border-radius:10px;color:#20242b;text-decoration:none}
+.master-search-result:hover,.master-search-result[aria-selected="true"]{background:#f3f4f5}
+.master-search-result-icon{width:32px;height:32px;flex:none;display:grid;place-items:center;border-radius:9px;background:#f0f1f2;color:#333a43}
+.master-search-result-icon svg{width:16px;height:16px;stroke-width:1.8}
+.master-search-result-copy{min-width:0;flex:1}
+.master-search-result-copy strong,.master-search-result-copy small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.master-search-result-copy strong{font-size:12px;font-weight:600}
+.master-search-result-copy small{margin-top:3px;color:#79808a;font-size:10px}
+.master-search-result-category{color:#858c95;font-size:10px}
+.mini-heading{display:flex;align-items:center;justify-content:space-between;padding:10px 10px 12px}
+.mini-heading>div{display:grid;gap:3px}
+.mini-heading strong{font-size:15px;font-weight:600;color:#171a1f}
+.mini-heading small{font-size:11px;color:#747b85}
+.mini-heading button{width:32px;height:32px;display:grid;place-items:center;border:0;border-radius:8px;background:transparent;color:#20242b;cursor:pointer}
+.mini-heading button:hover{background:#f4f5f6}
+.mini-heading svg{width:17px;height:17px;stroke-width:1.8}
+.mini-activity-item{display:flex;align-items:flex-start;gap:11px;padding:12px 10px;border-top:1px solid #eff0f2}
+.mini-activity-icon{width:34px;height:34px;flex:none;display:grid;place-items:center;border-radius:10px;background:#f1f2f3;color:#20242b}
+.mini-activity-icon svg{width:17px;height:17px;stroke-width:1.8}
+.mini-activity-copy{min-width:0;flex:1}
+.mini-activity-copy strong{display:block;color:#20242b;font-size:12px;font-weight:600}
+.mini-activity-copy p{margin:3px 0;color:#505761;font-size:12px}
+.mini-activity-copy small{color:#8b919a;font-size:10px}
+.mini-account{display:flex;align-items:center;gap:11px;padding:10px}
+.mini-account-avatar{position:relative;width:40px;height:40px;flex:none;display:grid;place-items:center;overflow:hidden;border-radius:50%;background:#f0f1f2;color:#20242b;font-size:13px;font-weight:600}
+.mini-account-avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mini-account-info{min-width:0;display:grid;gap:3px}
+.mini-account-info strong{overflow:hidden;color:#20242b;font-size:13px;font-weight:600;text-overflow:ellipsis;white-space:nowrap}
+.mini-account-info small{overflow:hidden;color:#747b85;font-size:11px;text-overflow:ellipsis;white-space:nowrap}
+.mini-profile>a,.mini-profile>button{width:100%;min-height:40px;display:flex;align-items:center;gap:11px;padding:0 11px;border:0;border-radius:9px;background:transparent;color:#20242b;font:500 13px var(--font);text-align:left;text-decoration:none;cursor:pointer}
+.mini-profile>a:hover,.mini-profile>button:hover{background:#f4f5f6}
+.mini-profile>a svg,.mini-profile>button svg{width:17px;height:17px;stroke-width:1.8}
+.mini-separator{height:1px;margin:5px 0;background:#eff0f2}
+.mini-error{margin:8px 10px;color:#b3261e;font-size:12px}
+@media(max-width:850px){.mini-popover{top:66px;right:12px;width:min(360px,calc(100vw - 24px));max-height:calc(100vh - 86px)}.mini-search{left:50%;right:auto;width:calc(100vw - 32px)}}
+@media(prefers-reduced-motion:reduce){.mini-overlay,.mini-popover{transition:none}}
+</style>

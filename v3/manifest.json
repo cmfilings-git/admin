@@ -1,0 +1,25 @@
+{
+  "name": "COREBIQ | CM Workspace",
+  "short_name": "COREBIQ",
+  "description": "COREBIQ · Count. Connect. Grow. Business ERP, CRM & HR Workspace.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f7f7f8",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "assets/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

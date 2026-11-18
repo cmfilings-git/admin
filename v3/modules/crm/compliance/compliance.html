@@ -1,0 +1,164 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#fff"><base href="../../../"><title>CRM · Compliance | COREBIQ</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/global-typography.css"><link rel="stylesheet" href="css/global-style.css"><link rel="stylesheet" href="modules/crm/compliance/compliance.css"><script src="https://cdn.tailwindcss.com"></script><script>tailwind.config={theme:{extend:{fontFamily:{sans:['Outfit','sans-serif']},colors:{'app-blue':'#2F74FF','app-bg':'#F8FAFC'}}}};</script></head><body data-page-title="Compliance"><div id="app" class="hiddenx"><div class="app-shell"><div id="desktop-sidebar-mount"></div><main class="main-shell"><div id="desktop-header-mount"></div><div id="mobile-header-mount"></div><main class="client-page"><div class="client-tabs-wrap"><nav class="client-tabs" aria-label="CRM submodules"><a href="modules/crm/dashboard/dashboard.html"><i data-lucide="layout-dashboard"></i>Dashboard</a><a href="modules/crm/clients/clients.html"><i data-lucide="contact-round"></i>Clients</a><a href="modules/crm/credentials/credentials.html"><i data-lucide="shield-check"></i>Credentials</a><a href="modules/crm/compliance/compliance.html" class="active" aria-current="page"><i data-lucide="clipboard-check"></i>Compliance</a><a href="modules/crm/dashboard/dashboard.html#contacts"><i data-lucide="contact"></i>Contacts</a><a href="modules/crm/dashboard/dashboard.html#tasks"><i data-lucide="list-checks"></i>Tasks</a></nav></div><main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10 pb-28 w-full">
+        <header class="crm-head mb-6 md:mb-9">
+          <div>
+            <div class="crm-kicker">Customer relationship management</div>
+            <div class="crm-title-row"><span class="crm-title-icon" aria-hidden="true"><i data-lucide="layout-dashboard"></i></span><h1>CRM Dashboard</h1></div>
+          </div>
+          <div class="crm-head-actions">
+            <button id="refreshButton" class="crm-icon-btn" type="button" aria-label="Refresh compliance" title="Refresh compliance"><i data-lucide="refresh-cw"></i></button>
+            <button id="addComplianceButton" type="button" class="crm-btn primary"><i data-lucide="plus" aria-hidden="true"></i><span>Add</span></button></div>
+        </header>
+
+        <div id="loadError" class="hidden mb-5 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700"></div>
+
+        <!-- KPI cards -->
+        <section class="grid grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-5 mb-7 compliance-kpi-grid">
+          <article class="crm-compliance-kpi crm-stat-card crm-compliance-kpi--upcoming">
+            <div class="crm-compliance-kpi-label text-sm text-slate-500">Upcoming Date</div>
+            <b id="upcomingCount" class="crm-compliance-kpi-value text-3xl">—</b>
+            <span id="upcomingDaysCount" class="crm-compliance-kpi-days">No upcoming date</span>
+            <span class="crm-compliance-kpi-icon" aria-hidden="true"><i data-lucide="calendar-days"></i></span>
+          </article>
+          <article class="crm-compliance-kpi crm-stat-card crm-compliance-kpi--pending">
+            <div class="crm-compliance-kpi-label text-sm text-slate-500">Pending</div>
+            <b id="pendingCount" class="crm-compliance-kpi-value text-3xl">—</b>
+            <span class="crm-compliance-kpi-icon" aria-hidden="true"><i data-lucide="clock"></i></span>
+          </article>
+          <article class="crm-compliance-kpi crm-stat-card crm-compliance-kpi--not-paid">
+            <div class="crm-compliance-kpi-label text-sm text-slate-500">Not Paid</div>
+            <b id="notPaidCount" class="crm-compliance-kpi-value text-3xl">—</b>
+            <span class="crm-compliance-kpi-icon" aria-hidden="true"><i data-lucide="indian-rupee"></i></span>
+          </article>
+          <article class="crm-compliance-kpi crm-stat-card crm-compliance-kpi--overdue">
+            <div class="crm-compliance-kpi-label text-sm text-slate-500">Overdue</div>
+            <b id="overdueCount" class="crm-compliance-kpi-value text-3xl">—</b>
+            <span class="crm-compliance-kpi-icon" aria-hidden="true"><i data-lucide="triangle-alert"></i></span>
+          </article>
+        </section>
+
+        <!-- Summary strip -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-5 mb-8 compliance-summary-grid">
+          <div class="bg-white border-2 border-gray-100 rounded-2xl p-5 shadow-sm">
+            <p class="compliance-kpi-label">Due in next 7 days</p><p id="dueSoonCount" class="text-2xl font-bold text-gray-900 mt-1">—</p>
+          </div>
+          <div class="bg-white border-2 border-gray-100 rounded-2xl p-5 shadow-sm">
+            <p class="compliance-kpi-label">Payment unpaid / pending</p><p id="unpaidCount" class="text-2xl font-bold text-gray-900 mt-1">—</p>
+          </div>
+          <div class="bg-white border-2 border-gray-100 rounded-2xl p-5 shadow-sm">
+            <p class="compliance-kpi-label">Clients with compliance records</p><p id="clientCount" class="text-2xl font-bold text-gray-900 mt-1">—</p>
+          </div>
+        </section>
+
+        <!-- Register -->
+        <section class="crm-record-card bg-white border-2 border-gray-100 rounded-[1.5rem] md:rounded-[2rem] shadow-sm overflow-hidden">
+          <div class="p-5 md:p-7 border-b border-gray-100">
+            <div class="flex flex-wrap justify-between items-center gap-3 mb-5">
+              <div><h2 class="text-gray-900 text-xl md:text-2xl font-bold">Compliance register</h2></div>
+              <span id="recordCount" class="text-sm text-gray-500">0 records</span>
+            </div>
+            <div class="crm-compliance-toolbar">
+              <input id="searchInput" type="search" placeholder="Search client, ID, compliance..." class="crm-compliance-search" aria-label="Search compliance records">
+              <div class="crm-filter-wrap">
+                <button id="filterToggle" class="crm-filter-button" type="button" aria-expanded="false" aria-controls="complianceFilterPopover"><i data-lucide="list-filter"></i><span>Filter</span><span id="activeFilterCount" class="crm-filter-count" hidden>0</span></button>
+                <div id="complianceFilterPopover" class="crm-filter-popover" hidden>
+                  <nav class="crm-filter-categories" aria-label="Compliance filter categories">
+                    <button type="button" class="active" data-filter-category="view"><span>Record view</span><i data-lucide="chevron-right"></i></button>
+                    <button type="button" data-filter-category="client"><span>Client</span><i data-lucide="chevron-right"></i></button>
+                    <button type="button" data-filter-category="date"><span>Date</span><i data-lucide="chevron-right"></i></button>
+                    <button type="button" data-filter-category="period"><span>Period</span><i data-lucide="chevron-right"></i></button>
+                    <button type="button" data-filter-category="compliance"><span>Compliance Name</span><i data-lucide="chevron-right"></i></button>
+                    <button type="button" data-filter-category="filing"><span>Filing Status</span><i data-lucide="chevron-right"></i></button>
+                    <button type="button" data-filter-category="payment"><span>Payment Status</span><i data-lucide="chevron-right"></i></button>
+                    <button type="button" data-filter-category="priority"><span>Priority</span><i data-lucide="chevron-right"></i></button>
+                  </nav>
+                  <div class="crm-filter-content" aria-live="polite">
+                    <section class="crm-filter-panel active" data-filter-panel="view"><h3>Record view</h3><label>Show<select id="viewFilter" class="crm-filter-control"><option value="outstanding">Not done</option><option value="all">All records (including filed)</option></select></label></section>
+                    <section class="crm-filter-panel" data-filter-panel="client"><h3>Client</h3><label>Client<select id="clientFilter" class="crm-filter-control" aria-label="Filter compliances by client" data-search-placeholder="Search clients"><option value="">All clients</option></select></label></section>
+                    <section class="crm-filter-panel" data-filter-panel="date"><h3>Date</h3><label>Due from<input id="dateFromFilter" class="crm-filter-control" type="date"></label><label>Due to<input id="dateToFilter" class="crm-filter-control" type="date"></label></section>
+                    <section class="crm-filter-panel" data-filter-panel="period"><h3>Period</h3><label>Compliance period<select id="periodFilter" class="crm-filter-control"><option value="">All periods</option></select></label></section>
+                    <section class="crm-filter-panel" data-filter-panel="compliance"><h3>Compliance Name</h3><label>Compliance<select id="complianceNameFilter" class="crm-filter-control"><option value="">All compliances</option></select></label></section>
+                    <section class="crm-filter-panel" data-filter-panel="filing"><h3>Filing Status</h3><label>Status<select id="statusFilter" class="crm-filter-control"><option value="">All statuses</option><option value="completed">Completed</option><option value="pending">Pending</option><option value="overdue">Overdue</option></select></label></section>
+                    <section class="crm-filter-panel" data-filter-panel="payment"><h3>Payment Status</h3><label>Status<select id="paymentFilter" class="crm-filter-control"><option value="">All payment statuses</option><option value="paid">Paid</option><option value="unpaid">Unpaid</option><option value="pending">Pending</option></select></label></section>
+                    <section class="crm-filter-panel" data-filter-panel="priority"><h3>Priority</h3><label>Priority<select id="priorityFilter" class="crm-filter-control"><option value="">All priorities</option><option>Low</option><option>Medium</option><option>High</option></select></label></section>
+                  </div>
+                  <div class="crm-filter-footer"><button id="clearComplianceFilters" class="crm-clear-filters" type="button"><i data-lucide="rotate-ccw"></i><span>Clear filters</span></button></div>
+                  <input id="sortFilter" type="hidden" value="due">
+                </div>
+              </div>
+              <div class="crm-add-wrap">
+                <button id="bulkActionsToggle" class="crm-icon-btn" type="button" title="More actions" aria-label="More actions" aria-expanded="false" aria-controls="bulkActionsMenu"><i data-lucide="ellipsis"></i></button>
+                <div id="bulkActionsMenu" class="crm-add-menu" hidden>
+                  <button id="deleteSelected" type="button" disabled><i data-lucide="trash-2"></i>Delete selected</button>
+                  <button id="copySelected" type="button" disabled><i data-lucide="calendar-plus"></i>Copy to new date</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table class="min-w-[1040px] w-full text-left">
+              <thead class="bg-gray-50 text-gray-500 text-xs uppercase tracking-wide">
+                <tr>
+                  <th class="px-5 py-4 font-semibold"><input id="selectVisibleCompliance" type="checkbox" aria-label="Select visible compliance records"></th>
+                  <th class="px-5 py-4 font-semibold"><button class="crm-sort-button" type="button" data-sort-key="clientName">Client / ID <i data-lucide="arrow-up-down"></i></button></th>
+                  <th class="px-5 py-4 font-semibold"><button class="crm-sort-button" type="button" data-sort-key="complianceName">Compliance <i data-lucide="arrow-up-down"></i></button></th>
+                  <th class="px-5 py-4 font-semibold"><button class="crm-sort-button" type="button" data-sort-key="CompliancePeriod">Period <i data-lucide="arrow-up-down"></i></button></th>
+                  <th class="px-5 py-4 font-semibold"><button class="crm-sort-button" type="button" data-sort-key="dueDate">Due date <i data-lucide="arrow-up-down"></i></button></th>
+                  <th class="px-5 py-4 font-semibold"><button class="crm-sort-button" type="button" data-sort-key="filingStatus">Filing status <i data-lucide="arrow-up-down"></i></button></th>
+                  <th class="px-5 py-4 font-semibold"><button class="crm-sort-button" type="button" data-sort-key="paymentStatus">Payment <i data-lucide="arrow-up-down"></i></button></th>
+                  <th class="px-5 py-4 font-semibold"><button class="crm-sort-button" type="button" data-sort-key="priority">Priority <i data-lucide="arrow-up-down"></i></button></th>
+                  <th class="px-5 py-4 font-semibold">Folder</th>
+                  <th class="px-5 py-4 font-semibold">Amount</th>
+                  <th class="px-5 py-4 font-semibold">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="complianceRows" class="divide-y divide-gray-100 text-sm">
+                <tr><td colspan="11" class="px-5 py-12 text-center"><div class="flex justify-center"><div class="spinner"></div></div><p class="text-gray-400 mt-3">Loading compliance records...</p></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="emptyState" class="hidden px-5 py-12 text-center text-gray-400">No compliance records match your filters.</div>
+          <div id="compliancePagination" class="crm-pagination"></div>
+          <div class="px-5 py-4 bg-gray-50 border-t border-gray-100 text-xs text-gray-400">The default view shows records that are not filed and not paid. Select All records to include completed items.</div>
+        </section>
+      </main></main></main></div><div id="app-sidebar-mount"></div><div id="bottom-nav-mount"></div><div id="mini-container-mount"></div></div>
+    <div id="complianceModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/50 p-3 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="complianceModalTitle">
+      <div class="w-full max-w-3xl max-h-[95vh] overflow-y-auto rounded-2xl bg-white shadow-2xl">
+        <div class="sticky top-0 z-10 flex items-center justify-between border-b border-gray-100 bg-white px-5 py-4 sm:px-7">
+          <div><h2 id="complianceModalTitle" class="text-xl font-bold text-gray-900">Add Compliance</h2><p class="mt-1 text-sm text-gray-500">New records start with filing and payment status pending.</p></div>
+          <button id="closeComplianceModal" type="button" class="rounded-lg p-2 text-gray-500 hover:bg-gray-100" aria-label="Close compliance form"><i data-lucide="x"></i></button>
+        </div>
+        <form id="complianceForm" class="space-y-5 p-5 sm:p-7">
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <label><span class="label">Client *</span><select id="complianceClient" class="field" required><option value="">Select a client</option></select></label>
+            <label><span class="label">Compliance name *</span><input id="complianceNameInput" class="field" required maxlength="160"></label>
+            <label><span class="label">Compliance ID</span><input id="complianceIdInput" class="field" maxlength="120"></label>
+            <label><span class="label">AKN number</span><input id="complianceAknInput" class="field" maxlength="120"></label>
+            <label><span class="label">Compliance period</span><input id="compliancePeriodInput" class="field" maxlength="80"></label>
+            <label><span class="label">Due date *</span><input id="complianceDueDate" class="field" type="date" required></label>
+            <fieldset class="sm:col-span-2">
+              <legend class="label">Compliance schedule *</legend>
+              <div class="grid grid-cols-2 gap-2">
+                <label class="flex cursor-pointer items-center gap-2 rounded-xl border border-gray-200 px-4 py-3 text-sm font-medium text-gray-700"><input type="radio" name="complianceType" value="Running Compliance" checked>Running Compliance</label>
+                <label class="flex cursor-pointer items-center gap-2 rounded-xl border border-gray-200 px-4 py-3 text-sm font-medium text-gray-700"><input type="radio" name="complianceType" value="Onetime">Onetime</label>
+              </div>
+            </fieldset>
+            <label id="nextComplianceDateField" class="sm:col-span-2"><span class="label">Next Compliance date *</span><input id="nextComplianceDate" class="field" type="date" required><span class="mt-1 block text-xs text-gray-500">A pending copy of this compliance will be created for this date.</span></label>
+            <label><span class="label">Priority</span><select id="compliancePriority" class="field"><option value="">Select priority</option><option>Low</option><option>Medium</option><option>High</option></select></label>
+            <label><span class="label">Task folder URL</span><input id="complianceFolder" class="field" type="url" inputmode="url"></label>
+          </div>
+          <p id="complianceFormError" class="text-sm text-rose-600" role="alert"></p>
+          <div class="flex flex-col-reverse justify-end gap-2 border-t border-gray-100 pt-4 sm:flex-row">
+            <button id="cancelComplianceForm" type="button" class="btn light">Cancel</button>
+            <button id="saveCompliance" type="submit" class="btn primary"><i data-lucide="save" aria-hidden="true"></i>Save Compliance</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="copyDateModal" class="crm-modal" hidden>
+      <button class="crm-modal-backdrop" type="button" data-close-copy aria-label="Close copy date form"></button>
+      <section class="crm-modal-panel" role="dialog" aria-modal="true" aria-labelledby="copyDateTitle">
+        <header class="crm-modal-head"><div><h2 id="copyDateTitle">Copy compliance to a new date</h2><p>Selected records will be copied with filing and payment status set to pending.</p></div><button class="crm-icon-btn" type="button" data-close-copy aria-label="Close"><i data-lucide="x"></i></button></header>
+        <form id="copyDateForm" class="crm-contact-form"><label>New due date<input id="copyDueDate" class="crm-control" type="date" required></label><p id="copyDateError" class="crm-contact-error" role="alert"></p><div class="crm-modal-actions"><button class="crm-btn" type="button" data-close-copy>Cancel</button><button class="crm-btn primary" type="submit"><i data-lucide="copy"></i>Copy records</button></div></form>
+      </section>
+    </div>
+    <div id="toast" class="toast hiddenx"></div><script src="https://unpkg.com/lucide@latest"></script><script src="js/index.js"></script><script type="module" src="modules/crm/compliance/compliance.js"></script></body></html>

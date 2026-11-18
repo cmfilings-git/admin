@@ -1,0 +1,95 @@
+<header class="mobile-app-header">
+  <a href="index.html" class="mobile-app-brand" aria-label="Home">
+    <img src="assets/logo.png" alt="COREBIQ" class="mobile-brand-logo">
+  </a>
+  <span class="mobile-header-spacer"></span>
+  <button class="mobile-header-action" type="button" aria-label="Master search" aria-haspopup="dialog" aria-expanded="false" data-popover-target="mini-search">
+    <i data-lucide="search"></i>
+  </button>
+  <button class="mobile-header-action notification-button" type="button" aria-label="Recent activity notifications" aria-haspopup="dialog" aria-expanded="false" data-popover-target="mini-notifications">
+    <i data-lucide="bell"></i><b aria-hidden="true"></b>
+  </button>
+  <button class="mobile-header-action" type="button" aria-label="Open signed-in profile" aria-haspopup="dialog" aria-expanded="false" data-popover-target="mini-profile">
+    <i data-lucide="user-round"></i>
+  </button>
+</header>
+
+<style>
+.mobile-app-header {
+  height: 58px;
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  background: var(--surface, rgba(255, 255, 255, 0.96));
+  border-bottom: 1px solid var(--line, #e1e7f0);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font: 600 13px var(--font, sans-serif);
+  color: var(--text, #1f2937);
+}
+
+.mobile-app-brand {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-brand-logo {
+  width: 34px;
+  height: 34px;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  display: block;
+}
+
+.mobile-header-spacer {
+  flex: 1;
+}
+
+.mobile-header-action {
+  position: relative;
+  border: 0;
+  background: transparent;
+  color: var(--muted, #687386);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.mobile-header-action i {
+  width: 20px;
+  height: 20px;
+}
+
+.notification-button b {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 7px;
+  height: 7px;
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+  background: #20242b;
+}
+
+.mobile-header-action:hover {
+  background: var(--surface-low, #f3f6fb);
+}
+
+.mobile-header-action:active {
+  background: var(--surface-container, #eaf0f8);
+}
+
+@media (min-width: 851px) {
+  .mobile-app-header {
+    display: none;
+  }
+}
+</style>

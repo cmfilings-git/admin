@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0369a1">
+  <base href="../../">
+  <title>Compliance Components | COREBIQ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="components/date-picker.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif']
+          },
+          colors: {
+            'app-blue': '#0369a1',
+            'app-bg': '#F8FAFC'
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="components/sample-page/sample-page2.css">
+</head>
+<body data-page-title="Compliance">
+  <div id="date-picker-component-mount" hidden></div>
+  <div id="app" class="app-shell">
+    <div id="desktop-sidebar-mount"></div>
+    <div class="main-shell">
+      <div id="desktop-header-mount"></div>
+      <div id="mobile-header-mount"></div>
+      <div class="client-page">
+        <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10 pb-28 w-full">
+          <template id="sampleCrmMenuTemplate">
+            <a href="modules/crm/dashboard/dashboard.html"><i data-lucide="layout-dashboard" aria-hidden="true"></i>Dashboard</a>
+            <a href="modules/crm/clients/clients.html"><i data-lucide="contact-round" aria-hidden="true"></i>Clients</a>
+            <a href="modules/crm/credentials/credentials.html"><i data-lucide="shield-check" aria-hidden="true"></i>Credentials</a>
+            <a href="modules/crm/compliance/compliance.html"><i data-lucide="clipboard-check" aria-hidden="true"></i>Compliance</a>
+          </template>
+          <div id="kpi-hero-submodule-page-mount"></div>
+
+          <div id="modulepage-row2-mount"
+            data-kpi1-label="Success" data-kpi1-value="24" data-kpi1-icon="circle-check" data-kpi1-tone="green"
+            data-kpi2-label="Pending" data-kpi2-value="12" data-kpi2-icon="clock-3" data-kpi2-tone="amber"
+            data-kpi3-label="Cancelled" data-kpi3-value="3" data-kpi3-icon="circle-x" data-kpi3-tone="red"
+            data-kpi4-label="Ongoing" data-kpi4-value="8" data-kpi4-icon="refresh-cw" data-kpi4-tone="blue"></div>
+
+          <section class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-5 mb-8 compliance-summary-grid" aria-label="Compliance summary">
+            <article class="bg-white border border-slate-200 rounded-[20px] p-5 shadow-sm">
+              <p class="compliance-kpi-label text-xs font-medium text-slate-500">Due in next 7 days</p>
+              <p class="text-2xl font-bold text-slate-900 mt-1">6</p>
+            </article>
+            <article class="bg-white border border-slate-200 rounded-[20px] p-5 shadow-sm">
+              <p class="compliance-kpi-label text-xs font-medium text-slate-500">Payment unpaid / pending</p>
+              <p class="text-2xl font-bold text-slate-900 mt-1">8</p>
+            </article>
+            <article class="bg-white border border-slate-200 rounded-[20px] p-5 shadow-sm">
+              <p class="compliance-kpi-label text-xs font-medium text-slate-500">Clients with compliance records</p>
+              <p class="text-2xl font-bold text-slate-900 mt-1">24</p>
+            </article>
+          </section>
+
+          <section class="crm-record-card sample-saved-forms bg-white border border-slate-200 rounded-[20px] shadow-sm overflow-hidden">
+            <div class="p-5 md:p-7 border-b border-slate-100">
+              <div id="modulepage-row3-mount" data-title="Saved Compliance Forms" data-icon="clipboard-list" data-search-id="sampleComplianceSearch" data-search-placeholder="Search page ID, name, client..." data-search-label="Search saved compliance forms" data-filter-template-id="sampleComplianceFilterTemplate" data-action-template-id="sampleComplianceActionsTemplate" data-record-count-id="sampleComplianceRecordCount" data-selected-count-id="sampleComplianceSelectedCount" data-filter-toggle-id="sampleComplianceFilterToggle" data-filter-count-id="sampleComplianceFilterCount" data-filter-popover-id="sampleComplianceFilterPopover" data-action-toggle-id="sampleComplianceActionsToggle" data-action-menu-id="sampleComplianceActionsMenu" data-action-label="More actions"></div>
+              <template id="sampleComplianceFilterTemplate">
+                <nav class="crm-filter-categories" aria-label="Compliance filter categories">
+                  <button type="button" class="active" data-filter-category="view"><span>Record view</span><i data-lucide="chevron-right"></i></button>
+                  <button type="button" data-filter-category="client"><span>Client</span><i data-lucide="chevron-right"></i></button>
+                  <button type="button" data-filter-category="date"><span>Date</span><i data-lucide="chevron-right"></i></button>
+                  <button type="button" data-filter-category="period"><span>Period</span><i data-lucide="chevron-right"></i></button>
+                  <button type="button" data-filter-category="compliance"><span>Compliance Name</span><i data-lucide="chevron-right"></i></button>
+                  <button type="button" data-filter-category="filing"><span>Filing Status</span><i data-lucide="chevron-right"></i></button>
+                  <button type="button" data-filter-category="payment"><span>Payment Status</span><i data-lucide="chevron-right"></i></button>
+                  <button type="button" data-filter-category="priority"><span>Priority</span><i data-lucide="chevron-right"></i></button>
+                </nav>
+                <div class="crm-filter-content" aria-live="polite">
+                  <section class="crm-filter-panel active" data-filter-panel="view"><h3>Record view</h3><label>Show<select class="crm-filter-control"><option>Not done</option><option>All records (including filed)</option></select></label></section>
+                  <section class="crm-filter-panel" data-filter-panel="client"><h3>Client</h3><label>Client<select class="crm-filter-control"><option>All clients</option></select></label></section>
+                  <section class="crm-filter-panel" data-filter-panel="date"><h3>Date</h3><label>Due from<input id="sampleDateFrom" class="crm-filter-control" type="date" data-shared-date-picker></label><label>Due to<input id="sampleDateTo" class="crm-filter-control" type="date" data-shared-date-picker></label></section>
+                  <section class="crm-filter-panel" data-filter-panel="period"><h3>Period</h3><label>Compliance period<select class="crm-filter-control"><option>All periods</option></select></label></section>
+                  <section class="crm-filter-panel" data-filter-panel="compliance"><h3>Compliance Name</h3><label>Compliance<select class="crm-filter-control"><option>All compliances</option></select></label></section>
+                  <section class="crm-filter-panel" data-filter-panel="filing"><h3>Filing Status</h3><label>Status<select class="crm-filter-control"><option>All statuses</option><option>Completed</option><option>Pending</option><option>Overdue</option></select></label></section>
+                  <section class="crm-filter-panel" data-filter-panel="payment"><h3>Payment Status</h3><label>Status<select class="crm-filter-control"><option>All payment statuses</option><option>Paid</option><option>Unpaid</option><option>Pending</option></select></label></section>
+                  <section class="crm-filter-panel" data-filter-panel="priority"><h3>Priority</h3><label>Priority<select class="crm-filter-control"><option>All priorities</option><option>Low</option><option>Medium</option><option>High</option></select></label></section>
+                </div>
+                <div class="crm-filter-footer"><button class="crm-clear-filters" type="button"><i data-lucide="rotate-ccw"></i><span>Clear filters</span></button></div>
+              </template>
+              <template id="sampleComplianceActionsTemplate">
+                <button type="button"><i data-lucide="trash-2"></i>Delete selected</button>
+                <button type="button"><i data-lucide="calendar-plus"></i>Copy to new date</button>
+              </template>
+            </div>
+            <div id="sample-form-view-mount"></div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <div id="app-sidebar-mount"></div>
+    <div id="bottom-nav-mount"></div>
+    <div id="mini-container-mount"></div>
+  </div>
+
+  <div id="sample-form-mount"></div>
+  <div id="sample-toast" class="toast hiddenx" role="status" aria-live="polite"></div>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/index.js"></script>
+  <script type="module" src="components/sample-page/sample-page.js"></script>
+</body>
+</html>

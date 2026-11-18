@@ -865,3 +865,66 @@ body[data-page-title="Compliance"] .compliance-refresh-button.is-refreshing svg 
     padding: 14px 12px !important;
   }
 }
+
+/* ==========================================================================
+   Existing compliance.css rules
+   ========================================================================== */
+...
+
+/* ==========================================================================
+   1. Gemini Material 3 Compliance Form Modal Styling
+   ========================================================================== */
+.compliance-form-card {
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(var(--surface, #fff), var(--surface, #fff)) padding-box,
+    linear-gradient(135deg, var(--line, #dee3eb) 0%, var(--primary, #16856b) 50%, var(--line, #dee3eb) 100%) border-box;
+}
+
+body[data-theme="dark"] .compliance-form-card {
+  background:
+    linear-gradient(var(--surface, #1e1f20), var(--surface, #1e1f20)) padding-box,
+    linear-gradient(135deg, var(--line, #33363b) 0%, var(--primary, #16856b) 50%, var(--line, #33363b) 100%) border-box;
+}
+
+.compliance-radio-card {
+  border-color: var(--line, #dee3eb);
+  background: var(--surface, #fff);
+  color: var(--text, #1f1f1f);
+  transition: border-color 0.16s ease, background-color 0.16s ease;
+}
+
+.compliance-radio-card:hover {
+  background: var(--surface-low, #f0f4f9);
+  border-color: color-mix(in srgb, var(--primary, #16856b) 40%, var(--line, #dee3eb));
+}
+
+.compliance-radio-card input[type="radio"] {
+  accent-color: var(--primary, #16856b);
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  cursor: pointer;
+}
+
+#complianceForm label .text-gray-500,
+#complianceForm label .text-gray-400 {
+  color: var(--muted, #5f6368);
+}
+
+#complianceForm .border-gray-100 {
+  border-color: var(--line, #dee3eb) !important;
+}
+
+@media (max-width: 600px) {
+  #complianceModal {
+    padding: 10px;
+  }
+  .compliance-form-card {
+    max-height: calc(100dvh - 20px);
+    border-radius: 16px;
+  }
+  #complianceForm {
+    padding: 14px;
+  }
+}

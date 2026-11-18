@@ -3,13 +3,13 @@
   <div class="welcome-copy">
     <div class="welcome-eyebrow">
       <span class="eyebrow-icon-wrap">
-        <i data-lucide="sparkles"></i>
+        <i data-lucide="sparkles" aria-hidden="true"></i>
       </span>
       <span class="welcome-eyebrow-label">WORKSPACE OVERVIEW</span>
     </div>
     <h1>Welcome Back</h1>
     <p class="welcome-company-name" id="welcome-company-name" aria-live="polite">Loading company name…</p>
-    <p>Here’s what’s happening across your business today.</p>
+    <p class="welcome-subtitle">Here’s what’s happening across your business today.</p>
   </div>
   <time class="welcome-date" id="welcome-date">
     <i data-lucide="calendar-days" aria-hidden="true"></i>
@@ -21,18 +21,19 @@
 /* Gemini Material 3 Hero Welcome Card */
 .welcome-card {
   position: relative;
+  overflow: hidden;
   background:
-    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(var(--surface, #ffffff), var(--surface, #ffffff)) padding-box,
     linear-gradient(115deg, #4285f4 0%, #8067d4 35%, #d96570 68%, #f9ab00 100%) border-box;
-  border: 2px solid transparent;
-  border-radius: var(--radius-xl, 24px);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-xl, 20px);
   box-shadow: none;
-  padding: 32px 36px;
-  margin-bottom: 24px;
+  padding: 20px 24px;
+  margin-bottom: 18px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 20px;
   box-sizing: border-box;
 }
 
@@ -47,141 +48,215 @@
   position: absolute;
   z-index: 0;
   top: 0;
-  right: 0;
-  width: 30%;
+  right: 12px;
+  width: min(260px, 28%);
   height: 100%;
   object-fit: contain;
-  object-position: center;
-  opacity: 0.06;
+  object-position: right center;
+  opacity: 0.055;
   pointer-events: none;
+  user-select: none;
 }
 
+/* Eyebrow Badge */
 .welcome-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  gap: 6px;
+  font-size: 10.5px;
+  font-weight: var(--weight-semibold, 600);
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   padding: 0;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .welcome-eyebrow-label {
-  padding: 5px 9px;
+  padding: 3.5px 9px;
   border-radius: 999px;
   background: linear-gradient(100deg, #f4cf67 0%, #edb943 100%);
-  color: #fff;
-  -webkit-text-fill-color: #fff;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  line-height: 1.2;
 }
 
 .eyebrow-icon-wrap {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   display: grid;
   place-items: center;
   border-radius: 6px;
   background: transparent;
   color: #edb943;
+  flex-shrink: 0;
 }
 
+.welcome-eyebrow i,
 .welcome-eyebrow svg {
   width: 14px;
   height: 14px;
-  stroke-width: 1.75;
+  stroke-width: 1.85;
 }
 
 /* Typography Scale */
 .welcome-card h1 {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: var(--text-base, 14px);
+  font-weight: var(--weight-medium, 500);
   letter-spacing: 0;
-  color: var(--text, #1f2937);
-  margin: 0 0 5px;
+  color: var(--muted, #5f6368);
+  margin: 0 0 2px;
   line-height: 1.35;
 }
 
-.welcome-card p {
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--muted, #687386);
-  margin: 0;
-  line-height: 1.5;
-}
-
 .welcome-card .welcome-company-name {
-  margin: 0 0 6px;
-  background: linear-gradient(90deg, #2563eb 0%, #4f46e5 55%, #0ea5e9 100%);
+  margin: 0 0 4px;
+  background: linear-gradient(90deg, #1a73e8 0%, #4f46e5 52%, #0ea5e9 100%);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-  font-size: clamp(26px, 3vw, 36px);
-  font-weight: 600;
-  letter-spacing: -0.025em;
-  line-height: 1.15;
+  font-size: clamp(20px, 2.2vw, 26px);
+  font-weight: var(--weight-semibold, 600);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
   overflow-wrap: anywhere;
+}
+
+.welcome-card p,
+.welcome-card .welcome-subtitle {
+  font-size: var(--text-sm, 13px);
+  font-weight: var(--weight-regular, 400);
+  color: var(--muted, #5f6368);
+  margin: 0;
+  line-height: var(--leading-normal, 1.5);
 }
 
 /* Date Badge Pill */
 .welcome-date {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  padding: 8px 16px;
+  gap: 8px;
+  padding: 7px 13px;
   border-radius: var(--radius-sm, 8px);
-  background: #f8f9fa;
-  border: 1px solid #e1e7f0;
-  color: var(--text, #1f2937);
-  font-size: 13px;
-  font-weight: 500;
+  background: var(--surface-low, #f0f4f9);
+  border: 1px solid var(--line, #dee3eb);
+  color: var(--text, #1f1f1f);
+  font-size: var(--text-xs, 12px);
+  font-weight: var(--weight-medium, 500);
+  line-height: 1.25;
   white-space: nowrap;
   flex-shrink: 0;
   margin-left: auto;
-  text-align: left;
-  justify-content: flex-start;
 }
 
-.welcome-date i {
+.welcome-date i,
+.welcome-date svg {
   width: 15px;
   height: 15px;
   color: #8067d4;
   stroke-width: 1.8;
+  flex-shrink: 0;
 }
 
-/* Responsive Rules */
+/* Dark Theme Adaptation */
+body[data-theme="dark"] .welcome-card h1 {
+  color: #bdcbe0;
+}
+
+body[data-theme="dark"] .welcome-card .welcome-company-name {
+  background: linear-gradient(90deg, #60a5fa 0%, #a78bfa 52%, #38bdf8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+body[data-theme="dark"] .welcome-card .welcome-date {
+  background: rgba(15, 30, 52, 0.55);
+  border-color: var(--line, #33363b);
+  color: #d7e5fa;
+}
+
+body[data-theme="dark"] .welcome-card .welcome-date i,
+body[data-theme="dark"] .welcome-card .welcome-date svg {
+  color: #b9a2ff;
+}
+
+body[data-theme="dark"] .welcome-watermark {
+  opacity: 0.09;
+}
+
+/* Responsive Rules (Tablet & Mobile) */
 @media (max-width: 850px) {
   .welcome-card {
-    padding: 22px 20px;
-    border-radius: 20px;
+    padding: 16px 18px;
+    border-radius: var(--radius-lg, 16px);
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
-    margin-bottom: 16px;
+    gap: 12px;
+    margin-bottom: 14px;
   }
 
-  .welcome-card h1 {
-    font-size: 15px;
-    margin-bottom: 4px;
-  }
-
-  .welcome-card p {
-    font-size: 13px;
+  .welcome-watermark {
+    right: 4px;
+    width: 38%;
+    opacity: 0.045;
   }
 
   .welcome-eyebrow {
     font-size: 10px;
-    padding: 0;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
+  }
+
+  .welcome-eyebrow-label {
+    padding: 3px 8px;
+  }
+
+  .welcome-card h1 {
+    font-size: var(--text-sm, 13px);
+  }
+
+  .welcome-card .welcome-company-name {
+    font-size: clamp(19px, 5vw, 22px);
+    margin-bottom: 3px;
+  }
+
+  .welcome-card p,
+  .welcome-card .welcome-subtitle {
+    font-size: var(--text-xs, 12px);
   }
 
   .welcome-date {
     align-self: flex-end;
     margin-left: auto;
-    gap: 7px;
-    padding: 6px 9px;
+    gap: 6px;
+    padding: 5px 10px;
     font-size: 11px;
+  }
+
+  .welcome-date i,
+  .welcome-date svg {
+    width: 13.5px;
+    height: 13.5px;
+  }
+}
+
+@media (max-width: 390px) {
+  .welcome-card {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .welcome-card .welcome-company-name {
+    font-size: 18.5px;
+  }
+
+  .welcome-date {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 </style>

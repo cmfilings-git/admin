@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f9fc">
+  <base href="../../../">
+  <title>CRM | COREBIQ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global-typography.css">
+  <link rel="stylesheet" href="css/global-style.css"><link rel="stylesheet" href="modules/crm/dashboard/dashboard.css">
+</head>
+<body data-page-title="CRM">
+  <div id="crm-app" hidden>
+    <div class="app-shell">
+      <div id="desktop-sidebar-mount"></div>
+      <main class="main-shell">
+        <div id="desktop-header-mount"></div>
+        <div id="mobile-header-mount"></div>
+        <main class="crm-page">
+          <header class="crm-head">
+            <div>
+              <nav class="crm-kicker crm-breadcrumb" aria-label="Breadcrumb"><span>CRM</span><span aria-hidden="true">›</span><span aria-current="page">Dashboard</span></nav>
+              <div class="crm-title-row"><span class="crm-title-icon" aria-hidden="true"><i data-lucide="layout-dashboard"></i></span><h1>CRM Dashboard</h1></div>
+            </div>
+            <div class="crm-head-actions">
+              <button id="refreshCrm" class="crm-icon-btn" type="button" title="Refresh dashboard" aria-label="Refresh dashboard"><i data-lucide="refresh-cw"></i></button>
+              <div class="crm-add-wrap">
+                <button id="addMenuToggle" class="crm-btn primary" type="button" aria-expanded="false" aria-controls="addActionMenu"><i data-lucide="plus"></i><span>Add</span></button>
+                <div id="addActionMenu" class="crm-add-menu" hidden>
+                  <a href="modules/crm/clients/clients.html#add"><i data-lucide="user-round-plus"></i>Add New Client</a>
+                  <a href="modules/crm/credentials/credentials.html#add"><i data-lucide="key-round"></i>Add Credentials</a>
+                  <a href="modules/crm/compliance/compliance.html#add"><i data-lucide="clipboard-plus"></i>Add Compliance</a>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          <div class="crm-tabs-wrap">
+            <nav class="crm-tabs" aria-label="CRM sections">
+              <a class="crm-tab active" href="modules/crm/dashboard/dashboard.html" aria-current="page"><i data-lucide="layout-dashboard"></i>Dashboard</a>
+              <a class="crm-tab" href="modules/crm/clients/clients.html"><i data-lucide="contact-round"></i>Clients</a>
+              <a class="crm-tab" href="modules/crm/credentials/credentials.html"><i data-lucide="shield-check"></i>Credentials</a>
+              <a class="crm-tab" href="modules/crm/compliance/compliance.html"><i data-lucide="clipboard-check"></i>Compliance</a>
+            </nav>
+          </div>
+
+          <section class="crm-panel active" data-panel="dashboard">
+            <div class="crm-dashboard-kpis">
+              <article class="crm-kpi">
+                <div class="crm-kpi-top"><span class="crm-kpi-label">Total Clients</span><span class="crm-kpi-icon"><i data-lucide="contact-round"></i></span></div>
+                <div class="crm-kpi-value" id="total-clients">—</div>
+                <div class="crm-kpi-note">Records in the clients collection</div>
+              </article>
+              <article class="crm-kpi">
+                <div class="crm-kpi-top"><span class="crm-kpi-label">Total Credentials Stored</span><span class="crm-kpi-icon"><i data-lucide="key-round"></i></span></div>
+                <div class="crm-kpi-value" id="total-credentials">—</div>
+                <div class="crm-kpi-note">Records in the credentials collection</div>
+              </article>
+              <article class="crm-kpi">
+                <div class="crm-kpi-top"><span class="crm-kpi-label">Pending Compliances</span><span class="crm-kpi-icon"><i data-lucide="clipboard-list"></i></span></div>
+                <div class="crm-kpi-value" id="pending-compliances">—</div>
+                <div class="crm-kpi-note">Not yet filed or completed</div>
+              </article>
+              <article class="crm-kpi">
+                <div class="crm-kpi-top"><span class="crm-kpi-label">Upcoming Compliance</span><span class="crm-kpi-icon"><i data-lucide="calendar-clock"></i></span></div>
+                <div class="crm-kpi-value" id="upcoming-compliances">—</div>
+                <div class="crm-kpi-note">Open items with a due date today or later</div>
+              </article>
+            </div>
+
+            <section class="crm-card crm-client-record-explorer">
+              <div class="crm-card-head">
+                <div><h2>Client master search</h2><p>Find a client and view all compliance and credentials matched by Client ID.</p></div>
+              </div>
+              <div class="crm-client-explorer-body">
+                <label class="crm-search crm-client-record-search"><i data-lucide="sparkles" aria-hidden="true"></i><input id="client-record-search" type="search" autocomplete="off" placeholder="Search by client name or Client ID" aria-label="Search clients by name or Client ID"><i data-lucide="search" aria-hidden="true"></i></label>
+                <div id="client-search-results" class="crm-client-search-results" role="listbox" aria-label="Matching clients" hidden></div>
+                <p id="client-record-prompt" class="crm-client-search-empty">Search and select a client to see its records.</p>
+                <section id="selected-client-records" class="crm-selected-client-records" aria-live="polite" hidden>
+                  <header class="crm-selected-client-head"><div><h3 id="selected-client-name"></h3><span class="crm-client-reference" id="selected-client-id"></span><p id="selected-client-contact"></p></div><button id="clear-selected-client" class="crm-icon-btn" type="button" aria-label="Clear selected client" title="Clear selected client"><i data-lucide="x"></i></button></header>
+                  <div class="crm-client-record-columns">
+                    <section class="crm-client-related-records">
+                      <div class="crm-related-records-head"><h3>Compliance</h3><span id="selected-compliance-count">0</span></div>
+                      <div class="crm-table-wrap"><table class="crm-table"><thead><tr><th>Name</th><th>Compliance ID</th><th>Period</th><th>Due date</th><th>Filing status</th><th>Payment</th></tr></thead><tbody id="selected-compliance-rows"></tbody></table></div>
+                    </section>
+                    <section class="crm-client-related-records">
+                      <div class="crm-related-records-head"><h3>Credentials</h3><span id="selected-credential-count">0</span></div>
+                      <div class="crm-table-wrap"><table class="crm-table"><thead><tr><th>Portal</th><th>Credential ID</th><th>Username</th><th>Status</th></tr></thead><tbody id="selected-credential-rows"></tbody></table></div>
+                    </section>
+                  </div>
+                </section>
+              </div>
+            </section>
+            <p class="crm-data-error" id="crm-data-error" role="alert" hidden></p>
+          </section>
+
+        </main>
+      </main>
+    </div>
+    <div id="app-sidebar-mount"></div>
+    <div id="bottom-nav-mount"></div>
+    <div id="mini-container-mount"></div>
+  </div>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/index.js"></script>
+  <script type="module" src="modules/crm/dashboard/dashboard.js"></script>
+</body>
+</html>

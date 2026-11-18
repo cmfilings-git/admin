@@ -1,0 +1,435 @@
+body{font-family:Outfit,sans-serif}.client-page{max-width:1600px;margin:auto;padding:20px 30px 105px}.field{width:100%;border:1px solid #dfe5ee;border-radius:10px;padding:10px 12px;background:#fff;outline:none;font:13px Outfit;color:#334155}.field:focus{border-color:#2F74FF;box-shadow:0 0 0 3px #2f74ff18}.label{display:block;font-size:12px;font-weight:600;color:#526071;margin-bottom:6px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:10px;padding:10px 14px;font:600 13px Outfit;cursor:pointer}.primary{background:#2F74FF;color:#fff;border:1px solid #2F74FF}.light{background:#fff;border:1px solid #e2e8f0;color:#475569}.danger{background:#fff1f2;color:#be123c;border:1px solid #ffe4e6}.hiddenx{display:none!important}.client-tabs-wrap{position:sticky;top:113px;z-index:25;margin:0 -30px 18px;padding:0 30px;background:rgba(247,248,250,.95);backdrop-filter:blur(14px);border-bottom:1px solid #e7e9ed}.client-tabs{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;white-space:nowrap}.client-tabs a{height:44px;display:inline-flex;align-items:center;gap:8px;padding:0 13px;color:#707985;font-size:12px;font-weight:500;position:relative;text-decoration:none}.client-tabs a.active{color:#20242b;font-weight:650}.client-tabs a.active:after{content:"";position:absolute;bottom:0;left:12px;right:12px;height:2px;background:#20242b;border-radius:2px}.client-tabs svg{width:16px;height:16px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.stat{background:#fff;border:1px solid #e7e9ed;border-radius:15px;padding:15px 16px}.stat-label{font-size:12px;color:#7b8490}.stat-value{font-size:26px;font-weight:600;margin-top:5px}.table-wrap,.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}table{width:100%;border-collapse:collapse;min-width:850px}th{text-align:left;background:#f8fafc;color:#718096;font-size:11px;text-transform:uppercase;padding:13px;border-bottom:1px solid #e8edf4}td{padding:13px;border-bottom:1px solid #edf0f5;font-size:12px;color:#334155}tbody tr:hover{background:#fbfdff}.badge,.status-pill{border-radius:99px;padding:4px 9px;font-size:11px;font-weight:700}.badge.active,.status-complete{background:#dcfce7;color:#166534}.badge.inactive,.status-other{background:#f1f5f9;color:#64748b}.status-pending{background:#fefce8;color:#a16207}.status-overdue{background:#fef2f2;color:#b91c1c}.modal{position:fixed;inset:0;z-index:130;display:none;align-items:center;justify-content:center;padding:12px;background:#0f172a88;backdrop-filter:blur(3px)}.modal.show{display:flex}.modal-box{background:#fff;border-radius:18px;width:100%;max-width:780px;max-height:95vh;overflow:auto;box-shadow:0 25px 70px #0f172a30}.modal-head{position:sticky;top:0;background:#fff;border-bottom:1px solid #eef0f3;padding:17px 20px;display:flex;justify-content:space-between;align-items:center;z-index:2}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.toast{position:fixed;right:18px;bottom:90px;z-index:150;padding:12px 16px;border-radius:12px;color:white;font-size:13px;box-shadow:0 10px 30px #0f172a25}.spinner{width:22px;height:22px;border:3px solid #dbeafe;border-top-color:#2F74FF;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:850px){.client-page{padding:15px 14px 105px}.client-tabs-wrap{top:64px;margin:0 -14px 14px;padding:0 14px}.client-tabs a{height:44px;padding:0 11px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.form-grid{grid-template-columns:1fr}.modal-box{max-height:97vh}}
+
+body[data-page-title="Compliance"] .compliance-form-id {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  padding: 4px 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  background: #f3f4f6;
+  color: #9ca3af;
+  font-size: 11px;
+  font-weight: 500;
+  box-sizing: border-box;
+}
+
+body[data-page-title="Compliance"] .compliance-form-id input {
+  width: auto;
+  min-width: 11ch;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #9ca3af;
+  font: 500 11px Outfit, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+body[data-page-title="Compliance"] .client-tabs-wrap {
+  margin-right: -30px;
+  margin-left: -30px;
+  padding: 2px 10px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  box-shadow: 0 2px 8px rgba(24, 39, 58, .06);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+body[data-page-title="Compliance"] .client-tabs {
+  align-items: center;
+  gap: 5px;
+  padding: 0 2px;
+  overscroll-behavior-x: contain;
+  scroll-behavior: smooth;
+  scroll-padding-inline: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+body[data-page-title="Compliance"] .client-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+body[data-page-title="Compliance"] .client-tabs a {
+  height: 34px;
+  flex: 0 0 auto;
+  gap: 7px;
+  padding: 0 13px;
+  border-radius: 0;
+  color: var(--muted);
+  font-size: 13px;
+  transition: color .16s ease, background-color .16s ease;
+  scroll-snap-align: center;
+}
+
+body[data-page-title="Compliance"] .client-tabs a:hover {
+  background: var(--surface-low);
+  color: var(--text);
+}
+
+body[data-page-title="Compliance"] .client-tabs a.active {
+  background: #1f2937;
+  color: #fff;
+  font-weight: 600;
+}
+
+body[data-page-title="Compliance"] .client-tabs a.active:after {
+  display: none;
+}
+
+body[data-page-title="Compliance"] .client-tabs a:focus-visible {
+  outline: 0;
+  box-shadow: var(--focus-ring);
+}
+
+body[data-page-title="Compliance"] .client-tabs svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+body[data-page-title="Compliance"] .status-pill {
+  border-radius: 6px;
+}
+
+body[data-page-title="Compliance"] .crm-compliance-reference {
+  display: inline-flex;
+  align-self: flex-start;
+  width: fit-content;
+  max-width: 100%;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: var(--surface-low);
+  color: #6b7280;
+}
+
+body[data-page-title="Compliance"] .crm-record-card .crm-compliance-name {
+  color: #111827;
+}
+
+body[data-page-title="Compliance"] .crm-record-card .crm-compliance-client-name,
+body[data-page-title="Compliance"] .crm-record-card .crm-compliance-client-id,
+body[data-page-title="Compliance"] .crm-record-card .crm-compliance-reference.text-gray-400,
+body[data-page-title="Compliance"] .crm-record-card tbody td:nth-child(4),
+body[data-page-title="Compliance"] .crm-record-card tbody td:nth-child(5),
+body[data-page-title="Compliance"] .crm-record-card tbody td:nth-child(8),
+body[data-page-title="Compliance"] .crm-record-card tbody td:nth-child(9),
+body[data-page-title="Compliance"] .crm-record-card tbody td:nth-child(10) {
+  color: #6b7280;
+}
+
+body[data-page-title="Compliance"] #complianceModal {
+  overflow: hidden;
+}
+
+body[data-page-title="Compliance"] #complianceModal > div {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: 95vh;
+  max-height: calc(100dvh - 32px);
+}
+
+body[data-page-title="Compliance"] #complianceModal > div > form {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: #e5e7eb transparent;
+  scrollbar-width: thin;
+}
+
+body[data-page-title="Compliance"] #complianceModal > div > form::-webkit-scrollbar {
+  width: 6px;
+}
+
+body[data-page-title="Compliance"] #complianceModal > div > form::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body[data-page-title="Compliance"] #complianceModal > div > form::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background: #e5e7eb;
+}
+
+@media (max-width: 850px) {
+  body[data-page-title="Compliance"] .client-tabs-wrap {
+    top: 64px;
+    margin: 0 -14px 14px;
+    padding: 2px 14px;
+    box-sizing: border-box;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+    box-shadow: 0 1px 0 var(--line);
+  }
+
+  body[data-page-title="Compliance"] .client-tabs {
+    width: 100%;
+    min-width: 0;
+    justify-content: flex-start;
+    padding: 0;
+    scroll-padding-inline: 14px;
+    scroll-snap-type: x proximity;
+  }
+
+  body[data-page-title="Compliance"] #complianceModal {
+    align-items: center;
+    overflow: hidden;
+    padding: 8px;
+  }
+
+  body[data-page-title="Compliance"] #complianceModal > div {
+    width: 100%;
+    max-height: calc(100vh - 16px);
+    max-height: calc(100dvh - 16px);
+    overflow: hidden;
+    margin-inline: auto;
+  }
+
+  body[data-page-title="Compliance"] #complianceModal header {
+    gap: 12px;
+    padding: 14px 16px;
+  }
+
+  body[data-page-title="Compliance"] #complianceModal form {
+    max-height: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 16px !important;
+  }
+
+  body[data-page-title="Compliance"] #complianceModal form > .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  body[data-page-title="Compliance"] #complianceModal form label,
+  body[data-page-title="Compliance"] #complianceModal fieldset {
+    min-width: 0;
+  }
+
+  body[data-page-title="Compliance"] #complianceModal .field {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  body[data-page-title="Compliance"] #complianceModal fieldset > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  body[data-page-title="Compliance"] #complianceModal fieldset > div > label {
+    min-width: 0;
+    max-width: 100%;
+    gap: 6px;
+    padding: 8px !important;
+    font-size: 11px !important;
+  }
+
+  body[data-page-title="Compliance"] .shared-date-picker-input-wrap {
+    width: min(100%, 230px);
+  }
+
+  body[data-page-title="Compliance"] #complianceModal select.field {
+    width: fit-content;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  body[data-page-title="Compliance"] .crm-filter-panel .crm-filter-control:not([type="date"]) {
+    width: fit-content;
+    min-width: 150px;
+    max-width: 100%;
+  }
+
+}
+
+@media (max-width: 390px) {
+  body[data-page-title="Compliance"] .client-tabs-wrap {
+    margin-right: -8px;
+    margin-left: -8px;
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  body[data-page-title="Compliance"] .client-tabs {
+    scroll-padding-inline: 8px;
+  }
+
+  body[data-page-title="Compliance"] .client-tabs a {
+    padding-right: 11px;
+    padding-left: 11px;
+    font-size: 12px;
+  }
+
+  body[data-page-title="Compliance"] #complianceModal header {
+    padding-right: 12px;
+    padding-left: 14px;
+  }
+
+  body[data-page-title="Compliance"] #complianceModal form {
+    padding: 14px 12px !important;
+  }
+}
+
+body[data-page-title="Compliance"] .crm-compliance-toolbar {
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+}
+
+body[data-page-title="Compliance"] .crm-filter-button {
+  position: relative;
+}
+
+body[data-page-title="Compliance"] .crm-filter-count {
+  position: absolute;
+  top: 3px;
+  left: 27px;
+  z-index: 1;
+  min-width: 0;
+  height: auto;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #dc2626;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+body[data-page-title="Compliance"] .crm-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #9ca3af;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+body[data-page-title="Compliance"] .crm-module-page-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 4px;
+  color: color-mix(in srgb, var(--success) 65%, transparent);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -.5px;
+  line-height: 1.2;
+}
+
+body[data-page-title="Compliance"] .crm-module-page-title svg {
+  width: 21px;
+  height: 21px;
+  flex: 0 0 auto;
+  stroke-width: 1.8;
+}
+
+body[data-page-title="Compliance"] .crm-record-card h2 {
+  color: color-mix(in srgb, var(--success) 65%, transparent);
+}
+
+body[data-page-title="Compliance"] .crm-upcoming-compliance-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+body[data-page-title="Compliance"] .crm-upcoming-compliance-title svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  stroke-width: 1.75;
+}
+
+body[data-page-title="Compliance"] .crm-breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+}
+
+body[data-page-title="Compliance"] .crm-breadcrumb a:hover {
+  color: var(--text);
+}
+
+body[data-page-title="Compliance"] .crm-breadcrumb [aria-hidden="true"] {
+  color: #c4c9d0;
+}
+
+body[data-page-title="Compliance"] .crm-compliance-module-wrap {
+  position: relative;
+}
+
+body[data-page-title="Compliance"] .crm-compliance-module-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: auto;
+  min-width: 76px;
+  padding: 0 10px;
+  font: 500 13px var(--font);
+}
+
+body[data-page-title="Compliance"] .crm-compliance-module-menu a[aria-current="page"] {
+  background: var(--surface-low);
+  color: var(--primary);
+}
+
+@media (max-width: 600px) {
+  body[data-page-title="Compliance"] .crm-compliance-toolbar {
+    grid-template-columns: minmax(0, 1fr) repeat(2, 42px);
+  }
+}
+
+@media (max-width: 850px) {
+  body[data-page-title="Compliance"] .crm-compliance-module-toggle {
+    width: 42px;
+    min-width: 42px;
+    padding: 0;
+  }
+
+  body[data-page-title="Compliance"] .crm-compliance-module-toggle span {
+    display: none;
+  }
+
+  body[data-page-title="Compliance"] .client-page > main.flex-grow {
+    width: 100%;
+    max-width: none;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  body[data-page-title="Compliance"] .crm-record-card {
+    width: 100%;
+  }
+
+  body[data-page-title="Compliance"] .crm-module-page-title {
+    font-size: 21px;
+  }
+}
+
+body[data-page-title="Compliance"] .compliance-refresh-button.is-refreshing svg {
+  animation: crm-spin .7s linear;
+}
+
+@media (max-width: 850px) {
+  body[data-page-title="Compliance"] [data-modulepage-add] {
+    width: 42px;
+    min-width: 42px;
+    padding: 0;
+  }
+
+  body[data-page-title="Compliance"] [data-modulepage-add] span {
+    display: none;
+  }
+}

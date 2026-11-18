@@ -1,0 +1,69 @@
+<section class="modulepage-row3" data-modulepage-row3>
+  <div class="modulepage-row3-heading">
+    <h2 class="crm-upcoming-compliance-title" data-modulepage-row3-title>
+      <i data-modulepage-row3-icon data-lucide="list" aria-hidden="true"></i>
+      <span data-modulepage-row3-title-text></span>
+    </h2>
+    <div class="modulepage-row3-counts">
+      <span id="modulepageRow3RecordCount" class="modulepage-row3-record-count">0 records</span>
+      <span id="modulepageRow3SelectedCount" class="modulepage-row3-selected-count">0 selected</span>
+    </div>
+  </div>
+  <div class="crm-compliance-toolbar">
+    <input id="modulepageRow3Search" data-modulepage-row3-search type="search" class="crm-compliance-search" aria-label="Search records">
+    <div class="crm-filter-wrap">
+      <button id="modulepageRow3FilterToggle" class="crm-filter-button" type="button" aria-expanded="false" aria-controls="modulepageRow3FilterPopover">
+        <i data-lucide="list-filter" aria-hidden="true"></i>
+        <span>Filter</span>
+        <span id="modulepageRow3FilterCount" class="crm-filter-count" hidden>0</span>
+      </button>
+      <div id="modulepageRow3FilterPopover" class="crm-filter-popover" hidden>
+        <div data-modulepage-row3-filter-content></div>
+      </div>
+    </div>
+    <div class="crm-add-wrap">
+      <button id="modulepageRow3ActionToggle" class="crm-icon-btn" type="button" title="More actions" aria-label="More actions" aria-expanded="false" aria-controls="modulepageRow3ActionMenu">
+        <i data-lucide="ellipsis" aria-hidden="true"></i>
+      </button>
+      <div id="modulepageRow3ActionMenu" class="crm-add-menu" hidden>
+        <div data-modulepage-row3-action-content></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.modulepage-row3 { display: grid; gap: 16px; }
+.modulepage-row3-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.modulepage-row3-heading h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: var(--text, #20242b);
+  font-size: 20px;
+  font-weight: 600;
+}
+.modulepage-row3-heading h2 svg { width: 18px; height: 18px; flex: 0 0 auto; }
+.modulepage-row3-counts { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; }
+.modulepage-row3-record-count { color: var(--muted, #687386); font-size: 12px; }
+.modulepage-row3-selected-count {
+  padding: 4px 8px;
+  border: 1px solid var(--line, #e1e7f0);
+  border-radius: 999px;
+  color: var(--text, #334155);
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.modulepage-row3 [data-modulepage-row3-filter-content] { display: contents; }
+.modulepage-row3 [data-modulepage-row3-action-content] { display: contents; }
+
+@media (max-width: 600px) {
+  .modulepage-row3 { gap: 12px; }
+  .modulepage-row3-heading { align-items: flex-start; }
+  .modulepage-row3-counts { gap: 5px; }
+  .modulepage-row3-record-count { font-size: 11px; }
+  .modulepage-row3-selected-count { padding: 3px 6px; font-size: 10px; }
+}
+</style>

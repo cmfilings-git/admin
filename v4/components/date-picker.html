@@ -1,0 +1,17 @@
+<template id="sharedDatePickerTemplate">
+  <div class="shared-date-picker" role="dialog" aria-label="Choose a date" aria-hidden="true">
+    <div class="shared-date-picker-header">
+      <button type="button" class="shared-date-picker-nav" data-date-previous aria-label="Previous month">‹</button>
+      <div class="shared-date-picker-month" data-date-month></div>
+      <button type="button" class="shared-date-picker-nav" data-date-next aria-label="Next month">›</button>
+    </div>
+    <div class="shared-date-picker-weekdays" aria-hidden="true">
+      <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+    </div>
+    <div class="shared-date-picker-days" data-date-days role="grid"></div>
+    <div class="shared-date-picker-footer">
+      <button type="button" data-date-clear>Clear</button>
+      <button type="button" data-date-today>Today</button>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b57d0" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131314" media="(prefers-color-scheme: dark)">
+  <base href="../../../">
+  <title>Ledgers | COREBIQ ERP</title>
+
+  <link rel="stylesheet" href="css/core-ui.css">
+  <link rel="stylesheet" href="modules/erp/ledgers/ledgers.css">
+</head>
+<body data-page-title="ERP">
+  <div id="erp-app" class="app-shell hidden">
+    <div id="desktop-sidebar-mount"></div>
+
+    <div class="main-shell">
+      <div id="desktop-header-mount"></div>
+      <div id="mobile-header-mount"></div>
+
+      <main class="erp-page">
+        <section class="kpi-hero-submodule-page" aria-label="Ledgers overview">
+          <header class="erp-head">
+            <div class="erp-head-identity">
+              <h1 class="erp-page-title">
+                <i data-lucide="book-open" aria-hidden="true"></i>
+                <span>Ledgers</span>
+              </h1>
+              <nav class="erp-breadcrumb" aria-label="Breadcrumb">
+                <a href="index.html">Modules</a>
+                <span aria-hidden="true">&gt;</span>
+                <a href="modules/erp/dashboard/dashboard.html">ERP</a>
+                <span aria-hidden="true">&gt;</span>
+                <span aria-current="page">Ledgers</span>
+              </nav>
+            </div>
+
+            <div class="erp-head-actions">
+              <div class="erp-dropdown-wrap">
+                <button
+                  id="erpModuleMenuToggle"
+                  type="button"
+                  class="btn btn-tonal"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-controls="erpModuleMenu"
+                >
+                  <i data-lucide="layout-grid" aria-hidden="true"></i>
+                  <span>Menu</span>
+                </button>
+                <nav id="erpModuleMenu" class="erp-dropdown-menu" role="menu" aria-label="ERP modules" hidden>
+                  <a href="modules/erp/dashboard/dashboard.html" role="menuitem">
+                    <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+                    <span>Dashboard</span>
+                  </a>
+                  <a href="modules/erp/ledgers/ledgers.html" role="menuitem" aria-current="page">
+                    <i data-lucide="book-open" aria-hidden="true"></i>
+                    <span>Ledgers</span>
+                  </a>
+                  <a href="modules/erp/vouchers/vouchers.html" role="menuitem">
+                    <i data-lucide="receipt-text" aria-hidden="true"></i>
+                    <span>Vouchers</span>
+                  </a>
+                </nav>
+              </div>
+
+              <button id="addLedgerBtn" type="button" class="btn btn-primary">
+                <i data-lucide="plus" aria-hidden="true"></i>
+                <span>Add</span>
+              </button>
+            </div>
+          </header>
+
+          <p class="kpi-hero-submodule-page-description">
+            Manage your Chart of Accounts, opening balances, and live closing balances computed from posted vouchers.
+          </p>
+        </section>
+
+        <div id="erp-error" class="erp-error-banner hidden" role="alert"></div>
+
+        <!-- KPI Summary -->
+        <section class="erp-kpi-grid" aria-label="Ledger summary">
+          <article class="ui-card erp-kpi-card">
+            <span class="erp-kpi-label">Total ledgers</span>
+            <span id="kpi-total-ledgers" class="erp-kpi-value">0</span>
+          </article>
+          <article class="ui-card erp-kpi-card">
+            <span class="erp-kpi-label">Total assets</span>
+            <span id="kpi-assets" class="erp-kpi-value">—</span>
+          </article>
+          <article class="ui-card erp-kpi-card">
+            <span class="erp-kpi-label">Total liabilities</span>
+            <span id="kpi-liabilities" class="erp-kpi-value">—</span>
+          </article>
+          <article class="ui-card erp-kpi-card">
+            <span class="erp-kpi-label">Income / Expense accounts</span>
+            <span id="kpi-income-expense" class="erp-kpi-value">0</span>
+          </article>
+        </section>
+
+        <!-- Register Card -->
+        <section class="ui-card erp-register-card" aria-label="Chart of Accounts">
+          <div class="erp-register-head">
+            <div class="erp-register-title-row">
+              <h2>Chart of Accounts</h2>
+              <span id="ledgerCount" class="erp-count-badge">0 ledgers</span>
+            </div>
+
+            <div class="erp-toolbar">
+              <input id="ledgerSearch" type="search" class="field" placeholder="Search ledger name, code, or group…" aria-label="Search ledgers">
+              <select id="ledgerTypeFilter" class="field erp-filter-select" aria-label="Filter by account type">
+                <option value="">All types</option>
+                <option value="Asset">Asset</option>
+                <option value="Liability">Liability</option>
+                <option value="Income">Income</option>
+                <option value="Expense">Expense</option>
+              </select>
+              <select id="ledgerStatusFilter" class="field erp-filter-select" aria-label="Filter by status">
+                <option value="">All statuses</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="erp-table-scroll">
+            <table class="erp-table" aria-label="Ledgers list">
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Ledger &amp; Group</th>
+                  <th>Type</th>
+                  <th class="text-right">Opening</th>
+                  <th class="text-right">Closing Balance</th>
+                  <th>Status</th>
+                  <th class="text-right">Action</th>
+                </tr>
+                <tr class="erp-mobile-head">
+                  <th>Ledger</th>
+                  <th>Type</th>
+                  <th class="text-right">Balance</th>
+                  <th class="text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody id="ledgerRows"></tbody>
+            </table>
+          </div>
+
+          <div id="ledgerEmpty" class="erp-empty hidden">
+            <p>No ledgers found.</p>
+            <button id="seedLedgersBtn" type="button" class="btn btn-tonal btn-sm hidden">
+              <i data-lucide="sparkles" aria-hidden="true"></i>
+              <span>Load default Chart of Accounts</span>
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="app-sidebar-mount"></div>
+    <div id="bottom-nav-mount"></div>
+    <div id="mini-container-mount"></div>
+  </div>
+
+  <!-- Add / Edit Ledger Modal -->
+  <div id="ledgerModal" class="erp-modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="ledgerModalTitle">
+    <form id="ledgerForm" class="ui-card erp-modal-card" novalidate>
+      <div class="erp-modal-head">
+        <div>
+          <h2 id="ledgerModalTitle">Add Ledger</h2>
+          <p>Create an account head for double-entry vouchers.</p>
+        </div>
+        <button id="closeLedgerModal" type="button" class="btn btn-tonal btn-icon btn-sm" aria-label="Close modal">
+          <i data-lucide="x" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="erp-modal-body">
+        <div class="form-grid-2">
+          <label class="form-group">
+            <span>Ledger Code</span>
+            <input id="ledgerCode" class="field" type="text" placeholder="e.g., 1001" required>
+          </label>
+          <label class="form-group">
+            <span>Status</span>
+            <select id="ledgerStatus" class="field">
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="form-group">
+          <span>Ledger Name</span>
+          <input id="ledgerName" class="field" type="text" placeholder="e.g., HDFC Bank Current A/c" required>
+        </label>
+
+        <div class="form-grid-2">
+          <label class="form-group">
+            <span>Account Type</span>
+            <select id="ledgerType" class="field" required>
+              <option value="Asset">Asset</option>
+              <option value="Liability">Liability</option>
+              <option value="Income">Income</option>
+              <option value="Expense">Expense</option>
+            </select>
+          </label>
+          <label class="form-group">
+            <span>Account Group</span>
+            <select id="ledgerGroup" class="field" required></select>
+          </label>
+        </div>
+
+        <div class="form-grid-2">
+          <label class="form-group">
+            <span>Opening Balance</span>
+            <input id="openingBalance" class="field" type="number" step="0.01" min="0" value="0">
+          </label>
+          <label class="form-group">
+            <span>Dr / Cr</span>
+            <select id="balanceType" class="field">
+              <option value="Dr">Debit (Dr)</option>
+              <option value="Cr">Credit (Cr)</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="form-group">
+          <span>Notes</span>
+          <input id="ledgerNotes" class="field" type="text" placeholder="Optional description or bank account ref">
+        </label>
+
+        <p id="ledgerFormError" class="form-error-text" role="alert"></p>
+      </div>
+
+      <div class="erp-modal-footer">
+        <button id="cancelLedgerBtn" type="button" class="btn btn-tonal">Cancel</button>
+        <button id="saveLedgerBtn" type="submit" class="btn btn-primary">
+          <i data-lucide="save" aria-hidden="true"></i>
+          <span>Save Ledger</span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/index.js"></script>
+  <script type="module" src="modules/erp/ledgers/ledgers.js"></script>
+</body>
+</html>

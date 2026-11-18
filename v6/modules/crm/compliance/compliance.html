@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b57d0">
+  <base href="../../../">
+  <title>Compliance | COREBIQ</title>
+
+  <!-- Permanent Global Design System -->
+  <link rel="stylesheet" href="css/core-ui.css">
+  <link rel="stylesheet" href="components/date-picker.css">
+  <link rel="stylesheet" href="modules/crm/compliance/compliance.css">
+</head>
+<body data-page-title="Compliance">
+  <div id="date-picker-component-mount" hidden></div>
+
+  <div id="app" class="app-shell">
+    <div id="desktop-sidebar-mount"></div>
+
+    <div class="main-shell">
+      <div id="desktop-header-mount"></div>
+      <div id="mobile-header-mount"></div>
+
+      <main class="compliance-page-content">
+        <!-- Hero Submodule Header -->
+        <template id="sampleCrmMenuTemplate">
+          <a href="modules/crm/dashboard/dashboard.html"><i data-lucide="layout-dashboard" aria-hidden="true"></i>Dashboard</a>
+          <a href="modules/crm/clients/clients.html"><i data-lucide="contact-round" aria-hidden="true"></i>Clients</a>
+          <a href="modules/crm/credentials/credentials.html"><i data-lucide="shield-check" aria-hidden="true"></i>Credentials</a>
+          <a href="modules/crm/compliance/compliance.html"><i data-lucide="clipboard-check" aria-hidden="true"></i>Compliance</a>
+        </template>
+
+        <section class="kpi-hero-submodule-page" aria-label="Compliance overview">
+          <div
+            id="modulepage-row1-mount"
+            data-page-icon="clipboard-check"
+            data-root-name="CRM"
+            data-menu-template-id="sampleCrmMenuTemplate"
+            data-menu-label="CRM modules"
+            data-add-label="Add"
+            data-add-aria-label="Add compliance record"
+          ></div>
+          <p class="kpi-hero-submodule-page-description">
+            Manage recurring and one-time compliance filings, track due dates, and monitor payment status across clients.
+          </p>
+        </section>
+
+        <!-- Primary KPI Row Mount -->
+        <div
+          id="modulepage-row2-mount"
+          data-kpi1-label="Success"   data-kpi1-value="24" data-kpi1-icon="circle-check" data-kpi1-tone="green"
+          data-kpi2-label="Pending"   data-kpi2-value="12" data-kpi2-icon="clock-3"      data-kpi2-tone="amber"
+          data-kpi3-label="Cancelled" data-kpi3-value="3"  data-kpi3-icon="circle-x"     data-kpi3-tone="red"
+          data-kpi4-label="Ongoing"   data-kpi4-value="8"  data-kpi4-icon="refresh-cw"   data-kpi4-tone="blue"
+        ></div>
+
+        <!-- Secondary Summary KPI Grid -->
+        <section class="compliance-summary-grid" aria-label="Compliance summary">
+          <article class="ui-card compliance-summary-card">
+            <p class="compliance-kpi-label">Due in next 7 days</p>
+            <p class="compliance-kpi-value">6</p>
+          </article>
+          <article class="ui-card compliance-summary-card">
+            <p class="compliance-kpi-label">Payment unpaid / pending</p>
+            <p class="compliance-kpi-value">8</p>
+          </article>
+          <article class="ui-card compliance-summary-card">
+            <p class="compliance-kpi-label">Clients with compliance records</p>
+            <p class="compliance-kpi-value">24</p>
+          </article>
+        </section>
+
+        <!-- Saved Compliance Records Card -->
+        <section class="ui-card crm-record-card sample-saved-forms" aria-label="Saved compliance forms">
+          <div class="crm-record-card-head">
+            <div
+              id="modulepage-row3-mount"
+              data-title="Saved Compliance Forms"
+              data-icon="clipboard-list"
+              data-search-id="sampleComplianceSearch"
+              data-search-placeholder="Search page ID, name, client..."
+              data-search-label="Search saved compliance forms"
+              data-filter-template-id="sampleComplianceFilterTemplate"
+              data-action-template-id="sampleComplianceActionsTemplate"
+              data-record-count-id="sampleComplianceRecordCount"
+              data-selected-count-id="sampleComplianceSelectedCount"
+              data-filter-toggle-id="sampleComplianceFilterToggle"
+              data-filter-count-id="sampleComplianceFilterCount"
+              data-filter-popover-id="sampleComplianceFilterPopover"
+              data-action-toggle-id="sampleComplianceActionsToggle"
+              data-action-menu-id="sampleComplianceActionsMenu"
+              data-action-label="More actions"
+            ></div>
+
+            <template id="sampleComplianceFilterTemplate">
+              <nav class="crm-filter-categories" aria-label="Compliance filter categories">
+                <button type="button" class="active" data-filter-category="view"><span>Record view</span><i data-lucide="chevron-right"></i></button>
+                <button type="button" data-filter-category="client"><span>Client</span><i data-lucide="chevron-right"></i></button>
+                <button type="button" data-filter-category="date"><span>Date</span><i data-lucide="chevron-right"></i></button>
+                <button type="button" data-filter-category="period"><span>Period</span><i data-lucide="chevron-right"></i></button>
+                <button type="button" data-filter-category="compliance"><span>Compliance Name</span><i data-lucide="chevron-right"></i></button>
+                <button type="button" data-filter-category="filing"><span>Filing Status</span><i data-lucide="chevron-right"></i></button>
+                <button type="button" data-filter-category="payment"><span>Payment Status</span><i data-lucide="chevron-right"></i></button>
+                <button type="button" data-filter-category="priority"><span>Priority</span><i data-lucide="chevron-right"></i></button>
+              </nav>
+              <div class="crm-filter-content" aria-live="polite">
+                <section class="crm-filter-panel active" data-filter-panel="view"><h3>Record view</h3><label>Show<select class="field crm-filter-control"><option>Not done</option><option>All records (including filed)</option></select></label></section>
+                <section class="crm-filter-panel" data-filter-panel="client"><h3>Client</h3><label>Client<select class="field crm-filter-control"><option>All clients</option></select></label></section>
+                <section class="crm-filter-panel" data-filter-panel="date"><h3>Date</h3><label>Due from<input id="sampleDateFrom" class="field crm-filter-control" type="date" data-shared-date-picker></label><label>Due to<input id="sampleDateTo" class="field crm-filter-control" type="date" data-shared-date-picker></label></section>
+                <section class="crm-filter-panel" data-filter-panel="period"><h3>Period</h3><label>Compliance period<select class="field crm-filter-control"><option>All periods</option></select></label></section>
+                <section class="crm-filter-panel" data-filter-panel="compliance"><h3>Compliance Name</h3><label>Compliance<select class="field crm-filter-control"><option>All compliances</option></select></label></section>
+                <section class="crm-filter-panel" data-filter-panel="filing"><h3>Filing Status</h3><label>Status<select class="field crm-filter-control"><option>All statuses</option><option>Completed</option><option>Pending</option><option>Overdue</option></select></label></section>
+                <section class="crm-filter-panel" data-filter-panel="payment"><h3>Payment Status</h3><label>Status<select class="field crm-filter-control"><option>All payment statuses</option><option>Paid</option><option>Unpaid</option><option>Pending</option></select></label></section>
+                <section class="crm-filter-panel" data-filter-panel="priority"><h3>Priority</h3><label>Priority<select class="field crm-filter-control"><option>All priorities</option><option>Low</option><option>Medium</option><option>High</option></select></label></section>
+              </div>
+              <div class="crm-filter-footer">
+                <button class="btn btn-tonal btn-sm crm-clear-filters" type="button"><i data-lucide="rotate-ccw"></i><span>Clear filters</span></button>
+              </div>
+            </template>
+
+            <template id="sampleComplianceActionsTemplate">
+              <button type="button" role="menuitem"><i data-lucide="trash-2"></i><span>Delete selected</span></button>
+              <button type="button" role="menuitem"><i data-lucide="calendar-plus"></i><span>Copy to new date</span></button>
+            </template>
+          </div>
+
+          <!-- Responsive Table -->
+          <div class="table-scroll">
+            <table class="sample-saved-forms-table" aria-label="Saved compliance records">
+              <thead>
+                <tr>
+                  <th class="col-check"><input type="checkbox" aria-label="Select all sample records"></th>
+                  <th>Page ID</th>
+                  <th>Name</th>
+                  <th>Client</th>
+                  <th>Frequency</th>
+                  <th>Compliance period</th>
+                  <th>Due date</th>
+                  <th>Schedule</th>
+                  <th>Filing status</th>
+                  <th>Payment</th>
+                  <th>Priority</th>
+                  <th>Folder</th>
+                  <th>Amount</th>
+                  <th class="text-right">Actions</th>
+                </tr>
+                <tr class="sample-mobile-head">
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th class="text-center">Status</th>
+                  <th class="text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-due-date="2026-11-20" data-next-date="2026-11-20">
+                  <td><input type="checkbox" aria-label="Select GSTR-3B Filing"></td>
+                  <td><span class="sample-form-id">COM-2600001</span></td>
+                  <td>
+                    <p class="crm-compliance-name">GSTR-3B Filing</p>
+                    <p class="crm-compliance-reference">GST return</p>
+                  </td>
+                  <td>
+                    <span class="sample-mobile-client-label">Client: </span>
+                    <p class="crm-compliance-client-name">Aarav Mehta</p>
+                    <p class="crm-compliance-client-id">C40218</p>
+                  </td>
+                  <td>Quarterly</td>
+                  <td class="nowrap">Q3 FY 2026-27</td>
+                  <td class="nowrap">2026-Nov-20</td>
+                  <td>Running</td>
+                  <td><span class="status-pill status-pending">Pending</span></td>
+                  <td><span class="status-pill status-pending">Pending</span></td>
+                  <td>High</td>
+                  <td>—</td>
+                  <td>—</td>
+                  <td class="text-right">
+                    <div class="crm-row-menu-wrap">
+                      <button
+                        class="btn btn-ghost btn-icon btn-sm crm-row-action crm-row-menu-toggle"
+                        type="button"
+                        data-sample-row-menu-toggle
+                        aria-label="Actions for GSTR-3B Filing"
+                        aria-haspopup="menu"
+                        aria-expanded="false"
+                        aria-controls="sampleRowMenu1"
+                        title="Actions"
+                      >
+                        <i data-lucide="ellipsis" aria-hidden="true"></i>
+                      </button>
+                      <div id="sampleRowMenu1" class="ui-menu crm-row-menu" role="menu" aria-label="GSTR-3B Filing actions" hidden>
+                        <button type="button" role="menuitem" data-sample-row-action="edit">
+                          <i data-lucide="pencil" aria-hidden="true"></i>
+                          <span>Edit compliance</span>
+                        </button>
+                        <button type="button" role="menuitem" data-sample-row-action="copy-id">
+                          <i data-lucide="copy" aria-hidden="true"></i>
+                          <span>Copy form ID</span>
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="sample-mobile-description">GST return</td>
+                </tr>
+
+                <tr data-due-date="2026-11-25" data-next-date="2026-11-25">
+                  <td><input type="checkbox" aria-label="Select TDS Return"></td>
+                  <td><span class="sample-form-id">COM-2600002</span></td>
+                  <td>
+                    <p class="crm-compliance-name">TDS Return</p>
+                    <p class="crm-compliance-reference">Quarterly TDS</p>
+                  </td>
+                  <td>
+                    <span class="sample-mobile-client-label">Client: </span>
+                    <p class="crm-compliance-client-name">Nisha Rao</p>
+                    <p class="crm-compliance-client-id">C40231</p>
+                  </td>
+                  <td>Monthly</td>
+                  <td class="nowrap">October 2026</td>
+                  <td class="nowrap">2026-Nov-25</td>
+                  <td>Onetime</td>
+                  <td><span class="status-pill status-complete">Completed</span></td>
+                  <td><span class="status-pill status-other">Paid</span></td>
+                  <td>Medium</td>
+                  <td>—</td>
+                  <td>—</td>
+                  <td class="text-right">
+                    <div class="crm-row-menu-wrap">
+                      <button
+                        class="btn btn-ghost btn-icon btn-sm crm-row-action crm-row-menu-toggle"
+                        type="button"
+                        data-sample-row-menu-toggle
+                        aria-label="Actions for TDS Return"
+                        aria-haspopup="menu"
+                        aria-expanded="false"
+                        aria-controls="sampleRowMenu2"
+                        title="Actions"
+                      >
+                        <i data-lucide="ellipsis" aria-hidden="true"></i>
+                      </button>
+                      <div id="sampleRowMenu2" class="ui-menu crm-row-menu" role="menu" aria-label="TDS Return actions" hidden>
+                        <button type="button" role="menuitem" data-sample-row-action="edit">
+                          <i data-lucide="pencil" aria-hidden="true"></i>
+                          <span>Edit compliance</span>
+                        </button>
+                        <button type="button" role="menuitem" data-sample-row-action="copy-id">
+                          <i data-lucide="copy" aria-hidden="true"></i>
+                          <span>Copy form ID</span>
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="sample-mobile-description">Quarterly TDS</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="crm-pagination">
+            <span>Showing sample rows</span>
+          </div>
+          <div class="crm-table-footnote">
+            The default view shows records that are not filed and not paid. Select All records to include completed items.
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="app-sidebar-mount"></div>
+    <div id="bottom-nav-mount"></div>
+    <div id="mini-container-mount"></div>
+  </div>
+
+  <!-- Add / Edit Compliance Modal -->
+  <div id="complianceModal" class="compliance-modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="complianceModalTitle">
+    <form id="complianceForm" class="ui-card compliance-modal-card" novalidate>
+      <div class="compliance-modal-sticky-header">
+        <div>
+          <h2 id="complianceModalTitle">Add Compliance</h2>
+          <p>New records start with filing and payment status pending.</p>
+        </div>
+        <button id="closeComplianceModal" type="button" class="btn btn-tonal btn-icon btn-sm" aria-label="Close modal">
+          <i data-lucide="x" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="compliance-modal-body">
+        <div class="form-grid-2">
+          <label class="form-group">
+            <span>Compliance ID</span>
+            <input id="complianceIdInput" class="field" type="text" readonly>
+          </label>
+          <label class="form-group">
+            <span>Priority</span>
+            <select id="compliancePriority" class="field">
+              <option value="Low">Low</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="High">High</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="form-group">
+          <span>Client</span>
+          <select id="complianceClient" class="field" required>
+            <option value="">Select a client</option>
+          </select>
+        </label>
+
+        <label class="form-group">
+          <span>Compliance Name</span>
+          <input id="complianceNameInput" class="field" type="text" placeholder="e.g., GSTR-3B Filing" required>
+        </label>
+
+        <div class="form-grid-2">
+          <label class="form-group">
+            <span>Frequency</span>
+            <select id="complianceFrequencyInput" class="field" required>
+              <option value="">Select frequency</option>
+              <option value="Monthly">Monthly</option>
+              <option value="Quarterly">Quarterly</option>
+              <option value="Yearly">Yearly</option>
+            </select>
+          </label>
+          <label id="compliancePeriodField" class="form-group hidden">
+            <span>Compliance Period</span>
+            <select id="compliancePeriodInput" class="field">
+              <option value="">Select period</option>
+            </select>
+          </label>
+        </div>
+
+        <fieldset class="form-group schedule-fieldset">
+          <legend>Schedule</legend>
+          <div class="radio-row">
+            <label class="radio-card">
+              <input type="radio" name="complianceType" value="Onetime" checked>
+              <span>Onetime</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="complianceType" value="Running Compliance">
+              <span>Running Compliance</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="form-grid-2">
+          <label class="form-group">
+            <span>Due Date</span>
+            <input id="complianceDueDate" class="field" type="date" data-shared-date-picker data-display-id="complianceDueDateDisplay" required>
+            <input id="complianceDueDateDisplay" class="field hidden" type="text" readonly aria-hidden="true">
+          </label>
+          <label id="nextComplianceDateField" class="form-group hidden">
+            <span>Next Compliance Date</span>
+            <input id="nextComplianceDate" class="field" type="date" data-shared-date-picker data-display-id="nextComplianceDateDisplay">
+            <input id="nextComplianceDateDisplay" class="field hidden" type="text" readonly aria-hidden="true">
+          </label>
+        </div>
+
+        <p id="complianceFormError" role="alert"></p>
+      </div>
+
+      <div class="compliance-modal-footer">
+        <button id="cancelComplianceForm" type="button" class="btn btn-tonal">Cancel</button>
+        <button id="saveCompliance" type="submit" class="btn btn-primary">Save compliance</button>
+      </div>
+    </form>
+  </div>
+
+  <div id="sample-toast" class="toast hiddenx" role="status" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/index.js"></script>
+  <script type="module" src="modules/crm/compliance/compliance.js"></script>
+</body>
+</html>

@@ -1,11 +1,11 @@
 import { firebaseConfig } from "../../../firebase/firebase-config.js";
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { doc, getDoc, getFirestore, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-        
-        // Target Document: A single document holding the global company configuration
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const companyDocRef = doc(db, "settings", "company_profile");
+import { getApp, getApps, initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { doc, getDoc, getFirestore, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// Target Document: A single document holding the global company configuration
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const companyDocRef = doc(db, "settings", "company_profile");
 
         const companyStates = {
             IN: ['Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal', 'Andaman and Nicobar Islands', 'Chandigarh', 'Delhi', 'Jammu and Kashmir', 'Ladakh', 'Puducherry'],

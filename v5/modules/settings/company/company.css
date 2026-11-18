@@ -1,0 +1,270 @@
+/* ==========================================================================
+   modules/settings/company/company.css
+   Company Overview — Synced with css/core-ui.css (Gemini Blue + Square UI)
+   ========================================================================== */
+
+/* 1. SHELL & CONTAINER
+   ========================================================================== */
+.app-shell {
+  display: flex;
+  min-height: 100dvh;
+  background-color: var(--bg-page);
+}
+
+.main-shell {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.module-container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px 24px 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* 2. HERO HEADER (Matches Dashboard & Compliance Hero Cards)
+   ========================================================================== */
+.company-page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 18px;
+  padding: 20px 24px;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, var(--bg-surface) 0%, var(--primary-50) 100%) padding-box,
+    linear-gradient(135deg, var(--primary-200) 0%, var(--border-light) 50%, var(--primary-500) 100%) border-box;
+  box-shadow: var(--shadow-md);
+}
+
+.company-page-identity {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  flex: 1 1 280px;
+}
+
+.company-page-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-btn);
+  background: var(--primary-100);
+  color: var(--primary-700);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.company-page-icon i,
+.company-page-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke-width: 1.85;
+}
+
+.company-page-heading {
+  min-width: 0;
+}
+
+.company-page-heading h1 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--ink-primary);
+  line-height: 1.25;
+}
+
+.company-page-heading p {
+  margin-top: 3px;
+  font-size: 0.875rem;
+  color: var(--ink-secondary);
+}
+
+.company-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* 3. FORM CARD & TOOLBAR
+   ========================================================================== */
+.form-card {
+  overflow: hidden;
+}
+
+.company-toolbar {
+  padding: 14px 24px;
+  background: var(--bg-tonal);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.company-toolbar-copy {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ink-secondary);
+}
+
+/* Form Sections */
+.company-form-section {
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.company-form-section:last-of-type {
+  border-bottom: none;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink-primary);
+}
+
+.section-header i,
+.section-header svg {
+  width: 17px;
+  height: 17px;
+  color: var(--primary-600);
+  flex-shrink: 0;
+}
+
+/* 4. RESPONSIVE INPUT GRID & READONLY VS EDIT STATES
+   ========================================================================== */
+.input-group {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.input-group > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.form-label {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  letter-spacing: 0.01em;
+}
+
+.form-input {
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--border-mid);
+  border-radius: var(--radius-btn);
+  background-color: var(--bg-surface);
+  color: var(--ink-primary);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* View Mode: Soft Light-Grey Tonal Fill */
+.form-input.readonly-input,
+.form-input[readonly],
+.form-input:disabled {
+  background-color: var(--bg-tonal);
+  border-color: var(--border-light);
+  color: var(--ink-primary);
+  opacity: 1;
+  cursor: default;
+}
+
+.form-input.readonly-input:focus,
+.form-input[readonly]:focus {
+  border-color: var(--border-light);
+  box-shadow: none;
+}
+
+/* 5. STICKY SAVE FOOTER
+   ========================================================================== */
+.company-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 24px;
+  background: var(--bg-tonal);
+  border-top: 1px solid var(--border-light);
+}
+
+.company-form-footer[hidden] {
+  display: none !important;
+}
+
+/* 6. RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 960px) {
+  .input-group {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .module-container {
+    padding: 16px 14px 96px;
+    gap: 14px;
+  }
+
+  .company-page-header {
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .company-page-identity {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .company-page-heading h1 {
+    font-size: 1.25rem;
+  }
+
+  .company-toolbar-actions {
+    width: 100%;
+  }
+
+  .company-toolbar-actions .btn {
+    width: 100%;
+  }
+
+  .company-toolbar {
+    padding: 12px 16px;
+  }
+
+  .company-form-section {
+    padding: 16px;
+  }
+
+  .input-group {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .company-form-footer {
+    padding: 12px 16px;
+  }
+
+  .company-form-footer .btn {
+    flex: 1;
+  }
+}

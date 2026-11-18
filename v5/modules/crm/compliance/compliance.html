@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0b57d0">
+  <meta name="theme-color" content="#0b57d0" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131314" media="(prefers-color-scheme: dark)">
   <base href="../../../">
   <title>Compliance | COREBIQ</title>
 
@@ -15,7 +16,7 @@
 <body data-page-title="Compliance">
   <div id="date-picker-component-mount" hidden></div>
 
-  <div id="app" class="app-shell hiddenx">
+  <div id="app" class="app-shell hidden">
     <div id="desktop-sidebar-mount"></div>
 
     <div class="main-shell">
@@ -25,10 +26,10 @@
       <main class="compliance-page-content">
         <!-- Hero Submodule Header -->
         <template id="crmModulesMenuTemplate">
-          <a href="modules/crm/dashboard/dashboard.html"><i data-lucide="layout-dashboard" aria-hidden="true"></i>Dashboard</a>
-          <a href="modules/crm/clients/clients.html"><i data-lucide="contact-round" aria-hidden="true"></i>Clients</a>
-          <a href="modules/crm/credentials/credentials.html"><i data-lucide="shield-check" aria-hidden="true"></i>Credentials</a>
-          <a href="modules/crm/compliance/compliance.html"><i data-lucide="clipboard-check" aria-hidden="true"></i>Compliance</a>
+          <a href="modules/crm/dashboard/dashboard.html"><i data-lucide="layout-dashboard" aria-hidden="true"></i><span>Dashboard</span></a>
+          <a href="modules/crm/clients/clients.html"><i data-lucide="contact-round" aria-hidden="true"></i><span>Clients</span></a>
+          <a href="modules/crm/credentials/credentials.html"><i data-lucide="shield-check" aria-hidden="true"></i><span>Credentials</span></a>
+          <a href="modules/crm/compliance/compliance.html" aria-current="page"><i data-lucide="clipboard-check" aria-hidden="true"></i><span>Compliance</span></a>
         </template>
 
         <section class="kpi-hero-submodule-page" aria-label="Compliance overview">
@@ -46,7 +47,7 @@
           </p>
         </section>
 
-        <!-- 4-Card Live KPI Grid (IDs matched to compliance.js) -->
+        <!-- 4-Card Live KPI Grid -->
         <section class="compliance-kpi-grid" aria-label="Compliance metrics">
           <article class="ui-card compliance-kpi-card">
             <p class="compliance-kpi-label">Next upcoming due</p>
@@ -95,15 +96,15 @@
             <!-- Filter Popover Template -->
             <template id="complianceFilterTemplate">
               <nav class="crm-filter-categories" aria-label="Compliance filter categories">
-                <button type="button" class="active" data-filter-category="view"><span>Record view</span><i data-lucide="chevron-right"></i></button>
-                <button type="button" data-filter-category="client"><span>Client</span><i data-lucide="chevron-right"></i></button>
-                <button type="button" data-filter-category="date"><span>Date</span><i data-lucide="chevron-right"></i></button>
-                <button type="button" data-filter-category="period"><span>Period</span><i data-lucide="chevron-right"></i></button>
-                <button type="button" data-filter-category="compliance"><span>Compliance Name</span><i data-lucide="chevron-right"></i></button>
-                <button type="button" data-filter-category="filing"><span>Filing Status</span><i data-lucide="chevron-right"></i></button>
-                <button type="button" data-filter-category="payment"><span>Payment Status</span><i data-lucide="chevron-right"></i></button>
-                <button type="button" data-filter-category="priority"><span>Priority</span><i data-lucide="chevron-right"></i></button>
-                <button type="button" data-filter-category="sort"><span>Sort by</span><i data-lucide="chevron-right"></i></button>
+                <button type="button" class="active" data-filter-category="view"><span>Record view</span><i data-lucide="chevron-right" aria-hidden="true"></i></button>
+                <button type="button" data-filter-category="client"><span>Client</span><i data-lucide="chevron-right" aria-hidden="true"></i></button>
+                <button type="button" data-filter-category="date"><span>Date</span><i data-lucide="chevron-right" aria-hidden="true"></i></button>
+                <button type="button" data-filter-category="period"><span>Period</span><i data-lucide="chevron-right" aria-hidden="true"></i></button>
+                <button type="button" data-filter-category="compliance"><span>Compliance Name</span><i data-lucide="chevron-right" aria-hidden="true"></i></button>
+                <button type="button" data-filter-category="filing"><span>Filing Status</span><i data-lucide="chevron-right" aria-hidden="true"></i></button>
+                <button type="button" data-filter-category="payment"><span>Payment Status</span><i data-lucide="chevron-right" aria-hidden="true"></i></button>
+                <button type="button" data-filter-category="priority"><span>Priority</span><i data-lucide="chevron-right" aria-hidden="true"></i></button>
+                <button type="button" data-filter-category="sort"><span>Sort by</span><i data-lucide="chevron-right" aria-hidden="true"></i></button>
               </nav>
               <div class="crm-filter-content" aria-live="polite">
                 <section class="crm-filter-panel active" data-filter-panel="view">
@@ -183,15 +184,15 @@
               </div>
               <div class="crm-filter-footer">
                 <button id="clearComplianceFilters" class="btn btn-tonal btn-sm crm-clear-filters" type="button">
-                  <i data-lucide="rotate-ccw"></i><span>Clear filters</span>
+                  <i data-lucide="rotate-ccw" aria-hidden="true"></i><span>Clear filters</span>
                 </button>
               </div>
             </template>
 
             <!-- Bulk Actions Template -->
             <template id="complianceActionsTemplate">
-              <button id="copySelected" type="button" role="menuitem" disabled><i data-lucide="calendar-plus"></i><span>Copy to new date</span></button>
-              <button id="deleteSelected" type="button" role="menuitem" disabled><i data-lucide="trash-2"></i><span>Delete selected</span></button>
+              <button id="copySelected" type="button" role="menuitem" disabled><i data-lucide="calendar-plus" aria-hidden="true"></i><span>Copy to new date</span></button>
+              <button id="deleteSelected" type="button" role="menuitem" disabled><i data-lucide="trash-2" aria-hidden="true"></i><span>Delete selected</span></button>
             </template>
           </div>
 
@@ -201,15 +202,15 @@
               <thead>
                 <tr>
                   <th class="col-check"><input id="selectVisibleCompliance" type="checkbox" aria-label="Select all visible records"></th>
-                  <th><button type="button" class="sort-btn" data-sort-key="clientName"><span>Client</span><i data-lucide="arrow-up-down"></i></button></th>
-                  <th><button type="button" class="sort-btn" data-sort-key="complianceName"><span>Compliance</span><i data-lucide="arrow-up-down"></i></button></th>
-                  <th><button type="button" class="sort-btn" data-sort-key="CompliancePeriod"><span>Period</span><i data-lucide="arrow-up-down"></i></button></th>
-                  <th><button type="button" class="sort-btn" data-sort-key="dueDate"><span>Due Date</span><i data-lucide="arrow-up-down"></i></button></th>
-                  <th><button type="button" class="sort-btn" data-sort-key="filingStatus"><span>Filing</span><i data-lucide="arrow-up-down"></i></button></th>
-                  <th><button type="button" class="sort-btn" data-sort-key="paymentStatus"><span>Payment</span><i data-lucide="arrow-up-down"></i></button></th>
-                  <th><button type="button" class="sort-btn" data-sort-key="priority"><span>Priority</span><i data-lucide="arrow-up-down"></i></button></th>
+                  <th><button type="button" class="sort-btn" data-sort-key="clientName"><span>Client</span><i data-lucide="arrow-up-down" aria-hidden="true"></i></button></th>
+                  <th><button type="button" class="sort-btn" data-sort-key="complianceName"><span>Compliance</span><i data-lucide="arrow-up-down" aria-hidden="true"></i></button></th>
+                  <th><button type="button" class="sort-btn" data-sort-key="CompliancePeriod"><span>Period</span><i data-lucide="arrow-up-down" aria-hidden="true"></i></button></th>
+                  <th><button type="button" class="sort-btn" data-sort-key="dueDate"><span>Due Date</span><i data-lucide="arrow-up-down" aria-hidden="true"></i></button></th>
+                  <th><button type="button" class="sort-btn" data-sort-key="filingStatus"><span>Filing</span><i data-lucide="arrow-up-down" aria-hidden="true"></i></button></th>
+                  <th><button type="button" class="sort-btn" data-sort-key="paymentStatus"><span>Payment</span><i data-lucide="arrow-up-down" aria-hidden="true"></i></button></th>
+                  <th><button type="button" class="sort-btn" data-sort-key="priority"><span>Priority</span><i data-lucide="arrow-up-down" aria-hidden="true"></i></button></th>
                   <th>Folder</th>
-                  <th><button type="button" class="sort-btn" data-sort-key="complianceFee"><span>Amount</span><i data-lucide="arrow-up-down"></i></button></th>
+                  <th><button type="button" class="sort-btn" data-sort-key="complianceFee"><span>Amount</span><i data-lucide="arrow-up-down" aria-hidden="true"></i></button></th>
                   <th class="text-right">Actions</th>
                 </tr>
                 <tr class="compliance-mobile-head">
@@ -345,7 +346,8 @@
       <div class="compliance-modal-footer">
         <button id="cancelComplianceForm" type="button" class="btn btn-tonal">Cancel</button>
         <button id="saveCompliance" type="submit" class="btn btn-primary">
-          <i data-lucide="save" aria-hidden="true"></i>Save Compliance
+          <i data-lucide="save" aria-hidden="true"></i>
+          <span>Save Compliance</span>
         </button>
       </div>
     </form>
@@ -377,7 +379,7 @@
     </form>
   </div>
 
-  <div id="toast" class="toast hiddenx" role="status" aria-live="polite"></div>
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
 
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="js/index.js"></script>

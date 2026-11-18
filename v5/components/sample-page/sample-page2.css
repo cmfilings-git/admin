@@ -717,3 +717,135 @@ body.sample-component-page input[type="radio"] {
     border-color: CanvasText;
   }
 }
+
+
+/* ==========================================================================
+   FIXES FOR MOUNTED HEADERS, TOOLBAR & MOBILE TABLE ALIGNMENT
+   ========================================================================== */
+
+/* 1. Hero Header (#modulepage-row1-mount) — keep Menu & + Add on one clean row */
+#modulepage-row1-mount .crm-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 12px;
+}
+
+#modulepage-row1-mount .crm-head > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+#modulepage-row1-mount .crm-head > div:last-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+#modulepage-row1-mount button:not([data-modulepage-add]) {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-pill);
+  background: var(--bg-subtle);
+  color: var(--ink-primary);
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* 2. Saved Forms Toolbar (#modulepage-row3-mount) — Search + Filter + Actions in one row */
+#modulepage-row3-mount .crm-toolbar,
+#modulepage-row3-mount .crm-controls,
+#modulepage-row3-mount > div:last-child {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+#sampleComplianceSearch {
+  flex: 1 1 160px;
+  min-width: 0;
+}
+
+#sampleComplianceFilterToggle,
+#sampleComplianceActionsToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-pill);
+  background: var(--bg-subtle);
+  color: var(--ink-primary);
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+#sampleComplianceActionsToggle {
+  width: 38px;
+  padding: 0;
+}
+
+#sampleComplianceFilterToggle:hover,
+#sampleComplianceActionsToggle:hover {
+  background: var(--sea-100);
+  border-color: var(--sea-200);
+  color: var(--sea-700);
+}
+
+/* 3. Mobile Table — single-line rows & no ID wrapping */
+@media (max-width: 768px) {
+  .sample-saved-forms-table .sample-mobile-head,
+  .sample-saved-forms-table tbody tr {
+    grid-template-columns: auto minmax(0, 1.35fr) minmax(0, 1fr) auto 28px;
+    gap: 6px;
+    padding: 10px 8px;
+  }
+
+  /* Force all 5 visible cells onto grid-row 1 so Description never drops down */
+  .sample-saved-forms-table tbody td:nth-child(2),
+  .sample-saved-forms-table tbody td:nth-child(3),
+  .sample-saved-forms-table tbody td.sample-mobile-description,
+  .sample-saved-forms-table tbody td:nth-child(9),
+  .sample-saved-forms-table tbody td:nth-child(14) {
+    grid-row: 1;
+  }
+
+  /* Keep SAM-2600001 on one crisp line */
+  .sample-saved-forms-table tbody td:nth-child(2) .sample-form-id {
+    display: inline-block;
+    white-space: nowrap;
+    word-break: normal;
+    font-size: 0.625rem; /* 10px */
+    padding: 2px 5px;
+  }
+
+  .sample-saved-forms-table tbody td:nth-child(3) .crm-compliance-name {
+    font-size: 0.75rem; /* 12px */
+  }
+
+  .sample-saved-forms-table tbody td.sample-mobile-description {
+    font-size: 0.6875rem; /* 11px */
+  }
+
+  .sample-saved-forms-table .crm-row-action {
+    width: 28px;
+    height: 28px;
+  }
+}

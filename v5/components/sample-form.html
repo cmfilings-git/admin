@@ -1,0 +1,43 @@
+<div id="complianceModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/50 p-3 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="complianceModalTitle">
+  <div class="compliance-form-card w-full max-w-3xl max-h-[95vh] overflow-y-auto rounded-2xl shadow-2xl">
+    <div id="compliance-sticky-header-mount"></div>
+    <form id="complianceForm" class="space-y-5 p-5 sm:p-7">
+      <label class="compliance-form-id"><span>Compliance ID</span><input id="complianceIdInput" maxlength="11" required readonly aria-readonly="true"></label>
+      <div class="compliance-form-fields grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <label><span class="label">Client *</span><select id="complianceClient" class="field" required data-search-placeholder="Type 3+ characters to search"><option value="">Select a client</option></select></label>
+        <label><span class="label">Compliance name *</span><input id="complianceNameInput" class="field" required maxlength="160"></label>
+        <label><span class="label">AKN number</span><input id="complianceAknInput" class="field" maxlength="120"></label>
+        <div class="grid grid-cols-2 gap-3 sm:contents">
+          <label><span class="label">Frequency *</span><select id="complianceFrequencyInput" class="field" required><option value="">Select frequency</option><option value="Monthly">Monthly</option><option value="Quarterly">Quarterly</option><option value="Yearly">Yearly</option></select></label>
+          <label><span class="label">Due date *</span><input id="complianceDueDate" class="field" type="date" data-shared-date-picker required></label>
+        </div>
+        <label id="compliancePeriodField" class="hidden sm:col-span-2"><span class="label">Compliance period *</span><select id="compliancePeriodInput" class="field"><option value="">Select period</option></select></label>
+        <fieldset class="sm:col-span-2">
+          <legend class="label">Compliance schedule *</legend>
+          <div class="grid grid-cols-2 gap-2">
+            <label class="flex cursor-pointer items-center gap-2 rounded-xl border border-gray-200 px-4 py-3 text-sm font-medium text-gray-700"><input type="radio" name="complianceType" value="Running Compliance" checked>Running</label>
+            <label class="flex cursor-pointer items-center gap-2 rounded-xl border border-gray-200 px-4 py-3 text-sm font-medium text-gray-700"><input type="radio" name="complianceType" value="Onetime">Onetime</label>
+          </div>
+        </fieldset>
+        <div class="grid grid-cols-2 gap-3 sm:contents">
+          <label id="nextComplianceDateField"><span class="label">Next Compliance date *</span><input id="nextComplianceDate" class="field" type="date" data-shared-date-picker required><span class="mt-1 block text-xs text-gray-500">A pending copy of this compliance will be created for this date.</span></label>
+          <label><span class="label">Priority</span><select id="compliancePriority" class="field"><option value="">Select priority</option><option>Low</option><option>Medium</option><option>High</option></select></label>
+        </div>
+        <label><span class="label">Task folder URL</span><input id="complianceFolder" class="field" type="url" inputmode="url"></label>
+      </div>
+      <p id="complianceFormError" class="text-sm text-rose-600" role="alert"></p>
+      <div class="grid grid-cols-2 gap-2 border-t border-gray-100 pt-4 sm:flex sm:justify-end">
+        <button id="cancelComplianceForm" type="button" class="btn light w-full sm:w-auto">Cancel</button>
+        <button id="saveCompliance" type="submit" class="btn primary w-full sm:w-auto"><i data-lucide="save" aria-hidden="true"></i>Save Compliance</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  .compliance-form-card {
+    border: 5px solid transparent;
+    background: linear-gradient(#fff, #fff) padding-box,
+      linear-gradient(135deg, #9ca3af 0%, #e5e7eb 48%, #9ca3af 100%) border-box;
+  }
+</style>

@@ -1,0 +1,222 @@
+body[data-page-title="Compliance"] .sample-saved-forms .table-scroll {
+      scrollbar-color: #cbd5e1 #f8fafc;
+      scrollbar-width: thin;
+    }
+
+    body[data-page-title="Compliance"] .sample-saved-forms-table {
+      min-width: 1240px;
+    }
+
+    body[data-page-title="Compliance"] .sample-saved-forms-table th,
+    body[data-page-title="Compliance"] .sample-saved-forms-table td {
+      padding-right: 12px;
+      padding-left: 12px;
+    }
+
+    body[data-page-title="Compliance"] .sample-saved-forms-table th {
+      white-space: nowrap;
+    }
+
+    body[data-page-title="Compliance"] .sample-form-id {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 6px;
+      background: #f1f5f9;
+      padding: 3px 7px;
+      color: #64748b;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    body[data-page-title="Compliance"] .sample-mobile-description,
+    body[data-page-title="Compliance"] .sample-mobile-head,
+    body[data-page-title="Compliance"] .sample-mobile-client-label {
+      display: none;
+    }
+
+    @media (max-width: 700px) {
+      body[data-page-title="Compliance"] .sample-saved-forms .table-scroll {
+        overflow: visible;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table {
+        width: 100%;
+        min-width: 0 !important;
+        table-layout: fixed;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table thead {
+        display: block;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table thead tr:not(.sample-mobile-head) {
+        display: none;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table .sample-mobile-head {
+        display: grid;
+        grid-template-columns: 56px minmax(0, 1fr) minmax(0, 1fr) 54px 24px;
+        gap: 4px;
+        padding: 8px 10px 6px;
+        border-bottom: 1px solid #e8edf4;
+        background: #f8fafc;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table .sample-mobile-head th {
+        display: block;
+        min-width: 0;
+        overflow: hidden;
+        padding: 0;
+        color: #64748b;
+        font-size: 8px;
+        line-height: 1.2;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table tbody {
+        display: block;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table tbody tr {
+        display: grid;
+        grid-template-columns: 56px minmax(0, 1fr) minmax(0, 1fr) 54px 24px;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+          "id name description status action"
+          "client client client client client";
+        align-items: center;
+        gap: 5px 4px;
+        padding: 8px 10px;
+        border-bottom: 1px solid #e8edf4;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table tbody tr::before,
+      body[data-page-title="Compliance"] .sample-saved-forms-table tbody tr::after {
+        display: none;
+        content: none;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table tbody td {
+        display: block;
+        min-width: 0;
+        overflow: hidden;
+        padding: 0 !important;
+        border: 0;
+        text-overflow: ellipsis;
+        grid-area: auto;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table tbody td:nth-child(1) {
+        display: none;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table tbody td:nth-child(2) {
+        display: block !important;
+        grid-area: id !important;
+        color: #64748b;
+        font-size: 8px;
+        white-space: nowrap;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table tbody td:nth-child(2) .sample-form-id {
+        display: inline;
+        border-radius: 0;
+        background: transparent;
+        padding: 0;
+        color: inherit;
+        font-size: inherit;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table tbody td:nth-child(3) {
+        display: block !important;
+        grid-area: name !important;
+        color: #1f2937;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table .crm-compliance-name {
+        grid-area: auto !important;
+        display: block;
+        min-width: 0;
+        overflow: hidden;
+        margin: 0;
+        font-size: 13px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table .crm-compliance-reference {
+        display: none;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table tbody td:nth-child(4) {
+        display: block !important;
+        grid-area: client !important;
+        font-size: 10px;
+        line-height: 1.35;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table tbody td:nth-child(4) p {
+        grid-area: auto;
+        display: inline;
+        margin: 0;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table tbody td:nth-child(4) .crm-compliance-client-id {
+        display: none;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table .sample-mobile-client-label {
+        display: inline;
+        color: #64748b;
+        font-size: 10px;
+        font-weight: 600;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table tbody td:nth-child(n+5):nth-child(-n+8),
+      body[data-page-title="Compliance"] .sample-saved-forms-table tbody td:nth-child(n+10):nth-child(-n+13) {
+        display: none;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table tbody td:nth-child(9) {
+        display: block !important;
+        grid-area: status !important;
+        text-align: center;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table .status-pill {
+        max-width: 100%;
+        overflow: hidden;
+        padding: 2px 3px;
+        font-size: 8px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table tbody td:nth-child(14) {
+        display: block !important;
+        grid-area: action !important;
+        text-align: center;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table .crm-row-action {
+        width: 24px;
+        height: 24px;
+        padding: 0;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table tbody td.sample-mobile-description {
+        display: block !important;
+        grid-area: description !important;
+        color: #64748b;
+        font-size: 9px;
+        line-height: 1.2;
+      }
+
+      body[data-page-title="Compliance"] .sample-saved-forms-table tbody td:nth-child(4) .crm-compliance-client-name {
+        grid-area: auto;
+        display: inline;
+        color: #475569;
+      }
+    }

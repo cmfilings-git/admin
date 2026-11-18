@@ -1,0 +1,66 @@
+<header class="compliance-modal-sticky-header">
+  <div>
+    <h2 id="complianceModalTitle">Add Compliance</h2>
+    <p>New records start with filing and payment status pending.</p>
+  </div>
+  <button id="closeComplianceModal" type="button" aria-label="Close compliance form">
+    <i data-lucide="x" aria-hidden="true"></i>
+  </button>
+</header>
+
+<style>
+.compliance-modal-sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line, #e1e7f0);
+  background: var(--surface, #fff);
+  color: var(--text, #1f2937);
+}
+
+.compliance-modal-sticky-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.compliance-modal-sticky-header p {
+  margin: 4px 0 0;
+  color: var(--muted, #687386);
+  font-size: 14px;
+}
+
+.compliance-modal-sticky-header button {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted, #687386);
+  cursor: pointer;
+}
+
+.compliance-modal-sticky-header button:hover {
+  background: var(--surface-low, #f3f6fb);
+}
+
+.compliance-modal-sticky-header svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (min-width: 640px) {
+  .compliance-modal-sticky-header {
+    padding-right: 28px;
+    padding-left: 28px;
+  }
+}
+</style>

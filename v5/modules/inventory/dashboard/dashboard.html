@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f9fc">
+  <base href="../../../">
+  <title>Inventory | COREBIQ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global-typography.css">
+  <link rel="stylesheet" href="css/global-style.css">
+  <link rel="stylesheet" href="modules/inventory/inventory.css">
+</head>
+<body data-page-title="Inventory">
+  <div id="inventory-app" hidden>
+    <div class="app-shell">
+      <div id="desktop-sidebar-mount"></div>
+      <main class="main-shell">
+        <div id="desktop-header-mount"></div>
+        <div id="mobile-header-mount"></div>
+        <div class="inventory-page">
+          <header class="inventory-head">
+            <div>
+              <h1>Inventory</h1>
+              <nav class="inventory-breadcrumb" aria-label="Breadcrumb">
+                <a href="index.html">Modules</a><span aria-hidden="true">&gt;</span>
+                <span aria-current="page">Inventory</span><span aria-hidden="true">&gt;</span>
+                <span aria-current="location">Dashboard</span>
+              </nav>
+            </div>
+            <div class="inventory-actions">
+              <button id="refreshInventoryDashboard" class="crm-icon-btn" type="button" aria-label="Refresh Inventory dashboard" title="Refresh dashboard"><i data-lucide="refresh-cw"></i></button>
+              <a class="crm-btn" aria-label="Add Goods" href="modules/inventory/goods/inventory-goods.html#add"><i data-lucide="plus"></i><span>Add Goods</span></a>
+              <a class="crm-btn primary" aria-label="Add Service" href="modules/inventory/services/inventory-services.html#add"><i data-lucide="plus"></i><span>Add Service</span></a>
+            </div>
+          </header>
+
+          <div class="inventory-tabs-wrap">
+            <nav class="inventory-tabs" aria-label="Inventory sections">
+              <a class="active" href="modules/inventory/dashboard/dashboard.html" aria-current="page"><i data-lucide="layout-dashboard"></i>Dashboard</a>
+              <a href="modules/inventory/goods/inventory-goods.html"><i data-lucide="boxes"></i>Goods</a>
+              <a href="modules/inventory/services/inventory-services.html"><i data-lucide="briefcase-business"></i>Services</a>
+            </nav>
+          </div>
+
+          <section class="inventory-kpis" aria-label="Inventory summary">
+            <article class="inventory-kpi"><span class="inventory-kpi-label">Goods items</span><b id="goodsCount" class="inventory-kpi-value">—</b></article>
+            <article class="inventory-kpi"><span class="inventory-kpi-label">Service items</span><b id="servicesCount" class="inventory-kpi-value">—</b></article>
+            <article class="inventory-kpi"><span class="inventory-kpi-label">Goods with stock</span><b id="goodsInStock" class="inventory-kpi-value">—</b></article>
+            <article class="inventory-kpi"><span class="inventory-kpi-label">Opening stock value</span><b id="openingValue" class="inventory-kpi-value">—</b></article>
+          </section>
+
+          <div class="inventory-grid">
+            <section class="inventory-card">
+              <header class="inventory-card-head"><div><h2>Low stock</h2><p>Active goods at or below their reorder level</p></div><a class="crm-btn" href="modules/inventory/goods/inventory-goods.html">View goods</a></header>
+              <div class="inventory-table-wrap">
+                <table class="inventory-table inventory-table--compact">
+                  <thead><tr><th>Inventory ID</th><th>Name</th><th>Qty</th><th>Reorder at</th></tr></thead>
+                  <tbody id="lowStockRows"><tr><td colspan="4" class="inventory-loading">Loading inventory...</td></tr></tbody>
+                </table>
+              </div>
+            </section>
+            <section class="inventory-card">
+              <header class="inventory-card-head"><div><h2>Recent stock activity</h2><p>Latest opening balances and stock movements</p></div><a class="crm-btn" href="modules/inventory/goods/inventory-goods.html">Manage stock</a></header>
+              <div class="inventory-table-wrap">
+                <table class="inventory-table inventory-table--compact">
+                  <thead><tr><th>Date</th><th>Inventory ID</th><th>Type</th><th>Change</th></tr></thead>
+                  <tbody id="recentMovementRows"><tr><td colspan="4" class="inventory-loading">Loading activity...</td></tr></tbody>
+                </table>
+              </div>
+            </section>
+            <section class="inventory-card inventory-card--full">
+              <header class="inventory-card-head"><div><h2>Inventory value</h2><p>Current goods value includes GST where applicable</p></div><a class="crm-btn" href="modules/inventory/goods/inventory-goods.html">Goods register</a></header>
+              <div class="inventory-kpis inventory-kpis--in-card">
+                <article class="inventory-kpi"><span class="inventory-kpi-label">Current stock value</span><b id="currentValue" class="inventory-kpi-value">—</b></article>
+                <article class="inventory-kpi"><span class="inventory-kpi-label">GST on current stock</span><b id="currentTax" class="inventory-kpi-value">—</b></article>
+                <article class="inventory-kpi"><span class="inventory-kpi-label">Total stock with GST</span><b id="currentTotal" class="inventory-kpi-value">—</b></article>
+                <article class="inventory-kpi"><span class="inventory-kpi-label">Low stock items</span><b id="lowStockCount" class="inventory-kpi-value">—</b></article>
+              </div>
+            </section>
+          </div>
+          <p id="inventoryError" class="inventory-error" role="alert" hidden></p>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/index.js"></script>
+  <script type="module" src="modules/inventory/dashboard/dashboard.js"></script>
+</body>
+</html>

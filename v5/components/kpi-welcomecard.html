@@ -1,0 +1,187 @@
+<div class="welcome-card">
+  <img class="welcome-watermark" src="assets/loading.png" alt="" aria-hidden="true">
+  <div class="welcome-copy">
+    <div class="welcome-eyebrow">
+      <span class="eyebrow-icon-wrap">
+        <i data-lucide="sparkles"></i>
+      </span>
+      <span class="welcome-eyebrow-label">WORKSPACE OVERVIEW</span>
+    </div>
+    <h1>Welcome Back</h1>
+    <p class="welcome-company-name" id="welcome-company-name" aria-live="polite">Loading company name…</p>
+    <p>Here’s what’s happening across your business today.</p>
+  </div>
+  <time class="welcome-date" id="welcome-date">
+    <i data-lucide="calendar-days" aria-hidden="true"></i>
+    <span id="welcome-date-text">Wednesday, 18th November 2026</span>
+  </time>
+</div>
+
+<style>
+/* Gemini Material 3 Hero Welcome Card */
+.welcome-card {
+  position: relative;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(115deg, #4285f4 0%, #8067d4 35%, #d96570 68%, #f9ab00 100%) border-box;
+  border: 2px solid transparent;
+  border-radius: var(--radius-xl, 24px);
+  box-shadow: none;
+  padding: 32px 36px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+.welcome-copy {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  flex: 1;
+}
+
+.welcome-watermark {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  width: 30%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+.welcome-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0;
+  margin-bottom: 12px;
+}
+
+.welcome-eyebrow-label {
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: linear-gradient(100deg, #f4cf67 0%, #edb943 100%);
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+}
+
+.eyebrow-icon-wrap {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: transparent;
+  color: #edb943;
+}
+
+.welcome-eyebrow svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 1.75;
+}
+
+/* Typography Scale */
+.welcome-card h1 {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--text, #1f2937);
+  margin: 0 0 5px;
+  line-height: 1.35;
+}
+
+.welcome-card p {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--muted, #687386);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.welcome-card .welcome-company-name {
+  margin: 0 0 6px;
+  background: linear-gradient(90deg, #2563eb 0%, #4f46e5 55%, #0ea5e9 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+/* Date Badge Pill */
+.welcome-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm, 8px);
+  background: #f8f9fa;
+  border: 1px solid #e1e7f0;
+  color: var(--text, #1f2937);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: auto;
+  text-align: left;
+  justify-content: flex-start;
+}
+
+.welcome-date i {
+  width: 15px;
+  height: 15px;
+  color: #8067d4;
+  stroke-width: 1.8;
+}
+
+/* Responsive Rules */
+@media (max-width: 850px) {
+  .welcome-card {
+    padding: 22px 20px;
+    border-radius: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .welcome-card h1 {
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+
+  .welcome-card p {
+    font-size: 13px;
+  }
+
+  .welcome-eyebrow {
+    font-size: 10px;
+    padding: 0;
+    margin-bottom: 10px;
+  }
+
+  .welcome-date {
+    align-self: flex-end;
+    margin-left: auto;
+    gap: 7px;
+    padding: 6px 9px;
+    font-size: 11px;
+  }
+}
+</style>

@@ -15,61 +15,40 @@
 
 <style>
   .kpi-hero-submodule-page {
-    --kpi-hero-radius: 20px;
-    --kpi-hero-border: 2px;
-    --kpi-hero-surface: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-    --kpi-hero-frame: linear-gradient(135deg, #94a3b8 0%, #e2e8f0 50%, #94a3b8 100%);
-    --kpi-hero-text-muted: #475569;
-
     position: relative;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-block-end: 22px;
-    padding: 20px 24px;
-    border: var(--kpi-hero-border) solid transparent;
-    border-radius: var(--kpi-hero-radius);
-    background:
-      var(--kpi-hero-surface) padding-box,
-      var(--kpi-hero-frame) border-box;
-    box-shadow:
-      0 1px 2px rgba(15, 23, 42, 0.04),
-      0 12px 28px -6px rgba(15, 23, 42, 0.08);
-  }
-
-  /* Prevents layout jump before JS mounts the header row */
-  .kpi-hero-submodule-page #modulepage-row1-mount:empty {
-    min-height: 36px;
-  }
-
-  .kpi-hero-submodule-page .crm-head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 12px 16px;
     margin: 0;
+    padding: 20px 24px;
+    border: 1.5px solid transparent;
+    border-radius: var(--radius-lg, 14px);
+    background:
+      linear-gradient(180deg, var(--bg-surface, #ffffff) 0%, var(--primary-50, #f0f6ff) 100%) padding-box,
+      linear-gradient(135deg, var(--primary-200, #a8c7fa) 0%, var(--border-light, #e2e8f0) 50%, var(--primary-500, #1a73e8) 100%) border-box;
+    box-shadow: var(--shadow-md, 0 6px 20px -4px rgba(11, 87, 208, 0.08));
+  }
+
+  /* Prevents layout jump before js/index.js mounts Row 1 */
+  .kpi-hero-submodule-page #modulepage-row1-mount:empty {
+    min-height: 44px;
   }
 
   .kpi-hero-submodule-page-description {
     max-width: 68ch;
     margin: 0;
-    color: var(--kpi-hero-text-muted);
+    color: var(--ink-secondary, #444746);
+    font-family: var(--font-sans, "Inter", sans-serif);
     font-size: 0.875rem;
     line-height: 1.55;
     text-wrap: pretty;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     .kpi-hero-submodule-page {
-      --kpi-hero-radius: 16px;
       gap: 8px;
-      margin-block-end: 18px;
       padding: 16px;
-    }
-
-    .kpi-hero-submodule-page .crm-head {
-      gap: 8px 10px;
     }
 
     .kpi-hero-submodule-page-description {

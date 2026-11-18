@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b57d0" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131314" media="(prefers-color-scheme: dark)">
+  <base href="../../../">
+  <title>ERP Dashboard | COREBIQ</title>
+
+  <link rel="stylesheet" href="css/core-ui.css">
+  <link rel="stylesheet" href="modules/erp/dashboard/dashboard.css">
+</head>
+<body data-page-title="ERP">
+  <div id="erp-app" class="app-shell hidden">
+    <div id="desktop-sidebar-mount"></div>
+
+    <div class="main-shell">
+      <div id="desktop-header-mount"></div>
+      <div id="mobile-header-mount"></div>
+
+      <main class="erp-page">
+        <!-- Hero Header with Module Menu Dropdown -->
+        <section class="kpi-hero-submodule-page" aria-label="ERP overview">
+          <header class="erp-head">
+            <div class="erp-head-identity">
+              <h1 class="erp-page-title">
+                <i data-lucide="layers" aria-hidden="true"></i>
+                <span>ERP Dashboard</span>
+              </h1>
+              <nav class="erp-breadcrumb" aria-label="Breadcrumb">
+                <a href="index.html">Modules</a>
+                <span aria-hidden="true">&gt;</span>
+                <a href="modules/erp/dashboard/dashboard.html">ERP</a>
+                <span aria-hidden="true">&gt;</span>
+                <span aria-current="page">Dashboard</span>
+              </nav>
+            </div>
+
+            <div class="erp-head-actions">
+              <div class="erp-dropdown-wrap">
+                <button
+                  id="erpModuleMenuToggle"
+                  type="button"
+                  class="btn btn-tonal"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-controls="erpModuleMenu"
+                >
+                  <i data-lucide="layout-grid" aria-hidden="true"></i>
+                  <span>Menu</span>
+                </button>
+                <nav id="erpModuleMenu" class="erp-dropdown-menu" role="menu" aria-label="ERP modules" hidden>
+                  <a href="modules/erp/dashboard/dashboard.html" role="menuitem" aria-current="page">
+                    <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+                    <span>Dashboard</span>
+                  </a>
+                  <a href="modules/erp/ledgers/ledgers.html" role="menuitem">
+                    <i data-lucide="book-open" aria-hidden="true"></i>
+                    <span>Ledgers</span>
+                  </a>
+                  <a href="modules/erp/vouchers/vouchers.html" role="menuitem">
+                    <i data-lucide="receipt-text" aria-hidden="true"></i>
+                    <span>Vouchers</span>
+                  </a>
+                </nav>
+              </div>
+
+              <div class="erp-dropdown-wrap">
+                <button
+                  id="addMenuToggle"
+                  type="button"
+                  class="btn btn-primary"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-controls="addActionMenu"
+                >
+                  <i data-lucide="plus" aria-hidden="true"></i>
+                  <span>Add</span>
+                </button>
+                <nav id="addActionMenu" class="erp-dropdown-menu" role="menu" aria-label="Quick add ERP entry" hidden>
+                  <a href="modules/erp/vouchers/vouchers.html#add" role="menuitem">
+                    <i data-lucide="file-plus-2" aria-hidden="true"></i>
+                    <span>New voucher</span>
+                  </a>
+                  <a href="modules/erp/ledgers/ledgers.html#add" role="menuitem">
+                    <i data-lucide="book-plus" aria-hidden="true"></i>
+                    <span>New ledger</span>
+                  </a>
+                </nav>
+              </div>
+
+              <button
+                id="refreshErp"
+                type="button"
+                class="btn btn-tonal btn-icon"
+                aria-label="Refresh ERP data"
+                title="Refresh ERP data"
+              >
+                <i data-lucide="refresh-cw" aria-hidden="true"></i>
+              </button>
+            </div>
+          </header>
+
+          <p class="kpi-hero-submodule-page-description">
+            Real-time financial overview across ledgers, double-entry vouchers, income, expenses, and cash balances.
+          </p>
+        </section>
+
+        <div id="erp-error" class="erp-error-banner hidden" role="alert"></div>
+
+        <!-- 4 Live Financial KPIs -->
+        <section class="erp-kpi-grid" aria-label="Financial summary">
+          <a href="modules/erp/vouchers/vouchers.html" class="ui-card erp-kpi-card">
+            <div class="erp-kpi-top">
+              <span class="erp-kpi-label">Total income</span>
+              <span class="erp-kpi-icon is-success" aria-hidden="true"><i data-lucide="trending-up"></i></span>
+            </div>
+            <span id="kpi-income" class="erp-kpi-value">—</span>
+            <span class="erp-kpi-sub">Posted income ledgers</span>
+          </a>
+
+          <a href="modules/erp/vouchers/vouchers.html" class="ui-card erp-kpi-card">
+            <div class="erp-kpi-top">
+              <span class="erp-kpi-label">Total expense</span>
+              <span class="erp-kpi-icon is-danger" aria-hidden="true"><i data-lucide="trending-down"></i></span>
+            </div>
+            <span id="kpi-expense" class="erp-kpi-value">—</span>
+            <span class="erp-kpi-sub">Posted expense ledgers</span>
+          </a>
+
+          <a href="modules/erp/ledgers/ledgers.html" class="ui-card erp-kpi-card">
+            <div class="erp-kpi-top">
+              <span class="erp-kpi-label">Net profit / loss</span>
+              <span class="erp-kpi-icon" aria-hidden="true"><i data-lucide="scale"></i></span>
+            </div>
+            <span id="kpi-net" class="erp-kpi-value">—</span>
+            <span id="kpi-net-sub" class="erp-kpi-sub">Income minus expense</span>
+          </a>
+
+          <a href="modules/erp/ledgers/ledgers.html" class="ui-card erp-kpi-card">
+            <div class="erp-kpi-top">
+              <span class="erp-kpi-label">Cash &amp; bank balance</span>
+              <span class="erp-kpi-icon" aria-hidden="true"><i data-lucide="landmark"></i></span>
+            </div>
+            <span id="kpi-cash" class="erp-kpi-value">—</span>
+            <span id="kpi-ledger-count" class="erp-kpi-sub">0 active ledgers</span>
+          </a>
+        </section>
+
+        <!-- Analytics Grid: Chart + Account Balances -->
+        <section class="erp-analytics-grid" aria-label="Financial analytics">
+          <article class="ui-card erp-panel">
+            <div class="erp-panel-head">
+              <div>
+                <h2>Income vs. Expense</h2>
+                <p id="chartRangeLabel">Last 6 months (posted vouchers)</p>
+              </div>
+              <a href="modules/erp/vouchers/vouchers.html" class="btn btn-tonal btn-sm">
+                <span>Vouchers</span>
+                <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="erp-chart-box">
+              <canvas id="erpCashflowChart" aria-label="Income versus expense chart"></canvas>
+            </div>
+          </article>
+
+          <article class="ui-card erp-panel">
+            <div class="erp-panel-head">
+              <div>
+                <h2>Ledger groups</h2>
+                <p>Closing balance by account type</p>
+              </div>
+              <a href="modules/erp/ledgers/ledgers.html" class="btn btn-tonal btn-sm">
+                <span>Ledgers</span>
+                <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div id="groupSummaryList" class="erp-group-list"></div>
+          </article>
+        </section>
+
+        <!-- Recent Vouchers -->
+        <section class="ui-card erp-panel" aria-label="Recent vouchers">
+          <div class="erp-panel-head">
+            <div>
+              <h2>Recent vouchers</h2>
+              <p>Latest double-entry transactions</p>
+            </div>
+            <a href="modules/erp/vouchers/vouchers.html#add" class="btn btn-primary btn-sm">
+              <i data-lucide="plus" aria-hidden="true"></i>
+              <span>New voucher</span>
+            </a>
+          </div>
+
+          <div class="erp-table-scroll">
+            <table class="erp-table" aria-label="Recent ERP vouchers">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Voucher</th>
+                  <th>Debit &rarr; Credit</th>
+                  <th>Status</th>
+                  <th class="text-right">Amount</th>
+                </tr>
+                <tr class="erp-mobile-head">
+                  <th>Date</th>
+                  <th>Voucher</th>
+                  <th>Entry</th>
+                  <th class="text-right">Amount</th>
+                </tr>
+              </thead>
+              <tbody id="recentVouchersBody"></tbody>
+            </table>
+          </div>
+          <div id="recentVouchersEmpty" class="erp-empty hidden">
+            No vouchers posted yet. Create your ledgers and record your first voucher.
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="app-sidebar-mount"></div>
+    <div id="bottom-nav-mount"></div>
+    <div id="mini-container-mount"></div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="js/index.js"></script>
+  <script type="module" src="modules/erp/dashboard/dashboard.js"></script>
+</body>
+</html>

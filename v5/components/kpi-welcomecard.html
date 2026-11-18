@@ -13,250 +13,228 @@
   </div>
   <time class="welcome-date" id="welcome-date">
     <i data-lucide="calendar-days" aria-hidden="true"></i>
-    <span id="welcome-date-text">Wednesday, 18th November 2026</span>
+    <span id="welcome-date-text">Thursday, 19th November 2026</span>
   </time>
 </div>
 
 <style>
-/* Gemini Material 3 Hero Welcome Card */
-.welcome-card {
-  position: relative;
-  overflow: hidden;
-  background:
-    linear-gradient(var(--surface, #ffffff), var(--surface, #ffffff)) padding-box,
-    linear-gradient(115deg, #4285f4 0%, #8067d4 35%, #d96570 68%, #f9ab00 100%) border-box;
-  border: 1.5px solid transparent;
-  border-radius: var(--radius-xl, 20px);
-  box-shadow: none;
-  padding: 20px 24px;
-  margin-bottom: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  box-sizing: border-box;
-}
-
-.welcome-copy {
-  position: relative;
-  z-index: 1;
-  min-width: 0;
-  flex: 1;
-}
-
-.welcome-watermark {
-  position: absolute;
-  z-index: 0;
-  top: 0;
-  right: 12px;
-  width: min(260px, 28%);
-  height: 100%;
-  object-fit: contain;
-  object-position: right center;
-  opacity: 0.055;
-  pointer-events: none;
-  user-select: none;
-}
-
-/* Eyebrow Badge */
-.welcome-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 10.5px;
-  font-weight: var(--weight-semibold, 600);
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  padding: 0;
-  margin-bottom: 8px;
-}
-
-.welcome-eyebrow-label {
-  padding: 3.5px 9px;
-  border-radius: 999px;
-  background: linear-gradient(100deg, #f4cf67 0%, #edb943 100%);
-  color: #ffffff;
-  -webkit-text-fill-color: #ffffff;
-  line-height: 1.2;
-}
-
-.eyebrow-icon-wrap {
-  width: 20px;
-  height: 20px;
-  display: grid;
-  place-items: center;
-  border-radius: 6px;
-  background: transparent;
-  color: #edb943;
-  flex-shrink: 0;
-}
-
-.welcome-eyebrow i,
-.welcome-eyebrow svg {
-  width: 14px;
-  height: 14px;
-  stroke-width: 1.85;
-}
-
-/* Typography Scale */
-.welcome-card h1 {
-  font-size: var(--text-base, 14px);
-  font-weight: var(--weight-medium, 500);
-  letter-spacing: 0;
-  color: var(--muted, #5f6368);
-  margin: 0 0 2px;
-  line-height: 1.35;
-}
-
-.welcome-card .welcome-company-name {
-  margin: 0 0 4px;
-  background: linear-gradient(90deg, #1a73e8 0%, #4f46e5 52%, #0ea5e9 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  font-size: clamp(20px, 2.2vw, 26px);
-  font-weight: var(--weight-semibold, 600);
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  overflow-wrap: anywhere;
-}
-
-.welcome-card p,
-.welcome-card .welcome-subtitle {
-  font-size: var(--text-sm, 13px);
-  font-weight: var(--weight-regular, 400);
-  color: var(--muted, #5f6368);
-  margin: 0;
-  line-height: var(--leading-normal, 1.5);
-}
-
-/* Date Badge Pill */
-.welcome-date {
-  position: relative;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 13px;
-  border-radius: var(--radius-sm, 8px);
-  background: var(--surface-low, #f0f4f9);
-  border: 1px solid var(--line, #dee3eb);
-  color: var(--text, #1f1f1f);
-  font-size: var(--text-xs, 12px);
-  font-weight: var(--weight-medium, 500);
-  line-height: 1.25;
-  white-space: nowrap;
-  flex-shrink: 0;
-  margin-left: auto;
-}
-
-.welcome-date i,
-.welcome-date svg {
-  width: 15px;
-  height: 15px;
-  color: #8067d4;
-  stroke-width: 1.8;
-  flex-shrink: 0;
-}
-
-/* Dark Theme Adaptation */
-body[data-theme="dark"] .welcome-card h1 {
-  color: #bdcbe0;
-}
-
-body[data-theme="dark"] .welcome-card .welcome-company-name {
-  background: linear-gradient(90deg, #60a5fa 0%, #a78bfa 52%, #38bdf8 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
-
-body[data-theme="dark"] .welcome-card .welcome-date {
-  background: rgba(15, 30, 52, 0.55);
-  border-color: var(--line, #33363b);
-  color: #d7e5fa;
-}
-
-body[data-theme="dark"] .welcome-card .welcome-date i,
-body[data-theme="dark"] .welcome-card .welcome-date svg {
-  color: #b9a2ff;
-}
-
-body[data-theme="dark"] .welcome-watermark {
-  opacity: 0.09;
-}
-
-/* Responsive Rules (Tablet & Mobile) */
-@media (max-width: 850px) {
+  /* Hero Welcome Card — Synced with css/core-ui.css */
   .welcome-card {
-    padding: 16px 18px;
-    border-radius: var(--radius-lg, 16px);
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 14px;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    padding: 20px 24px;
+    border: 1.5px solid transparent;
+    border-radius: var(--radius-lg, 14px);
+    background:
+      linear-gradient(180deg, var(--bg-surface, #ffffff) 0%, var(--primary-50, #f0f6ff) 100%) padding-box,
+      linear-gradient(135deg, var(--primary-200, #a8c7fa) 0%, var(--border-light, #e2e8f0) 50%, var(--primary-500, #1a73e8) 100%) border-box;
+    box-shadow: var(--shadow-md, 0 6px 20px -4px rgba(11, 87, 208, 0.08));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    box-sizing: border-box;
+  }
+
+  .welcome-copy {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    flex: 1;
   }
 
   .welcome-watermark {
-    right: 4px;
-    width: 38%;
-    opacity: 0.045;
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    right: 12px;
+    width: min(240px, 28%);
+    height: 100%;
+    object-fit: contain;
+    object-position: right center;
+    opacity: 0.05;
+    pointer-events: none;
+    user-select: none;
   }
 
+  /* Square Eyebrow Tag */
   .welcome-eyebrow {
-    font-size: 10px;
-    margin-bottom: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+    padding: 3px 8px 3px 5px;
+    border-radius: var(--radius-sm, 6px);
+    background: var(--primary-100, #d3e3fd);
+    color: var(--primary-900, #041e49);
+    font-family: var(--font-display, "Plus Jakarta Sans", sans-serif);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+
+  .eyebrow-icon-wrap {
+    width: 18px;
+    height: 18px;
+    display: grid;
+    place-items: center;
+    border-radius: 4px;
+    color: var(--primary-600, #0b57d0);
+    flex-shrink: 0;
+  }
+
+  .welcome-eyebrow i,
+  .welcome-eyebrow svg {
+    width: 13px;
+    height: 13px;
+    stroke-width: 2;
   }
 
   .welcome-eyebrow-label {
-    padding: 3px 8px;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    line-height: 1.2;
   }
 
+  /* Typography */
   .welcome-card h1 {
-    font-size: var(--text-sm, 13px);
+    margin: 0 0 2px;
+    font-family: var(--font-display, "Plus Jakarta Sans", sans-serif);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.35;
+    color: var(--ink-muted, #64748b);
   }
 
   .welcome-card .welcome-company-name {
-    font-size: clamp(19px, 5vw, 22px);
-    margin-bottom: 3px;
+    margin: 0 0 4px;
+    font-family: var(--font-display, "Plus Jakarta Sans", sans-serif);
+    font-size: clamp(1.25rem, 2.2vw, 1.625rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--primary-600, #0b57d0);
+    background: linear-gradient(90deg, #0b57d0 0%, #1a73e8 60%, #0284c7 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    overflow-wrap: anywhere;
   }
 
-  .welcome-card p,
   .welcome-card .welcome-subtitle {
-    font-size: var(--text-xs, 12px);
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--ink-secondary, #444746);
   }
 
+  /* Square Date Badge */
   .welcome-date {
-    align-self: flex-end;
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px;
     margin-left: auto;
-    gap: 6px;
-    padding: 5px 10px;
-    font-size: 11px;
+    border-radius: var(--radius-btn, 6px);
+    background: var(--bg-tonal, #f0f4f9);
+    border: 1px solid var(--border-light, #e2e8f0);
+    color: var(--ink-primary, #1f1f1f);
+    font-family: var(--font-display, "Plus Jakarta Sans", sans-serif);
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.25;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .welcome-date i,
   .welcome-date svg {
-    width: 13.5px;
-    height: 13.5px;
-  }
-}
-
-@media (max-width: 390px) {
-  .welcome-card {
-    padding: 14px;
-    gap: 10px;
+    width: 15px;
+    height: 15px;
+    color: var(--primary-600, #0b57d0);
+    stroke-width: 1.8;
+    flex-shrink: 0;
   }
 
-  .welcome-card .welcome-company-name {
-    font-size: 18.5px;
+  /* Dark Mode */
+  :root[data-theme="dark"] .welcome-card .welcome-company-name,
+  body[data-theme="dark"] .welcome-card .welcome-company-name {
+    background: linear-gradient(90deg, #8ab4f8 0%, #a8c7fa 55%, #38bdf8 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
-  .welcome-date {
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  :root[data-theme="dark"] .welcome-watermark,
+  body[data-theme="dark"] .welcome-watermark {
+    opacity: 0.08;
   }
-}
+
+  /* Tablet & Mobile */
+  @media (max-width: 768px) {
+    .welcome-card {
+      padding: 16px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .welcome-watermark {
+      right: 4px;
+      width: 38%;
+      opacity: 0.04;
+    }
+
+    .welcome-eyebrow {
+      margin-bottom: 8px;
+      font-size: 0.625rem;
+    }
+
+    .welcome-card h1 {
+      font-size: 0.8125rem;
+    }
+
+    .welcome-card .welcome-company-name {
+      font-size: clamp(1.1875rem, 5vw, 1.375rem);
+      margin-bottom: 3px;
+    }
+
+    .welcome-card .welcome-subtitle {
+      font-size: 0.75rem;
+    }
+
+    .welcome-date {
+      align-self: flex-end;
+      padding: 5px 10px;
+      gap: 6px;
+      font-size: 0.6875rem;
+    }
+
+    .welcome-date i,
+    .welcome-date svg {
+      width: 13.5px;
+      height: 13.5px;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .welcome-card {
+      padding: 14px;
+      gap: 10px;
+    }
+
+    .welcome-date {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 </style>

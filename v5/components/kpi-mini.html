@@ -1,20 +1,28 @@
-/* Reusable KPI Mini Card */
+/* ==========================================================================
+   KPI MINI CARDS (Wired to css/core-ui.css)
+   ========================================================================== */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
 .kpi-mini {
-  background: var(--surface, #fff);
-  border: 1px solid var(--line, #e1e7f0);
-  border-radius: var(--radius-lg, 16px);
-  padding: 22px 20px 20px;
+  background: var(--bg-surface, #ffffff);
+  border: 1px solid var(--border-light, #e2e8f0);
+  border-radius: var(--radius-lg, 14px);
+  padding: 20px;
   min-width: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: none;
+  box-shadow: var(--shadow-sm);
   box-sizing: border-box;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.15s ease;
 }
 
 .kpi-mini:hover {
-  border-color: #cbd5e3;
+  border-color: var(--border-mid, #cbd5e1);
 }
 
 /* Header Row */
@@ -32,54 +40,54 @@
   flex: 0 1 auto;
   min-width: 0;
   max-width: 100%;
-  padding: 5px 10px;
-  border-radius: 999px;
-  background: #eaf3ff;
-  color: #1765cc;
-  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm, 6px);
+  background: var(--primary-50, #f0f6ff);
+  color: var(--primary-600, #0b57d0);
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
   font-weight: 500;
   line-height: 1.3;
-  letter-spacing: normal;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* Rounded Square Icon Badge */
+/* Square Icon Badge */
 .kpi-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-btn, 6px);
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  background: var(--surface-low, #f3f6fb);
-  color: #17324d;
+  background: var(--bg-tonal, #f0f4f9);
+  color: var(--primary-900, #041e49);
 }
 
 .kpi-icon i,
 .kpi-icon svg {
-  width: 19px;
-  height: 19px;
+  width: 18px;
+  height: 18px;
   stroke-width: 1.8;
   display: block;
 }
 
-/* Color Presets */
 .kpi-icon.blue,
 .kpi-icon.green,
 .kpi-icon.orange,
 .kpi-icon.violet {
-  background: var(--surface-low, #f3f6fb);
-  color: #17324d;
+  background: var(--bg-tonal, #f0f4f9);
+  color: var(--primary-900, #041e49);
 }
 
 /* Primary Metric Value */
 .kpi-value {
-  font-size: 30px;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: 1.875rem; /* 30px */
+  font-weight: 600;
   letter-spacing: -0.02em;
-  color: var(--text, #1f2937);
+  color: var(--ink-primary, #1f1f1f);
   margin: 14px 0 6px;
   white-space: nowrap;
   line-height: 1.15;
@@ -92,9 +100,9 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 6px;
-  font-size: 12px;
+  font-size: 0.75rem;
   line-height: 1.4;
-  color: #6e6e80;
+  color: var(--ink-muted, #64748b);
 }
 
 .kpi-badge {
@@ -102,9 +110,10 @@
   align-items: center;
   gap: 3px;
   padding: 2px 7px;
-  border-radius: 100px;
-  font-size: 11px;
-  font-weight: 500;
+  border-radius: var(--radius-sm, 6px);
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 600;
   line-height: 1.2;
 }
 
@@ -116,22 +125,22 @@
 }
 
 .kpi-badge.positive {
-  background: #e9f5ef;
-  color: #16856b;
+  background: var(--status-complete-bg, #dcfce7);
+  color: var(--status-complete-fg, #166534);
 }
 
 .kpi-badge.negative {
-  background: #fdecec;
-  color: #c9372c;
+  background: var(--status-danger-bg, #fee2e2);
+  color: var(--status-danger-fg, #b91c1c);
 }
 
 .kpi-badge.neutral {
-  background: #f1f5f9;
-  color: #475569;
+  background: var(--bg-tonal, #f0f4f9);
+  color: var(--ink-secondary, #444746);
 }
 
 .kpi-foot-text {
-  color: #6e6e80;
+  color: var(--ink-muted, #64748b);
   font-weight: 400;
 }
 
@@ -141,31 +150,12 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
   }
-  .kpi-top {
-    gap: 8px;
-  }
-  .kpi-label {
-    padding: 4px 8px;
-    font-size: 11px;
-  }
-  .kpi-mini {
-    padding: 18px 16px;
-    border-radius: 16px;
-  }
-  .kpi-value {
-    font-size: 24px;
-    margin: 10px 0 4px;
-  }
-  .kpi-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 10px;
-  }
-  .kpi-icon i,
-  .kpi-icon svg {
-    width: 17px;
-    height: 17px;
-  }
+  .kpi-top { gap: 8px; }
+  .kpi-label { padding: 3px 8px; font-size: 0.6875rem; }
+  .kpi-mini { padding: 16px; border-radius: var(--radius-md, 10px); }
+  .kpi-value { font-size: 1.5rem; margin: 10px 0 4px; }
+  .kpi-icon { width: 32px; height: 32px; }
+  .kpi-icon i, .kpi-icon svg { width: 16px; height: 16px; }
 }
 
 /* Ultra-narrow screens: 1 card per row */

@@ -2,108 +2,755 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f7f9fc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0b57d0" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131314" media="(prefers-color-scheme: dark)">
   <base href="../../../">
-  <title>CRM | COREBIQ</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/global-typography.css">
-  <link rel="stylesheet" href="css/global-style.css"><link rel="stylesheet" href="modules/crm/dashboard/dashboard.css">
+  <title>CRM Dashboard | COREBIQ</title>
+
+  <link rel="stylesheet" href="css/core-ui.css">
+  <style>
+    [hidden] { display: none !important; }
+
+    .app-shell { display: flex; min-height: 100dvh; background: var(--bg-page); }
+    .main-shell { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+    .crm-page {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 24px 96px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* Hero Header */
+    .crm-hero-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 20px 24px;
+      border: 1.5px solid transparent;
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(180deg, var(--bg-surface) 0%, var(--primary-50) 100%) padding-box,
+        linear-gradient(135deg, var(--primary-200) 0%, var(--border-light) 50%, var(--primary-500) 100%) border-box;
+      box-shadow: var(--shadow-md);
+    }
+
+    .crm-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px 16px;
+    }
+
+    .crm-head-identity {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .crm-head-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-btn);
+      background: var(--primary-100);
+      color: var(--primary-700);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .crm-head-icon svg { width: 20px; height: 20px; }
+
+    .crm-head-identity h1 { font-size: 1.375rem; line-height: 1.25; }
+    .crm-head-identity p { margin-top: 2px; font-size: 0.875rem; color: var(--ink-secondary); }
+
+    .crm-head-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    #refreshCrm.is-refreshing svg {
+      animation: crm-spin 0.7s linear infinite;
+    }
+
+    @keyframes crm-spin { to { transform: rotate(360deg); } }
+
+    /* Quick Add Dropdown */
+    .crm-add-wrap { position: relative; }
+
+    .crm-add-menu {
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      z-index: 60;
+      min-width: 196px;
+      padding: 6px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-menu);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .crm-add-menu a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--ink-primary);
+      text-decoration: none;
+    }
+
+    .crm-add-menu a:hover {
+      background: var(--bg-tonal);
+      color: var(--primary-600);
+      text-decoration: none;
+    }
+
+    /* Submodule Tabs (auto-populated by initCrmSubnav in js/index.js) */
+    .crm-tabs-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 2px;
+    }
+
+    .crm-tabs {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px;
+      border-radius: var(--radius-btn);
+      background: var(--bg-tonal);
+      border: 1px solid var(--border-light);
+    }
+
+    .crm-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      height: 32px;
+      padding: 0 12px;
+      border-radius: 4px;
+      font-family: var(--font-display);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--ink-secondary);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .crm-tab svg { width: 15px; height: 15px; }
+
+    .crm-tab:hover {
+      background: var(--bg-tonal-hov);
+      color: var(--ink-primary);
+      text-decoration: none;
+    }
+
+    .crm-tab.active {
+      background: var(--bg-surface);
+      color: var(--primary-600);
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Error Banner */
+    .crm-error-banner {
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      background: var(--status-danger-bg);
+      color: var(--status-danger-fg);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    /* 4-Card KPI Grid */
+    .crm-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .crm-kpi-card {
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-decoration: none;
+      transition: border-color 0.15s ease;
+    }
+
+    .crm-kpi-card:hover {
+      border-color: var(--primary-200);
+      text-decoration: none;
+    }
+
+    .crm-kpi-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .crm-kpi-label {
+      font-family: var(--font-display);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+    }
+
+    .crm-kpi-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-btn);
+      background: var(--bg-tonal);
+      color: var(--primary-600);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .crm-kpi-value {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--ink-primary);
+      line-height: 1.15;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Client 360 Lookup Card */
+    .crm-lookup-card {
+      overflow: visible;
+    }
+
+    .crm-lookup-head {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px 16px;
+    }
+
+    .crm-lookup-head h2 { font-size: 1rem; }
+    .crm-lookup-head p { margin-top: 2px; font-size: 0.8125rem; color: var(--ink-muted); }
+
+    .crm-search-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .crm-search-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .crm-search-icon {
+      position: absolute;
+      left: 12px;
+      color: var(--ink-muted);
+      pointer-events: none;
+    }
+
+    #client-record-search {
+      padding-left: 36px;
+    }
+
+    .crm-search-results {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      z-index: 50;
+      max-height: 260px;
+      overflow-y: auto;
+      padding: 6px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-menu);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .crm-client-search-result {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+      padding: 8px 10px;
+      border: none;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+      color: var(--ink-primary);
+    }
+
+    .crm-client-search-result:hover {
+      background: var(--bg-tonal);
+      color: var(--primary-600);
+    }
+
+    .crm-client-search-result span {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .crm-client-search-result strong {
+      font-family: var(--font-display);
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .crm-client-search-result small {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+    }
+
+    .crm-client-search-empty {
+      padding: 12px;
+      font-size: 0.8125rem;
+      color: var(--ink-muted);
+      text-align: center;
+    }
+
+    /* Empty Prompt */
+    .crm-lookup-prompt {
+      padding: 36px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+      color: var(--ink-muted);
+    }
+
+    .crm-lookup-prompt-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-btn);
+      background: var(--bg-tonal);
+      color: var(--primary-600);
+      display: grid;
+      place-items: center;
+      margin-bottom: 4px;
+    }
+
+    .crm-lookup-prompt strong {
+      font-family: var(--font-display);
+      font-size: 0.9375rem;
+      color: var(--ink-primary);
+    }
+
+    .crm-lookup-prompt p { font-size: 0.8125rem; max-width: 44ch; }
+
+    /* Selected Client 360 Panel */
+    .crm-selected-panel {
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .crm-selected-banner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      background: var(--bg-tonal);
+      border: 1px solid var(--border-light);
+    }
+
+    .crm-selected-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .crm-selected-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #selected-client-name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink-primary);
+    }
+
+    #selected-client-id {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: var(--radius-sm);
+      background: var(--primary-50);
+      border: 1px solid var(--primary-100);
+      color: var(--primary-700);
+    }
+
+    #selected-client-contact {
+      font-size: 0.8125rem;
+      color: var(--ink-muted);
+    }
+
+    /* Sub-tables */
+    .crm-subtable-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .crm-subtable-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .crm-subtable-head h3 {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9375rem;
+    }
+
+    .crm-count-badge {
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-tonal);
+      border: 1px solid var(--border-light);
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--ink-secondary);
+    }
+
+    .crm-table-scroll {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .crm-mini-table {
+      width: 100%;
+      min-width: 560px;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.8125rem;
+    }
+
+    .crm-mini-table thead {
+      background: var(--bg-tonal);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .crm-mini-table th {
+      padding: 9px 12px;
+      font-family: var(--font-display);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      white-space: nowrap;
+    }
+
+    .crm-mini-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--ink-secondary);
+      vertical-align: middle;
+    }
+
+    .crm-mini-table tbody tr:last-child td { border-bottom: none; }
+    .crm-mini-table tbody tr:hover { background: var(--primary-50); }
+
+    /* Status Badges generated by dashboard.js (.crm-row-status) */
+    .crm-row-status {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1.25;
+      white-space: nowrap;
+    }
+
+    .crm-row-status.completed { background: var(--status-complete-bg); color: var(--status-complete-fg); }
+    .crm-row-status.pending   { background: var(--status-pending-bg);  color: var(--status-pending-fg); }
+    .crm-row-status.overdue   { background: var(--status-danger-bg);   color: var(--status-danger-fg); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .crm-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 768px) {
+      .crm-page { padding: 16px 14px 96px; gap: 14px; }
+      .crm-hero-card { padding: 16px; }
+      .crm-head-identity h1 { font-size: 1.25rem; }
+      .crm-kpi-grid { gap: 10px; }
+      .crm-kpi-card { padding: 14px; }
+      .crm-kpi-value { font-size: 1.375rem; }
+      .crm-lookup-head { padding: 14px 16px; }
+      .crm-search-wrap { max-width: 100%; }
+      .crm-selected-panel { padding: 14px 16px; }
+      .crm-add-menu { left: 0; right: auto; }
+    }
+  </style>
 </head>
 <body data-page-title="CRM">
-  <div id="crm-app" hidden>
-    <div class="app-shell">
-      <div id="desktop-sidebar-mount"></div>
-      <main class="main-shell">
-        <div id="desktop-header-mount"></div>
-        <div id="mobile-header-mount"></div>
-        <main class="crm-page">
+  <div id="crm-app" class="app-shell" hidden>
+    <div id="desktop-sidebar-mount"></div>
+
+    <main class="main-shell">
+      <div id="desktop-header-mount"></div>
+      <div id="mobile-header-mount"></div>
+
+      <div class="crm-page">
+        <!-- Hero Header + Auto-populated CRM Subnav -->
+        <section class="crm-hero-card" aria-label="CRM overview">
           <header class="crm-head">
-            <div>
-              <nav class="crm-kicker crm-breadcrumb" aria-label="Breadcrumb"><span>CRM</span><span aria-hidden="true">›</span><span aria-current="page">Dashboard</span></nav>
-              <div class="crm-title-row"><span class="crm-title-icon" aria-hidden="true"><i data-lucide="layout-dashboard"></i></span><h1>CRM Dashboard</h1></div>
+            <div class="crm-head-identity">
+              <div class="crm-head-icon" aria-hidden="true">
+                <i data-lucide="users"></i>
+              </div>
+              <div>
+                <h1>CRM Dashboard</h1>
+                <p>Live overview of clients, compliance filings, and portal credentials.</p>
+              </div>
             </div>
+
             <div class="crm-head-actions">
-              <button id="refreshCrm" class="crm-icon-btn" type="button" title="Refresh dashboard" aria-label="Refresh dashboard"><i data-lucide="refresh-cw"></i></button>
+              <button
+                type="button"
+                id="refreshCrm"
+                class="btn btn-tonal btn-icon"
+                aria-label="Refresh CRM data"
+                title="Refresh CRM data"
+              >
+                <i data-lucide="refresh-cw" aria-hidden="true"></i>
+              </button>
+
               <div class="crm-add-wrap">
-                <button id="addMenuToggle" class="crm-btn primary" type="button" aria-expanded="false" aria-controls="addActionMenu"><i data-lucide="plus"></i><span>Add</span></button>
-                <div id="addActionMenu" class="crm-add-menu" hidden>
-                  <a href="modules/crm/clients/clients.html#add"><i data-lucide="user-round-plus"></i>Add New Client</a>
-                  <a href="modules/crm/credentials/credentials.html#add"><i data-lucide="key-round"></i>Add Credentials</a>
-                  <a href="modules/crm/compliance/compliance.html#add"><i data-lucide="clipboard-plus"></i>Add Compliance</a>
-                </div>
+                <button
+                  type="button"
+                  id="addMenuToggle"
+                  class="btn btn-primary"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-controls="addActionMenu"
+                >
+                  <i data-lucide="plus" aria-hidden="true"></i>
+                  <span>Quick add</span>
+                </button>
+                <nav id="addActionMenu" class="crm-add-menu" role="menu" aria-label="Quick add CRM record" hidden>
+                  <a href="modules/crm/clients/clients.html#add" role="menuitem">
+                    <i data-lucide="user-plus" aria-hidden="true"></i>
+                    <span>Add client</span>
+                  </a>
+                  <a href="modules/crm/compliance/compliance.html#add" role="menuitem">
+                    <i data-lucide="clipboard-plus" aria-hidden="true"></i>
+                    <span>Add compliance</span>
+                  </a>
+                  <a href="modules/crm/credentials/credentials.html#add" role="menuitem">
+                    <i data-lucide="key-round" aria-hidden="true"></i>
+                    <span>Add credential</span>
+                  </a>
+                </nav>
               </div>
             </div>
           </header>
 
+          <!-- Populated automatically by initCrmSubnav() in js/index.js -->
           <div class="crm-tabs-wrap">
-            <nav class="crm-tabs" aria-label="CRM sections">
-              <a class="crm-tab active" href="modules/crm/dashboard/dashboard.html" aria-current="page"><i data-lucide="layout-dashboard"></i>Dashboard</a>
-              <a class="crm-tab" href="modules/crm/clients/clients.html"><i data-lucide="contact-round"></i>Clients</a>
-              <a class="crm-tab" href="modules/crm/credentials/credentials.html"><i data-lucide="shield-check"></i>Credentials</a>
-              <a class="crm-tab" href="modules/crm/compliance/compliance.html"><i data-lucide="clipboard-check"></i>Compliance</a>
-            </nav>
+            <nav class="crm-tabs"></nav>
           </div>
+        </section>
 
-          <section class="crm-panel active" data-panel="dashboard">
-            <div class="crm-dashboard-kpis">
-              <article class="crm-kpi">
-                <div class="crm-kpi-top"><span class="crm-kpi-label">Total Clients</span><span class="crm-kpi-icon"><i data-lucide="contact-round"></i></span></div>
-                <div class="crm-kpi-value" id="total-clients">—</div>
-                <div class="crm-kpi-note">Records in the clients collection</div>
-              </article>
-              <article class="crm-kpi">
-                <div class="crm-kpi-top"><span class="crm-kpi-label">Total Credentials Stored</span><span class="crm-kpi-icon"><i data-lucide="key-round"></i></span></div>
-                <div class="crm-kpi-value" id="total-credentials">—</div>
-                <div class="crm-kpi-note">Records in the credentials collection</div>
-              </article>
-              <article class="crm-kpi">
-                <div class="crm-kpi-top"><span class="crm-kpi-label">Pending Compliances</span><span class="crm-kpi-icon"><i data-lucide="clipboard-list"></i></span></div>
-                <div class="crm-kpi-value" id="pending-compliances">—</div>
-                <div class="crm-kpi-note">Not yet filed or completed</div>
-              </article>
-              <article class="crm-kpi">
-                <div class="crm-kpi-top"><span class="crm-kpi-label">Upcoming Compliance</span><span class="crm-kpi-icon"><i data-lucide="calendar-clock"></i></span></div>
-                <div class="crm-kpi-value" id="upcoming-compliances">—</div>
-                <div class="crm-kpi-note">Open items with a due date today or later</div>
-              </article>
+        <!-- Firestore Error Banner -->
+        <div id="crm-data-error" class="crm-error-banner" role="alert" hidden></div>
+
+        <!-- 4 Live KPI Cards -->
+        <section class="crm-kpi-grid" aria-label="CRM metrics">
+          <a href="modules/crm/clients/clients.html" class="ui-card crm-kpi-card">
+            <div class="crm-kpi-top">
+              <span class="crm-kpi-label">Total clients</span>
+              <span class="crm-kpi-icon" aria-hidden="true"><i data-lucide="contact-round"></i></span>
+            </div>
+            <span id="total-clients" class="crm-kpi-value">—</span>
+          </a>
+
+          <a href="modules/crm/compliance/compliance.html" class="ui-card crm-kpi-card">
+            <div class="crm-kpi-top">
+              <span class="crm-kpi-label">Pending compliances</span>
+              <span class="crm-kpi-icon" aria-hidden="true"><i data-lucide="clock-3"></i></span>
+            </div>
+            <span id="pending-compliances" class="crm-kpi-value">—</span>
+          </a>
+
+          <a href="modules/crm/compliance/compliance.html" class="ui-card crm-kpi-card">
+            <div class="crm-kpi-top">
+              <span class="crm-kpi-label">Upcoming compliances</span>
+              <span class="crm-kpi-icon" aria-hidden="true"><i data-lucide="calendar-clock"></i></span>
+            </div>
+            <span id="upcoming-compliances" class="crm-kpi-value">—</span>
+          </a>
+
+          <a href="modules/crm/credentials/credentials.html" class="ui-card crm-kpi-card">
+            <div class="crm-kpi-top">
+              <span class="crm-kpi-label">Saved credentials</span>
+              <span class="crm-kpi-icon" aria-hidden="true"><i data-lucide="shield-check"></i></span>
+            </div>
+            <span id="total-credentials" class="crm-kpi-value">—</span>
+          </a>
+        </section>
+
+        <!-- Live Client Record Lookup -->
+        <section class="ui-card crm-lookup-card" aria-label="Client record lookup">
+          <div class="crm-lookup-head">
+            <div>
+              <h2>Client record lookup</h2>
+              <p>Search by client name or Client ID to view linked compliances and credentials.</p>
             </div>
 
-            <section class="crm-card crm-client-record-explorer">
-              <div class="crm-card-head">
-                <div><h2>Client master search</h2><p>Find a client and view all compliance and credentials matched by Client ID.</p></div>
+            <div class="crm-search-wrap">
+              <div class="crm-search-input-wrap">
+                <i data-lucide="search" class="crm-search-icon" aria-hidden="true"></i>
+                <input
+                  id="client-record-search"
+                  type="search"
+                  class="field"
+                  placeholder="Search client name or ID…"
+                  autocomplete="off"
+                  aria-label="Search client by name or ID"
+                >
               </div>
-              <div class="crm-client-explorer-body">
-                <label class="crm-search crm-client-record-search"><i data-lucide="sparkles" aria-hidden="true"></i><input id="client-record-search" type="search" autocomplete="off" placeholder="Search by client name or Client ID" aria-label="Search clients by name or Client ID"><i data-lucide="search" aria-hidden="true"></i></label>
-                <div id="client-search-results" class="crm-client-search-results" role="listbox" aria-label="Matching clients" hidden></div>
-                <p id="client-record-prompt" class="crm-client-search-empty">Search and select a client to see its records.</p>
-                <section id="selected-client-records" class="crm-selected-client-records" aria-live="polite" hidden>
-                  <header class="crm-selected-client-head"><div><h3 id="selected-client-name"></h3><span class="crm-client-reference" id="selected-client-id"></span><p id="selected-client-contact"></p></div><button id="clear-selected-client" class="crm-icon-btn" type="button" aria-label="Clear selected client" title="Clear selected client"><i data-lucide="x"></i></button></header>
-                  <div class="crm-client-record-columns">
-                    <section class="crm-client-related-records">
-                      <div class="crm-related-records-head"><h3>Compliance</h3><span id="selected-compliance-count">0</span></div>
-                      <div class="crm-table-wrap"><table class="crm-table"><thead><tr><th>Name</th><th>Compliance ID</th><th>Period</th><th>Due date</th><th>Filing status</th><th>Payment</th></tr></thead><tbody id="selected-compliance-rows"></tbody></table></div>
-                    </section>
-                    <section class="crm-client-related-records">
-                      <div class="crm-related-records-head"><h3>Credentials</h3><span id="selected-credential-count">0</span></div>
-                      <div class="crm-table-wrap"><table class="crm-table"><thead><tr><th>Portal</th><th>Credential ID</th><th>Username</th><th>Status</th></tr></thead><tbody id="selected-credential-rows"></tbody></table></div>
-                    </section>
-                  </div>
-                </section>
-              </div>
-            </section>
-            <p class="crm-data-error" id="crm-data-error" role="alert" hidden></p>
-          </section>
+              <div id="client-search-results" class="crm-search-results" role="listbox" hidden></div>
+            </div>
+          </div>
 
-        </main>
-      </main>
-    </div>
-    <div id="app-sidebar-mount"></div>
-    <div id="bottom-nav-mount"></div>
-    <div id="mini-container-mount"></div>
+          <!-- Initial Prompt -->
+          <div id="client-record-prompt" class="crm-lookup-prompt">
+            <div class="crm-lookup-prompt-icon" aria-hidden="true">
+              <i data-lucide="user-search"></i>
+            </div>
+            <strong>Select a client to inspect records</strong>
+            <p>Start typing a client name or Client ID above to view their compliance schedule and saved portal logins.</p>
+          </div>
+
+          <!-- Selected Client Details -->
+          <div id="selected-client-records" class="crm-selected-panel" hidden>
+            <div class="crm-selected-banner">
+              <div class="crm-selected-meta">
+                <div class="crm-selected-title-row">
+                  <span id="selected-client-name"></span>
+                  <span id="selected-client-id"></span>
+                </div>
+                <span id="selected-client-contact"></span>
+              </div>
+              <button type="button" id="clear-selected-client" class="btn btn-outline btn-sm">
+                <i data-lucide="x" aria-hidden="true"></i>
+                <span>Clear</span>
+              </button>
+            </div>
+
+            <div class="crm-subtable-section">
+              <div class="crm-subtable-head">
+                <h3>
+                  <span>Compliance records</span>
+                  <span id="selected-compliance-count" class="crm-count-badge">0</span>
+                </h3>
+                <a href="modules/crm/compliance/compliance.html" class="btn btn-ghost btn-sm">
+                  <span>Open Compliance</span>
+                  <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+                </a>
+              </div>
+              <div class="crm-table-scroll">
+                <table class="crm-mini-table" aria-label="Selected client compliance records">
+                  <thead>
+                    <tr>
+                      <th>Compliance</th>
+                      <th>ID / Reference</th>
+                      <th>Period</th>
+                      <th>Due Date</th>
+                      <th>Filing</th>
+                      <th>Payment</th>
+                    </tr>
+                  </thead>
+                  <tbody id="selected-compliance-rows"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="crm-subtable-section">
+              <div class="crm-subtable-head">
+                <h3>
+                  <span>Portal credentials</span>
+                  <span id="selected-credential-count" class="crm-count-badge">0</span>
+                </h3>
+                <a href="modules/crm/credentials/credentials.html" class="btn btn-ghost btn-sm">
+                  <span>Open Credentials</span>
+                  <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+                </a>
+              </div>
+              <div class="crm-table-scroll">
+                <table class="crm-mini-table" aria-label="Selected client credential records">
+                  <thead>
+                    <tr>
+                      <th>Portal</th>
+                      <th>Credential ID</th>
+                      <th>Username</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="selected-credential-rows"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
   </div>
+
+  <div id="app-sidebar-mount"></div>
+  <div id="bottom-nav-mount"></div>
+
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="js/index.js"></script>
   <script type="module" src="modules/crm/dashboard/dashboard.js"></script>

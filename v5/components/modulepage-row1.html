@@ -1,6 +1,9 @@
-<header class="crm-head mb-6 md:mb-9">
-  <div>
-    <h1 class="crm-module-page-title"><i data-modulepage-icon data-lucide="layers" aria-hidden="true"></i><span data-modulepage-title></span></h1>
+<header class="crm-head">
+  <div class="modulepage-row1-identity">
+    <h1 class="crm-module-page-title">
+      <i data-modulepage-icon data-lucide="layers" aria-hidden="true"></i>
+      <span data-modulepage-title></span>
+    </h1>
     <nav class="crm-kicker crm-breadcrumb" aria-label="Breadcrumb">
       <a href="index.html">Modules</a>
       <span aria-hidden="true">&gt;</span>
@@ -9,9 +12,18 @@
       <span data-modulepage-current aria-current="page"></span>
     </nav>
   </div>
+
   <div class="crm-head-actions">
     <div class="crm-add-wrap modulepage-row1-menu-wrap crm-compliance-module-wrap">
-      <button id="modulepageRow1MenuToggle" class="crm-icon-btn crm-compliance-module-toggle" type="button" title="CRM modules" aria-label="Open CRM modules" aria-expanded="false" aria-controls="modulepageRow1Menu">
+      <button
+        id="modulepageRow1MenuToggle"
+        class="crm-icon-btn crm-compliance-module-toggle"
+        type="button"
+        title="CRM modules"
+        aria-label="Open CRM modules"
+        aria-expanded="false"
+        aria-controls="modulepageRow1Menu"
+      >
         <i data-lucide="layout-grid" aria-hidden="true"></i>
         <span>Menu</span>
       </button>
@@ -19,9 +31,208 @@
         <div data-modulepage-row1-menu-items></div>
       </nav>
     </div>
+
     <button data-modulepage-add type="button" class="crm-btn primary">
       <i data-lucide="plus" aria-hidden="true"></i>
       <span data-modulepage-add-label></span>
     </button>
   </div>
 </header>
+
+<style>
+  #modulepage-row1-mount .crm-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 16px;
+    margin: 0;
+  }
+
+  /* Title + Breadcrumb Stack */
+  #modulepage-row1-mount .modulepage-row1-identity {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  #modulepage-row1-mount .crm-module-page-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    font-family: var(--font-display, "Plus Jakarta Sans", sans-serif);
+    font-size: 1.375rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--ink-primary, #1f1f1f);
+  }
+
+  #modulepage-row1-mount .crm-module-page-title i,
+  #modulepage-row1-mount .crm-module-page-title svg {
+    width: 22px;
+    height: 22px;
+    color: var(--primary-600, #0b57d0);
+    flex-shrink: 0;
+  }
+
+  /* Single-Line Breadcrumb */
+  #modulepage-row1-mount .crm-breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--ink-muted, #64748b);
+  }
+
+  #modulepage-row1-mount .crm-breadcrumb a {
+    color: var(--primary-600, #0b57d0);
+    text-decoration: none;
+  }
+
+  #modulepage-row1-mount .crm-breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  #modulepage-row1-mount .crm-breadcrumb [aria-current="page"] {
+    color: var(--ink-secondary, #444746);
+  }
+
+  /* Square Action Buttons */
+  #modulepage-row1-mount .crm-head-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  #modulepage-row1-mount .modulepage-row1-menu-wrap {
+    position: relative;
+  }
+
+  #modulepage-row1-mount .crm-compliance-module-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 36px;
+    padding: 0 12px;
+    border: 1px solid var(--border-light, #e2e8f0);
+    border-radius: var(--radius-btn, 6px);
+    background: var(--bg-tonal, #f0f4f9);
+    color: var(--ink-primary, #1f1f1f);
+    font-family: var(--font-display, "Plus Jakarta Sans", sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+
+  #modulepage-row1-mount .crm-compliance-module-toggle:hover {
+    background: var(--bg-tonal-hov, #e4eaf2);
+    border-color: var(--border-mid, #cbd5e1);
+  }
+
+  #modulepage-row1-mount [data-modulepage-add] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 36px;
+    padding: 0 14px;
+    border: none;
+    border-radius: var(--radius-btn, 6px);
+    background: var(--primary-600, #0b57d0);
+    color: #ffffff;
+    font-family: var(--font-display, "Plus Jakarta Sans", sans-serif);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+
+  #modulepage-row1-mount [data-modulepage-add]:hover {
+    background: var(--primary-700, #0842a0);
+  }
+
+  [data-theme="dark"] #modulepage-row1-mount [data-modulepage-add] {
+    background: #8ab4f8;
+    color: #041e49;
+  }
+
+  [data-theme="dark"] #modulepage-row1-mount [data-modulepage-add]:hover {
+    background: #a8c7fa;
+  }
+
+  /* Module Switcher Popover Menu */
+  #modulepage-row1-mount .crm-compliance-module-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    z-index: 60;
+    min-width: 192px;
+    padding: 6px;
+    background: var(--bg-surface, #ffffff);
+    border: 1px solid var(--border-light, #e2e8f0);
+    border-radius: var(--radius-md, 10px);
+    box-shadow: var(--shadow-menu, 0 10px 28px -4px rgba(4, 30, 73, 0.14));
+  }
+
+  #modulepage-row1-mount .crm-compliance-module-menu[hidden] {
+    display: none;
+  }
+
+  #modulepage-row1-mount [data-modulepage-row1-menu-items] {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  #modulepage-row1-mount [data-modulepage-row1-menu-items] a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: var(--radius-sm, 6px);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--ink-primary, #1f1f1f);
+    text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  #modulepage-row1-mount [data-modulepage-row1-menu-items] a:hover {
+    background: var(--bg-tonal, #f0f4f9);
+    color: var(--primary-600, #0b57d0);
+    text-decoration: none;
+  }
+
+  #modulepage-row1-mount [data-modulepage-row1-menu-items] a[aria-current="page"] {
+    background: var(--primary-100, #d3e3fd);
+    color: var(--primary-900, #041e49);
+    font-weight: 600;
+  }
+
+  /* Mobile Alignment */
+  @media (max-width: 768px) {
+    #modulepage-row1-mount .crm-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    #modulepage-row1-mount .crm-module-page-title {
+      font-size: 1.25rem;
+    }
+
+    #modulepage-row1-mount .crm-compliance-module-menu {
+      left: 0;
+      right: auto;
+    }
+  }
+</style>

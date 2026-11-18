@@ -25,11 +25,11 @@
       gap: 18px;
     }
 
-    /* Hero Header */
-    .crm-hero-card {
+    /* Compliance-Style Hero Card */
+    .kpi-hero-submodule-page {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       padding: 20px 24px;
       border: 1.5px solid transparent;
       border-radius: var(--radius-lg);
@@ -45,31 +45,65 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px 16px;
+      margin: 0;
     }
 
-    .crm-head-identity {
+    .modulepage-row1-identity {
       display: flex;
-      align-items: center;
-      gap: 12px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
       min-width: 0;
     }
 
-    .crm-head-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: var(--radius-btn);
-      background: var(--primary-100);
-      color: var(--primary-700);
-      display: grid;
-      place-items: center;
+    .crm-module-page-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 1.375rem;
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--ink-primary);
+    }
+
+    .crm-module-page-title i,
+    .crm-module-page-title svg {
+      width: 22px;
+      height: 22px;
+      color: var(--primary-600);
       flex-shrink: 0;
     }
 
-    .crm-head-icon svg { width: 20px; height: 20px; }
+    .crm-breadcrumb {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      line-height: 1.4;
+      color: var(--ink-muted);
+    }
 
-    .crm-head-identity h1 { font-size: 1.375rem; line-height: 1.25; }
-    .crm-head-identity p { margin-top: 2px; font-size: 0.875rem; color: var(--ink-secondary); }
+    .crm-breadcrumb a {
+      color: var(--primary-600);
+      text-decoration: none;
+    }
 
+    .crm-breadcrumb a:hover { text-decoration: underline; }
+    .crm-breadcrumb [aria-current="page"] { color: var(--ink-secondary); }
+
+    .kpi-hero-submodule-page-description {
+      max-width: 68ch;
+      margin: 0;
+      font-size: 0.875rem;
+      line-height: 1.55;
+      color: var(--ink-secondary);
+    }
+
+    /* Square Action Controls & Dropdowns */
     .crm-head-actions {
       display: flex;
       align-items: center;
@@ -83,10 +117,36 @@
 
     @keyframes crm-spin { to { transform: rotate(360deg); } }
 
-    /* Quick Add Dropdown */
-    .crm-add-wrap { position: relative; }
+    .crm-module-menu-wrap,
+    .crm-add-wrap {
+      position: relative;
+    }
 
-    .crm-add-menu {
+    .crm-compliance-module-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      height: 36px;
+      padding: 0 12px;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-btn);
+      background: var(--bg-tonal);
+      color: var(--ink-primary);
+      font-family: var(--font-display);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .crm-compliance-module-toggle:hover,
+    .crm-compliance-module-toggle[aria-expanded="true"] {
+      background: var(--bg-tonal-hov);
+      border-color: var(--border-mid);
+    }
+
+    .crm-dropdown-menu {
       position: absolute;
       top: calc(100% + 6px);
       right: 0;
@@ -102,7 +162,7 @@
       gap: 2px;
     }
 
-    .crm-add-menu a {
+    .crm-dropdown-menu a {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -112,60 +172,37 @@
       font-weight: 500;
       color: var(--ink-primary);
       text-decoration: none;
-    }
-
-    .crm-add-menu a:hover {
-      background: var(--bg-tonal);
-      color: var(--primary-600);
-      text-decoration: none;
-    }
-
-    /* Submodule Tabs (auto-populated by initCrmSubnav in js/index.js) */
-    .crm-tabs-wrap {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 2px;
-    }
-
-    .crm-tabs {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px;
-      border-radius: var(--radius-btn);
-      background: var(--bg-tonal);
-      border: 1px solid var(--border-light);
-    }
-
-    .crm-tab {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      height: 32px;
-      padding: 0 12px;
-      border-radius: 4px;
-      font-family: var(--font-display);
-      font-size: 0.8125rem;
-      font-weight: 500;
-      color: var(--ink-secondary);
-      text-decoration: none;
-      white-space: nowrap;
       transition: background-color 0.15s ease, color 0.15s ease;
     }
 
-    .crm-tab svg { width: 15px; height: 15px; }
+    .crm-dropdown-menu a i,
+    .crm-dropdown-menu a svg {
+      width: 16px;
+      height: 16px;
+      color: var(--ink-muted);
+      flex-shrink: 0;
+    }
 
-    .crm-tab:hover {
-      background: var(--bg-tonal-hov);
-      color: var(--ink-primary);
+    .crm-dropdown-menu a:hover {
+      background: var(--bg-tonal);
+      color: var(--primary-600);
       text-decoration: none;
     }
 
-    .crm-tab.active {
-      background: var(--bg-surface);
+    .crm-dropdown-menu a:hover i,
+    .crm-dropdown-menu a:hover svg {
       color: var(--primary-600);
+    }
+
+    .crm-dropdown-menu a[aria-current="page"] {
+      background: var(--primary-100);
+      color: var(--primary-900);
       font-weight: 600;
-      box-shadow: var(--shadow-sm);
+    }
+
+    .crm-dropdown-menu a[aria-current="page"] i,
+    .crm-dropdown-menu a[aria-current="page"] svg {
+      color: var(--primary-600);
     }
 
     /* Error Banner */
@@ -234,9 +271,7 @@
     }
 
     /* Client 360 Lookup Card */
-    .crm-lookup-card {
-      overflow: visible;
-    }
+    .crm-lookup-card { overflow: visible; }
 
     .crm-lookup-head {
       padding: 18px 22px;
@@ -251,28 +286,10 @@
     .crm-lookup-head h2 { font-size: 1rem; }
     .crm-lookup-head p { margin-top: 2px; font-size: 0.8125rem; color: var(--ink-muted); }
 
-    .crm-search-wrap {
-      position: relative;
-      width: 100%;
-      max-width: 380px;
-    }
-
-    .crm-search-input-wrap {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .crm-search-icon {
-      position: absolute;
-      left: 12px;
-      color: var(--ink-muted);
-      pointer-events: none;
-    }
-
-    #client-record-search {
-      padding-left: 36px;
-    }
+    .crm-search-wrap { position: relative; width: 100%; max-width: 380px; }
+    .crm-search-input-wrap { position: relative; display: flex; align-items: center; }
+    .crm-search-icon { position: absolute; left: 12px; color: var(--ink-muted); pointer-events: none; }
+    #client-record-search { padding-left: 36px; }
 
     .crm-search-results {
       position: absolute;
@@ -307,34 +324,11 @@
       color: var(--ink-primary);
     }
 
-    .crm-client-search-result:hover {
-      background: var(--bg-tonal);
-      color: var(--primary-600);
-    }
-
-    .crm-client-search-result span {
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-    }
-
-    .crm-client-search-result strong {
-      font-family: var(--font-display);
-      font-size: 0.875rem;
-      font-weight: 600;
-    }
-
-    .crm-client-search-result small {
-      font-size: 0.75rem;
-      color: var(--ink-muted);
-    }
-
-    .crm-client-search-empty {
-      padding: 12px;
-      font-size: 0.8125rem;
-      color: var(--ink-muted);
-      text-align: center;
-    }
+    .crm-client-search-result:hover { background: var(--bg-tonal); color: var(--primary-600); }
+    .crm-client-search-result span { display: flex; flex-direction: column; min-width: 0; }
+    .crm-client-search-result strong { font-family: var(--font-display); font-size: 0.875rem; font-weight: 600; }
+    .crm-client-search-result small { font-size: 0.75rem; color: var(--ink-muted); }
+    .crm-client-search-empty { padding: 12px; font-size: 0.8125rem; color: var(--ink-muted); text-align: center; }
 
     /* Empty Prompt */
     .crm-lookup-prompt {
@@ -358,21 +352,11 @@
       margin-bottom: 4px;
     }
 
-    .crm-lookup-prompt strong {
-      font-family: var(--font-display);
-      font-size: 0.9375rem;
-      color: var(--ink-primary);
-    }
-
+    .crm-lookup-prompt strong { font-family: var(--font-display); font-size: 0.9375rem; color: var(--ink-primary); }
     .crm-lookup-prompt p { font-size: 0.8125rem; max-width: 44ch; }
 
     /* Selected Client 360 Panel */
-    .crm-selected-panel {
-      padding: 20px 22px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
+    .crm-selected-panel { padding: 20px 22px; display: flex; flex-direction: column; gap: 18px; }
 
     .crm-selected-banner {
       display: flex;
@@ -386,26 +370,9 @@
       border: 1px solid var(--border-light);
     }
 
-    .crm-selected-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      min-width: 0;
-    }
-
-    .crm-selected-title-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-    }
-
-    #selected-client-name {
-      font-family: var(--font-display);
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--ink-primary);
-    }
+    .crm-selected-meta { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+    .crm-selected-title-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    #selected-client-name { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--ink-primary); }
 
     #selected-client-id {
       font-family: var(--font-mono);
@@ -418,31 +385,12 @@
       color: var(--primary-700);
     }
 
-    #selected-client-contact {
-      font-size: 0.8125rem;
-      color: var(--ink-muted);
-    }
+    #selected-client-contact { font-size: 0.8125rem; color: var(--ink-muted); }
 
     /* Sub-tables */
-    .crm-subtable-section {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .crm-subtable-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .crm-subtable-head h3 {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.9375rem;
-    }
+    .crm-subtable-section { display: flex; flex-direction: column; gap: 10px; }
+    .crm-subtable-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .crm-subtable-head h3 { display: inline-flex; align-items: center; gap: 8px; font-size: 0.9375rem; }
 
     .crm-count-badge {
       padding: 2px 8px;
@@ -463,19 +411,8 @@
       -webkit-overflow-scrolling: touch;
     }
 
-    .crm-mini-table {
-      width: 100%;
-      min-width: 560px;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 0.8125rem;
-    }
-
-    .crm-mini-table thead {
-      background: var(--bg-tonal);
-      border-bottom: 1px solid var(--border-light);
-    }
-
+    .crm-mini-table { width: 100%; min-width: 560px; border-collapse: collapse; text-align: left; font-size: 0.8125rem; }
+    .crm-mini-table thead { background: var(--bg-tonal); border-bottom: 1px solid var(--border-light); }
     .crm-mini-table th {
       padding: 9px 12px;
       font-family: var(--font-display);
@@ -486,18 +423,10 @@
       color: var(--ink-muted);
       white-space: nowrap;
     }
-
-    .crm-mini-table td {
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--border-light);
-      color: var(--ink-secondary);
-      vertical-align: middle;
-    }
-
+    .crm-mini-table td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); color: var(--ink-secondary); vertical-align: middle; }
     .crm-mini-table tbody tr:last-child td { border-bottom: none; }
     .crm-mini-table tbody tr:hover { background: var(--primary-50); }
 
-    /* Status Badges generated by dashboard.js (.crm-row-status) */
     .crm-row-status {
       display: inline-flex;
       align-items: center;
@@ -509,27 +438,28 @@
       line-height: 1.25;
       white-space: nowrap;
     }
-
     .crm-row-status.completed { background: var(--status-complete-bg); color: var(--status-complete-fg); }
     .crm-row-status.pending   { background: var(--status-pending-bg);  color: var(--status-pending-fg); }
     .crm-row-status.overdue   { background: var(--status-danger-bg);   color: var(--status-danger-fg); }
 
-    /* Responsive */
     @media (max-width: 900px) {
       .crm-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 768px) {
       .crm-page { padding: 16px 14px 96px; gap: 14px; }
-      .crm-hero-card { padding: 16px; }
-      .crm-head-identity h1 { font-size: 1.25rem; }
+      .kpi-hero-submodule-page { padding: 16px; }
+      .crm-head { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .crm-module-page-title { font-size: 1.25rem; }
+      .kpi-hero-submodule-page-description { font-size: 0.8125rem; }
+      #crmModuleMenu { left: 0; right: auto; }
+      #addActionMenu { right: 0; left: auto; }
       .crm-kpi-grid { gap: 10px; }
       .crm-kpi-card { padding: 14px; }
       .crm-kpi-value { font-size: 1.375rem; }
       .crm-lookup-head { padding: 14px 16px; }
       .crm-search-wrap { max-width: 100%; }
       .crm-selected-panel { padding: 14px 16px; }
-      .crm-add-menu { left: 0; right: auto; }
     }
   </style>
 </head>
@@ -542,29 +472,57 @@
       <div id="mobile-header-mount"></div>
 
       <div class="crm-page">
-        <!-- Hero Header + Auto-populated CRM Subnav -->
-        <section class="crm-hero-card" aria-label="CRM overview">
+        <!-- Compliance-Style Hero Card with Menu Dropdown -->
+        <section class="kpi-hero-submodule-page" aria-label="CRM overview">
           <header class="crm-head">
-            <div class="crm-head-identity">
-              <div class="crm-head-icon" aria-hidden="true">
-                <i data-lucide="users"></i>
-              </div>
-              <div>
-                <h1>CRM Dashboard</h1>
-                <p>Live overview of clients, compliance filings, and portal credentials.</p>
-              </div>
+            <div class="modulepage-row1-identity">
+              <h1 class="crm-module-page-title">
+                <i data-lucide="users" aria-hidden="true"></i>
+                <span>CRM</span>
+              </h1>
+              <nav class="crm-kicker crm-breadcrumb" aria-label="Breadcrumb">
+                <a href="index.html">Modules</a>
+                <span aria-hidden="true">&gt;</span>
+                <a href="modules/crm/dashboard/dashboard.html">CRM</a>
+                <span aria-hidden="true">&gt;</span>
+                <span aria-current="page">Dashboard</span>
+              </nav>
             </div>
 
             <div class="crm-head-actions">
-              <button
-                type="button"
-                id="refreshCrm"
-                class="btn btn-tonal btn-icon"
-                aria-label="Refresh CRM data"
-                title="Refresh CRM data"
-              >
-                <i data-lucide="refresh-cw" aria-hidden="true"></i>
-              </button>
+              <div class="crm-module-menu-wrap">
+                <button
+                  id="crmModuleMenuToggle"
+                  class="crm-compliance-module-toggle"
+                  type="button"
+                  title="CRM modules"
+                  aria-label="Open CRM modules"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-controls="crmModuleMenu"
+                >
+                  <i data-lucide="layout-grid" aria-hidden="true"></i>
+                  <span>Menu</span>
+                </button>
+                <nav id="crmModuleMenu" class="crm-dropdown-menu" role="menu" aria-label="CRM modules" hidden>
+                  <a href="modules/crm/dashboard/dashboard.html" role="menuitem" aria-current="page">
+                    <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+                    <span>Dashboard</span>
+                  </a>
+                  <a href="modules/crm/clients/clients.html" role="menuitem">
+                    <i data-lucide="contact-round" aria-hidden="true"></i>
+                    <span>Clients</span>
+                  </a>
+                  <a href="modules/crm/compliance/compliance.html" role="menuitem">
+                    <i data-lucide="clipboard-check" aria-hidden="true"></i>
+                    <span>Compliance</span>
+                  </a>
+                  <a href="modules/crm/credentials/credentials.html" role="menuitem">
+                    <i data-lucide="key-round" aria-hidden="true"></i>
+                    <span>Credentials</span>
+                  </a>
+                </nav>
+              </div>
 
               <div class="crm-add-wrap">
                 <button
@@ -576,9 +534,9 @@
                   aria-controls="addActionMenu"
                 >
                   <i data-lucide="plus" aria-hidden="true"></i>
-                  <span>Quick add</span>
+                  <span>Add</span>
                 </button>
-                <nav id="addActionMenu" class="crm-add-menu" role="menu" aria-label="Quick add CRM record" hidden>
+                <nav id="addActionMenu" class="crm-dropdown-menu" role="menu" aria-label="Quick add CRM record" hidden>
                   <a href="modules/crm/clients/clients.html#add" role="menuitem">
                     <i data-lucide="user-plus" aria-hidden="true"></i>
                     <span>Add client</span>
@@ -593,13 +551,22 @@
                   </a>
                 </nav>
               </div>
+
+              <button
+                type="button"
+                id="refreshCrm"
+                class="btn btn-tonal btn-icon"
+                aria-label="Refresh CRM data"
+                title="Refresh CRM data"
+              >
+                <i data-lucide="refresh-cw" aria-hidden="true"></i>
+              </button>
             </div>
           </header>
 
-          <!-- Populated automatically by initCrmSubnav() in js/index.js -->
-          <div class="crm-tabs-wrap">
-            <nav class="crm-tabs"></nav>
-          </div>
+          <p class="kpi-hero-submodule-page-description">
+            Live overview of clients, compliance filings, and portal credentials.
+          </p>
         </section>
 
         <!-- Firestore Error Banner -->
@@ -664,7 +631,6 @@
             </div>
           </div>
 
-          <!-- Initial Prompt -->
           <div id="client-record-prompt" class="crm-lookup-prompt">
             <div class="crm-lookup-prompt-icon" aria-hidden="true">
               <i data-lucide="user-search"></i>
@@ -673,7 +639,6 @@
             <p>Start typing a client name or Client ID above to view their compliance schedule and saved portal logins.</p>
           </div>
 
-          <!-- Selected Client Details -->
           <div id="selected-client-records" class="crm-selected-panel" hidden>
             <div class="crm-selected-banner">
               <div class="crm-selected-meta">
@@ -754,5 +719,27 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="js/index.js"></script>
   <script type="module" src="modules/crm/dashboard/dashboard.js"></script>
+  <script>
+    (() => {
+      const toggle = document.getElementById("crmModuleMenuToggle");
+      const menu = document.getElementById("crmModuleMenu");
+      if (!toggle || !menu) return;
+      const close = () => {
+        menu.hidden = true;
+        toggle.setAttribute("aria-expanded", "false");
+      };
+      toggle.addEventListener("click", () => {
+        const nextOpen = menu.hidden;
+        menu.hidden = !nextOpen;
+        toggle.setAttribute("aria-expanded", String(nextOpen));
+      });
+      document.addEventListener("pointerdown", e => {
+        if (!e.target.closest(".crm-module-menu-wrap")) close();
+      });
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape") close();
+      });
+    })();
+  </script>
 </body>
 </html>

@@ -1,3 +1,141 @@
-<div class="app-loading-screen" id="app-loading-screen" role="status" aria-label="Loading" aria-live="polite" aria-hidden="true" hidden>
-  <span class="app-loading-indicator" aria-hidden="true"></span>
+<div
+  id="app-loading-screen"
+  class="app-loading-overlay"
+  role="status"
+  aria-live="polite"
+  aria-busy="true"
+  aria-hidden="true"
+  hidden
+>
+  <div class="app-loading-card">
+    <div class="app-loading-spinner" aria-hidden="true">
+      <svg viewBox="0 0 40 40" fill="none">
+        <circle class="app-loading-track" cx="20" cy="20" r="16"></circle>
+        <circle class="app-loading-arc" cx="20" cy="20" r="16"></circle>
+      </svg>
+    </div>
+    <div class="app-loading-copy">
+      <span id="app-loading-title" class="app-loading-title">Loading</span>
+      <span id="app-loading-subtitle" class="app-loading-subtitle">Please wait a moment…</span>
+    </div>
+  </div>
 </div>
+
+<style>
+  .app-loading-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    background: rgba(15, 23, 42, 0.26);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    animation: app-loading-fade 0.16s ease-out;
+  }
+
+  .app-loading-overlay[hidden] {
+    display: none !important;
+  }
+
+  :root[data-theme="dark"] .app-loading-overlay,
+  body[data-theme="dark"] .app-loading-overlay {
+    background: rgba(0, 0, 0, 0.56);
+  }
+
+  .app-loading-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 220px;
+    max-width: 320px;
+    padding: 16px 20px;
+    background: var(--bg-surface, #ffffff);
+    border: 1px solid var(--border-light, #e2e8f0);
+    border-radius: var(--radius-lg, 14px);
+    box-shadow: var(--shadow-menu, 0 10px 28px -4px rgba(4, 30, 73, 0.14));
+    font-family: var(--font-sans, "Inter", sans-serif);
+    box-sizing: border-box;
+  }
+
+  .app-loading-spinner {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+  }
+
+  .app-loading-spinner svg {
+    width: 34px;
+    height: 34px;
+    animation: app-loading-rotate 1.4s linear infinite;
+  }
+
+  .app-loading-track {
+    stroke: var(--bg-tonal, #f0f4f9);
+    stroke-width: 3.5;
+  }
+
+  .app-loading-arc {
+    stroke: var(--primary-600, #0b57d0);
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    stroke-dasharray: 80 100;
+    stroke-dashoffset: 0;
+    animation: app-loading-dash 1.4s ease-in-out infinite;
+  }
+
+  .app-loading-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .app-loading-title {
+    font-family: var(--font-display, "Plus Jakarta Sans", sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--ink-primary, #1f1f1f);
+    line-height: 1.25;
+  }
+
+  .app-loading-subtitle {
+    font-size: 0.75rem;
+    color: var(--ink-muted, #64748b);
+    line-height: 1.35;
+  }
+
+  @keyframes app-loading-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes app-loading-rotate {
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes app-loading-dash {
+    0% {
+      stroke-dasharray: 12 100;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 64 100;
+      stroke-dashoffset: -24;
+    }
+    100% {
+      stroke-dasharray: 12 100;
+      stroke-dashoffset: -100;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .app-loading-spinner svg,
+    .app-loading-arc {
+      animation-duration: 3s;
+    }
+  }
+</style>

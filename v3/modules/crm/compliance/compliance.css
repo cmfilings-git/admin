@@ -1,481 +1,109 @@
-body{font-family:Outfit,sans-serif}.client-page{max-width:1600px;margin:auto;padding:20px 30px 105px}.field{width:100%;border:1px solid #dfe5ee;border-radius:10px;padding:10px 12px;background:#fff;outline:none;font:13px Outfit;color:#334155}.field:focus{border-color:#2F74FF;box-shadow:0 0 0 3px #2f74ff18}.label{display:block;font-size:12px;font-weight:600;color:#526071;margin-bottom:6px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:10px;padding:10px 14px;font:600 13px Outfit;cursor:pointer}.primary{background:#2F74FF;color:#fff;border:1px solid #2F74FF}.light{background:#fff;border:1px solid #e2e8f0;color:#475569}.danger{background:#fff1f2;color:#be123c;border:1px solid #ffe4e6}.hiddenx{display:none!important}.client-tabs-wrap{position:sticky;top:113px;z-index:25;margin:0 -30px 18px;padding:0 30px;background:rgba(247,248,250,.95);backdrop-filter:blur(14px);border-bottom:1px solid #e7e9ed}.client-tabs{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;white-space:nowrap}.client-tabs a{height:44px;display:inline-flex;align-items:center;gap:8px;padding:0 13px;color:#707985;font-size:12px;font-weight:500;position:relative;text-decoration:none}.client-tabs a.active{color:#20242b;font-weight:650}.client-tabs a.active:after{content:"";position:absolute;bottom:0;left:12px;right:12px;height:2px;background:#20242b;border-radius:2px}.client-tabs svg{width:16px;height:16px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.stat{background:#fff;border:1px solid #e7e9ed;border-radius:15px;padding:15px 16px}.stat-label{font-size:12px;color:#7b8490}.stat-value{font-size:26px;font-weight:600;margin-top:5px}.table-wrap,.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}table{width:100%;border-collapse:collapse;min-width:850px}th{text-align:left;background:#f8fafc;color:#718096;font-size:11px;text-transform:uppercase;padding:13px;border-bottom:1px solid #e8edf4}td{padding:13px;border-bottom:1px solid #edf0f5;font-size:12px;color:#334155}tbody tr:hover{background:#fbfdff}.badge,.status-pill{border-radius:99px;padding:4px 9px;font-size:11px;font-weight:700}.badge.active,.status-complete{background:#dcfce7;color:#166534}.badge.inactive,.status-other{background:#f1f5f9;color:#64748b}.status-pending{background:#fefce8;color:#a16207}.status-overdue{background:#fef2f2;color:#b91c1c}.modal{position:fixed;inset:0;z-index:130;display:none;align-items:center;justify-content:center;padding:12px;background:#0f172a88;backdrop-filter:blur(3px)}.modal.show{display:flex}.modal-box{background:#fff;border-radius:18px;width:100%;max-width:780px;max-height:95vh;overflow:auto;box-shadow:0 25px 70px #0f172a30}.modal-head{position:sticky;top:0;background:#fff;border-bottom:1px solid #eef0f3;padding:17px 20px;display:flex;justify-content:space-between;align-items:center;z-index:2}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.toast{position:fixed;right:18px;bottom:90px;z-index:150;padding:12px 16px;border-radius:12px;color:white;font-size:13px;box-shadow:0 10px 30px #0f172a25}.spinner{width:22px;height:22px;border:3px solid #dbeafe;border-top-color:#2F74FF;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:850px){.client-page{padding:15px 14px 105px}.client-tabs-wrap{top:64px;margin:0 -14px 14px;padding:0 14px}.client-tabs a{height:44px;padding:0 11px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.form-grid{grid-template-columns:1fr}.modal-box{max-height:97vh}}
-
-body[data-page-title="Compliance"] .client-tabs-wrap {
-  margin-right: -30px;
-  margin-left: -30px;
-  padding: 2px 10px;
-  border: 1px solid var(--line);
-  border-radius: 0;
-  background: color-mix(in srgb, var(--surface) 94%, transparent);
-  box-shadow: 0 2px 8px rgba(24, 39, 58, .06);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-}
-
-body[data-page-title="Compliance"] .client-tabs {
-  align-items: center;
-  gap: 5px;
-  padding: 0 2px;
-  overscroll-behavior-x: contain;
-  scroll-behavior: smooth;
-  scroll-padding-inline: 12px;
-  -webkit-overflow-scrolling: touch;
-}
-
-body[data-page-title="Compliance"] .client-tabs::-webkit-scrollbar {
-  display: none;
-}
-
-body[data-page-title="Compliance"] .client-tabs a {
-  height: 34px;
-  flex: 0 0 auto;
-  gap: 7px;
-  padding: 0 13px;
-  border-radius: 0;
-  color: var(--muted);
-  font-size: 13px;
-  transition: color .16s ease, background-color .16s ease;
-  scroll-snap-align: center;
-}
-
-body[data-page-title="Compliance"] .client-tabs a:hover {
-  background: var(--surface-low);
-  color: var(--text);
-}
-
-body[data-page-title="Compliance"] .client-tabs a.active {
-  background: #1f2937;
-  color: #fff;
-  font-weight: 600;
-}
-
-body[data-page-title="Compliance"] .client-tabs a.active:after {
-  display: none;
-}
-
-body[data-page-title="Compliance"] .client-tabs a:focus-visible {
-  outline: 0;
-  box-shadow: var(--focus-ring);
-}
-
-body[data-page-title="Compliance"] .client-tabs svg {
-  width: 16px;
-  height: 16px;
-  flex: 0 0 auto;
-}
-
-body[data-page-title="Compliance"] .status-pill {
-  border-radius: 6px;
-}
-
-body[data-page-title="Compliance"] .crm-compliance-reference {
-  display: inline-flex;
-  align-self: flex-start;
-  width: fit-content;
-  max-width: 100%;
-  padding: 2px 5px;
-  border-radius: 4px;
-  background: var(--surface-low);
-  color: #6b7280;
-}
-
-body[data-page-title="Compliance"] .crm-record-card .crm-compliance-name {
-  color: #111827;
-}
-
-body[data-page-title="Compliance"] .crm-record-card .crm-compliance-client-name,
-body[data-page-title="Compliance"] .crm-record-card .crm-compliance-client-id,
-body[data-page-title="Compliance"] .crm-record-card .crm-compliance-reference.text-gray-400,
-body[data-page-title="Compliance"] .crm-record-card tbody td:nth-child(4),
-body[data-page-title="Compliance"] .crm-record-card tbody td:nth-child(5),
-body[data-page-title="Compliance"] .crm-record-card tbody td:nth-child(8),
-body[data-page-title="Compliance"] .crm-record-card tbody td:nth-child(9),
-body[data-page-title="Compliance"] .crm-record-card tbody td:nth-child(10) {
-  color: #6b7280;
-}
-
-body[data-page-title="Compliance"] .crm-compliance-kpi {
-  position: relative;
-}
-
-body[data-page-title="Compliance"] .crm-compliance-kpi--upcoming {
-  --kpi-accent: #2563eb;
-}
-
-body[data-page-title="Compliance"] .crm-compliance-kpi--pending {
-  --kpi-accent: #b45309;
-}
-
-body[data-page-title="Compliance"] .crm-compliance-kpi--not-paid {
-  --kpi-accent: #c2410c;
-}
-
-body[data-page-title="Compliance"] .crm-compliance-kpi--overdue {
-  --kpi-accent: #dc2626;
-}
-
-body[data-page-title="Compliance"] .crm-compliance-kpi-label,
-body[data-page-title="Compliance"] .crm-compliance-kpi-value,
-body[data-page-title="Compliance"] .crm-compliance-kpi-icon {
-  color: var(--kpi-accent);
-}
-
-body[data-page-title="Compliance"] .crm-compliance-kpi-icon {
-  position: absolute;
-  top: 13px;
-  right: 14px;
-  display: block;
-}
-
-body[data-page-title="Compliance"] .crm-compliance-kpi-icon svg {
-  display: block;
-  width: 18px;
-  height: 18px;
-  stroke-width: 1.75;
-}
-
-body[data-page-title="Compliance"] .crm-compliance-kpi--upcoming .crm-compliance-kpi-value {
-  font-size: 20px;
-  line-height: 1.2;
-  white-space: nowrap;
-}
-
-body[data-page-title="Compliance"] .crm-compliance-kpi-days {
-  margin-top: 4px;
-  color: var(--kpi-accent);
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 1.2;
-}
-
-body[data-page-title="Compliance"] .crm-compliance-kpi-label {
-  display: inline-flex;
-  align-self: flex-start;
-  width: fit-content;
-  max-width: calc(100% - 24px);
-  padding: 3px 7px;
-  border-radius: 5px;
-  background: color-mix(in srgb, var(--kpi-accent) 12%, var(--surface));
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1.2;
-  white-space: nowrap;
-}
-
-@media (max-width: 850px) {
-  body[data-page-title="Compliance"] .client-tabs-wrap {
-    top: 64px;
-    margin: 0 -14px 14px;
-    padding: 2px 14px;
-    box-sizing: border-box;
-    border-right: 0;
-    border-left: 0;
-    border-radius: 0;
-    box-shadow: 0 1px 0 var(--line);
-  }
-
-  body[data-page-title="Compliance"] .client-tabs {
-    width: 100%;
-    min-width: 0;
-    justify-content: flex-start;
-    padding: 0;
-    scroll-padding-inline: 14px;
-    scroll-snap-type: x proximity;
-  }
-
-  body[data-page-title="Compliance"] #complianceModal {
-    align-items: flex-start;
-    overflow-y: auto;
-    padding: 8px;
-  }
-
-  body[data-page-title="Compliance"] #complianceModal > div {
-    width: 100%;
-    max-height: calc(100vh - 16px);
-    max-height: calc(100dvh - 16px);
-    margin-inline: auto;
-  }
-
-  body[data-page-title="Compliance"] #complianceModal header {
-    gap: 12px;
-    padding: 14px 16px;
-  }
-
-  body[data-page-title="Compliance"] #complianceModal form {
-    max-height: calc(100vh - 82px);
-    max-height: calc(100dvh - 82px);
-    overflow-y: auto;
-    padding: 16px !important;
-  }
-
-  body[data-page-title="Compliance"] #complianceModal form > .grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 12px;
-  }
-
-  body[data-page-title="Compliance"] #complianceModal form label,
-  body[data-page-title="Compliance"] #complianceModal fieldset {
-    min-width: 0;
-  }
-
-  body[data-page-title="Compliance"] #complianceModal .field {
-    box-sizing: border-box;
-    width: 100%;
-  }
-
-  body[data-page-title="Compliance"] #complianceModal fieldset > div {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  body[data-page-title="Compliance"] #complianceModal form > .flex {
-    display: flex;
-    flex-direction: column-reverse;
-    gap: 8px;
-  }
-
-  body[data-page-title="Compliance"] #complianceModal form > .flex .btn,
-  body[data-page-title="Compliance"] #complianceModal form > .flex button {
-    width: 100%;
-  }
-
-  body[data-page-title="Compliance"] .crm-compliance-kpi--upcoming .crm-compliance-kpi-value {
-    font-size: 18px;
-  }
-}
-
-@media (max-width: 390px) {
-  body[data-page-title="Compliance"] .client-tabs-wrap {
-    margin-right: -8px;
-    margin-left: -8px;
-    padding-right: 8px;
-    padding-left: 8px;
-  }
-
-  body[data-page-title="Compliance"] .client-tabs {
-    scroll-padding-inline: 8px;
-  }
-
-  body[data-page-title="Compliance"] .client-tabs a {
-    padding-right: 11px;
-    padding-left: 11px;
-    font-size: 12px;
-  }
-
-  body[data-page-title="Compliance"] #complianceModal header {
-    padding-right: 12px;
-    padding-left: 14px;
-  }
-
-  body[data-page-title="Compliance"] #complianceModal form {
-    padding: 14px 12px !important;
-  }
-}
 
 /* =====================================================
-   COREBIQ — MOBILE COMPLIANCE RECORD VIEW
-   Desktop table remains unchanged
-===================================================== */
+   COREBIQ — COMPLIANCE MOBILE LAYOUT FIX
+   ===================================================== */
 
 @media (max-width: 767px) {
 
-  /* Prevent page-level horizontal overflow */
-  html,
-  body {
-    width: 100%;
+  html, body {
     max-width: 100%;
-    overflow-x: clip;
+    overflow-x: hidden !important;
   }
 
   #app,
   .app-shell,
   .main-shell,
-  .client-page,
-  .main-shell > main {
+  .client-page {
+    width: 100%;
     min-width: 0;
     max-width: 100%;
-    width: 100%;
-  }
-
-  .client-page {
     overflow-x: clip;
   }
 
-  /* Page spacing */
   .main-shell > main.flex-grow {
     padding-left: 12px !important;
     padding-right: 12px !important;
-    padding-top: 16px !important;
   }
 
-  /* Header */
-  .crm-head {
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .crm-title-row h1 {
-    font-size: 21px;
-  }
-
-  /* KPI cards */
-  .compliance-kpi-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 10px !important;
-  }
-
-  .compliance-summary-grid {
-    grid-template-columns: 1fr !important;
-    gap: 9px !important;
-  }
-
-  /* Register container */
   .crm-record-card {
     width: 100%;
-    max-width: 100%;
-    border-radius: 14px !important;
+    min-width: 0;
     overflow: hidden;
+    border-radius: 14px !important;
   }
 
-  .crm-record-card > div:first-child {
-    padding: 14px !important;
-  }
-
-  /* Toolbar */
   .crm-compliance-toolbar {
     display: flex;
     width: 100%;
     min-width: 0;
-    gap: 8px;
-    align-items: center;
+    gap: 7px;
   }
 
   .crm-compliance-search {
     flex: 1;
-    width: 100%;
     min-width: 0;
   }
 
-  .crm-filter-wrap,
-  .crm-add-wrap {
-    flex-shrink: 0;
-  }
-
-  /* Remove forced 1040px table width */
+  /* Remove horizontal table scrolling */
   .table-scroll {
     width: 100%;
     max-width: 100%;
-    overflow: visible !important;
+    overflow: hidden !important;
   }
 
-  .table-scroll > table {
+  .table-scroll table {
     width: 100% !important;
     min-width: 0 !important;
-    max-width: 100%;
-    table-layout: fixed;
+    table-layout: fixed !important;
     border-collapse: collapse;
   }
 
-  /* Hide desktop table headings */
   .table-scroll thead {
     display: none !important;
   }
 
-  /* Each saved record becomes a compact grid row */
   .table-scroll tbody {
     display: block;
     width: 100%;
   }
 
+  /* Record row */
   .table-scroll tbody tr {
     position: relative;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.72fr);
     width: 100%;
     min-width: 0;
-    padding: 10px 10px 10px;
-    padding-top: 43px;
-    column-gap: 12px;
-    row-gap: 0;
+    box-sizing: border-box;
+    padding: 12px 40px 12px 43px;
+    gap: 0 10px;
     border-bottom: 1px solid #e9edf0;
     background: #fff;
   }
 
-  /* Loading and empty rows */
-  .table-scroll tbody tr:has(td[colspan]) {
-    display: block;
-    padding: 24px 10px;
-  }
-
+  /* Every cell must be allowed to shrink */
   .table-scroll tbody td {
-    display: block;
-    width: 100%;
-    min-width: 0;
-    padding: 9px 3px !important;
+    display: block !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    padding: 5px 2px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 12px;
-    line-height: 1.4;
-    overflow-wrap: anywhere;
-    border-bottom: 1px solid #f0f2f4;
-  }
-
-  /* Client name and ID */
-  .table-scroll tbody td:nth-child(2) {
-    grid-column: 1 / -1;
-    padding-left: 3px !important;
-    padding-right: 42px !important;
-    border-bottom: 1px solid #edf0f2;
-  }
-
-  /* Field labels */
-  .table-scroll tbody td:nth-child(3)::before {
-    content: "Compliance";
-  }
-
-  .table-scroll tbody td:nth-child(4)::before {
-    content: "Period";
-  }
-
-  .table-scroll tbody td:nth-child(5)::before {
-    content: "Due date";
-  }
-
-  .table-scroll tbody td:nth-child(6)::before {
-    content: "Filing status";
-  }
-
-  .table-scroll tbody td:nth-child(7)::before {
-    content: "Payment";
-  }
-
-  .table-scroll tbody td:nth-child(8)::before {
-    content: "Priority";
-  }
-
-  .table-scroll tbody td:nth-child(9)::before {
-    content: "Folder";
-  }
-
-  .table-scroll tbody td:nth-child(10)::before {
-    content: "Amount";
-  }
-
-  .table-scroll tbody td:nth-child(n+3):nth-child(-n+10)::before {
-    display: block;
-    margin-bottom: 4px;
-    color: #89939f;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: .035em;
-    text-transform: uppercase;
+    line-height: 1.45;
+    border: 0;
   }
 
   /* Checkbox */
   .table-scroll tbody td:first-child {
     position: absolute;
-    top: 10px;
-    left: 11px;
-    width: 28px;
+    left: 12px;
+    top: 17px;
+    width: 22px !important;
     padding: 0 !important;
-    border: 0;
   }
 
   .table-scroll tbody td:first-child input {
@@ -484,15 +112,117 @@ body[data-page-title="Compliance"] .crm-compliance-kpi-label {
     accent-color: #348b75;
   }
 
-  /* Action menu */
+  /* Client / ID */
+  .table-scroll tbody td:nth-child(2) {
+    grid-column: 1 / -1;
+    padding-right: 0 !important;
+    padding-bottom: 9px !important;
+    border-bottom: 1px solid #edf0f2;
+  }
+
+  /* Compliance and period */
+  .table-scroll tbody td:nth-child(3) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .table-scroll tbody td:nth-child(4) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  /* Due date and filing status */
+  .table-scroll tbody td:nth-child(5) {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .table-scroll tbody td:nth-child(6) {
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  /* Payment and priority */
+  .table-scroll tbody td:nth-child(7) {
+    grid-column: 1;
+    grid-row: 4;
+  }
+
+  .table-scroll tbody td:nth-child(8) {
+    grid-column: 2;
+    grid-row: 4;
+  }
+
+  /* Folder and amount */
+  .table-scroll tbody td:nth-child(9) {
+    grid-column: 1;
+    grid-row: 5;
+  }
+
+  .table-scroll tbody td:nth-child(10) {
+    grid-column: 2;
+    grid-row: 5;
+  }
+
+  /* Field labels */
+  .table-scroll tbody td:nth-child(n+3):nth-child(-n+10)::before {
+    display: inline-block !important;
+    width: 100%;
+    margin-bottom: 3px;
+    color: #89939f;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .table-scroll tbody td:nth-child(3)::before {
+    content: "COMPLIANCE";
+  }
+
+  .table-scroll tbody td:nth-child(4)::before {
+    content: "PERIOD";
+  }
+
+  .table-scroll tbody td:nth-child(5)::before {
+    content: "DUE DATE";
+  }
+
+  .table-scroll tbody td:nth-child(6)::before {
+    content: "FILING STATUS";
+  }
+
+  .table-scroll tbody td:nth-child(7)::before {
+    content: "PAYMENT";
+  }
+
+  .table-scroll tbody td:nth-child(8)::before {
+    content: "PRIORITY";
+  }
+
+  .table-scroll tbody td:nth-child(9)::before {
+    content: "FOLDER";
+  }
+
+  .table-scroll tbody td:nth-child(10)::before {
+    content: "AMOUNT";
+  }
+
+  /* Actions */
   .table-scroll tbody td:last-child {
     position: absolute;
-    top: 8px;
     right: 8px;
-    width: 38px;
+    top: 12px;
+    width: 30px !important;
     padding: 0 !important;
-    border: 0;
     text-align: center;
+    overflow: visible;
+  }
+
+  /* Loading row */
+  .table-scroll tbody tr:has(td[colspan]) {
+    display: block !important;
+    padding: 25px 10px;
   }
 
   /* Pagination */
@@ -501,41 +231,15 @@ body[data-page-title="Compliance"] .crm-compliance-kpi-label {
     flex-wrap: wrap;
     justify-content: center;
     gap: 6px;
-    padding: 12px 8px;
-  }
-
-  /* Bottom navigation clearance */
-  #compliancePagination {
-    padding-bottom: 18px;
-  }
-
-  /* Filter popover stays within viewport */
-  .crm-filter-popover {
-    position: fixed;
-    left: 10px;
-    right: 10px;
-    top: 50%;
-    width: auto;
-    max-width: none;
-    max-height: 75dvh;
-    overflow-y: auto;
-    transform: translateY(-50%);
-    z-index: 200;
+    padding: 14px 8px;
   }
 }
 
-/* Smaller phones */
 @media (max-width: 380px) {
-  .main-shell > main.flex-grow {
-    padding-left: 9px !important;
-    padding-right: 9px !important;
-  }
-
   .table-scroll tbody tr {
-    column-gap: 8px;
-  }
-
-  .table-scroll tbody td {
-    font-size: 11px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.65fr);
+    gap: 0 6px;
+    padding-left: 39px;
+    padding-right: 35px;
   }
 }

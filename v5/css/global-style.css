@@ -4280,3 +4280,137 @@ body[data-theme="dark"][data-page-title="Credentials"] #modal .modal-head p {
     padding-left: 7px;
   }
 }
+
+<div class="table-scroll">
+  <!-- your table HTML -->
+</div>
+...
+<style>
+  /* Desktop defaults */
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sample-saved-forms-table .sample-mobile-head,
+.sample-saved-forms-table .sample-mobile-description,
+.sample-saved-forms-table .sample-mobile-client-label {
+  display: none;
+}
+
+/* Mobile fit (no horizontal overflow) */
+@media (max-width: 768px) {
+  .table-scroll {
+    overflow-x: visible; /* Prevents clipping the row action dropdown */
+  }
+
+  .sample-saved-forms-table {
+    display: block;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .sample-saved-forms-table thead,
+  .sample-saved-forms-table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  /* Hide desktop header row */
+  .sample-saved-forms-table thead tr:first-child {
+    display: none;
+  }
+
+  /* Shared 5-column grid: ID | Name | Description | Status | Action */
+  .sample-saved-forms-table .sample-mobile-head,
+  .sample-saved-forms-table tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.35fr) minmax(0, 1.1fr) auto 32px;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 8px;
+  }
+
+  .sample-saved-forms-table .sample-mobile-head th {
+    padding: 0;
+    font-size: 10px;
+    font-weight: 600;
+    min-width: 0;
+  }
+
+  /* Hide all desktop cells by default */
+  .sample-saved-forms-table tbody td {
+    display: none;
+    padding: 0;
+    min-width: 0;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  /* Show and place the 5 mobile columns in exact header order */
+  .sample-saved-forms-table tbody td:nth-child(2) {
+    display: block;
+    grid-column: 1;
+    font-size: 11px;
+    word-break: break-all; /* Keeps SAM-2600001 from pushing width */
+  }
+
+  .sample-saved-forms-table tbody td:nth-child(3) {
+    display: block;
+    grid-column: 2;
+  }
+
+  /* Avoid duplicating the description already shown in col 3 */
+  .sample-saved-forms-table tbody td:nth-child(3) .crm-compliance-reference {
+    display: none;
+  }
+
+  .sample-saved-forms-table tbody td.sample-mobile-description {
+    display: block;
+    grid-column: 3;
+    color: #6b7280;
+    font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .sample-saved-forms-table tbody td:nth-child(9) {
+    display: flex;
+    justify-content: center;
+    grid-column: 4;
+  }
+
+  .sample-saved-forms-table tbody td:nth-child(14) {
+    display: flex;
+    justify-content: flex-end;
+    grid-column: 5;
+  }
+
+  /* Keep text & status pills compact on narrow screens */
+  .sample-saved-forms-table .crm-compliance-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .sample-saved-forms-table .status-pill {
+    font-size: 10px;
+    padding: 2px 6px;
+    white-space: nowrap;
+  }
+
+  .sample-saved-forms-table .crm-row-menu-wrap {
+    position: relative;
+  }
+
+  .sample-saved-forms-table .crm-row-menu {
+    right: 0;
+    left: auto;
+  }
+}
+
+</style>

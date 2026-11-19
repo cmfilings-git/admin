@@ -1,0 +1,8 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Receipts are delivered using short-lived signed URLs from trusted backend code.
+    match /payment-receipts/{allPaths=**} { allow read, write: if false; }
+    match /{allPaths=**} { allow read, write: if false; }
+  }
+}

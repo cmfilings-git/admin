@@ -1,0 +1,12 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // All payment writes are server-only. Admin UI reads through callable functions.
+    match /payment_orders/{id} { allow read, write: if false; }
+    match /payment_transactions/{id} { allow read, write: if false; }
+    match /webhook_events/{id} { allow read, write: if false; }
+    match /payment_receipts/{id} { allow read, write: if false; }
+    match /rate_limits/{id} { allow read, write: if false; }
+    match /{document=**} { allow read, write: if false; }
+  }
+}

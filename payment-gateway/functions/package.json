@@ -1,0 +1,13 @@
+{
+  "name": "cm-innovations-payments-functions",
+  "private": true,
+  "engines": {"node": "20"},
+  "main": "index.js",
+  "scripts": {"serve": "firebase emulators:start --only functions,firestore,hosting", "deploy": "firebase deploy --only functions,firestore:rules,storage,hosting"},
+  "dependencies": {
+    "firebase-admin": "^13.0.2",
+    "firebase-functions": "^6.3.2",
+    "razorpay": "^2.9.5",
+    "pdfkit": "^0.16.0"
+  }
+}

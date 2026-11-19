@@ -10,6 +10,7 @@ import {
   serverTimestamp,
   updateDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 const { firebaseConfig } = await import(new URL("firebase/firebase-config.js", document.baseURI));
 
 const ADMIN = "shanicm@gmail.com";
@@ -21,18 +22,18 @@ const $ = (id) => document.getElementById(id);
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 const VOUCHER_CONFIG = {
-  Contra:        { prefix: "CNT", badge: "contra",      label: "Contra Voucher",  nonPosting: false },
-  Payment:       { prefix: "PMT", badge: "payment",     label: "Payment Voucher", nonPosting: false },
-  Receipt:       { prefix: "RCT", badge: "receipt",     label: "Receipt Voucher", nonPosting: false },
-  Journal:       { prefix: "JRN", badge: "journal",     label: "Journal Voucher", nonPosting: false },
-  Sales:         { prefix: "SLS", badge: "sales",       label: "Sales Voucher",   nonPosting: false },
-  Purchase:      { prefix: "PUR", badge: "purchase",    label: "Purchase Voucher",nonPosting: false },
-  "Credit Note": { prefix: "CRN", badge: "credit-note", label: "Credit Note",     nonPosting: false },
-  "Debit Note":  { prefix: "DBN", badge: "debit-note",  label: "Debit Note",      nonPosting: false },
-  Estimate:      { prefix: "EST", badge: "estimate",    label: "Estimate",        nonPosting: true }
+  Contra:        { prefix: "CNT", badge: "contra",      label: "Contra Voucher",   nonPosting: false },
+  Payment:       { prefix: "PMT", badge: "payment",     label: "Payment Voucher",  nonPosting: false },
+  Receipt:       { prefix: "RCT", badge: "receipt",     label: "Receipt Voucher",  nonPosting: false },
+  Journal:       { prefix: "JRN", badge: "journal",     label: "Journal Voucher",  nonPosting: false },
+  Sales:         { prefix: "SLS", badge: "sales",       label: "Sales Voucher",    nonPosting: false },
+  Purchase:      { prefix: "PUR", badge: "purchase",    label: "Purchase Voucher", nonPosting: false },
+  "Credit Note": { prefix: "CRN", badge: "credit-note", label: "Credit Note",      nonPosting: false },
+  "Debit Note":  { prefix: "DBN", badge: "debit-note",  label: "Debit Note",       nonPosting: false },
+  Estimate:      { prefix: "EST", badge: "estimate",    label: "Estimate",         nonPosting: true }
 };
 
-// Optional page lock for dedicated pages (e.g., <body data-voucher-type="Contra">)
+// Optional page lock for dedicated sub-pages (e.g., <body data-voucher-type="Contra">)
 const PAGE_VOUCHER_TYPE = (document.body.dataset.voucherType || "").trim();
 
 const ledgers = new Map();
@@ -94,12 +95,24 @@ function formatMoney(amount) {
 
 function showToast(msg, success = true) {
   const el = $("toast");
+  if (!el) return;
   clearTimeout(toastTimer);
   el.textContent = msg;
   el.style.background = success ? "#166534" : "#be123c";
   el.style.color = "#ffffff";
   el.classList.remove("hidden");
   toastTimer = window.setTimeout(() => el.classList.add("hidden"), 3000);
+}
+
+function showError(err) {
+  console.error("Vouchers error:", err);
+  $("erp-app")?.classList.remove("hidden");
+  window.COREBIQ?.hideLoading?.();
+  const banner = $("erp-error");
+  if (banner) {
+    banner.textContent = typeof err === "string" ? err : `Could not load vouchers (${err?.code || err?.message || "error"}).`;
+    banner.classList.remove("hidden");
+  }
 }
 
 function nextVoucherNumber(type) {
@@ -123,26 +136,30 @@ function syncSubmenuActiveState() {
 
   if (PAGE_VOUCHER_TYPE && VOUCHER_CONFIG[PAGE_VOUCHER_TYPE]) {
     const label = VOUCHER_CONFIG[PAGE_VOUCHER_TYPE].label;
-    $("voucherPageHeading").textContent = label;
-    $("voucherBreadcrumbCurrent").textContent = PAGE_VOUCHER_TYPE;
-    $("registerHeading").textContent = `${PAGE_VOUCHER_TYPE} Register`;
-    $("voucherTypeFilter").value = PAGE_VOUCHER_TYPE;
-    $("voucherTypeFilter").hidden = true;
+    if ($("voucherPageHeading")) $("voucherPageHeading").textContent = label;
+    if ($("voucherBreadcrumbCurrent")) $("voucherBreadcrumbCurrent").textContent = PAGE_VOUCHER_TYPE;
+    if ($("registerHeading")) $("registerHeading").textContent = `${PAGE_VOUCHER_TYPE} Register`;
+    if ($("voucherTypeFilter")) {
+      $("voucherTypeFilter").value = PAGE_VOUCHER_TYPE;
+      $("voucherTypeFilter").hidden = true;
+    }
   }
 }
 
 function syncModalForVoucherType(type) {
   const isEstimate = Boolean(VOUCHER_CONFIG[type]?.nonPosting);
-  $("debitLedger").required = !isEstimate;
-  $("creditLedger").required = !isEstimate;
-  $("ledgerPairFields").classList.toggle("hidden", isEstimate);
-  $("voucherModalSub").textContent = isEstimate
-    ? "Estimates are non-posting quotations and do not affect ledger balances."
-    : "Posted vouchers update ledger balances immediately.";
+  if ($("debitLedger")) $("debitLedger").required = !isEstimate;
+  if ($("creditLedger")) $("creditLedger").required = !isEstimate;
+  $("ledgerPairFields")?.classList.toggle("hidden", isEstimate);
+  if ($("voucherModalSub")) {
+    $("voucherModalSub").textContent = isEstimate
+      ? "Estimates are non-posting quotations and do not affect ledger balances."
+      : "Posted vouchers update ledger balances immediately.";
+  }
 
   if (!editingId) {
-    $("voucherNo").value = nextVoucherNumber(type);
-    if (isEstimate) $("voucherStatus").value = "Draft";
+    if ($("voucherNo")) $("voucherNo").value = nextVoucherNumber(type);
+    if (isEstimate && $("voucherStatus")) $("voucherStatus").value = "Draft";
   }
 }
 
@@ -151,16 +168,19 @@ function populateLedgerSelects() {
   const active = sorted.filter((l) => normalize(l.status) !== "inactive");
 
   const filterSel = $("voucherLedgerFilter");
-  const prevFilter = filterSel.value || initialLedgerParam;
-  filterSel.replaceChildren(new Option("All ledgers", ""));
-  sorted.forEach((l) => filterSel.add(new Option(`${l.name} (${l.type})`, l.id)));
-  if (prevFilter && ledgers.has(prevFilter)) {
-    filterSel.value = prevFilter;
-    initialLedgerParam = "";
+  if (filterSel) {
+    const prevFilter = filterSel.value || initialLedgerParam;
+    filterSel.replaceChildren(new Option("All ledgers", ""));
+    sorted.forEach((l) => filterSel.add(new Option(`${l.name} (${l.type})`, l.id)));
+    if (prevFilter && ledgers.has(prevFilter)) {
+      filterSel.value = prevFilter;
+      initialLedgerParam = "";
+    }
   }
 
   ["debitLedger", "creditLedger"].forEach((id) => {
     const sel = $(id);
+    if (!sel) return;
     const prev = sel.value;
     sel.replaceChildren(new Option(id === "debitLedger" ? "Select debit ledger" : "Select credit ledger", ""));
     active.forEach((l) => sel.add(new Option(`${l.name} · ${l.group || l.type}`, l.id)));
@@ -169,12 +189,12 @@ function populateLedgerSelects() {
 }
 
 function render() {
-  const q = normalize($("voucherSearch").value);
-  const typeFilter = PAGE_VOUCHER_TYPE || $("voucherTypeFilter").value;
-  const ledgerFilter = $("voucherLedgerFilter").value;
-  const statusFilter = $("voucherStatusFilter").value;
-  const fromDate = $("voucherFromDate").value;
-  const toDateVal = $("voucherToDate").value;
+  const q = normalize($("voucherSearch")?.value);
+  const typeFilter = PAGE_VOUCHER_TYPE || ($("voucherTypeFilter")?.value || "");
+  const ledgerFilter = $("voucherLedgerFilter")?.value || "";
+  const statusFilter = $("voucherStatusFilter")?.value || "";
+  const fromDate = $("voucherFromDate")?.value || "";
+  const toDateVal = $("voucherToDate")?.value || "";
 
   const scoped = PAGE_VOUCHER_TYPE
     ? [...vouchers.values()].filter((v) => v.voucherType === PAGE_VOUCHER_TYPE)
@@ -197,10 +217,10 @@ function render() {
     if (v.voucherType === "Payment" || v.voucherType === "Purchase" || v.voucherType === "Credit Note") outflow += amt;
   });
 
-  $("kpi-total-vouchers").textContent = scoped.length.toLocaleString("en-IN");
-  $("kpi-inflow").textContent = formatMoney(inflow);
-  $("kpi-outflow").textContent = formatMoney(outflow);
-  $("kpi-posted-count").textContent = `${postedCount} / ${draftCount}`;
+  if ($("kpi-total-vouchers")) $("kpi-total-vouchers").textContent = scoped.length.toLocaleString("en-IN");
+  if ($("kpi-inflow")) $("kpi-inflow").textContent = formatMoney(inflow);
+  if ($("kpi-outflow")) $("kpi-outflow").textContent = formatMoney(outflow);
+  if ($("kpi-posted-count")) $("kpi-posted-count").textContent = `${postedCount} / ${draftCount}`;
 
   const filtered = scoped
     .filter((v) => {
@@ -219,10 +239,13 @@ function render() {
     .sort((a, b) => (toDate(b.date)?.getTime() || 0) - (toDate(a.date)?.getTime() || 0)
       || String(b.voucherNo || "").localeCompare(String(a.voucherNo || "")));
 
-  $("voucherCount").textContent = `${filtered.length} voucher${filtered.length === 1 ? "" : "s"}`;
-  $("voucherEmpty").classList.toggle("hidden", filtered.length > 0);
+  if ($("voucherCount")) $("voucherCount").textContent = `${filtered.length} voucher${filtered.length === 1 ? "" : "s"}`;
+  $("voucherEmpty")?.classList.toggle("hidden", filtered.length > 0);
 
-  $("voucherRows").innerHTML = filtered.map((v) => {
+  const tbody = $("voucherRows");
+  if (!tbody) return;
+
+  tbody.innerHTML = filtered.map((v) => {
     const vType = v.voucherType || "Journal";
     const cfg = VOUCHER_CONFIG[vType] || { badge: "journal", nonPosting: false };
     const drName = v.debitLedgerName || ledgers.get(v.debitLedgerId)?.name || "";
@@ -280,45 +303,47 @@ function closeRowMenus() {
 
 function openModal(voucher = null) {
   editingId = voucher?.id || "";
-  $("voucherForm").reset();
-  $("voucherFormError").textContent = "";
+  $("voucherForm")?.reset();
+  if ($("voucherFormError")) $("voucherFormError").textContent = "";
   populateLedgerSelects();
 
   const type = voucher?.voucherType || PAGE_VOUCHER_TYPE || "Receipt";
-  $("voucherModalTitle").textContent = editingId ? `Edit ${type}` : `New ${type}`;
-  $("voucherType").value = type;
-  $("voucherType").disabled = Boolean(PAGE_VOUCHER_TYPE && !editingId);
-  $("voucherDate").value = voucher?.date || todayIso();
-  $("partyName").value = voucher?.partyName || "";
-  $("debitLedger").value = voucher?.debitLedgerId || "";
-  $("creditLedger").value = voucher?.creditLedgerId || "";
-  $("voucherAmount").value = voucher?.amount ?? "";
-  $("paymentMode").value = voucher?.paymentMode || "Bank Transfer";
-  $("voucherStatus").value = voucher?.status || (type === "Estimate" ? "Draft" : "Posted");
-  $("referenceNo").value = voucher?.referenceNo || "";
-  $("voucherNarration").value = voucher?.narration || "";
+  if ($("voucherModalTitle")) $("voucherModalTitle").textContent = editingId ? `Edit ${type}` : `New ${type}`;
+  if ($("voucherType")) {
+    $("voucherType").value = type;
+    $("voucherType").disabled = Boolean(PAGE_VOUCHER_TYPE && !editingId);
+  }
+  if ($("voucherDate")) $("voucherDate").value = voucher?.date || todayIso();
+  if ($("partyName")) $("partyName").value = voucher?.partyName || "";
+  if ($("debitLedger")) $("debitLedger").value = voucher?.debitLedgerId || "";
+  if ($("creditLedger")) $("creditLedger").value = voucher?.creditLedgerId || "";
+  if ($("voucherAmount")) $("voucherAmount").value = voucher?.amount ?? "";
+  if ($("paymentMode")) $("paymentMode").value = voucher?.paymentMode || "Bank Transfer";
+  if ($("voucherStatus")) $("voucherStatus").value = voucher?.status || (type === "Estimate" ? "Draft" : "Posted");
+  if ($("referenceNo")) $("referenceNo").value = voucher?.referenceNo || "";
+  if ($("voucherNarration")) $("voucherNarration").value = voucher?.narration || "";
 
   syncModalForVoucherType(type);
-  if (voucher?.voucherNo) $("voucherNo").value = voucher.voucherNo;
+  if (voucher?.voucherNo && $("voucherNo")) $("voucherNo").value = voucher.voucherNo;
 
-  if (!VOUCHER_CONFIG[type]?.nonPosting && !ledgers.size) {
+  if (!VOUCHER_CONFIG[type]?.nonPosting && !ledgers.size && $("voucherFormError")) {
     $("voucherFormError").textContent = "Create at least two ledgers in ERP > Ledgers before posting vouchers.";
   }
 
-  $("voucherModal").classList.remove("hidden");
+  $("voucherModal")?.classList.remove("hidden");
   document.body.style.overflow = "hidden";
 }
 
 function closeModal() {
   editingId = "";
-  $("voucherType").disabled = false;
-  $("voucherModal").classList.add("hidden");
+  if ($("voucherType")) $("voucherType").disabled = false;
+  $("voucherModal")?.classList.add("hidden");
   document.body.style.overflow = "";
 }
 
 async function saveVoucher(event) {
   event.preventDefault();
-  $("voucherFormError").textContent = "";
+  if ($("voucherFormError")) $("voucherFormError").textContent = "";
 
   const voucherType = $("voucherType").value;
   const isEstimate = Boolean(VOUCHER_CONFIG[voucherType]?.nonPosting);
@@ -420,18 +445,20 @@ function setupDropdowns() {
 
   const closeAll = () => {
     pairs.forEach(([tId, mId]) => {
-      $(mId).hidden = true;
-      $(tId).setAttribute("aria-expanded", "false");
+      if ($(mId)) $(mId).hidden = true;
+      $(tId)?.setAttribute("aria-expanded", "false");
     });
   };
 
   pairs.forEach(([tId, mId]) => {
-    $(tId).addEventListener("click", (e) => {
+    $(tId)?.addEventListener("click", (e) => {
       e.stopPropagation();
-      const willOpen = $(mId).hidden;
+      const menu = $(mId);
+      if (!menu) return;
+      const willOpen = menu.hidden;
       closeAll();
-      $(mId).hidden = !willOpen;
-      $(tId).setAttribute("aria-expanded", String(willOpen));
+      menu.hidden = !willOpen;
+      $(tId)?.setAttribute("aria-expanded", String(willOpen));
     });
   });
 
@@ -444,105 +471,133 @@ function setupDropdowns() {
     if (e.key !== "Escape") return;
     closeAll();
     closeRowMenus();
-    if (!$("voucherModal").classList.contains("hidden")) closeModal();
+    if ($("voucherModal") && !$("voucherModal").classList.contains("hidden")) closeModal();
   });
 }
 
 function init() {
-  syncSubmenuActiveState();
-  setupDropdowns();
+  try {
+    syncSubmenuActiveState();
+    setupDropdowns();
 
-  window.addEventListener("corebiq:signout-request", () => signOut(auth));
+    window.addEventListener("corebiq:signout-request", () => signOut(auth));
 
-  $("addVoucherBtn").addEventListener("click", () => openModal());
-  $("closeVoucherModal").addEventListener("click", closeModal);
-  $("cancelVoucherBtn").addEventListener("click", closeModal);
-  $("voucherModal").addEventListener("click", (e) => { if (e.target === $("voucherModal")) closeModal(); });
-  $("voucherForm").addEventListener("submit", saveVoucher);
+    $("addVoucherBtn")?.addEventListener("click", () => openModal());
+    $("closeVoucherModal")?.addEventListener("click", closeModal);
+    $("cancelVoucherBtn")?.addEventListener("click", closeModal);
+    $("voucherModal")?.addEventListener("click", (e) => { if (e.target === $("voucherModal")) closeModal(); });
+    $("voucherForm")?.addEventListener("submit", saveVoucher);
 
-  $("voucherType").addEventListener("change", () => {
-    const type = $("voucherType").value;
-    if (!editingId) $("voucherModalTitle").textContent = `New ${type}`;
-    syncModalForVoucherType(type);
-  });
-
-  $("clearVoucherFilters").addEventListener("click", () => {
-    ["voucherSearch", "voucherLedgerFilter", "voucherStatusFilter", "voucherFromDate", "voucherToDate"].forEach((id) => {
-      $(id).value = "";
+    $("voucherType")?.addEventListener("change", () => {
+      const type = $("voucherType").value;
+      if (!editingId && $("voucherModalTitle")) $("voucherModalTitle").textContent = `New ${type}`;
+      syncModalForVoucherType(type);
     });
-    if (!PAGE_VOUCHER_TYPE) $("voucherTypeFilter").value = "";
-    render();
-  });
 
-  ["voucherSearch", "voucherTypeFilter", "voucherLedgerFilter", "voucherStatusFilter", "voucherFromDate", "voucherToDate"].forEach((id) => {
-    $(id).addEventListener(id === "voucherSearch" ? "input" : "change", render);
-  });
-
-  $("voucherRows").addEventListener("click", (e) => {
-    const toggle = e.target.closest("[data-row-menu-toggle]");
-    if (toggle) {
-      const m = toggle.parentElement.querySelector(".erp-row-menu");
-      const open = m.hidden;
-      closeRowMenus();
-      if (open) {
-        m.hidden = false;
-        const r = toggle.getBoundingClientRect();
-        const mr = m.getBoundingClientRect();
-        m.style.left = `${Math.max(12, Math.min(r.right - mr.width, window.innerWidth - mr.width - 12))}px`;
-        m.style.top = `${r.bottom + mr.height + 8 <= window.innerHeight ? r.bottom + 4 : Math.max(8, r.top - mr.height - 4)}px`;
-        toggle.setAttribute("aria-expanded", "true");
-      }
-      return;
-    }
-
-    const editBtn = e.target.closest("[data-edit-voucher]");
-    if (editBtn) {
-      closeRowMenus();
-      openModal(vouchers.get(editBtn.dataset.editVoucher));
-      return;
-    }
-
-    const statusBtn = e.target.closest("[data-toggle-status]");
-    if (statusBtn) {
-      closeRowMenus();
-      toggleVoucherStatus(statusBtn.dataset.toggleStatus);
-      return;
-    }
-
-    const delBtn = e.target.closest("[data-delete-voucher]");
-    if (delBtn) {
-      closeRowMenus();
-      deleteVoucher(delBtn.dataset.deleteVoucher);
-    }
-  });
-
-  onAuthStateChanged(auth, async (user) => {
-    if (!user || normalize(user.email) !== ADMIN) {
-      ledgersUnsub?.();
-      vouchersUnsub?.();
-      if (user) await signOut(auth);
-      const next = encodeURIComponent(location.pathname.replace(/^\//, "") + location.search + location.hash);
-      location.replace(new URL(`auth/login.html?next=${next}`, document.baseURI).href);
-      return;
-    }
-
-    $("erp-app").classList.remove("hidden");
-    window.COREBIQ?.showLoading?.();
-
-    let ledgersReady = false;
-    ledgersUnsub = onSnapshot(collection(db, "erp_ledgers"), (snap) => {
-      ledgers.clear();
-      snap.forEach((d) => ledgers.set(d.id, { id: d.id, ...d.data() }));
-      populateLedgerSelects();
+    $("clearVoucherFilters")?.addEventListener("click", () => {
+      ["voucherSearch", "voucherLedgerFilter", "voucherStatusFilter", "voucherFromDate", "voucherToDate"].forEach((id) => {
+        if ($(id)) $(id).value = "";
+      });
+      if (!PAGE_VOUCHER_TYPE && $("voucherTypeFilter")) $("voucherTypeFilter").value = "";
       render();
-      if (!ledgersReady) {
-        ledgersReady = true;
-        if (location.hash === "#add") openModal();
+    });
+
+    ["voucherSearch", "voucherTypeFilter", "voucherLedgerFilter", "voucherStatusFilter", "voucherFromDate", "voucherToDate"].forEach((id) => {
+      $(id)?.addEventListener(id === "voucherSearch" ? "input" : "change", render);
+    });
+
+    $("voucherRows")?.addEventListener("click", (e) => {
+      const toggle = e.target.closest("[data-row-menu-toggle]");
+      if (toggle) {
+        const m = toggle.parentElement.querySelector(".erp-row-menu");
+        const open = m.hidden;
+        closeRowMenus();
+        if (open) {
+          m.hidden = false;
+          const r = toggle.getBoundingClientRect();
+          const mr = m.getBoundingClientRect();
+          m.style.left = `${Math.max(12, Math.min(r.right - mr.width, window.innerWidth - mr.width - 12))}px`;
+          m.style.top = `${r.bottom + mr.height + 8 <= window.innerHeight ? r.bottom + 4 : Math.max(8, r.top - mr.height - 4)}px`;
+          toggle.setAttribute("aria-expanded", "true");
+        }
+        return;
+      }
+
+      const editBtn = e.target.closest("[data-edit-voucher]");
+      if (editBtn) {
+        closeRowMenus();
+        openModal(vouchers.get(editBtn.dataset.editVoucher));
+        return;
+      }
+
+      const statusBtn = e.target.closest("[data-toggle-status]");
+      if (statusBtn) {
+        closeRowMenus();
+        toggleVoucherStatus(statusBtn.dataset.toggleStatus);
+        return;
+      }
+
+      const delBtn = e.target.closest("[data-delete-voucher]");
+      if (delBtn) {
+        closeRowMenus();
+        deleteVoucher(delBtn.dataset.deleteVoucher);
       }
     });
 
-    vouchersUnsub = onSnapshot(collection(db, "erp_vouchers"), (snap) => {
-      vouchers.clear();
-      snap.forEach((d) => vouchers.set(d.id, { id: d.id, ...d.data() }));
-      render();
-      window.COREBIQ?.hideLoading?.();
+    onAuthStateChanged(auth, async (user) => {
+      if (!user || normalize(user.email) !== ADMIN) {
+        ledgersUnsub?.();
+        vouchersUnsub?.();
+        if (user) await signOut(auth);
+        const next = encodeURIComponent(location.pathname.replace(/^\//, "") + location.search + location.hash);
+        location.replace(new URL(`auth/login.html?next=${next}`, document.baseURI).href);
+        return;
+      }
+
+      $("erp-app")?.classList.remove("hidden");
+      window.COREBIQ?.showLoading?.();
+
+      const loaderFallback = window.setTimeout(() => window.COREBIQ?.hideLoading?.(), 6000);
+
+      let ledgersReady = false;
+      ledgersUnsub = onSnapshot(collection(db, "erp_ledgers"), (snap) => {
+        ledgers.clear();
+        snap.forEach((d) => ledgers.set(d.id, { id: d.id, ...d.data() }));
+        populateLedgerSelects();
+        try {
+          render();
+        } catch (err) {
+          showError(err);
+        }
+        if (!ledgersReady) {
+          ledgersReady = true;
+          if (location.hash === "#add") openModal();
+        }
+      }, (err) => {
+        clearTimeout(loaderFallback);
+        showError(err);
+      });
+
+      vouchersUnsub = onSnapshot(collection(db, "erp_vouchers"), (snap) => {
+        clearTimeout(loaderFallback);
+        try {
+          vouchers.clear();
+          snap.forEach((d) => vouchers.set(d.id, { id: d.id, ...d.data() }));
+          render();
+        } catch (err) {
+          showError(err);
+        } finally {
+          window.COREBIQ?.hideLoading?.();
+        }
+      }, (err) => {
+        clearTimeout(loaderFallback);
+        showError(err);
+      });
+    });
+  } catch (err) {
+    showError(err);
+  }
+}
+
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true });
+else init();

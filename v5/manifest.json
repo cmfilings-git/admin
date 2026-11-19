@@ -1,7 +1,7 @@
 {
-  "name": "COREBIQ | CM Workspace",
-  "short_name": "COREBIQ",
-  "description": "COREBIQ · Count. Connect. Grow. Business ERP, CRM & HR Workspace.",
+  "name": "CM | Workspace",
+  "short_name": "CM Admin",
+  "description": "CM Workspace.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

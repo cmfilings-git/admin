@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b57d0" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131314" media="(prefers-color-scheme: dark)">
+  <base href="../../../">
+  <title>Templates Dashboard | COREBIQ</title>
+
+  <link rel="stylesheet" href="css/core-ui.css">
+  <link rel="stylesheet" href="modules/templates/dashboard/dashboard.css">
+</head>
+<body data-page-title="Templates">
+  <div id="templates-app" class="app-shell hidden">
+    <div id="desktop-sidebar-mount"></div>
+
+    <div class="main-shell">
+      <div id="desktop-header-mount"></div>
+      <div id="mobile-header-mount"></div>
+
+      <main class="tpl-page">
+        <!-- Hero Header with Templates Module Switcher -->
+        <section class="kpi-hero-submodule-page" aria-label="Templates overview">
+          <header class="tpl-head">
+            <div class="tpl-head-identity">
+              <h1 class="tpl-page-title">
+                <i data-lucide="file-text" aria-hidden="true"></i>
+                <span>Templates</span>
+              </h1>
+              <nav class="tpl-breadcrumb" aria-label="Breadcrumb">
+                <a href="index.html">Modules</a>
+                <span aria-hidden="true">&gt;</span>
+                <a href="modules/templates/dashboard/dashboard.html">Templates</a>
+                <span aria-hidden="true">&gt;</span>
+                <span aria-current="page">Dashboard</span>
+              </nav>
+            </div>
+
+            <div class="tpl-head-actions">
+              <!-- Templates Module Menu -->
+              <div class="tpl-dropdown-wrap">
+                <button
+                  id="tplModuleMenuToggle"
+                  type="button"
+                  class="btn btn-tonal"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-controls="tplModuleMenu"
+                >
+                  <i data-lucide="layout-grid" aria-hidden="true"></i>
+                  <span>Menu</span>
+                </button>
+                <nav id="tplModuleMenu" class="tpl-dropdown-menu" role="menu" aria-label="Template modules" hidden>
+                  <a href="modules/templates/dashboard/dashboard.html" role="menuitem" aria-current="page">
+                    <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+                    <span>Dashboard</span>
+                  </a>
+                  <a href="modules/templates/invoice-template/invoice-template.html" role="menuitem">
+                    <i data-lucide="file-spreadsheet" aria-hidden="true"></i>
+                    <span>Invoice Template</span>
+                  </a>
+                  <a href="modules/templates/letterhead/letterhead.html" role="menuitem">
+                    <i data-lucide="file-signature" aria-hidden="true"></i>
+                    <span>Letterhead</span>
+                  </a>
+                  <a href="modules/templates/receipt-voucher/receipt-voucher.html" role="menuitem">
+                    <i data-lucide="arrow-down-left" aria-hidden="true"></i>
+                    <span>Receipt Voucher</span>
+                  </a>
+                  <a href="modules/templates/payment-voucher/payment-voucher.html" role="menuitem">
+                    <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+                    <span>Payment Voucher</span>
+                  </a>
+                  <a href="modules/templates/payslip/payslip.html" role="menuitem">
+                    <i data-lucide="wallet" aria-hidden="true"></i>
+                    <span>Payslip</span>
+                  </a>
+                  <a href="modules/templates/estimate/estimate.html" role="menuitem">
+                    <i data-lucide="calculator" aria-hidden="true"></i>
+                    <span>Estimate</span>
+                  </a>
+                  <a href="modules/templates/seal/seal.html" role="menuitem">
+                    <i data-lucide="stamp" aria-hidden="true"></i>
+                    <span>Seal</span>
+                  </a>
+                </nav>
+              </div>
+
+              <button
+                id="refreshTemplates"
+                type="button"
+                class="btn btn-tonal btn-icon"
+                aria-label="Refresh templates"
+                title="Refresh templates"
+              >
+                <i data-lucide="refresh-cw" aria-hidden="true"></i>
+              </button>
+            </div>
+          </header>
+
+          <p class="kpi-hero-submodule-page-description">
+            Configure print-ready PDF and Word document layouts, company branding, digital seals, and voucher formats across CRM, ERP, and HR.
+          </p>
+        </section>
+
+        <div id="tpl-error" class="tpl-error-banner hidden" role="alert"></div>
+
+        <!-- 4 Live Template KPIs -->
+        <section class="tpl-kpi-grid" aria-label="Template summary">
+          <article class="ui-card tpl-kpi-card">
+            <div class="tpl-kpi-top">
+              <span class="tpl-kpi-label">Available templates</span>
+              <span class="tpl-kpi-icon" aria-hidden="true"><i data-lucide="files"></i></span>
+            </div>
+            <span id="kpi-total" class="tpl-kpi-value">7</span>
+            <span class="tpl-kpi-sub">Print &amp; export layouts</span>
+          </article>
+
+          <article class="ui-card tpl-kpi-card">
+            <div class="tpl-kpi-top">
+              <span class="tpl-kpi-label">Customized</span>
+              <span class="tpl-kpi-icon is-success" aria-hidden="true"><i data-lucide="check-circle-2"></i></span>
+            </div>
+            <span id="kpi-customized" class="tpl-kpi-value">0</span>
+            <span class="tpl-kpi-sub">Saved to Firestore</span>
+          </article>
+
+          <article class="ui-card tpl-kpi-card">
+            <div class="tpl-kpi-top">
+              <span class="tpl-kpi-label">Digital seal</span>
+              <span class="tpl-kpi-icon" aria-hidden="true"><i data-lucide="stamp"></i></span>
+            </div>
+            <span id="kpi-seal-status" class="tpl-kpi-value">Default</span>
+            <span class="tpl-kpi-sub">Stamp &amp; signatory</span>
+          </article>
+
+          <article class="ui-card tpl-kpi-card">
+            <div class="tpl-kpi-top">
+              <span class="tpl-kpi-label">Last updated</span>
+              <span class="tpl-kpi-icon" aria-hidden="true"><i data-lucide="clock"></i></span>
+            </div>
+            <span id="kpi-last-updated" class="tpl-kpi-value">—</span>
+            <span class="tpl-kpi-sub">Latest template edit</span>
+          </article>
+        </section>
+
+        <!-- Filter Bar + Template Cards Grid -->
+        <section class="ui-card tpl-gallery-panel" aria-label="Template library">
+          <div class="tpl-panel-head">
+            <div>
+              <h2>Document Templates</h2>
+              <p>Select a template to customize branding, layout, and export settings</p>
+            </div>
+            <div class="tpl-search-wrap">
+              <input
+                id="templateSearch"
+                type="search"
+                class="field"
+                placeholder="Search templates..."
+                aria-label="Search templates"
+              >
+            </div>
+          </div>
+
+          <div id="templateGrid" class="tpl-grid"></div>
+          <div id="templateEmpty" class="tpl-empty hidden">
+            No matching templates found.
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="app-sidebar-mount"></div>
+    <div id="bottom-nav-mount"></div>
+    <div id="mini-container-mount"></div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/index.js"></script>
+  <script type="module" src="modules/templates/dashboard/dashboard.js"></script>
+</body>
+</html>

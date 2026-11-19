@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b57d0" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131314" media="(prefers-color-scheme: dark)">
+  <base href="../../../">
+  <title>HR Dashboard | COREBIQ</title>
+
+  <link rel="stylesheet" href="css/core-ui.css">
+  <link rel="stylesheet" href="modules/hr/dashboard/dashboard.css">
+</head>
+<body data-page-title="HR">
+  <div id="hr-app" class="app-shell hidden">
+    <div id="desktop-sidebar-mount"></div>
+
+    <div class="main-shell">
+      <div id="desktop-header-mount"></div>
+      <div id="mobile-header-mount"></div>
+
+      <main class="hr-page">
+        <!-- Hero Header with HR Module Switcher -->
+        <section class="kpi-hero-submodule-page" aria-label="HR overview">
+          <header class="hr-head">
+            <div class="hr-head-identity">
+              <h1 class="hr-page-title">
+                <i data-lucide="users" aria-hidden="true"></i>
+                <span>HR Dashboard</span>
+              </h1>
+              <nav class="hr-breadcrumb" aria-label="Breadcrumb">
+                <a href="index.html">Modules</a>
+                <span aria-hidden="true">&gt;</span>
+                <a href="modules/hr/dashboard/dashboard.html">HR</a>
+                <span aria-hidden="true">&gt;</span>
+                <span aria-current="page">Dashboard</span>
+              </nav>
+            </div>
+
+            <div class="hr-head-actions">
+              <!-- HR Module Menu -->
+              <div class="hr-dropdown-wrap">
+                <button
+                  id="hrModuleMenuToggle"
+                  type="button"
+                  class="btn btn-tonal"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-controls="hrModuleMenu"
+                >
+                  <i data-lucide="layout-grid" aria-hidden="true"></i>
+                  <span>Menu</span>
+                </button>
+                <nav id="hrModuleMenu" class="hr-dropdown-menu" role="menu" aria-label="HR modules" hidden>
+                  <a href="modules/hr/dashboard/dashboard.html" role="menuitem" aria-current="page">
+                    <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+                    <span>Dashboard</span>
+                  </a>
+                  <a href="modules/hr/employees/employees.html" role="menuitem">
+                    <i data-lucide="id-card" aria-hidden="true"></i>
+                    <span>Employees</span>
+                  </a>
+                  <a href="modules/hr/attendance/attendance.html" role="menuitem">
+                    <i data-lucide="calendar-check-2" aria-hidden="true"></i>
+                    <span>Attendance</span>
+                  </a>
+                  <a href="modules/hr/leave-request/leave-request.html" role="menuitem">
+                    <i data-lucide="calendar-clock" aria-hidden="true"></i>
+                    <span>Leave Requests</span>
+                  </a>
+                  <a href="modules/hr/payroll/payroll.html" role="menuitem">
+                    <i data-lucide="wallet" aria-hidden="true"></i>
+                    <span>Payroll</span>
+                  </a>
+                </nav>
+              </div>
+
+              <!-- Quick Add Dropdown -->
+              <div class="hr-dropdown-wrap">
+                <button
+                  id="hrAddMenuToggle"
+                  type="button"
+                  class="btn btn-primary"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-controls="hrAddMenu"
+                >
+                  <i data-lucide="plus" aria-hidden="true"></i>
+                  <span>Add</span>
+                </button>
+                <nav id="hrAddMenu" class="hr-dropdown-menu" role="menu" aria-label="Quick add HR entry" hidden>
+                  <a href="modules/hr/employees/employees.html#add" role="menuitem">
+                    <i data-lucide="user-plus" aria-hidden="true"></i>
+                    <span>Add employee</span>
+                  </a>
+                  <a href="modules/hr/attendance/attendance.html#add" role="menuitem">
+                    <i data-lucide="clock" aria-hidden="true"></i>
+                    <span>Mark attendance</span>
+                  </a>
+                  <a href="modules/hr/leave-request/leave-request.html#add" role="menuitem">
+                    <i data-lucide="calendar-plus" aria-hidden="true"></i>
+                    <span>New leave request</span>
+                  </a>
+                  <a href="modules/hr/payroll/payroll.html#add" role="menuitem">
+                    <i data-lucide="banknote" aria-hidden="true"></i>
+                    <span>Run payroll</span>
+                  </a>
+                </nav>
+              </div>
+
+              <button
+                id="refreshHr"
+                type="button"
+                class="btn btn-tonal btn-icon"
+                aria-label="Refresh HR data"
+                title="Refresh HR data"
+              >
+                <i data-lucide="refresh-cw" aria-hidden="true"></i>
+              </button>
+            </div>
+          </header>
+
+          <p class="kpi-hero-submodule-page-description">
+            Workforce overview across active employees, daily attendance, pending leave approvals, and monthly payroll.
+          </p>
+        </section>
+
+        <div id="hr-error" class="hr-error-banner hidden" role="alert"></div>
+
+        <!-- 4 Live HR KPIs -->
+        <section class="hr-kpi-grid" aria-label="HR metrics">
+          <a href="modules/hr/employees/employees.html" class="ui-card hr-kpi-card">
+            <div class="hr-kpi-top">
+              <span class="hr-kpi-label">Active employees</span>
+              <span class="hr-kpi-icon" aria-hidden="true"><i data-lucide="users"></i></span>
+            </div>
+            <span id="kpi-employees" class="hr-kpi-value">0</span>
+            <span id="kpi-departments" class="hr-kpi-sub">0 departments</span>
+          </a>
+
+          <a href="modules/hr/attendance/attendance.html" class="ui-card hr-kpi-card">
+            <div class="hr-kpi-top">
+              <span class="hr-kpi-label">Present today</span>
+              <span class="hr-kpi-icon is-success" aria-hidden="true"><i data-lucide="calendar-check-2"></i></span>
+            </div>
+            <span id="kpi-present" class="hr-kpi-value">0</span>
+            <span id="kpi-present-sub" class="hr-kpi-sub">0% attendance</span>
+          </a>
+
+          <a href="modules/hr/leave-request/leave-request.html" class="ui-card hr-kpi-card">
+            <div class="hr-kpi-top">
+              <span class="hr-kpi-label">Pending leaves</span>
+              <span class="hr-kpi-icon is-warning" aria-hidden="true"><i data-lucide="calendar-clock"></i></span>
+            </div>
+            <span id="kpi-leaves" class="hr-kpi-value is-danger">0</span>
+            <span class="hr-kpi-sub">Awaiting approval</span>
+          </a>
+
+          <a href="modules/hr/payroll/payroll.html" class="ui-card hr-kpi-card">
+            <div class="hr-kpi-top">
+              <span class="hr-kpi-label">Monthly payroll</span>
+              <span class="hr-kpi-icon" aria-hidden="true"><i data-lucide="wallet"></i></span>
+            </div>
+            <span id="kpi-payroll" class="hr-kpi-value">—</span>
+            <span id="kpi-payroll-sub" class="hr-kpi-sub">Current month</span>
+          </a>
+        </section>
+
+        <!-- Main Grid: Pending Leave Requests + Department Breakdown -->
+        <section class="hr-main-grid" aria-label="Workforce activity">
+          <article class="ui-card hr-panel">
+            <div class="hr-panel-head">
+              <div>
+                <h2>Pending leave requests</h2>
+                <p>Latest requests waiting for review</p>
+              </div>
+              <a href="modules/hr/leave-request/leave-request.html" class="btn btn-tonal btn-sm">
+                <span>View all</span>
+                <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+            </div>
+
+            <div class="hr-table-scroll">
+              <table class="hr-table" aria-label="Pending leave requests">
+                <thead>
+                  <tr>
+                    <th>Employee</th>
+                    <th>Type</th>
+                    <th>Dates</th>
+                    <th class="text-right">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="pendingLeavesBody"></tbody>
+              </table>
+            </div>
+            <div id="pendingLeavesEmpty" class="hr-empty hidden">
+              No pending leave requests.
+            </div>
+          </article>
+
+          <article class="ui-card hr-panel">
+            <div class="hr-panel-head">
+              <div>
+                <h2>Departments</h2>
+                <p>Active headcount by team</p>
+              </div>
+              <a href="modules/hr/employees/employees.html" class="btn btn-tonal btn-sm">
+                <span>Directory</span>
+                <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div id="departmentList" class="hr-dept-list"></div>
+          </article>
+        </section>
+
+        <!-- Today's Attendance Snapshot -->
+        <section class="ui-card hr-panel" aria-label="Today's attendance">
+          <div class="hr-panel-head">
+            <div>
+              <h2>Today's attendance</h2>
+              <p id="todayDateLabel">Recent check-ins</p>
+            </div>
+            <a href="modules/hr/attendance/attendance.html#add" class="btn btn-primary btn-sm">
+              <i data-lucide="plus" aria-hidden="true"></i>
+              <span>Mark attendance</span>
+            </a>
+          </div>
+
+          <div class="hr-table-scroll">
+            <table class="hr-table" aria-label="Today's attendance">
+              <thead>
+                <tr>
+                  <th>Employee</th>
+                  <th>Department</th>
+                  <th>Check-in</th>
+                  <th class="text-right">Status</th>
+                </tr>
+              </thead>
+              <tbody id="todayAttendanceBody"></tbody>
+            </table>
+          </div>
+          <div id="todayAttendanceEmpty" class="hr-empty hidden">
+            No attendance logged for today yet.
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="app-sidebar-mount"></div>
+    <div id="bottom-nav-mount"></div>
+    <div id="mini-container-mount"></div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/index.js"></script>
+  <script type="module" src="modules/hr/dashboard/dashboard.js"></script>
+</body>
+</html>

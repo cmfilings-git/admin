@@ -20,7 +20,7 @@ const componentMap = {
   "form-view-mount": "components/form-view.html",
   "mini-container-mount": "components/mini-container.html",
   "app-splash-screen-mount": "components/splash-screen.html",
-  "app-loading-screen-mount": "components/loading-screen.html"
+  "app-loader-mount": "components/loader.html"
 };
 
 async function loadComponent(mountId, url) {

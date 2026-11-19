@@ -473,16 +473,34 @@ body[data-theme="dark"] {
   background-color: #041e49;
 }
 
+/* ==========================================================================
+   9. LOADERS (GPU-Composited M3 Progress Bar, Spinner & Skeletons)
+   ========================================================================== */
+.ui-loader-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 9999;
+  background: var(--primary-100, #d3e3fd);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ui-loader-bar[hidden] {
+  display: none !important;
+}
+
 .ui-loader-bar::before,
 .ui-loader-bar::after {
   content: "";
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
+  width: 100%;
   background: var(--primary-600, #0b57d0);
-  border-radius: 2px;
-  will-change: left, right;
+  transform-origin: left center;
+  will-change: transform;
 }
 
 .ui-loader-bar::before {
@@ -493,6 +511,60 @@ body[data-theme="dark"] {
   animation: corebiq-bar-secondary 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) 1.15s infinite;
 }
 
-.ui-loader-bar[hidden] {
-  display: none !important;
+@keyframes corebiq-bar-primary {
+  0%   { transform: translateX(-35%) scaleX(0.08); }
+  60%  { transform: translateX(65%)  scaleX(0.65); }
+  100% { transform: translateX(100%) scaleX(0.08); }
+}
+
+@keyframes corebiq-bar-secondary {
+  0%   { transform: translateX(-100%) scaleX(0.12); }
+  60%  { transform: translateX(107%)  scaleX(0.45); }
+  100% { transform: translateX(107%)  scaleX(0.08); }
+}
+
+/* Global Eased Spinner */
+.spinner {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2.5px solid var(--primary-100, #d3e3fd);
+  border-top-color: var(--primary-600, #0b57d0);
+  border-right-color: var(--primary-600, #0b57d0);
+  will-change: transform;
+  animation: corebiq-spin 0.85s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+@keyframes corebiq-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Shimmer Skeleton Utility */
+.skeleton-bar {
+  display: block;
+  height: 12px;
+  border-radius: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--bg-tonal) 25%,
+    var(--bg-tonal-hov) 50%,
+    var(--bg-tonal) 75%
+  );
+  background-size: 200% 100%;
+  animation: corebiq-shimmer 1.3s ease-in-out infinite;
+}
+
+@keyframes corebiq-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-loader-bar::before,
+  .ui-loader-bar::after,
+  .spinner,
+  .skeleton-bar {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

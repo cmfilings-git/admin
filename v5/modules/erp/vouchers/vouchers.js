@@ -8,7 +8,8 @@ import {
   getFirestore,
   onSnapshot,
   serverTimestamp,
-  updateDoc
+  updateDoc,
+  writeBatch
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const { firebaseConfig } = await import(new URL("firebase/firebase-config.js", document.baseURI));
@@ -38,6 +39,7 @@ const PAGE_VOUCHER_TYPE = (document.body.dataset.voucherType || "").trim();
 
 const ledgers = new Map();
 const vouchers = new Map();
+const selectedVoucherIds = new Set();
 let ledgersUnsub = null;
 let vouchersUnsub = null;
 let editingId = "";
@@ -138,12 +140,61 @@ function syncSubmenuActiveState() {
     const label = VOUCHER_CONFIG[PAGE_VOUCHER_TYPE].label;
     if ($("voucherPageHeading")) $("voucherPageHeading").textContent = label;
     if ($("voucherBreadcrumbCurrent")) $("voucherBreadcrumbCurrent").textContent = PAGE_VOUCHER_TYPE;
-    if ($("registerHeading")) $("registerHeading").textContent = `${PAGE_VOUCHER_TYPE} Register`;
+    const titleSpan = document.querySelector("[data-modulepage-row3-title-text]");
+    if (titleSpan) titleSpan.textContent = `${PAGE_VOUCHER_TYPE} Register`;
     if ($("voucherTypeFilter")) {
       $("voucherTypeFilter").value = PAGE_VOUCHER_TYPE;
-      $("voucherTypeFilter").hidden = true;
+      $("voucherTypeFilter").disabled = true;
     }
   }
+}
+
+/* Compliance-Style Filter Popover & Bulk Actions Helpers */
+function showFilterPanel(category) {
+  document.querySelectorAll("[data-filter-category]").forEach((button) => {
+    const selected = button.dataset.filterCategory === category;
+    button.classList.toggle("active", selected);
+    if (selected) button.setAttribute("aria-current", "true");
+    else button.removeAttribute("aria-current");
+  });
+  document.querySelectorAll("[data-filter-panel]").forEach((panel) => {
+    const selected = panel.dataset.filterPanel === category;
+    panel.classList.toggle("active", selected);
+    panel.hidden = !selected;
+  });
+}
+
+function updateFilterCount() {
+  const active = [
+    PAGE_VOUCHER_TYPE ? "" : ($("voucherTypeFilter")?.value || ""),
+    $("voucherLedgerFilter")?.value || "",
+    $("voucherStatusFilter")?.value || "",
+    $("voucherFromDate")?.value || "",
+    $("voucherToDate")?.value || ""
+  ].filter(Boolean).length;
+  const badge = $("activeVoucherFilterCount");
+  if (badge) {
+    badge.textContent = String(active);
+    badge.hidden = active === 0;
+  }
+}
+
+function closeFilterPopover() {
+  if ($("voucherFilterPopover")) $("voucherFilterPopover").hidden = true;
+  $("voucherFilterToggle")?.setAttribute("aria-expanded", "false");
+}
+
+function closeBulkActions() {
+  if ($("voucherBulkActionsMenu")) $("voucherBulkActionsMenu").hidden = true;
+  $("voucherBulkActionsToggle")?.setAttribute("aria-expanded", "false");
+}
+
+function updateBulkActionState() {
+  const hasSelection = selectedVoucherIds.size > 0;
+  if ($("bulkMarkPosted")) $("bulkMarkPosted").disabled = !hasSelection;
+  if ($("bulkMarkDraft")) $("bulkMarkDraft").disabled = !hasSelection;
+  if ($("bulkDeleteVouchers")) $("bulkDeleteVouchers").disabled = !hasSelection;
+  if ($("selectedVoucherCount")) $("selectedVoucherCount").textContent = `${selectedVoucherIds.size} selected`;
 }
 
 function syncModalForVoucherType(type) {
@@ -189,12 +240,15 @@ function populateLedgerSelects() {
 }
 
 function render() {
+  updateFilterCount();
+
   const q = normalize($("voucherSearch")?.value);
   const typeFilter = PAGE_VOUCHER_TYPE || ($("voucherTypeFilter")?.value || "");
   const ledgerFilter = $("voucherLedgerFilter")?.value || "";
   const statusFilter = $("voucherStatusFilter")?.value || "";
   const fromDate = $("voucherFromDate")?.value || "";
   const toDateVal = $("voucherToDate")?.value || "";
+  const sortOrder = $("voucherSortFilter")?.value || "date-desc";
 
   const scoped = PAGE_VOUCHER_TYPE
     ? [...vouchers.values()].filter((v) => v.voucherType === PAGE_VOUCHER_TYPE)
@@ -236,10 +290,16 @@ function render() {
         && (!fromDate || (v.date && v.date >= fromDate))
         && (!toDateVal || (v.date && v.date <= toDateVal));
     })
-    .sort((a, b) => (toDate(b.date)?.getTime() || 0) - (toDate(a.date)?.getTime() || 0)
-      || String(b.voucherNo || "").localeCompare(String(a.voucherNo || "")));
+    .sort((a, b) => {
+      if (sortOrder === "date-asc") return (toDate(a.date)?.getTime() || 0) - (toDate(b.date)?.getTime() || 0);
+      if (sortOrder === "amount-desc") return (Number(b.amount) || 0) - (Number(a.amount) || 0);
+      if (sortOrder === "amount-asc") return (Number(a.amount) || 0) - (Number(b.amount) || 0);
+      if (sortOrder === "no-desc") return String(b.voucherNo || "").localeCompare(String(a.voucherNo || ""), undefined, { numeric: true });
+      return (toDate(b.date)?.getTime() || 0) - (toDate(a.date)?.getTime() || 0)
+        || String(b.voucherNo || "").localeCompare(String(a.voucherNo || ""), undefined, { numeric: true });
+    });
 
-  if ($("voucherCount")) $("voucherCount").textContent = `${filtered.length} voucher${filtered.length === 1 ? "" : "s"}`;
+  if ($("voucherCount")) $("voucherCount").textContent = `${filtered.length} matching`;
   $("voucherEmpty")?.classList.toggle("hidden", filtered.length > 0);
 
   const tbody = $("voucherRows");
@@ -261,6 +321,7 @@ function render() {
     const pillCls = status === "Posted" || status === "Approved" ? "status-complete" : "status-pending";
 
     return `<tr>
+      <td><input type="checkbox" data-select-voucher="${escapeHtml(v.id)}" aria-label="Select voucher ${escapeHtml(v.voucherNo || "")}" ${selectedVoucherIds.has(v.id) ? "checked" : ""}></td>
       <td class="erp-date-cell">${formatDate(v.date)}</td>
       <td>
         <div class="erp-voucher-no">${escapeHtml(v.voucherNo || "—")}</div>
@@ -291,6 +352,14 @@ function render() {
     </tr>`;
   }).join("");
 
+  const selectAll = $("selectVisibleVouchers");
+  if (selectAll) {
+    const allSelected = filtered.length > 0 && filtered.every((v) => selectedVoucherIds.has(v.id));
+    selectAll.checked = allSelected;
+    selectAll.indeterminate = filtered.some((v) => selectedVoucherIds.has(v.id)) && !allSelected;
+  }
+
+  updateBulkActionState();
   if (window.lucide) window.lucide.createIcons();
 }
 
@@ -431,9 +500,40 @@ async function deleteVoucher(id) {
   if (!v || !confirm(`Delete ${v.voucherType || "voucher"} ${v.voucherNo || ""}? Ledger balances will recalculate.`)) return;
   try {
     await deleteDoc(doc(db, "erp_vouchers", id));
+    selectedVoucherIds.delete(id);
     showToast("Voucher deleted.");
   } catch (err) {
     showToast(`Could not delete voucher (${err.code || "error"}).`, false);
+  }
+}
+
+async function bulkUpdateStatus(nextStatus) {
+  const ids = [...selectedVoucherIds];
+  if (!ids.length) return;
+  try {
+    const batch = writeBatch(db);
+    ids.forEach((id) => batch.update(doc(db, "erp_vouchers", id), { status: nextStatus, updatedAt: serverTimestamp() }));
+    await batch.commit();
+    selectedVoucherIds.clear();
+    closeBulkActions();
+    showToast(`${ids.length} voucher${ids.length === 1 ? "" : "s"} marked as ${nextStatus}.`);
+  } catch (err) {
+    showToast(`Bulk update failed (${err.code || "error"}).`, false);
+  }
+}
+
+async function bulkDeleteSelected() {
+  const ids = [...selectedVoucherIds];
+  if (!ids.length || !confirm(`Delete ${ids.length} selected voucher${ids.length === 1 ? "" : "s"}? This cannot be undone.`)) return;
+  try {
+    const batch = writeBatch(db);
+    ids.forEach((id) => batch.delete(doc(db, "erp_vouchers", id)));
+    await batch.commit();
+    selectedVoucherIds.clear();
+    closeBulkActions();
+    showToast(`${ids.length} voucher${ids.length === 1 ? "" : "s"} deleted.`);
+  } catch (err) {
+    showToast(`Bulk delete failed (${err.code || "error"}).`, false);
   }
 }
 
@@ -465,12 +565,16 @@ function setupDropdowns() {
   document.addEventListener("pointerdown", (e) => {
     if (!e.target.closest(".erp-dropdown-wrap")) closeAll();
     if (!e.target.closest(".erp-row-menu-wrap")) closeRowMenus();
+    if (!e.target.closest(".crm-filter-wrap")) closeFilterPopover();
+    if (!e.target.closest("#voucherBulkActionsMenu, #voucherBulkActionsToggle, .crm-add-wrap")) closeBulkActions();
   });
 
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Escape") return;
     closeAll();
     closeRowMenus();
+    closeFilterPopover();
+    closeBulkActions();
     if ($("voucherModal") && !$("voucherModal").classList.contains("hidden")) closeModal();
   });
 }
@@ -479,6 +583,20 @@ function init() {
   try {
     syncSubmenuActiveState();
     setupDropdowns();
+
+    // Initialize Compliance-style filter panels
+    document.querySelectorAll("[data-filter-panel]").forEach((panel) => {
+      panel.hidden = !panel.classList.contains("active");
+    });
+
+    document.addEventListener("corebiq:modulepage-filter-toggle", (event) => {
+      if (event.detail?.id !== "voucherFilterToggle" || !event.detail.open) return;
+      showFilterPanel(document.querySelector("[data-filter-category].active")?.dataset.filterCategory || "type");
+    });
+
+    document.querySelectorAll("[data-filter-category]").forEach((button) => {
+      button.addEventListener("click", () => showFilterPanel(button.dataset.filterCategory));
+    });
 
     window.addEventListener("corebiq:signout-request", () => signOut(auth));
 
@@ -495,16 +613,42 @@ function init() {
     });
 
     $("clearVoucherFilters")?.addEventListener("click", () => {
-      ["voucherSearch", "voucherLedgerFilter", "voucherStatusFilter", "voucherFromDate", "voucherToDate"].forEach((id) => {
+      ["voucherLedgerFilter", "voucherStatusFilter", "voucherFromDate", "voucherToDate"].forEach((id) => {
         if ($(id)) $(id).value = "";
       });
       if (!PAGE_VOUCHER_TYPE && $("voucherTypeFilter")) $("voucherTypeFilter").value = "";
+      if ($("voucherSortFilter")) $("voucherSortFilter").value = "date-desc";
+      showFilterPanel("type");
+      render();
+      closeFilterPopover();
+    });
+
+    ["voucherSearch", "voucherTypeFilter", "voucherLedgerFilter", "voucherStatusFilter", "voucherFromDate", "voucherToDate", "voucherSortFilter"].forEach((id) => {
+      $(id)?.addEventListener(id === "voucherSearch" ? "input" : "change", render);
+    });
+
+    // Bulk selection & actions
+    $("selectVisibleVouchers")?.addEventListener("change", () => {
+      const checked = $("selectVisibleVouchers").checked;
+      $("voucherRows")?.querySelectorAll("[data-select-voucher]").forEach((cb) => {
+        cb.checked = checked;
+        if (checked) selectedVoucherIds.add(cb.dataset.selectVoucher);
+        else selectedVoucherIds.delete(cb.dataset.selectVoucher);
+      });
       render();
     });
 
-    ["voucherSearch", "voucherTypeFilter", "voucherLedgerFilter", "voucherStatusFilter", "voucherFromDate", "voucherToDate"].forEach((id) => {
-      $(id)?.addEventListener(id === "voucherSearch" ? "input" : "change", render);
+    $("voucherRows")?.addEventListener("change", (e) => {
+      const cb = e.target.closest("[data-select-voucher]");
+      if (!cb) return;
+      if (cb.checked) selectedVoucherIds.add(cb.dataset.selectVoucher);
+      else selectedVoucherIds.delete(cb.dataset.selectVoucher);
+      render();
     });
+
+    $("bulkMarkPosted")?.addEventListener("click", () => bulkUpdateStatus("Posted"));
+    $("bulkMarkDraft")?.addEventListener("click", () => bulkUpdateStatus("Draft"));
+    $("bulkDeleteVouchers")?.addEventListener("click", bulkDeleteSelected);
 
     $("voucherRows")?.addEventListener("click", (e) => {
       const toggle = e.target.closest("[data-row-menu-toggle]");
@@ -599,5 +743,5 @@ function init() {
   }
 }
 
-if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true });
-else init();
+if (window.COREBIQ_COMPONENTS_LOADED) init();
+else document.addEventListener("corebiq:components-loaded", init, { once: true });

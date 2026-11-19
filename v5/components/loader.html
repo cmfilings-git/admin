@@ -1,6 +1,12 @@
-<!-- /components/loader.html -->
+<!-- components/loader.html -->
 <style>
-  .app-loader-overlay {
+  .cbq-loader-overlay {
+    --cbq-book-accent: #1a73e8;
+    --cbq-book-page: #ffffff;
+    --cbq-book-line: rgba(26, 115, 232, 0.22);
+    --cbq-loader-bg: rgba(255, 255, 255, 0.86);
+    --cbq-loader-text: #444746;
+
     position: fixed;
     inset: 0;
     z-index: 9999;
@@ -8,32 +14,112 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 16px;
-    background: rgba(255, 255, 255, 0.82);
+    gap: 14px;
+    background: var(--cbq-loader-bg);
     backdrop-filter: blur(4px);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.2s ease, visibility 0.2s ease;
+    transition: opacity 0.22s ease, visibility 0.22s ease;
   }
 
-  .app-loader-overlay.is-active {
+  [data-theme="dark"] .cbq-loader-overlay {
+    --cbq-book-accent: #60a5fa;
+    --cbq-book-page: #1e293b;
+    --cbq-book-line: rgba(148, 163, 184, 0.28);
+    --cbq-loader-bg: rgba(15, 23, 42, 0.86);
+    --cbq-loader-text: #cbd5e1;
+  }
+
+  .cbq-loader-overlay.is-active {
     opacity: 1;
     visibility: visible;
     pointer-events: all;
   }
 
-  .app-loader-text {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #444746;
-    margin: 0;
+  .cbq-book {
+    position: relative;
+    width: 54px;
+    height: 38px;
+    perspective: 220px;
   }
 
-  /* Paste the book loader CSS from "Copy Snippet" right here */
+  .cbq-book-half,
+  .cbq-book-page {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    box-sizing: border-box;
+    background: var(--cbq-book-page);
+    border: 2px solid var(--cbq-book-accent);
+  }
+
+  .cbq-book-half.is-left {
+    left: 0;
+    border-right-width: 1px;
+    border-radius: 5px 2px 2px 5px;
+  }
+
+  .cbq-book-half.is-right {
+    right: 0;
+    border-left-width: 1px;
+    border-radius: 2px 5px 5px 2px;
+  }
+
+  .cbq-book-page {
+    left: 50%;
+    border-left-width: 1px;
+    border-radius: 2px 5px 5px 2px;
+    transform-origin: left center;
+    transform-style: preserve-3d;
+    animation: cbqBookFlip 1.8s cubic-bezier(0.645, 0.045, 0.355, 1) infinite;
+  }
+
+  .cbq-book-page::before,
+  .cbq-book-page::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--cbq-book-line);
+  }
+
+  .cbq-book-page::before { top: 11px; }
+  .cbq-book-page::after { top: 18px; right: 9px; }
+
+  .cbq-book-page:nth-child(3) { animation-delay: 0s; }
+  .cbq-book-page:nth-child(4) { animation-delay: -0.6s; }
+  .cbq-book-page:nth-child(5) { animation-delay: -1.2s; }
+
+  .cbq-loader-text {
+    margin: 0;
+    font-family: "Outfit", system-ui, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--cbq-loader-text);
+  }
+
+  @keyframes cbqBookFlip {
+    0%   { transform: rotateY(0deg); opacity: 1; }
+    42%  { transform: rotateY(-180deg); opacity: 1; }
+    46%  { transform: rotateY(-180deg); opacity: 0; }
+    47%  { transform: rotateY(0deg); opacity: 0; }
+    98%  { transform: rotateY(0deg); opacity: 0; }
+    100% { transform: rotateY(0deg); opacity: 1; }
+  }
 </style>
 
-<div id="appLoader" class="app-loader-overlay" role="status" aria-live="polite" aria-busy="false">
-  <!-- Paste the book loader HTML markup from "Copy Snippet" right here -->
-  <p id="appLoaderText" class="app-loader-text">Loading...</p>
+<div id="app-loader" class="cbq-loader-overlay" role="status" aria-live="polite" aria-hidden="true" aria-busy="false">
+  <div class="cbq-book" aria-hidden="true">
+    <span class="cbq-book-half is-left"></span>
+    <span class="cbq-book-half is-right"></span>
+    <span class="cbq-book-page"></span>
+    <span class="cbq-book-page"></span>
+    <span class="cbq-book-page"></span>
+  </div>
+  <p id="app-loader-text" class="cbq-loader-text">Loading...</p>
 </div>

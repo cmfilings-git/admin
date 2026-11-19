@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b57d0" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131314" media="(prefers-color-scheme: dark)">
+  <base href="../../../">
+  <title>Receipt Voucher | COREBIQ Templates</title>
+
+  <link rel="stylesheet" href="css/core-ui.css">
+  <link rel="stylesheet" href="modules/templates/receipt-voucher/receipt-voucher.css">
+</head>
+<body data-page-title="Templates">
+  <div id="receipt-tpl-app" class="app-shell hidden">
+    <div id="desktop-sidebar-mount"></div>
+
+    <div class="main-shell">
+      <div id="desktop-header-mount"></div>
+      <div id="mobile-header-mount"></div>
+
+      <main class="tpl-editor-page">
+        <!-- Hero Header -->
+        <section class="kpi-hero-submodule-page no-print" aria-label="Receipt voucher template header">
+          <header class="tpl-head">
+            <div class="tpl-head-identity">
+              <h1 class="tpl-page-title">
+                <i data-lucide="arrow-down-left" aria-hidden="true"></i>
+                <span>Receipt Voucher</span>
+              </h1>
+              <nav class="tpl-breadcrumb" aria-label="Breadcrumb">
+                <a href="index.html">Modules</a>
+                <span aria-hidden="true">&gt;</span>
+                <a href="modules/templates/dashboard/dashboard.html">Templates</a>
+                <span aria-hidden="true">&gt;</span>
+                <span aria-current="page">Receipt Voucher</span>
+              </nav>
+            </div>
+
+            <div class="tpl-head-actions">
+              <div class="tpl-dropdown-wrap">
+                <button
+                  id="tplModuleMenuToggle"
+                  type="button"
+                  class="btn btn-tonal"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-controls="tplModuleMenu"
+                >
+                  <i data-lucide="layout-grid" aria-hidden="true"></i>
+                  <span>Menu</span>
+                </button>
+                <nav id="tplModuleMenu" class="tpl-dropdown-menu" role="menu" aria-label="Template modules" hidden>
+                  <a href="modules/templates/dashboard/dashboard.html" role="menuitem">
+                    <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+                    <span>Dashboard</span>
+                  </a>
+                  <a href="modules/templates/invoice-template/invoice-template.html" role="menuitem">
+                    <i data-lucide="file-spreadsheet" aria-hidden="true"></i>
+                    <span>Invoice Template</span>
+                  </a>
+                  <a href="modules/templates/letterhead/letterhead.html" role="menuitem">
+                    <i data-lucide="file-signature" aria-hidden="true"></i>
+                    <span>Letterhead</span>
+                  </a>
+                  <a href="modules/templates/receipt-voucher/receipt-voucher.html" role="menuitem" aria-current="page">
+                    <i data-lucide="arrow-down-left" aria-hidden="true"></i>
+                    <span>Receipt Voucher</span>
+                  </a>
+                  <a href="modules/templates/payment-voucher/payment-voucher.html" role="menuitem">
+                    <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+                    <span>Payment Voucher</span>
+                  </a>
+                  <a href="modules/templates/payslip/payslip.html" role="menuitem">
+                    <i data-lucide="wallet" aria-hidden="true"></i>
+                    <span>Payslip</span>
+                  </a>
+                  <a href="modules/templates/estimate/estimate.html" role="menuitem">
+                    <i data-lucide="calculator" aria-hidden="true"></i>
+                    <span>Estimate</span>
+                  </a>
+                  <a href="modules/templates/seal/seal.html" role="menuitem">
+                    <i data-lucide="stamp" aria-hidden="true"></i>
+                    <span>Seal</span>
+                  </a>
+                </nav>
+              </div>
+
+              <button id="printReceiptBtn" type="button" class="btn btn-tonal">
+                <i data-lucide="printer" aria-hidden="true"></i>
+                <span>Print / PDF</span>
+              </button>
+
+              <button id="saveTemplateBtn" type="button" class="btn btn-primary">
+                <i data-lucide="save" aria-hidden="true"></i>
+                <span>Save</span>
+              </button>
+            </div>
+          </header>
+
+          <p class="kpi-hero-submodule-page-description">
+            Configure your payment receipt voucher layout with automatic amount-in-words, payment mode, reference number, and signatory blocks.
+          </p>
+        </section>
+
+        <div id="tpl-error" class="tpl-error-banner hidden no-print" role="alert"></div>
+
+        <!-- Split Workspace: Config Form + Live Receipt Preview -->
+        <section class="tpl-workspace" aria-label="Receipt voucher editor">
+          <!-- Left: Settings Form -->
+          <form id="receiptTplForm" class="ui-card tpl-form-card no-print" novalidate>
+            <div class="tpl-form-head">
+              <div>
+                <h2>Receipt Settings</h2>
+                <p id="savedStatusText">Default layout</p>
+              </div>
+              <button id="resetTemplateBtn" type="button" class="btn btn-tonal btn-sm">
+                <i data-lucide="rotate-ccw" aria-hidden="true"></i>
+                <span>Reset</span>
+              </button>
+            </div>
+
+            <div class="tpl-form-body">
+              <div class="tpl-section-label">Company Branding</div>
+              <label class="form-group">
+                <span>Company / Firm Name</span>
+                <input id="companyName" class="field" type="text" placeholder="COREBIQ Advisory LLP">
+              </label>
+
+              <div class="form-grid-2">
+                <label class="form-group">
+                  <span>GSTIN / Reg No.</span>
+                  <input id="companyGstin" class="field" type="text" placeholder="32ABCDE1234F1Z5">
+                </label>
+                <label class="form-group">
+                  <span>Phone / Email</span>
+                  <input id="companyContact" class="field" type="text" placeholder="+91 98765 43210 · office@corebiq.com">
+                </label>
+              </div>
+
+              <label class="form-group">
+                <span>Address</span>
+                <input id="companyAddress" class="field" type="text" placeholder="2nd Floor, Business Park, Kozhikode, Kerala - 673001">
+              </label>
+
+              <div class="tpl-section-label">Voucher Format</div>
+              <div class="form-grid-2">
+                <label class="form-group">
+                  <span>Document Title</span>
+                  <input id="docTitle" class="field" type="text" placeholder="RECEIPT VOUCHER">
+                </label>
+                <label class="form-group">
+                  <span>Number Prefix</span>
+                  <input id="voucherPrefix" class="field" type="text" placeholder="RCT-26-">
+                </label>
+              </div>
+
+              <div class="form-grid-2">
+                <label class="form-group">
+                  <span>Accent Color</span>
+                  <div class="color-field-row">
+                    <input id="accentColor" type="color" value="#0b57d0" aria-label="Accent color picker">
+                    <input id="accentColorHex" class="field" type="text" value="#0b57d0" maxlength="7">
+                  </div>
+                </label>
+                <label class="form-group">
+                  <span>Signatory Label</span>
+                  <input id="signatoryLabel" class="field" type="text" placeholder="Authorised Signatory">
+                </label>
+              </div>
+
+              <div class="tpl-section-label">Preview / Sample Entry</div>
+              <div class="form-grid-2">
+                <label class="form-group">
+                  <span>Receipt Date</span>
+                  <input id="receiptDate" class="field" type="date">
+                </label>
+                <label class="form-group">
+                  <span>Amount (INR)</span>
+                  <input id="sampleAmount" class="field" type="number" step="0.01" min="0" value="14160">
+                </label>
+              </div>
+
+              <label class="form-group">
+                <span>Received With Thanks From</span>
+                <input id="receivedFrom" class="field" type="text" placeholder="HEXA SUPERMARKET PVT LTD">
+              </label>
+
+              <div class="form-grid-2">
+                <label class="form-group">
+                  <span>Payment Mode</span>
+                  <select id="paymentMode" class="field">
+                    <option value="Bank Transfer">Bank Transfer</option>
+                    <option value="UPI">UPI</option>
+                    <option value="Cash">Cash</option>
+                    <option value="Cheque">Cheque</option>
+                  </select>
+                </label>
+                <label class="form-group">
+                  <span>Reference / UTR / Cheque No.</span>
+                  <input id="referenceNo" class="field" type="text" placeholder="UTR4321987654">
+                </label>
+              </div>
+
+              <label class="form-group">
+                <span>On Account Of / Narration</span>
+                <input id="narration" class="field" type="text" placeholder="Against Invoice INV-26-0042 (GST &amp; Advisory)">
+              </label>
+
+              <div class="tpl-section-label">Display Options</div>
+              <div class="tpl-toggle-grid">
+                <label class="tpl-check-row">
+                  <input id="showAmountWords" type="checkbox" checked>
+                  <span>Show Amount in Words</span>
+                </label>
+                <label class="tpl-check-row">
+                  <input id="showSeal" type="checkbox" checked>
+                  <span>Show Seal placeholder</span>
+                </label>
+                <label class="tpl-check-row">
+                  <input id="showPayerSign" type="checkbox">
+                  <span>Show Payer signature line</span>
+                </label>
+              </div>
+
+              <label class="form-group">
+                <span>Footer Note</span>
+                <input id="footerNote" class="field" type="text" placeholder="Cheques are subject to realization. This is a computer-generated receipt.">
+              </label>
+            </div>
+          </form>
+
+          <!-- Right: Live Receipt Slip Preview -->
+          <div class="tpl-preview-col">
+            <div class="tpl-preview-bar no-print">
+              <span class="tpl-preview-badge">Live Receipt Preview</span>
+              <span class="tpl-preview-hint">A5 / Half-A4 Print Ready</span>
+            </div>
+
+            <article id="receiptPaper" class="rct-paper" style="--rct-accent: #0b57d0;">
+              <header class="rct-head">
+                <div class="rct-brand">
+                  <h2 id="prevCompanyName">COREBIQ Advisory LLP</h2>
+                  <p id="prevCompanyAddress"></p>
+                  <p id="prevCompanyContact"></p>
+                  <p id="prevCompanyGstin" class="rct-gstin"></p>
+                </div>
+
+                <div class="rct-title-col">
+                  <div id="prevDocTitle" class="rct-doc-title">RECEIPT VOUCHER</div>
+                  <div class="rct-meta">
+                    <div><span>Receipt No:</span> <strong id="prevVoucherNo">RCT-26-0042</strong></div>
+                    <div><span>Date:</span> <strong id="prevDate">2026-Nov-19</strong></div>
+                  </div>
+                </div>
+              </header>
+
+              <div class="rct-body">
+                <div class="rct-field-row">
+                  <span class="rct-label">Received with thanks from</span>
+                  <div id="prevReceivedFrom" class="rct-value rct-value--strong"></div>
+                </div>
+
+                <div id="prevWordsRow" class="rct-field-row">
+                  <span class="rct-label">The sum of</span>
+                  <div id="prevAmountWords" class="rct-value"></div>
+                </div>
+
+                <div class="rct-field-grid">
+                  <div class="rct-field-row">
+                    <span class="rct-label">Payment Mode</span>
+                    <div id="prevMode" class="rct-value"></div>
+                  </div>
+                  <div class="rct-field-row">
+                    <span class="rct-label">Reference / UTR</span>
+                    <div id="prevRef" class="rct-value rct-mono"></div>
+                  </div>
+                </div>
+
+                <div class="rct-field-row">
+                  <span class="rct-label">On account of</span>
+                  <div id="prevNarration" class="rct-value"></div>
+                </div>
+              </div>
+
+              <footer class="rct-footer">
+                <div class="rct-amount-box">
+                  <span class="rct-amount-label">Amount Received</span>
+                  <strong id="prevAmountFigure" class="rct-amount-figure">₹14,160.00</strong>
+                </div>
+
+                <div class="rct-signs">
+                  <div id="prevPayerSign" class="rct-sign-block hidden">
+                    <div class="rct-sign-space"></div>
+                    <div class="rct-sign-line"></div>
+                    <div class="rct-sign-label">Payer's Signature</div>
+                  </div>
+
+                  <div class="rct-sign-block">
+                    <div id="prevSealPlaceholder" class="rct-seal-placeholder">SEAL</div>
+                    <div class="rct-sign-line"></div>
+                    <div id="prevSignatoryLabel" class="rct-sign-label">Authorised Signatory</div>
+                  </div>
+                </div>
+              </footer>
+
+              <div id="prevFooterNote" class="rct-bottom-note"></div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="app-sidebar-mount"></div>
+    <div id="bottom-nav-mount"></div>
+    <div id="mini-container-mount"></div>
+  </div>
+
+  <div id="toast" class="toast hidden no-print" role="status" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/index.js"></script>
+  <script type="module" src="modules/templates/receipt-voucher/receipt-voucher.js"></script>
+</body>
+</html>

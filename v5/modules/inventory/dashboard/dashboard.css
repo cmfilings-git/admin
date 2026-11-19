@@ -1,0 +1,552 @@
+/* ==========================================================================
+   modules/inventory/dashboard/dashboard.css
+   Uses css/core-ui.css (Gemini Blue + Light Grey Tonal + Square Controls)
+   ========================================================================== */
+
+.hidden,
+[hidden] {
+  display: none !important;
+}
+
+.app-shell {
+  display: flex;
+  min-height: 100dvh;
+  background: var(--bg-page);
+}
+
+.main-shell {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.inventory-page {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px 24px 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Hero Card */
+.kpi-hero-submodule-page {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 24px;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, var(--bg-surface) 0%, var(--primary-50) 100%) padding-box,
+    linear-gradient(135deg, var(--primary-200) 0%, var(--border-light) 50%, var(--primary-500) 100%) border-box;
+  box-shadow: var(--shadow-md);
+}
+
+.inv-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+}
+
+.inv-head-identity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+}
+
+.inv-page-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink-primary);
+}
+
+.inv-page-title i,
+.inv-page-title svg {
+  width: 22px;
+  height: 22px;
+  color: var(--primary-600);
+  flex-shrink: 0;
+}
+
+.inv-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+}
+
+.inv-breadcrumb a {
+  color: var(--primary-600);
+  text-decoration: none;
+}
+
+.inv-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.inv-breadcrumb [aria-current="page"] {
+  color: var(--ink-secondary);
+}
+
+.kpi-hero-submodule-page-description {
+  max-width: 68ch;
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--ink-secondary);
+}
+
+/* Header Actions & Dropdowns */
+.inv-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.inv-dropdown-wrap {
+  position: relative;
+}
+
+.inv-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 60;
+  min-width: 196px;
+  padding: 6px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-menu);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.inv-dropdown-menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ink-primary);
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.inv-dropdown-menu a i,
+.inv-dropdown-menu a svg {
+  width: 16px;
+  height: 16px;
+  color: var(--ink-muted);
+  flex-shrink: 0;
+}
+
+.inv-dropdown-menu a:hover {
+  background: var(--bg-tonal);
+  color: var(--primary-600);
+  text-decoration: none;
+}
+
+.inv-dropdown-menu a:hover i,
+.inv-dropdown-menu a:hover svg {
+  color: var(--primary-600);
+}
+
+.inv-dropdown-menu a[aria-current="page"] {
+  background: var(--primary-100);
+  color: var(--primary-900);
+  font-weight: 600;
+}
+
+.inv-dropdown-menu a[aria-current="page"] i,
+.inv-dropdown-menu a[aria-current="page"] svg {
+  color: var(--primary-600);
+}
+
+#refreshInventoryDashboard.is-refreshing svg {
+  animation: inv-spin 0.7s linear infinite;
+}
+
+@keyframes inv-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error Banner */
+.inventory-error-banner {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--status-danger-bg);
+  color: var(--status-danger-fg);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* 4-Card KPI Grid */
+.inv-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.inv-kpi-card {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  text-decoration: none;
+  transition: border-color 0.15s ease;
+}
+
+a.inv-kpi-card:hover {
+  border-color: var(--primary-200);
+  text-decoration: none;
+}
+
+.inv-kpi-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.inv-kpi-label {
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+}
+
+.inv-kpi-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-btn);
+  background: var(--bg-tonal);
+  color: var(--primary-600);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.inv-kpi-icon i,
+.inv-kpi-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.inv-kpi-icon.is-warning {
+  background: var(--status-danger-bg);
+  color: var(--status-danger-fg);
+}
+
+.inv-kpi-icon.is-success {
+  background: var(--status-complete-bg);
+  color: var(--status-complete-fg);
+}
+
+.inv-kpi-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1.8vw, 1.5rem);
+  font-weight: 700;
+  color: var(--ink-primary);
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inv-kpi-value.is-danger {
+  color: var(--status-danger-fg);
+}
+
+.inv-kpi-value.is-primary {
+  color: var(--primary-600);
+}
+
+.inv-kpi-sub {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
+
+/* Valuation Strip */
+.inv-valuation-card {
+  overflow: hidden;
+}
+
+.inv-valuation-head {
+  padding: 14px 20px;
+  background: var(--bg-tonal);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.inv-valuation-head h2 {
+  margin: 0;
+  font-size: 0.9375rem;
+}
+
+.inv-valuation-head span {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
+
+.inv-valuation-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.inv-val-cell {
+  padding: 16px 20px;
+  border-right: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.inv-val-cell:last-child {
+  border-right: none;
+  background: var(--primary-50);
+}
+
+.inv-val-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+}
+
+/* Tables Grid */
+.inv-tables-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.inv-panel {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.inv-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.inv-panel-head h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.inv-panel-head p {
+  margin: 2px 0 0;
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
+
+.inv-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.inv-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.8125rem;
+}
+
+.inv-table thead {
+  background: var(--bg-tonal);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.inv-table thead th {
+  padding: 10px 14px;
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+.inv-table tbody tr {
+  border-bottom: 1px solid var(--border-light);
+  transition: background-color 0.12s ease;
+}
+
+.inv-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.inv-table tbody tr:hover {
+  background: var(--primary-50);
+}
+
+.inv-table tbody td {
+  padding: 11px 14px;
+  color: var(--ink-secondary);
+  vertical-align: middle;
+}
+
+.inv-table thead th:last-child,
+.inv-table tbody td:last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Classes Generated by dashboard.js */
+.inventory-id {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--bg-tonal);
+  border: 1px solid var(--border-light);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ink-primary);
+  white-space: nowrap;
+}
+
+.inventory-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.inventory-status--warning {
+  background: var(--status-danger-bg);
+  color: var(--status-danger-fg);
+}
+
+.inventory-empty {
+  padding: 28px 16px !important;
+  text-align: center !important;
+  font-size: 0.8125rem;
+  color: var(--ink-muted) !important;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .inv-kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .inv-valuation-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .inv-val-cell {
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .inv-val-cell:nth-child(2n) {
+    border-right: none;
+  }
+
+  .inv-val-cell:nth-last-child(-n+2) {
+    border-bottom: none;
+  }
+
+  .inv-tables-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .inventory-page {
+    padding: 16px 14px 96px;
+    gap: 14px;
+  }
+
+  .kpi-hero-submodule-page {
+    padding: 16px;
+  }
+
+  .inv-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .inv-page-title {
+    font-size: 1.25rem;
+  }
+
+  .kpi-hero-submodule-page-description {
+    font-size: 0.8125rem;
+  }
+
+  #invModuleMenu {
+    left: 0;
+    right: auto;
+  }
+
+  .inv-kpi-grid {
+    gap: 10px;
+  }
+
+  .inv-kpi-card {
+    padding: 14px;
+  }
+
+  .inv-valuation-head {
+    padding: 12px 16px;
+  }
+
+  .inv-val-cell {
+    padding: 14px 16px;
+  }
+
+  .inv-panel-head {
+    padding: 14px 16px;
+  }
+
+  .inv-table thead th,
+  .inv-table tbody td {
+    padding: 9px 10px;
+    font-size: 0.75rem;
+  }
+
+  .inventory-id {
+    font-size: 0.6875rem;
+  }
+}

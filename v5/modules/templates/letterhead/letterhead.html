@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b57d0" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131314" media="(prefers-color-scheme: dark)">
+  <base href="../../../">
+  <title>Letterhead | COREBIQ Templates</title>
+
+  <link rel="stylesheet" href="css/core-ui.css">
+  <link rel="stylesheet" href="modules/templates/letterhead/letterhead.css">
+</head>
+<body data-page-title="Templates">
+  <div id="letterhead-tpl-app" class="app-shell hidden">
+    <div id="desktop-sidebar-mount"></div>
+
+    <div class="main-shell">
+      <div id="desktop-header-mount"></div>
+      <div id="mobile-header-mount"></div>
+
+      <main class="tpl-editor-page">
+        <!-- Hero Header -->
+        <section class="kpi-hero-submodule-page no-print" aria-label="Letterhead template header">
+          <header class="tpl-head">
+            <div class="tpl-head-identity">
+              <h1 class="tpl-page-title">
+                <i data-lucide="file-signature" aria-hidden="true"></i>
+                <span>Letterhead</span>
+              </h1>
+              <nav class="tpl-breadcrumb" aria-label="Breadcrumb">
+                <a href="index.html">Modules</a>
+                <span aria-hidden="true">&gt;</span>
+                <a href="modules/templates/dashboard/dashboard.html">Templates</a>
+                <span aria-hidden="true">&gt;</span>
+                <span aria-current="page">Letterhead</span>
+              </nav>
+            </div>
+
+            <div class="tpl-head-actions">
+              <div class="tpl-dropdown-wrap">
+                <button
+                  id="tplModuleMenuToggle"
+                  type="button"
+                  class="btn btn-tonal"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-controls="tplModuleMenu"
+                >
+                  <i data-lucide="layout-grid" aria-hidden="true"></i>
+                  <span>Menu</span>
+                </button>
+                <nav id="tplModuleMenu" class="tpl-dropdown-menu" role="menu" aria-label="Template modules" hidden>
+                  <a href="modules/templates/dashboard/dashboard.html" role="menuitem">
+                    <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+                    <span>Dashboard</span>
+                  </a>
+                  <a href="modules/templates/invoice-template/invoice-template.html" role="menuitem">
+                    <i data-lucide="file-spreadsheet" aria-hidden="true"></i>
+                    <span>Invoice Template</span>
+                  </a>
+                  <a href="modules/templates/letterhead/letterhead.html" role="menuitem" aria-current="page">
+                    <i data-lucide="file-signature" aria-hidden="true"></i>
+                    <span>Letterhead</span>
+                  </a>
+                  <a href="modules/templates/receipt-voucher/receipt-voucher.html" role="menuitem">
+                    <i data-lucide="arrow-down-left" aria-hidden="true"></i>
+                    <span>Receipt Voucher</span>
+                  </a>
+                  <a href="modules/templates/payment-voucher/payment-voucher.html" role="menuitem">
+                    <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+                    <span>Payment Voucher</span>
+                  </a>
+                  <a href="modules/templates/payslip/payslip.html" role="menuitem">
+                    <i data-lucide="wallet" aria-hidden="true"></i>
+                    <span>Payslip</span>
+                  </a>
+                  <a href="modules/templates/estimate/estimate.html" role="menuitem">
+                    <i data-lucide="calculator" aria-hidden="true"></i>
+                    <span>Estimate</span>
+                  </a>
+                  <a href="modules/templates/seal/seal.html" role="menuitem">
+                    <i data-lucide="stamp" aria-hidden="true"></i>
+                    <span>Seal</span>
+                  </a>
+                </nav>
+              </div>
+
+              <button id="exportWordBtn" type="button" class="btn btn-tonal">
+                <i data-lucide="file-down" aria-hidden="true"></i>
+                <span>Word (.doc)</span>
+              </button>
+
+              <button id="printLetterheadBtn" type="button" class="btn btn-tonal">
+                <i data-lucide="printer" aria-hidden="true"></i>
+                <span>Print / PDF</span>
+              </button>
+
+              <button id="saveTemplateBtn" type="button" class="btn btn-primary">
+                <i data-lucide="save" aria-hidden="true"></i>
+                <span>Save</span>
+              </button>
+            </div>
+          </header>
+
+          <p class="kpi-hero-submodule-page-description">
+            Design your official company letterhead, draft letters directly in the live A4 sheet, and export to PDF or Word.
+          </p>
+        </section>
+
+        <div id="tpl-error" class="tpl-error-banner hidden no-print" role="alert"></div>
+
+        <!-- Split Workspace: Config Form + Live A4 Sheet -->
+        <section class="tpl-workspace" aria-label="Letterhead editor">
+          <!-- Left: Settings & Letter Content -->
+          <form id="letterheadForm" class="ui-card tpl-form-card no-print" novalidate>
+            <div class="tpl-form-head">
+              <div>
+                <h2>Letterhead Settings</h2>
+                <p id="savedStatusText">Default layout</p>
+              </div>
+              <button id="resetTemplateBtn" type="button" class="btn btn-tonal btn-sm">
+                <i data-lucide="rotate-ccw" aria-hidden="true"></i>
+                <span>Reset</span>
+              </button>
+            </div>
+
+            <div class="tpl-form-body">
+              <div class="tpl-section-label">Header Branding</div>
+              <label class="form-group">
+                <span>Company / Firm Name</span>
+                <input id="companyName" class="field" type="text" placeholder="e.g., COREBIQ Advisory LLP">
+              </label>
+
+              <label class="form-group">
+                <span>Tagline / Subtitle</span>
+                <input id="companyTagline" class="field" type="text" placeholder="Tax, Compliance &amp; ERP Advisory">
+              </label>
+
+              <div class="form-grid-2">
+                <label class="form-group">
+                  <span>Header Alignment</span>
+                  <select id="headerAlign" class="field">
+                    <option value="left">Left aligned</option>
+                    <option value="center">Centered</option>
+                  </select>
+                </label>
+                <label class="form-group">
+                  <span>Accent Color</span>
+                  <div class="color-field-row">
+                    <input id="accentColor" type="color" value="#0b57d0" aria-label="Accent color picker">
+                    <input id="accentColorHex" class="field" type="text" value="#0b57d0" maxlength="7">
+                  </div>
+                </label>
+              </div>
+
+              <div class="form-grid-2">
+                <label class="form-group">
+                  <span>Phone</span>
+                  <input id="companyPhone" class="field" type="text" placeholder="+91 98765 43210">
+                </label>
+                <label class="form-group">
+                  <span>Email / Website</span>
+                  <input id="companyEmail" class="field" type="text" placeholder="office@corebiq.com · corebiq.com">
+                </label>
+              </div>
+
+              <label class="form-group">
+                <span>Registered Address (Footer)</span>
+                <input id="companyAddress" class="field" type="text" placeholder="2nd Floor, Business Park, Kozhikode, Kerala - 673001">
+              </label>
+
+              <label class="form-group">
+                <span>Registration / GSTIN / CIN (Optional)</span>
+                <input id="companyReg" class="field" type="text" placeholder="GSTIN: 32ABCDE1234F1Z5 · Udyam: UDYAM-KL-00-0000000">
+              </label>
+
+              <div class="tpl-section-label">Letter Content</div>
+              <div class="form-grid-2">
+                <label class="form-group">
+                  <span>Reference No.</span>
+                  <input id="refNo" class="field" type="text" placeholder="CBQ/2026/018">
+                </label>
+                <label class="form-group">
+                  <span>Letter Date</span>
+                  <input id="letterDate" class="field" type="date">
+                </label>
+              </div>
+
+              <label class="form-group">
+                <span>Recipient (To)</span>
+                <textarea id="recipientBlock" class="field" rows="3" placeholder="The Managing Director&#10;Hexa Supermarket Pvt Ltd&#10;Ernakulam, Kerala"></textarea>
+              </label>
+
+              <label class="form-group">
+                <span>Subject</span>
+                <input id="letterSubject" class="field" type="text" placeholder="Subject line...">
+              </label>
+
+              <label class="form-group">
+                <span>Body</span>
+                <textarea id="letterBody" class="field" rows="6" placeholder="Write your letter content here..."></textarea>
+              </label>
+
+              <div class="tpl-section-label">Signatory &amp; Options</div>
+              <div class="form-grid-2">
+                <label class="form-group">
+                  <span>Signatory Name</span>
+                  <input id="signatoryName" class="field" type="text" placeholder="Shaniba B T">
+                </label>
+                <label class="form-group">
+                  <span>Designation</span>
+                  <input id="signatoryRole" class="field" type="text" placeholder="Managing Partner">
+                </label>
+              </div>
+
+              <div class="tpl-toggle-grid">
+                <label class="tpl-check-row">
+                  <input id="showRefDate" type="checkbox" checked>
+                  <span>Show Reference No. &amp; Date</span>
+                </label>
+                <label class="tpl-check-row">
+                  <input id="showSignatory" type="checkbox" checked>
+                  <span>Show Seal &amp; Signatory block</span>
+                </label>
+                <label class="tpl-check-row">
+                  <input id="showFooter" type="checkbox" checked>
+                  <span>Show Registered Address Footer</span>
+                </label>
+              </div>
+            </div>
+          </form>
+
+          <!-- Right: Live A4 Letterhead Preview -->
+          <div class="tpl-preview-col">
+            <div class="tpl-preview-bar no-print">
+              <span class="tpl-preview-badge">Live A4 Preview</span>
+              <span class="tpl-preview-hint">Ready for PDF &amp; Word export</span>
+            </div>
+
+            <article id="letterheadPaper" class="lh-paper" style="--lh-accent: #0b57d0;">
+              <header id="prevHeader" class="lh-head">
+                <div class="lh-brand">
+                  <h2 id="prevCompanyName">COREBIQ Advisory LLP</h2>
+                  <p id="prevCompanyTagline" class="lh-tagline">Tax, Compliance &amp; ERP Advisory</p>
+                </div>
+                <div id="prevHeaderContact" class="lh-contact"></div>
+              </header>
+
+              <div id="prevMetaRow" class="lh-meta-row">
+                <div><span>Ref:</span> <strong id="prevRefNo">CBQ/2026/018</strong></div>
+                <div><span>Date:</span> <strong id="prevDate">2026-Nov-19</strong></div>
+              </div>
+
+              <section id="prevRecipient" class="lh-recipient"></section>
+
+              <div id="prevSubjectWrap" class="lh-subject-wrap">
+                <span>Sub:</span>
+                <strong id="prevSubject"></strong>
+              </div>
+
+              <section id="prevBody" class="lh-body"></section>
+
+              <section id="prevSignatoryBlock" class="lh-signatory">
+                <div class="lh-sign-closing">For <span id="prevSignCompany">COREBIQ Advisory LLP</span>,</div>
+                <div class="lh-seal-placeholder">SEAL</div>
+                <div id="prevSignName" class="lh-sign-name">Shaniba B T</div>
+                <div id="prevSignRole" class="lh-sign-role">Managing Partner</div>
+              </section>
+
+              <footer id="prevFooter" class="lh-footer">
+                <div id="prevFooterAddress"></div>
+                <div id="prevFooterReg" class="lh-footer-reg"></div>
+              </footer>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="app-sidebar-mount"></div>
+    <div id="bottom-nav-mount"></div>
+    <div id="mini-container-mount"></div>
+  </div>
+
+  <div id="toast" class="toast hidden no-print" role="status" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/index.js"></script>
+  <script type="module" src="modules/templates/letterhead/letterhead.js"></script>
+</body>
+</html>

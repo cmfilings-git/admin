@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b57d0" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131314" media="(prefers-color-scheme: dark)">
+  <base href="../../../">
+  <title>Invoice Template | COREBIQ Templates</title>
+
+  <link rel="stylesheet" href="css/core-ui.css">
+  <link rel="stylesheet" href="modules/templates/invoice-template/invoice-template.css">
+</head>
+<body data-page-title="Templates">
+  <div id="invoice-tpl-app" class="app-shell hidden">
+    <div id="desktop-sidebar-mount"></div>
+
+    <div class="main-shell">
+      <div id="desktop-header-mount"></div>
+      <div id="mobile-header-mount"></div>
+
+      <main class="tpl-editor-page">
+        <!-- Hero Header -->
+        <section class="kpi-hero-submodule-page no-print" aria-label="Invoice template header">
+          <header class="tpl-head">
+            <div class="tpl-head-identity">
+              <h1 class="tpl-page-title">
+                <i data-lucide="file-spreadsheet" aria-hidden="true"></i>
+                <span>Invoice Template</span>
+              </h1>
+              <nav class="tpl-breadcrumb" aria-label="Breadcrumb">
+                <a href="index.html">Modules</a>
+                <span aria-hidden="true">&gt;</span>
+                <a href="modules/templates/dashboard/dashboard.html">Templates</a>
+                <span aria-hidden="true">&gt;</span>
+                <span aria-current="page">Invoice Template</span>
+              </nav>
+            </div>
+
+            <div class="tpl-head-actions">
+              <div class="tpl-dropdown-wrap">
+                <button
+                  id="tplModuleMenuToggle"
+                  type="button"
+                  class="btn btn-tonal"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-controls="tplModuleMenu"
+                >
+                  <i data-lucide="layout-grid" aria-hidden="true"></i>
+                  <span>Menu</span>
+                </button>
+                <nav id="tplModuleMenu" class="tpl-dropdown-menu" role="menu" aria-label="Template modules" hidden>
+                  <a href="modules/templates/dashboard/dashboard.html" role="menuitem">
+                    <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+                    <span>Dashboard</span>
+                  </a>
+                  <a href="modules/templates/invoice-template/invoice-template.html" role="menuitem" aria-current="page">
+                    <i data-lucide="file-spreadsheet" aria-hidden="true"></i>
+                    <span>Invoice Template</span>
+                  </a>
+                  <a href="modules/templates/letterhead/letterhead.html" role="menuitem">
+                    <i data-lucide="file-signature" aria-hidden="true"></i>
+                    <span>Letterhead</span>
+                  </a>
+                  <a href="modules/templates/receipt-voucher/receipt-voucher.html" role="menuitem">
+                    <i data-lucide="arrow-down-left" aria-hidden="true"></i>
+                    <span>Receipt Voucher</span>
+                  </a>
+                  <a href="modules/templates/payment-voucher/payment-voucher.html" role="menuitem">
+                    <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+                    <span>Payment Voucher</span>
+                  </a>
+                  <a href="modules/templates/payslip/payslip.html" role="menuitem">
+                    <i data-lucide="wallet" aria-hidden="true"></i>
+                    <span>Payslip</span>
+                  </a>
+                  <a href="modules/templates/estimate/estimate.html" role="menuitem">
+                    <i data-lucide="calculator" aria-hidden="true"></i>
+                    <span>Estimate</span>
+                  </a>
+                  <a href="modules/templates/seal/seal.html" role="menuitem">
+                    <i data-lucide="stamp" aria-hidden="true"></i>
+                    <span>Seal</span>
+                  </a>
+                </nav>
+              </div>
+
+              <button id="printInvoiceBtn" type="button" class="btn btn-tonal">
+                <i data-lucide="printer" aria-hidden="true"></i>
+                <span>Print / PDF</span>
+              </button>
+
+              <button id="saveTemplateBtn" type="button" class="btn btn-primary">
+                <i data-lucide="save" aria-hidden="true"></i>
+                <span>Save</span>
+              </button>
+            </div>
+          </header>
+
+          <p class="kpi-hero-submodule-page-description">
+            Customize your GST tax invoice branding, bank details, terms, and layout. Changes sync live to the preview and save to Firestore.
+          </p>
+        </section>
+
+        <div id="tpl-error" class="tpl-error-banner hidden no-print" role="alert"></div>
+
+        <!-- Split Workspace: Config Form + Live A4 Preview -->
+        <section class="tpl-workspace" aria-label="Invoice template editor">
+          <!-- Left: Settings Form -->
+          <form id="invoiceTplForm" class="ui-card tpl-form-card no-print" novalidate>
+            <div class="tpl-form-head">
+              <div>
+                <h2>Template Settings</h2>
+                <p id="savedStatusText">Default layout</p>
+              </div>
+              <button id="resetTemplateBtn" type="button" class="btn btn-tonal btn-sm">
+                <i data-lucide="rotate-ccw" aria-hidden="true"></i>
+                <span>Reset</span>
+              </button>
+            </div>
+
+            <div class="tpl-form-body">
+              <div class="tpl-section-label">Company Details</div>
+              <label class="form-group">
+                <span>Company / Firm Name</span>
+                <input id="companyName" class="field" type="text" placeholder="e.g., COREBIQ Advisory LLP">
+              </label>
+
+              <div class="form-grid-2">
+                <label class="form-group">
+                  <span>GSTIN / Tax ID</span>
+                  <input id="companyGstin" class="field" type="text" placeholder="e.g., 32ABCDE1234F1Z5">
+                </label>
+                <label class="form-group">
+                  <span>Phone</span>
+                  <input id="companyPhone" class="field" type="text" placeholder="+91 98765 43210">
+                </label>
+              </div>
+
+              <label class="form-group">
+                <span>Email &amp; Website</span>
+                <input id="companyEmail" class="field" type="text" placeholder="billing@corebiq.com · corebiq.com">
+              </label>
+
+              <label class="form-group">
+                <span>Registered Address</span>
+                <textarea id="companyAddress" class="field" rows="2" placeholder="Street, City, State, PIN"></textarea>
+              </label>
+
+              <div class="tpl-section-label">Invoice Format</div>
+              <div class="form-grid-2">
+                <label class="form-group">
+                  <span>Document Title</span>
+                  <input id="docTitle" class="field" type="text" placeholder="TAX INVOICE">
+                </label>
+                <label class="form-group">
+                  <span>Number Prefix</span>
+                  <input id="invoicePrefix" class="field" type="text" placeholder="INV-26-">
+                </label>
+              </div>
+
+              <div class="form-grid-2">
+                <label class="form-group">
+                  <span>Accent Color</span>
+                  <div class="color-field-row">
+                    <input id="accentColor" type="color" value="#0b57d0" aria-label="Accent color picker">
+                    <input id="accentColorHex" class="field" type="text" value="#0b57d0" maxlength="7">
+                  </div>
+                </label>
+                <label class="form-group">
+                  <span>Signatory Label</span>
+                  <input id="signatoryLabel" class="field" type="text" placeholder="Authorized Signatory">
+                </label>
+              </div>
+
+              <div class="tpl-toggle-grid">
+                <label class="tpl-check-row">
+                  <input id="showGst" type="checkbox" checked>
+                  <span>Show GST (CGST / SGST)</span>
+                </label>
+                <label class="tpl-check-row">
+                  <input id="showBank" type="checkbox" checked>
+                  <span>Show Bank &amp; UPI details</span>
+                </label>
+                <label class="tpl-check-row">
+                  <input id="showSignatory" type="checkbox" checked>
+                  <span>Show Seal &amp; Signatory</span>
+                </label>
+              </div>
+
+              <div class="tpl-section-label">Bank &amp; Payment Details</div>
+              <div class="form-grid-2">
+                <label class="form-group">
+                  <span>Bank Name</span>
+                  <input id="bankName" class="field" type="text" placeholder="HDFC Bank">
+                </label>
+                <label class="form-group">
+                  <span>Account Number</span>
+                  <input id="bankAccount" class="field" type="text" placeholder="50200012345678">
+                </label>
+              </div>
+
+              <div class="form-grid-2">
+                <label class="form-group">
+                  <span>IFSC Code</span>
+                  <input id="bankIfsc" class="field" type="text" placeholder="HDFC0001234">
+                </label>
+                <label class="form-group">
+                  <span>UPI ID</span>
+                  <input id="upiId" class="field" type="text" placeholder="corebiq@hdfcbank">
+                </label>
+              </div>
+
+              <div class="tpl-section-label">Terms &amp; Footer</div>
+              <label class="form-group">
+                <span>Terms &amp; Conditions</span>
+                <textarea id="termsText" class="field" rows="3" placeholder="Payment due within 15 days..."></textarea>
+              </label>
+
+              <label class="form-group">
+                <span>Footer Note</span>
+                <input id="footerNote" class="field" type="text" placeholder="This is a computer-generated invoice.">
+              </label>
+            </div>
+          </form>
+
+          <!-- Right: Live A4 Print Preview -->
+          <div class="tpl-preview-col">
+            <div class="tpl-preview-bar no-print">
+              <span class="tpl-preview-badge">Live A4 Preview</span>
+              <span class="tpl-preview-hint">Sample data shown</span>
+            </div>
+
+            <article id="invoicePaper" class="inv-paper" style="--inv-accent: #0b57d0;">
+              <header class="inv-paper-head">
+                <div class="inv-brand-block">
+                  <h2 id="prevCompanyName">COREBIQ Advisory LLP</h2>
+                  <p id="prevCompanyAddress">2nd Floor, Business Park, Kozhikode, Kerala - 673001</p>
+                  <p id="prevCompanyContact">+91 98765 43210 · billing@corebiq.com</p>
+                  <p id="prevCompanyGstin" class="inv-gstin">GSTIN: 32ABCDE1234F1Z5</p>
+                </div>
+
+                <div class="inv-title-block">
+                  <div id="prevDocTitle" class="inv-doc-title">TAX INVOICE</div>
+                  <div class="inv-meta-list">
+                    <div><span>Invoice No:</span> <strong id="prevInvoiceNo">INV-26-0042</strong></div>
+                    <div><span>Date:</span> <strong id="prevInvoiceDate">2026-Nov-19</strong></div>
+                    <div><span>Due Date:</span> <strong id="prevDueDate">2026-Dec-04</strong></div>
+                  </div>
+                </div>
+              </header>
+
+              <section class="inv-bill-to">
+                <div class="inv-bill-label">Bill To</div>
+                <div class="inv-bill-name">HEXA SUPERMARKET PVT LTD</div>
+                <div class="inv-bill-sub">MG Road, Ernakulam, Kerala - 682016 · GSTIN: 32AABCH9876K1Z2</div>
+              </section>
+
+              <table class="inv-items-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Description &amp; SAC/HSN</th>
+                    <th class="text-right">Qty</th>
+                    <th class="text-right">Rate</th>
+                    <th class="text-right">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                      <div class="inv-item-title">Monthly GST Return Filing &amp; Reconciliation</div>
+                      <div class="inv-item-sub">SAC: 998221</div>
+                    </td>
+                    <td class="text-right">1</td>
+                    <td class="text-right">₹4,500.00</td>
+                    <td class="text-right">₹4,500.00</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>
+                      <div class="inv-item-title">ERP Accounting &amp; Ledger Advisory</div>
+                      <div class="inv-item-sub">SAC: 998222</div>
+                    </td>
+                    <td class="text-right">1</td>
+                    <td class="text-right">₹7,500.00</td>
+                    <td class="text-right">₹7,500.00</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="inv-summary-row">
+                <div id="prevBankBox" class="inv-bank-box">
+                  <div class="inv-box-title">Bank &amp; Payment Details</div>
+                  <div id="prevBankDetails" class="inv-bank-lines"></div>
+                </div>
+
+                <div class="inv-totals-box">
+                  <div class="inv-total-line">
+                    <span>Subtotal</span>
+                    <span>₹12,000.00</span>
+                  </div>
+                  <div id="prevGstRows">
+                    <div class="inv-total-line">
+                      <span>CGST (9%)</span>
+                      <span>₹1,080.00</span>
+                    </div>
+                    <div class="inv-total-line">
+                      <span>SGST (9%)</span>
+                      <span>₹1,080.00</span>
+                    </div>
+                  </div>
+                  <div class="inv-total-line is-grand">
+                    <span>Grand Total</span>
+                    <span id="prevGrandTotal">₹14,160.00</span>
+                  </div>
+                </div>
+              </div>
+
+              <footer class="inv-paper-footer">
+                <div class="inv-terms-block">
+                  <div class="inv-box-title">Terms &amp; Conditions</div>
+                  <p id="prevTerms"></p>
+                </div>
+
+                <div id="prevSignatoryBlock" class="inv-signatory-block">
+                  <div class="inv-seal-placeholder">SEAL</div>
+                  <div class="inv-sign-line"></div>
+                  <div id="prevSignatoryLabel" class="inv-sign-label">Authorized Signatory</div>
+                </div>
+              </footer>
+
+              <div id="prevFooterNote" class="inv-bottom-note">
+                This is a computer-generated invoice.
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="app-sidebar-mount"></div>
+    <div id="bottom-nav-mount"></div>
+    <div id="mini-container-mount"></div>
+  </div>
+
+  <div id="toast" class="toast hidden no-print" role="status" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/index.js"></script>
+  <script type="module" src="modules/templates/invoice-template/invoice-template.js"></script>
+</body>
+</html>

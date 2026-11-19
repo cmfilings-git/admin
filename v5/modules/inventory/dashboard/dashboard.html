@@ -3,91 +3,618 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f7f9fc">
+  <meta name="theme-color" content="#0b57d0" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131314" media="(prefers-color-scheme: dark)">
   <base href="../../../">
-  <title>Inventory | COREBIQ</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/global-typography.css">
-  <link rel="stylesheet" href="css/global-style.css">
-  <link rel="stylesheet" href="modules/inventory/inventory.css">
+  <title>Inventory Dashboard | COREBIQ</title>
+
+  <link rel="stylesheet" href="css/core-ui.css">
+  <style>
+    [hidden] { display: none !important; }
+
+    .app-shell { display: flex; min-height: 100dvh; background: var(--bg-page); }
+    .main-shell { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+    .inventory-page {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 24px 96px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* Compliance-Style Hero Card */
+    .kpi-hero-submodule-page {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 20px 24px;
+      border: 1.5px solid transparent;
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(180deg, var(--bg-surface) 0%, var(--primary-50) 100%) padding-box,
+        linear-gradient(135deg, var(--primary-200) 0%, var(--border-light) 50%, var(--primary-500) 100%) border-box;
+      box-shadow: var(--shadow-md);
+    }
+
+    .inv-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px 16px;
+    }
+
+    .inv-head-identity {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .inv-page-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 1.375rem;
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--ink-primary);
+    }
+
+    .inv-page-title svg {
+      width: 22px;
+      height: 22px;
+      color: var(--primary-600);
+      flex-shrink: 0;
+    }
+
+    .inv-breadcrumb {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+    }
+
+    .inv-breadcrumb a { color: var(--primary-600); text-decoration: none; }
+    .inv-breadcrumb a:hover { text-decoration: underline; }
+    .inv-breadcrumb [aria-current="page"] { color: var(--ink-secondary); }
+
+    .kpi-hero-submodule-page-description {
+      max-width: 68ch;
+      margin: 0;
+      font-size: 0.875rem;
+      line-height: 1.55;
+      color: var(--ink-secondary);
+    }
+
+    /* Header Actions & Dropdowns */
+    .inv-head-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .inv-dropdown-wrap { position: relative; }
+
+    .inv-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      z-index: 60;
+      min-width: 196px;
+      padding: 6px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-menu);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .inv-dropdown-menu a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--ink-primary);
+      text-decoration: none;
+    }
+
+    .inv-dropdown-menu a svg { width: 16px; height: 16px; color: var(--ink-muted); flex-shrink: 0; }
+    .inv-dropdown-menu a:hover { background: var(--bg-tonal); color: var(--primary-600); text-decoration: none; }
+    .inv-dropdown-menu a:hover svg { color: var(--primary-600); }
+    .inv-dropdown-menu a[aria-current="page"] { background: var(--primary-100); color: var(--primary-900); font-weight: 600; }
+    .inv-dropdown-menu a[aria-current="page"] svg { color: var(--primary-600); }
+
+    #refreshInventoryDashboard.is-refreshing svg { animation: inv-spin 0.7s linear infinite; }
+    @keyframes inv-spin { to { transform: rotate(360deg); } }
+
+    /* Error Banner */
+    .inventory-error-banner {
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      background: var(--status-danger-bg);
+      color: var(--status-danger-fg);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    /* 4-Card KPI Grids */
+    .inv-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .inv-kpi-card {
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+      text-decoration: none;
+      transition: border-color 0.15s ease;
+    }
+
+    a.inv-kpi-card:hover { border-color: var(--primary-200); text-decoration: none; }
+
+    .inv-kpi-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .inv-kpi-label {
+      font-family: var(--font-display);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+    }
+
+    .inv-kpi-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-btn);
+      background: var(--bg-tonal);
+      color: var(--primary-600);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .inv-kpi-icon svg { width: 16px; height: 16px; }
+    .inv-kpi-icon.is-warning { background: var(--status-danger-bg); color: var(--status-danger-fg); }
+    .inv-kpi-icon.is-success { background: var(--status-complete-bg); color: var(--status-complete-fg); }
+
+    .inv-kpi-value {
+      font-family: var(--font-display);
+      font-size: clamp(1.125rem, 1.8vw, 1.5rem);
+      font-weight: 700;
+      color: var(--ink-primary);
+      line-height: 1.2;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .inv-kpi-value.is-danger { color: var(--status-danger-fg); }
+    .inv-kpi-value.is-primary { color: var(--primary-600); }
+    .inv-kpi-sub { font-size: 0.75rem; color: var(--ink-muted); }
+
+    /* Valuation Strip */
+    .inv-valuation-card { overflow: hidden; }
+    .inv-valuation-head {
+      padding: 14px 20px;
+      background: var(--bg-tonal);
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .inv-valuation-head h2 { margin: 0; font-size: 0.9375rem; }
+    .inv-valuation-head span { font-size: 0.75rem; color: var(--ink-muted); }
+
+    .inv-valuation-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .inv-val-cell {
+      padding: 16px 20px;
+      border-right: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .inv-val-cell:last-child { border-right: none; background: var(--primary-50); }
+    .inv-val-label { font-size: 0.75rem; font-weight: 500; color: var(--ink-muted); }
+
+    /* Tables Grid */
+    .inv-tables-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .inv-panel { overflow: hidden; display: flex; flex-direction: column; }
+
+    .inv-panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .inv-panel-head h2 { margin: 0; font-size: 1rem; }
+    .inv-panel-head p { margin: 2px 0 0; font-size: 0.75rem; color: var(--ink-muted); }
+
+    .inv-table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .inv-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.8125rem; }
+    .inv-table thead { background: var(--bg-tonal); border-bottom: 1px solid var(--border-light); }
+    .inv-table thead th {
+      padding: 10px 14px;
+      font-family: var(--font-display);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      white-space: nowrap;
+    }
+
+    .inv-table tbody tr { border-bottom: 1px solid var(--border-light); }
+    .inv-table tbody tr:last-child { border-bottom: none; }
+    .inv-table tbody tr:hover { background: var(--primary-50); }
+    .inv-table tbody td { padding: 11px 14px; color: var(--ink-secondary); vertical-align: middle; }
+    .inv-table tbody td:last-child,
+    .inv-table thead th:last-child { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+    /* Classes generated by dashboard.js */
+    .inventory-id {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--bg-tonal);
+      border: 1px solid var(--border-light);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--ink-primary);
+      white-space: nowrap;
+    }
+
+    .inventory-status {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .inventory-status--warning {
+      background: var(--status-danger-bg);
+      color: var(--status-danger-fg);
+    }
+
+    .inventory-empty {
+      padding: 28px 16px !important;
+      text-align: center !important;
+      font-size: 0.8125rem;
+      color: var(--ink-muted) !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .inv-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .inv-valuation-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .inv-val-cell { border-bottom: 1px solid var(--border-light); }
+      .inv-val-cell:nth-child(2n) { border-right: none; }
+      .inv-val-cell:nth-last-child(-n+2) { border-bottom: none; }
+      .inv-tables-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .inventory-page { padding: 16px 14px 96px; gap: 14px; }
+      .kpi-hero-submodule-page { padding: 16px; }
+      .inv-head { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .inv-page-title { font-size: 1.25rem; }
+      #invModuleMenu { left: 0; right: auto; }
+      .inv-kpi-grid { gap: 10px; }
+      .inv-kpi-card { padding: 14px; }
+      .inv-valuation-head { padding: 12px 16px; }
+      .inv-val-cell { padding: 14px 16px; }
+      .inv-panel-head { padding: 14px 16px; }
+      .inv-table thead th,
+      .inv-table tbody td { padding: 9px 10px; font-size: 0.75rem; }
+      .inventory-id { font-size: 0.6875rem; }
+    }
+  </style>
 </head>
 <body data-page-title="Inventory">
-  <div id="inventory-app" hidden>
-    <div class="app-shell">
-      <div id="desktop-sidebar-mount"></div>
-      <main class="main-shell">
-        <div id="desktop-header-mount"></div>
-        <div id="mobile-header-mount"></div>
-        <div class="inventory-page">
-          <header class="inventory-head">
-            <div>
-              <h1>Inventory</h1>
-              <nav class="inventory-breadcrumb" aria-label="Breadcrumb">
-                <a href="index.html">Modules</a><span aria-hidden="true">&gt;</span>
-                <span aria-current="page">Inventory</span><span aria-hidden="true">&gt;</span>
-                <span aria-current="location">Dashboard</span>
+  <div id="inventory-app" class="app-shell" hidden>
+    <div id="desktop-sidebar-mount"></div>
+
+    <div class="main-shell">
+      <div id="desktop-header-mount"></div>
+      <div id="mobile-header-mount"></div>
+
+      <main class="inventory-page">
+        <!-- Compliance-Style Hero Card -->
+        <section class="kpi-hero-submodule-page" aria-label="Inventory overview">
+          <header class="inv-head">
+            <div class="inv-head-identity">
+              <h1 class="inv-page-title">
+                <i data-lucide="package" aria-hidden="true"></i>
+                <span>Inventory</span>
+              </h1>
+              <nav class="inv-breadcrumb" aria-label="Breadcrumb">
+                <a href="index.html">Modules</a>
+                <span aria-hidden="true">&gt;</span>
+                <a href="modules/inventory/dashboard/dashboard.html">Inventory</a>
+                <span aria-hidden="true">&gt;</span>
+                <span aria-current="page">Dashboard</span>
               </nav>
             </div>
-            <div class="inventory-actions">
-              <button id="refreshInventoryDashboard" class="crm-icon-btn" type="button" aria-label="Refresh Inventory dashboard" title="Refresh dashboard"><i data-lucide="refresh-cw"></i></button>
-              <a class="crm-btn" aria-label="Add Goods" href="modules/inventory/goods/inventory-goods.html#add"><i data-lucide="plus"></i><span>Add Goods</span></a>
-              <a class="crm-btn primary" aria-label="Add Service" href="modules/inventory/services/inventory-services.html#add"><i data-lucide="plus"></i><span>Add Service</span></a>
+
+            <div class="inv-head-actions">
+              <div class="inv-dropdown-wrap">
+                <button
+                  id="invModuleMenuToggle"
+                  type="button"
+                  class="btn btn-tonal"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-controls="invModuleMenu"
+                >
+                  <i data-lucide="layout-grid" aria-hidden="true"></i>
+                  <span>Menu</span>
+                </button>
+                <nav id="invModuleMenu" class="inv-dropdown-menu" role="menu" aria-label="Inventory modules" hidden>
+                  <a href="modules/inventory/dashboard/dashboard.html" role="menuitem" aria-current="page">
+                    <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+                    <span>Dashboard</span>
+                  </a>
+                  <a href="modules/inventory/items/items.html" role="menuitem">
+                    <i data-lucide="boxes" aria-hidden="true"></i>
+                    <span>Items &amp; Services</span>
+                  </a>
+                  <a href="modules/inventory/movements/movements.html" role="menuitem">
+                    <i data-lucide="arrow-left-right" aria-hidden="true"></i>
+                    <span>Stock Activity</span>
+                  </a>
+                </nav>
+              </div>
+
+              <div class="inv-dropdown-wrap">
+                <button
+                  id="invAddMenuToggle"
+                  type="button"
+                  class="btn btn-primary"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-controls="invAddMenu"
+                >
+                  <i data-lucide="plus" aria-hidden="true"></i>
+                  <span>Add</span>
+                </button>
+                <nav id="invAddMenu" class="inv-dropdown-menu" role="menu" aria-label="Quick add inventory" hidden>
+                  <a href="modules/inventory/items/items.html#add" role="menuitem">
+                    <i data-lucide="package-plus" aria-hidden="true"></i>
+                    <span>Add item / service</span>
+                  </a>
+                  <a href="modules/inventory/movements/movements.html#add" role="menuitem">
+                    <i data-lucide="arrow-up-down" aria-hidden="true"></i>
+                    <span>Record movement</span>
+                  </a>
+                </nav>
+              </div>
+
+              <button
+                id="refreshInventoryDashboard"
+                type="button"
+                class="btn btn-tonal btn-icon"
+                aria-label="Refresh inventory data"
+                title="Refresh inventory data"
+              >
+                <i data-lucide="refresh-cw" aria-hidden="true"></i>
+              </button>
             </div>
           </header>
 
-          <div class="inventory-tabs-wrap">
-            <nav class="inventory-tabs" aria-label="Inventory sections">
-              <a class="active" href="modules/inventory/dashboard/dashboard.html" aria-current="page"><i data-lucide="layout-dashboard"></i>Dashboard</a>
-              <a href="modules/inventory/goods/inventory-goods.html"><i data-lucide="boxes"></i>Goods</a>
-              <a href="modules/inventory/services/inventory-services.html"><i data-lucide="briefcase-business"></i>Services</a>
-            </nav>
-          </div>
+          <p class="kpi-hero-submodule-page-description">
+            Live overview of active goods, services, stock valuation with GST, low-stock alerts, and recent stock movements.
+          </p>
+        </section>
 
-          <section class="inventory-kpis" aria-label="Inventory summary">
-            <article class="inventory-kpi"><span class="inventory-kpi-label">Goods items</span><b id="goodsCount" class="inventory-kpi-value">—</b></article>
-            <article class="inventory-kpi"><span class="inventory-kpi-label">Service items</span><b id="servicesCount" class="inventory-kpi-value">—</b></article>
-            <article class="inventory-kpi"><span class="inventory-kpi-label">Goods with stock</span><b id="goodsInStock" class="inventory-kpi-value">—</b></article>
-            <article class="inventory-kpi"><span class="inventory-kpi-label">Opening stock value</span><b id="openingValue" class="inventory-kpi-value">—</b></article>
-          </section>
+        <!-- Firestore Error Banner -->
+        <div id="inventoryError" class="inventory-error-banner" role="alert" hidden></div>
 
-          <div class="inventory-grid">
-            <section class="inventory-card">
-              <header class="inventory-card-head"><div><h2>Low stock</h2><p>Active goods at or below their reorder level</p></div><a class="crm-btn" href="modules/inventory/goods/inventory-goods.html">View goods</a></header>
-              <div class="inventory-table-wrap">
-                <table class="inventory-table inventory-table--compact">
-                  <thead><tr><th>Inventory ID</th><th>Name</th><th>Qty</th><th>Reorder at</th></tr></thead>
-                  <tbody id="lowStockRows"><tr><td colspan="4" class="inventory-loading">Loading inventory...</td></tr></tbody>
-                </table>
-              </div>
-            </section>
-            <section class="inventory-card">
-              <header class="inventory-card-head"><div><h2>Recent stock activity</h2><p>Latest opening balances and stock movements</p></div><a class="crm-btn" href="modules/inventory/goods/inventory-goods.html">Manage stock</a></header>
-              <div class="inventory-table-wrap">
-                <table class="inventory-table inventory-table--compact">
-                  <thead><tr><th>Date</th><th>Inventory ID</th><th>Type</th><th>Change</th></tr></thead>
-                  <tbody id="recentMovementRows"><tr><td colspan="4" class="inventory-loading">Loading activity...</td></tr></tbody>
-                </table>
-              </div>
-            </section>
-            <section class="inventory-card inventory-card--full">
-              <header class="inventory-card-head"><div><h2>Inventory value</h2><p>Current goods value includes GST where applicable</p></div><a class="crm-btn" href="modules/inventory/goods/inventory-goods.html">Goods register</a></header>
-              <div class="inventory-kpis inventory-kpis--in-card">
-                <article class="inventory-kpi"><span class="inventory-kpi-label">Current stock value</span><b id="currentValue" class="inventory-kpi-value">—</b></article>
-                <article class="inventory-kpi"><span class="inventory-kpi-label">GST on current stock</span><b id="currentTax" class="inventory-kpi-value">—</b></article>
-                <article class="inventory-kpi"><span class="inventory-kpi-label">Total stock with GST</span><b id="currentTotal" class="inventory-kpi-value">—</b></article>
-                <article class="inventory-kpi"><span class="inventory-kpi-label">Low stock items</span><b id="lowStockCount" class="inventory-kpi-value">—</b></article>
-              </div>
-            </section>
+        <!-- 4-Card Catalog & Stock Counts -->
+        <section class="inv-kpi-grid" aria-label="Catalog summary">
+          <a href="modules/inventory/items/items.html" class="ui-card inv-kpi-card">
+            <div class="inv-kpi-top">
+              <span class="inv-kpi-label">Active goods</span>
+              <span class="inv-kpi-icon" aria-hidden="true"><i data-lucide="boxes"></i></span>
+            </div>
+            <span id="goodsCount" class="inv-kpi-value">0</span>
+            <span class="inv-kpi-sub">Tracked physical stock</span>
+          </a>
+
+          <a href="modules/inventory/items/items.html" class="ui-card inv-kpi-card">
+            <div class="inv-kpi-top">
+              <span class="inv-kpi-label">Active services</span>
+              <span class="inv-kpi-icon" aria-hidden="true"><i data-lucide="briefcase"></i></span>
+            </div>
+            <span id="servicesCount" class="inv-kpi-value">0</span>
+            <span class="inv-kpi-sub">Non-stock service items</span>
+          </a>
+
+          <a href="modules/inventory/items/items.html" class="ui-card inv-kpi-card">
+            <div class="inv-kpi-top">
+              <span class="inv-kpi-label">Goods in stock</span>
+              <span class="inv-kpi-icon is-success" aria-hidden="true"><i data-lucide="package-check"></i></span>
+            </div>
+            <span id="goodsInStock" class="inv-kpi-value">0</span>
+            <span class="inv-kpi-sub">Quantity greater than 0</span>
+          </a>
+
+          <a href="modules/inventory/items/items.html" class="ui-card inv-kpi-card">
+            <div class="inv-kpi-top">
+              <span class="inv-kpi-label">Low stock alerts</span>
+              <span class="inv-kpi-icon is-warning" aria-hidden="true"><i data-lucide="alert-triangle"></i></span>
+            </div>
+            <span id="lowStockCount" class="inv-kpi-value is-danger">0</span>
+            <span class="inv-kpi-sub">At or below reorder level</span>
+          </a>
+        </section>
+
+        <!-- Stock Valuation Strip -->
+        <section class="ui-card inv-valuation-card" aria-label="Stock valuation summary">
+          <div class="inv-valuation-head">
+            <h2>Stock Valuation</h2>
+            <span>Calculated from active goods</span>
           </div>
-          <p id="inventoryError" class="inventory-error" role="alert" hidden></p>
-        </div>
+          <div class="inv-valuation-grid">
+            <div class="inv-val-cell">
+              <span class="inv-val-label">Opening stock value</span>
+              <span id="openingValue" class="inv-kpi-value">—</span>
+            </div>
+            <div class="inv-val-cell">
+              <span class="inv-val-label">Current taxable value</span>
+              <span id="currentValue" class="inv-kpi-value">—</span>
+            </div>
+            <div class="inv-val-cell">
+              <span class="inv-val-label">Estimated GST</span>
+              <span id="currentTax" class="inv-kpi-value">—</span>
+            </div>
+            <div class="inv-val-cell">
+              <span class="inv-val-label">Total value (incl. GST)</span>
+              <span id="currentTotal" class="inv-kpi-value is-primary">—</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Low-Stock & Recent Activity Tables -->
+        <section class="inv-tables-grid" aria-label="Inventory alerts and activity">
+          <article class="ui-card inv-panel">
+            <div class="inv-panel-head">
+              <div>
+                <h2>Low-stock goods</h2>
+                <p>Items at or below reorder threshold</p>
+              </div>
+              <a href="modules/inventory/items/items.html" class="btn btn-tonal btn-sm">
+                <span>All items</span>
+                <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="inv-table-scroll">
+              <table class="inv-table" aria-label="Low-stock goods">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Item</th>
+                    <th>In Stock</th>
+                    <th>Reorder</th>
+                  </tr>
+                </thead>
+                <tbody id="lowStockRows">
+                  <tr><td colspan="4" class="inventory-empty">Loading low-stock items…</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="ui-card inv-panel">
+            <div class="inv-panel-head">
+              <div>
+                <h2>Recent stock activity</h2>
+                <p>Latest inventory additions and deductions</p>
+              </div>
+              <a href="modules/inventory/movements/movements.html" class="btn btn-tonal btn-sm">
+                <span>History</span>
+                <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="inv-table-scroll">
+              <table class="inv-table" aria-label="Recent stock activity">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>ID</th>
+                    <th>Activity</th>
+                    <th>Qty</th>
+                  </tr>
+                </thead>
+                <tbody id="recentMovementRows">
+                  <tr><td colspan="4" class="inventory-empty">Loading stock activity…</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </section>
       </main>
     </div>
+
+    <div id="app-sidebar-mount"></div>
+    <div id="bottom-nav-mount"></div>
+    <div id="mini-container-mount"></div>
   </div>
+
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="js/index.js"></script>
   <script type="module" src="modules/inventory/dashboard/dashboard.js"></script>
+  <script>
+    (() => {
+      const pairs = [
+        ["invModuleMenuToggle", "invModuleMenu"],
+        ["invAddMenuToggle", "invAddMenu"]
+      ];
+      const closeAll = () => pairs.forEach(([t, m]) => {
+        document.getElementById(m).hidden = true;
+        document.getElementById(t).setAttribute("aria-expanded", "false");
+      });
+      pairs.forEach(([t, m]) => {
+        const btn = document.getElementById(t);
+        const menu = document.getElementById(m);
+        if (!btn || !menu) return;
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const open = menu.hidden;
+          closeAll();
+          menu.hidden = !open;
+          btn.setAttribute("aria-expanded", String(open));
+        });
+      });
+      document.addEventListener("pointerdown", (e) => {
+        if (!e.target.closest(".inv-dropdown-wrap")) closeAll();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeAll();
+      });
+      const refreshBtn = document.getElementById("refreshInventoryDashboard");
+      refreshBtn?.addEventListener("click", () => {
+        refreshBtn.classList.add("is-refreshing");
+        setTimeout(() => refreshBtn.classList.remove("is-refreshing"), 700);
+      });
+    })();
+  </script>
 </body>
 </html>

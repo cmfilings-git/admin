@@ -10,7 +10,7 @@ import {
   serverTimestamp,
   updateDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { firebaseConfig } from "../../../firebase/firebase-config.js";
+const { firebaseConfig } = await import(new URL("firebase/firebase-config.js", document.baseURI));
 
 const ADMIN = "shanicm@gmail.com";
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);

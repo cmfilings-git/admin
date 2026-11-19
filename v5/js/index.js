@@ -477,3 +477,35 @@ function updateDate(){
   date.setAttribute("datetime",isoDate);
 }
 document.addEventListener("DOMContentLoaded",initDashboard);
+
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-module-refresh]");
+  if (!btn || btn.classList.contains("is-refreshing")) return;
+
+  btn.classList.add("is-refreshing");
+  btn.disabled = true;
+
+  const done = () => {
+    btn.classList.remove("is-refreshing");
+    btn.disabled = false;
+  };
+
+  const refreshEvent = new CustomEvent("corebiq:module-refresh", {
+    cancelable: true,
+    detail: {
+      page: document.body.dataset.pageTitle || "",
+      done
+    }
+  });
+
+  window.dispatchEvent(refreshEvent);
+
+  // If no module called e.preventDefault(), do a standard page refresh
+  if (!refreshEvent.defaultPrevented) {
+    window.location.reload();
+  } else {
+    // Safety fallback so spinner never gets stuck
+    window.setTimeout(done, 8000);
+  }
+});
+

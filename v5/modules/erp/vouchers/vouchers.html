@@ -20,7 +20,7 @@
       <div id="mobile-header-mount"></div>
 
       <main class="erp-page">
-        <!-- Hero Header with ERP Menu + Voucher Sub-Menu Dropdown -->
+        <!-- Hero Header (No tab strip) -->
         <section class="kpi-hero-submodule-page" aria-label="Vouchers overview">
           <header class="erp-head">
             <div class="erp-head-identity">
@@ -135,52 +135,6 @@
           <p class="kpi-hero-submodule-page-description">
             Manage contra, payments, receipts, journals, sales, purchases, credit/debit notes, and estimates with live double-entry ledger updates.
           </p>
-
-          <!-- Direct Sub-Menu Strip -->
-          <div class="voucher-submenu-wrap">
-            <nav class="voucher-submenu" aria-label="Voucher pages">
-              <a href="modules/erp/vouchers/vouchers.html" class="voucher-submenu-link" data-submenu-type="">
-                <i data-lucide="layers" aria-hidden="true"></i>
-                <span>All</span>
-              </a>
-              <a href="modules/erp/vouchers/contra-voucher.html" class="voucher-submenu-link" data-submenu-type="Contra">
-                <i data-lucide="arrow-left-right" aria-hidden="true"></i>
-                <span>Contra</span>
-              </a>
-              <a href="modules/erp/vouchers/payment-voucher.html" class="voucher-submenu-link" data-submenu-type="Payment">
-                <i data-lucide="arrow-up-right" aria-hidden="true"></i>
-                <span>Payment</span>
-              </a>
-              <a href="modules/erp/vouchers/receipt-voucher.html" class="voucher-submenu-link" data-submenu-type="Receipt">
-                <i data-lucide="arrow-down-left" aria-hidden="true"></i>
-                <span>Receipt</span>
-              </a>
-              <a href="modules/erp/vouchers/journal-voucher.html" class="voucher-submenu-link" data-submenu-type="Journal">
-                <i data-lucide="book-text" aria-hidden="true"></i>
-                <span>Journal</span>
-              </a>
-              <a href="modules/erp/vouchers/sales-voucher.html" class="voucher-submenu-link" data-submenu-type="Sales">
-                <i data-lucide="shopping-bag" aria-hidden="true"></i>
-                <span>Sales</span>
-              </a>
-              <a href="modules/erp/vouchers/purchase-voucher.html" class="voucher-submenu-link" data-submenu-type="Purchase">
-                <i data-lucide="shopping-cart" aria-hidden="true"></i>
-                <span>Purchase</span>
-              </a>
-              <a href="modules/erp/vouchers/credit-note.html" class="voucher-submenu-link" data-submenu-type="Credit Note">
-                <i data-lucide="file-minus-2" aria-hidden="true"></i>
-                <span>Credit Note</span>
-              </a>
-              <a href="modules/erp/vouchers/debit-note.html" class="voucher-submenu-link" data-submenu-type="Debit Note">
-                <i data-lucide="file-plus-2" aria-hidden="true"></i>
-                <span>Debit Note</span>
-              </a>
-              <a href="modules/erp/vouchers/estimate.html" class="voucher-submenu-link" data-submenu-type="Estimate">
-                <i data-lucide="file-spreadsheet" aria-hidden="true"></i>
-                <span>Estimate</span>
-              </a>
-            </nav>
-          </div>
         </section>
 
         <div id="erp-error" class="erp-error-banner hidden" role="alert"></div>
@@ -205,46 +159,118 @@
           </article>
         </section>
 
-        <!-- Voucher Register Card -->
+        <!-- Voucher Register Card (Compliance Row 3 Toolbar + Filter Popover) -->
         <section class="ui-card erp-register-card" aria-label="Voucher register">
           <div class="erp-register-head">
-            <div class="erp-register-title-row">
-              <h2 id="registerHeading">Voucher Register</h2>
-              <span id="voucherCount" class="erp-count-badge">0 vouchers</span>
-            </div>
+            <div
+              id="modulepage-row3-mount"
+              data-title="Voucher Register"
+              data-icon="receipt-text"
+              data-search-id="voucherSearch"
+              data-search-placeholder="Search voucher no, party, ledger..."
+              data-search-label="Search vouchers"
+              data-filter-template-id="voucherFilterTemplate"
+              data-action-template-id="voucherActionsTemplate"
+              data-record-count-id="voucherCount"
+              data-selected-count-id="selectedVoucherCount"
+              data-filter-toggle-id="voucherFilterToggle"
+              data-filter-count-id="activeVoucherFilterCount"
+              data-filter-popover-id="voucherFilterPopover"
+              data-action-toggle-id="voucherBulkActionsToggle"
+              data-action-menu-id="voucherBulkActionsMenu"
+              data-action-label="Bulk actions"
+            ></div>
 
-            <div class="erp-toolbar">
-              <input id="voucherSearch" type="search" class="field" placeholder="Search voucher no, party, ledger, reference…" aria-label="Search vouchers">
-              <select id="voucherTypeFilter" class="field erp-filter-select" aria-label="Filter by voucher type">
-                <option value="">All types</option>
-                <option value="Contra">Contra</option>
-                <option value="Payment">Payment</option>
-                <option value="Receipt">Receipt</option>
-                <option value="Journal">Journal</option>
-                <option value="Sales">Sales</option>
-                <option value="Purchase">Purchase</option>
-                <option value="Credit Note">Credit Note</option>
-                <option value="Debit Note">Debit Note</option>
-                <option value="Estimate">Estimate</option>
-              </select>
-              <select id="voucherLedgerFilter" class="field erp-filter-select" aria-label="Filter by ledger">
-                <option value="">All ledgers</option>
-              </select>
-              <select id="voucherStatusFilter" class="field erp-filter-select" aria-label="Filter by status">
-                <option value="">All statuses</option>
-                <option value="Posted">Posted</option>
-                <option value="Draft">Draft</option>
-              </select>
-              <input id="voucherFromDate" type="date" class="field erp-date-filter" aria-label="From date" title="From date">
-              <input id="voucherToDate" type="date" class="field erp-date-filter" aria-label="To date" title="To date">
-              <button id="clearVoucherFilters" type="button" class="btn btn-tonal btn-sm">Reset</button>
-            </div>
+            <!-- Two-Pane Filter Popover Template (Exact Compliance Pattern) -->
+            <template id="voucherFilterTemplate">
+              <nav class="crm-filter-categories" aria-label="Voucher filter categories">
+                <button type="button" class="active" data-filter-category="type"><span>Voucher Type</span><i data-lucide="chevron-right" aria-hidden="true"></i></button>
+                <button type="button" data-filter-category="ledger"><span>Ledger</span><i data-lucide="chevron-right" aria-hidden="true"></i></button>
+                <button type="button" data-filter-category="status"><span>Status</span><i data-lucide="chevron-right" aria-hidden="true"></i></button>
+                <button type="button" data-filter-category="date"><span>Date</span><i data-lucide="chevron-right" aria-hidden="true"></i></button>
+                <button type="button" data-filter-category="sort"><span>Sort by</span><i data-lucide="chevron-right" aria-hidden="true"></i></button>
+              </nav>
+
+              <div class="crm-filter-content" aria-live="polite">
+                <section class="crm-filter-panel active" data-filter-panel="type">
+                  <h3>Voucher Type</h3>
+                  <label>Type
+                    <select id="voucherTypeFilter" class="field crm-filter-control">
+                      <option value="">All types</option>
+                      <option value="Contra">Contra</option>
+                      <option value="Payment">Payment</option>
+                      <option value="Receipt">Receipt</option>
+                      <option value="Journal">Journal</option>
+                      <option value="Sales">Sales</option>
+                      <option value="Purchase">Purchase</option>
+                      <option value="Credit Note">Credit Note</option>
+                      <option value="Debit Note">Debit Note</option>
+                      <option value="Estimate">Estimate</option>
+                    </select>
+                  </label>
+                </section>
+
+                <section class="crm-filter-panel" data-filter-panel="ledger">
+                  <h3>Ledger</h3>
+                  <label>Account
+                    <select id="voucherLedgerFilter" class="field crm-filter-control">
+                      <option value="">All ledgers</option>
+                    </select>
+                  </label>
+                </section>
+
+                <section class="crm-filter-panel" data-filter-panel="status">
+                  <h3>Status</h3>
+                  <label>Status
+                    <select id="voucherStatusFilter" class="field crm-filter-control">
+                      <option value="">All statuses</option>
+                      <option value="Posted">Posted</option>
+                      <option value="Draft">Draft</option>
+                    </select>
+                  </label>
+                </section>
+
+                <section class="crm-filter-panel" data-filter-panel="date">
+                  <h3>Date</h3>
+                  <label>From date<input id="voucherFromDate" class="field crm-filter-control" type="date"></label>
+                  <label>To date<input id="voucherToDate" class="field crm-filter-control" type="date"></label>
+                </section>
+
+                <section class="crm-filter-panel" data-filter-panel="sort">
+                  <h3>Sort by</h3>
+                  <label>Order
+                    <select id="voucherSortFilter" class="field crm-filter-control">
+                      <option value="date-desc" selected>Date (newest first)</option>
+                      <option value="date-asc">Date (oldest first)</option>
+                      <option value="amount-desc">Amount (highest first)</option>
+                      <option value="amount-asc">Amount (lowest first)</option>
+                      <option value="no-desc">Voucher No.</option>
+                    </select>
+                  </label>
+                </section>
+              </div>
+
+              <div class="crm-filter-footer">
+                <button id="clearVoucherFilters" class="btn btn-tonal btn-sm crm-clear-filters" type="button">
+                  <i data-lucide="rotate-ccw" aria-hidden="true"></i>
+                  <span>Clear filters</span>
+                </button>
+              </div>
+            </template>
+
+            <!-- Bulk Actions Template -->
+            <template id="voucherActionsTemplate">
+              <button id="bulkMarkPosted" type="button" role="menuitem" disabled><i data-lucide="check-circle-2" aria-hidden="true"></i><span>Mark as Posted</span></button>
+              <button id="bulkMarkDraft" type="button" role="menuitem" disabled><i data-lucide="file-clock" aria-hidden="true"></i><span>Mark as Draft</span></button>
+              <button id="bulkDeleteVouchers" type="button" role="menuitem" disabled><i data-lucide="trash-2" aria-hidden="true"></i><span>Delete selected</span></button>
+            </template>
           </div>
 
           <div class="erp-table-scroll">
             <table class="erp-table" aria-label="Vouchers list">
               <thead>
                 <tr>
+                  <th class="col-check"><input id="selectVisibleVouchers" type="checkbox" aria-label="Select all visible vouchers"></th>
                   <th>Date</th>
                   <th>Voucher</th>
                   <th>Entry / Party</th>

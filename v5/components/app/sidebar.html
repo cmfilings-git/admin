@@ -96,10 +96,10 @@
     position: fixed;
     inset: 0 auto 0 0;
     z-index: 101;
-    width: min(304px, 84vw);
+    width: min(312px, 85vw);
     display: flex;
     flex-direction: column;
-    padding: 14px 12px calc(14px + env(safe-area-inset-bottom, 0px));
+    padding: 16px 14px calc(16px + env(safe-area-inset-bottom, 0px));
     background: var(--bg-surface, #ffffff);
     border-right: 1px solid var(--border-light, #e2e8f0);
     border-radius: 0 var(--radius-lg, 14px) var(--radius-lg, 14px) 0;
@@ -115,9 +115,9 @@
     transform: translateX(0);
   }
 
-    /* Header */
+  /* Header */
   .app-drawer-head {
-    height: 52px;
+    height: 54px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -155,8 +155,8 @@
   }
 
   .app-drawer-head button {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     flex-shrink: 0;
     border: 1px solid var(--border-light, #e2e8f0);
     border-radius: var(--radius-btn, 6px);
@@ -175,24 +175,24 @@
 
   .app-drawer-head button i,
   .app-drawer-head button svg {
-    width: 20px;
-    height: 20px;
+    width: 21px;
+    height: 21px;
     stroke-width: 1.85;
   }
 
   /* Square Primary Tonal Action */
   .drawer-new {
-    height: 40px;
-    margin-bottom: 16px;
-    padding: 0 12px;
+    height: 46px;
+    margin-bottom: 18px;
+    padding: 0 14px;
     border: 1px solid var(--border-light, #e2e8f0);
     border-radius: var(--radius-btn, 6px);
     background: var(--bg-tonal, #f0f4f9);
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     font-family: var(--font-display, "Plus Jakarta Sans", sans-serif);
-    font-size: 0.875rem;
+    font-size: 0.96rem;
     font-weight: 500;
     color: var(--ink-primary, #1f1f1f);
     text-decoration: none;
@@ -201,9 +201,9 @@
 
   .drawer-new i,
   .drawer-new svg {
-    width: 17px;
-    height: 17px;
-    stroke-width: 1.8;
+    width: 20px;
+    height: 20px;
+    stroke-width: 1.85;
     color: var(--primary-600, #0b57d0);
   }
 
@@ -216,9 +216,9 @@
 
   /* Section Caption */
   .drawer-caption {
-    padding: 0 10px 8px;
+    padding: 0 12px 8px;
     font-family: var(--font-display, "Plus Jakarta Sans", sans-serif);
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -230,19 +230,19 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 4px;
     overflow-y: auto;
     margin-bottom: 12px;
   }
 
   .drawer-links a {
-    height: 40px;
-    padding: 0 10px;
+    height: 46px;
+    padding: 0 12px;
     border-radius: var(--radius-btn, 6px);
     display: flex;
     align-items: center;
-    gap: 12px;
-    font-size: 0.875rem;
+    gap: 14px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--ink-secondary, #444746);
     text-decoration: none;
@@ -251,9 +251,9 @@
 
   .drawer-links a i,
   .drawer-links a svg {
-    width: 18px;
-    height: 18px;
-    stroke-width: 1.75;
+    width: 21px;
+    height: 21px;
+    stroke-width: 1.85;
     flex-shrink: 0;
   }
 
@@ -277,7 +277,7 @@
   /* Appearance Footer Switch */
   .drawer-appearance {
     margin-top: auto;
-    padding: 10px 10px 4px;
+    padding: 12px 12px 6px;
     border-top: 1px solid var(--border-light, #e2e8f0);
     display: flex;
     align-items: center;
@@ -288,23 +288,24 @@
   .appearance-label {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    font-size: 0.875rem;
+    gap: 12px;
+    font-size: 0.96rem;
     font-weight: 500;
     color: var(--ink-secondary, #444746);
   }
 
   .appearance-label i,
   .appearance-label svg {
-    width: 17px;
-    height: 17px;
+    width: 20px;
+    height: 20px;
+    stroke-width: 1.85;
     color: var(--ink-muted, #64748b);
   }
 
   .appearance-toggle {
     position: relative;
-    width: 38px;
-    height: 22px;
+    width: 44px;
+    height: 26px;
     padding: 2px;
     border: 1px solid var(--border-mid, #cbd5e1);
     border-radius: var(--radius-btn, 6px);
@@ -315,8 +316,8 @@
 
   .appearance-toggle-thumb {
     display: block;
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     border-radius: 4px;
     background: var(--bg-surface, #ffffff);
     box-shadow: var(--shadow-sm, 0 1px 2px rgba(4, 30, 73, 0.12));
@@ -329,6 +330,6 @@
   }
 
   .appearance-toggle[aria-checked="true"] .appearance-toggle-thumb {
-    transform: translateX(16px);
+    transform: translateX(18px);
   }
 </style>

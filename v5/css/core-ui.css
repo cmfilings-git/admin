@@ -473,16 +473,6 @@ body[data-theme="dark"] {
   background-color: #041e49;
 }
 
-/* Inline Square Loader Bar */
-.ui-loader-bar {
-  position: relative;
-  width: 100%;
-  height: 4px;
-  overflow: hidden;
-  border-radius: 2px;
-  background: var(--bg-tonal, #f0f4f9);
-}
-
 .ui-loader-bar::before,
 .ui-loader-bar::after {
   content: "";

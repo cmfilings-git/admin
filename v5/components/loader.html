@@ -7,6 +7,9 @@
     --cbq-loader-bg: rgba(255, 255, 255, 0.86);
     --cbq-loader-text: #444746;
 
+    /* Adjust this single value if you want to resize further (e.g., 1.2) */
+    --cbq-book-scale: 1;
+
     position: fixed;
     inset: 0;
     z-index: 9999;
@@ -14,7 +17,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 14px;
+    gap: 18px;
     background: var(--cbq-loader-bg);
     backdrop-filter: blur(4px);
     opacity: 0;
@@ -39,9 +42,10 @@
 
   .cbq-book {
     position: relative;
-    width: 54px;
-    height: 38px;
-    perspective: 220px;
+    width: 88px;
+    height: 62px;
+    perspective: 340px;
+    transform: scale(var(--cbq-book-scale));
   }
 
   .cbq-book-half,
@@ -52,25 +56,25 @@
     height: 100%;
     box-sizing: border-box;
     background: var(--cbq-book-page);
-    border: 2px solid var(--cbq-book-accent);
+    border: 2.5px solid var(--cbq-book-accent);
   }
 
   .cbq-book-half.is-left {
     left: 0;
-    border-right-width: 1px;
-    border-radius: 5px 2px 2px 5px;
+    border-right-width: 1.5px;
+    border-radius: 8px 3px 3px 8px;
   }
 
   .cbq-book-half.is-right {
     right: 0;
-    border-left-width: 1px;
-    border-radius: 2px 5px 5px 2px;
+    border-left-width: 1.5px;
+    border-radius: 3px 8px 8px 3px;
   }
 
   .cbq-book-page {
     left: 50%;
-    border-left-width: 1px;
-    border-radius: 2px 5px 5px 2px;
+    border-left-width: 1.5px;
+    border-radius: 3px 8px 8px 3px;
     transform-origin: left center;
     transform-style: preserve-3d;
     animation: cbqBookFlip 1.8s cubic-bezier(0.645, 0.045, 0.355, 1) infinite;
@@ -80,15 +84,15 @@
   .cbq-book-page::after {
     content: "";
     position: absolute;
-    left: 5px;
-    right: 5px;
-    height: 2px;
+    left: 9px;
+    right: 9px;
+    height: 2.5px;
     border-radius: 2px;
     background: var(--cbq-book-line);
   }
 
-  .cbq-book-page::before { top: 11px; }
-  .cbq-book-page::after { top: 18px; right: 9px; }
+  .cbq-book-page::before { top: 19px; }
+  .cbq-book-page::after { top: 30px; right: 15px; }
 
   .cbq-book-page:nth-child(3) { animation-delay: 0s; }
   .cbq-book-page:nth-child(4) { animation-delay: -0.6s; }
@@ -97,7 +101,7 @@
   .cbq-loader-text {
     margin: 0;
     font-family: "Outfit", system-ui, sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     font-weight: 500;
     letter-spacing: 0.01em;
     color: var(--cbq-loader-text);

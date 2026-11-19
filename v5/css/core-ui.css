@@ -45,6 +45,11 @@
   --font-sans:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono:    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
+  /* Icon Scale */
+  --icon-sm: 16px;
+  --icon-md: 19px;
+  --icon-lg: 22px;
+
   /* Square-First Radii */
   --radius-btn:  6px;  /* Google square button */
   --radius-sm:   6px;  /* Inputs, tags, menu items */
@@ -74,7 +79,7 @@ html {
 body {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: 0.9375rem; /* 15px */
+  font-size: 1rem; /* 16px */
   line-height: 1.55;
   color: var(--ink-primary);
   background-color: var(--bg-page);
@@ -88,10 +93,10 @@ h1, h2, h3, h4 {
   line-height: 1.25;
 }
 
-h1 { font-size: 1.5rem;   font-weight: 600; } /* 24px */
-h2 { font-size: 1.25rem;  font-weight: 600; } /* 20px */
-h3 { font-size: 1.0625rem; font-weight: 600; } /* 17px */
-h4 { font-size: 0.9375rem; font-weight: 600; }
+h1 { font-size: 1.625rem;  font-weight: 600; } /* 26px */
+h2 { font-size: 1.3125rem; font-weight: 600; } /* 21px */
+h3 { font-size: 1.125rem;  font-weight: 600; } /* 18px */
+h4 { font-size: 1rem;      font-weight: 600; } /* 16px */
 
 p {
   margin: 0;
@@ -122,14 +127,14 @@ a:hover {
    ========================================================================== */
 [data-lucide],
 svg.lucide {
-  width: 17px;
-  height: 17px;
-  stroke-width: 1.75;
+  width: var(--icon-md);
+  height: var(--icon-md);
+  stroke-width: 1.8;
   flex-shrink: 0;
 }
 
-.icon-sm { width: 14px; height: 14px; }
-.icon-lg { width: 20px; height: 20px; }
+.icon-sm { width: var(--icon-sm); height: var(--icon-sm); }
+.icon-lg { width: var(--icon-lg); height: var(--icon-lg); }
 
 /* 4. GOOGLE SQUARE BUTTONS
    ========================================================================== */
@@ -138,12 +143,12 @@ svg.lucide {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  height: 36px;
-  padding: 0 14px;
+  height: 38px;
+  padding: 0 15px;
   border: 1px solid transparent;
   border-radius: var(--radius-btn);
   font-family: var(--font-display);
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   font-weight: 500;
   line-height: 1;
   white-space: nowrap;
@@ -211,18 +216,18 @@ svg.lucide {
 
 /* Square Icon-Only Button */
 .btn-icon {
-  width: 36px;
+  width: 38px;
   padding: 0;
 }
 
 .btn-sm {
-  height: 30px;
-  padding: 0 10px;
-  font-size: 0.8125rem;
+  height: 32px;
+  padding: 0 11px;
+  font-size: 0.875rem;
 }
 
 .btn-icon.btn-sm {
-  width: 30px;
+  width: 32px;
   padding: 0;
 }
 
@@ -232,13 +237,13 @@ svg.lucide {
 .input-control,
 select.field {
   width: 100%;
-  height: 38px;
+  height: 40px;
   padding: 0 12px;
   border: 1px solid var(--border-mid);
   border-radius: var(--radius-sm);
   background-color: var(--bg-surface);
   font-family: var(--font-sans);
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   color: var(--ink-primary);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
@@ -257,8 +262,8 @@ select.field {
 
 input[type="checkbox"],
 input[type="radio"] {
-  width: 16px;
-  height: 16px;
+  width: 17px;
+  height: 17px;
   accent-color: var(--primary-600);
   cursor: pointer;
 }
@@ -275,10 +280,10 @@ input[type="radio"] {
 .status-pill {
   display: inline-flex;
   align-items: center;
-  padding: 3px 8px;
+  padding: 4px 9px;
   border-radius: var(--radius-sm);
   font-family: var(--font-display);
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   line-height: 1.25;
   white-space: nowrap;
@@ -290,7 +295,7 @@ input[type="radio"] {
 .status-pill.status-danger   { background: var(--status-danger-bg);   color: var(--status-danger-fg); }
 
 .ui-menu {
-  min-width: 184px;
+  min-width: 192px;
   padding: 6px;
   background: var(--bg-surface);
   border: 1px solid var(--border-light);
@@ -303,12 +308,12 @@ input[type="radio"] {
   align-items: center;
   gap: 10px;
   width: 100%;
-  padding: 8px 10px;
+  padding: 9px 12px;
   border: none;
   border-radius: var(--radius-sm);
   background: transparent;
   font-family: var(--font-sans);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--ink-primary);
   text-align: left;
@@ -325,12 +330,12 @@ input[type="radio"] {
   bottom: 24px;
   right: 24px;
   z-index: 100;
-  padding: 10px 16px;
+  padding: 11px 16px;
   border-radius: var(--radius-sm);
   background: var(--primary-900);
   color: #ffffff;
   font-family: var(--font-display);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 500;
   box-shadow: var(--shadow-menu);
 }
@@ -368,8 +373,19 @@ body {
   }
 }
 
-/* Mobile & Tablet (<= 900px): hide desktop shell, show mobile header & bottom nav */
+/* Mobile & Tablet (<= 900px): hide desktop shell, show & scale mobile app UI */
 @media (max-width: 900px) {
+  :root {
+    --icon-sm: 18px;
+    --icon-md: 21px;
+    --icon-lg: 24px;
+  }
+
+  /* Global rem boost across the mobile app */
+  html {
+    font-size: 17px;
+  }
+
   #desktop-sidebar-mount,
   #desktop-header-mount {
     display: none !important;
@@ -386,6 +402,90 @@ body {
     width: 100%;
     max-width: 100vw;
     margin-left: 0 !important;
+  }
+
+  /* Touch-friendly buttons & form inputs */
+  .btn {
+    height: 42px;
+    padding: 0 16px;
+    font-size: 0.95rem;
+  }
+
+  .btn-icon {
+    width: 42px;
+  }
+
+  .field,
+  .input-control,
+  select.field {
+    height: 44px;
+    font-size: 1rem;
+  }
+
+  /* Mobile Top Header */
+  #mobile-header-mount [data-lucide],
+  #mobile-header-mount svg.lucide {
+    width: 23px;
+    height: 23px;
+    stroke-width: 1.9;
+  }
+
+  #mobile-header-mount button,
+  #mobile-header-mount a {
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  /* Mobile Navigation Drawer */
+  #app-sidebar-mount [data-nav-key],
+  #app-sidebar-mount a,
+  #app-sidebar-mount button:not([data-theme-toggle]):not(#close-app-sidebar) {
+    font-size: 1rem;
+    gap: 14px;
+  }
+
+  #app-sidebar-mount [data-lucide],
+  #app-sidebar-mount svg.lucide {
+    width: 22px;
+    height: 22px;
+    stroke-width: 1.9;
+  }
+
+  /* Mobile Bottom Navigation */
+  #bottom-nav-mount a,
+  #bottom-nav-mount button {
+    font-size: 0.82rem;
+    font-weight: 500;
+    gap: 5px;
+  }
+
+  #bottom-nav-mount [data-lucide],
+  #bottom-nav-mount svg.lucide {
+    width: 23px;
+    height: 23px;
+    stroke-width: 1.9;
+  }
+
+  /* Dashboard Welcome & Chart Cards */
+  #welcome-mount h1,
+  #welcome-mount h2,
+  #welcome-company-name {
+    font-size: 1.65rem;
+    line-height: 1.25;
+  }
+
+  #welcome-mount p,
+  #welcome-date-text {
+    font-size: 0.94rem;
+  }
+
+  #chart-mount h2,
+  #chart-mount h3 {
+    font-size: 1.25rem;
+  }
+
+  #chart-mount p {
+    font-size: 0.92rem;
   }
 }
 

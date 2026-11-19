@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b57d0" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131314" media="(prefers-color-scheme: dark)">
+  <base href="../../../">
+  <title>Vouchers | COREBIQ ERP</title>
+
+  <link rel="stylesheet" href="css/core-ui.css">
+  <link rel="stylesheet" href="modules/erp/vouchers/vouchers.css">
+</head>
+<body data-page-title="ERP" data-voucher-type="contra">
+  <div id="erp-app" class="app-shell hidden">
+    <div id="desktop-sidebar-mount"></div>
+
+    <div class="main-shell">
+      <div id="desktop-header-mount"></div>
+      <div id="mobile-header-mount"></div>
+
+      <main class="erp-page">
+        <!-- Hero Header with ERP Menu + Voucher Sub-Menu Dropdown -->
+        <section class="kpi-hero-submodule-page" aria-label="Vouchers overview">
+          <header class="erp-head">
+            <div class="erp-head-identity">
+              <h1 class="erp-page-title">
+                <i data-lucide="receipt-text" aria-hidden="true"></i>
+                <span id="voucherPageHeading">Vouchers</span>
+              </h1>
+              <nav class="erp-breadcrumb" aria-label="Breadcrumb">
+                <a href="index.html">Modules</a>
+                <span aria-hidden="true">&gt;</span>
+                <a href="modules/erp/dashboard/dashboard.html">ERP</a>
+                <span aria-hidden="true">&gt;</span>
+                <span id="voucherBreadcrumbCurrent" aria-current="page">Vouchers</span>
+              </nav>
+            </div>
+
+            <div class="erp-head-actions">
+              <!-- ERP Module Switcher -->
+              <div class="erp-dropdown-wrap">
+                <button
+                  id="erpModuleMenuToggle"
+                  type="button"
+                  class="btn btn-tonal"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-controls="erpModuleMenu"
+                >
+                  <i data-lucide="layout-grid" aria-hidden="true"></i>
+                  <span>Menu</span>
+                </button>
+                <nav id="erpModuleMenu" class="erp-dropdown-menu" role="menu" aria-label="ERP modules" hidden>
+                  <a href="modules/erp/dashboard/dashboard.html" role="menuitem">
+                    <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+                    <span>Dashboard</span>
+                  </a>
+                  <a href="modules/erp/ledgers/ledgers.html" role="menuitem">
+                    <i data-lucide="book-open" aria-hidden="true"></i>
+                    <span>Ledgers</span>
+                  </a>
+                  <a href="modules/erp/vouchers/vouchers.html" role="menuitem" aria-current="page">
+                    <i data-lucide="receipt-text" aria-hidden="true"></i>
+                    <span>Vouchers</span>
+                  </a>
+                </nav>
+              </div>
+
+              <!-- Voucher Types Sub-Menu Dropdown -->
+              <div class="erp-dropdown-wrap">
+                <button
+                  id="voucherSubmenuToggle"
+                  type="button"
+                  class="btn btn-tonal"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-controls="voucherSubmenuDropdown"
+                >
+                  <i data-lucide="files" aria-hidden="true"></i>
+                  <span>Voucher Types</span>
+                  <i data-lucide="chevron-down" class="erp-chevron" aria-hidden="true"></i>
+                </button>
+                <nav id="voucherSubmenuDropdown" class="erp-dropdown-menu erp-dropdown-menu--wide" role="menu" aria-label="Voucher sub-menu" hidden>
+                  <a href="modules/erp/vouchers/vouchers.html" role="menuitem" data-submenu-type="">
+                    <i data-lucide="layers" aria-hidden="true"></i>
+                    <span>All Vouchers</span>
+                  </a>
+                  <a href="modules/erp/vouchers/contra-voucher.html" role="menuitem" data-submenu-type="Contra">
+                    <i data-lucide="arrow-left-right" aria-hidden="true"></i>
+                    <span>Contra</span>
+                  </a>
+                  <a href="modules/erp/vouchers/payment-voucher.html" role="menuitem" data-submenu-type="Payment">
+                    <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+                    <span>Payment</span>
+                  </a>
+                  <a href="modules/erp/vouchers/receipt-voucher.html" role="menuitem" data-submenu-type="Receipt">
+                    <i data-lucide="arrow-down-left" aria-hidden="true"></i>
+                    <span>Receipt</span>
+                  </a>
+                  <a href="modules/erp/vouchers/journal-voucher.html" role="menuitem" data-submenu-type="Journal">
+                    <i data-lucide="book-text" aria-hidden="true"></i>
+                    <span>Journal</span>
+                  </a>
+                  <a href="modules/erp/vouchers/sales-voucher.html" role="menuitem" data-submenu-type="Sales">
+                    <i data-lucide="shopping-bag" aria-hidden="true"></i>
+                    <span>Sales</span>
+                  </a>
+                  <a href="modules/erp/vouchers/purchase-voucher.html" role="menuitem" data-submenu-type="Purchase">
+                    <i data-lucide="shopping-cart" aria-hidden="true"></i>
+                    <span>Purchase</span>
+                  </a>
+                  <a href="modules/erp/vouchers/credit-note.html" role="menuitem" data-submenu-type="Credit Note">
+                    <i data-lucide="file-minus-2" aria-hidden="true"></i>
+                    <span>Credit Note</span>
+                  </a>
+                  <a href="modules/erp/vouchers/debit-note.html" role="menuitem" data-submenu-type="Debit Note">
+                    <i data-lucide="file-plus-2" aria-hidden="true"></i>
+                    <span>Debit Note</span>
+                  </a>
+                  <a href="modules/erp/vouchers/estimate.html" role="menuitem" data-submenu-type="Estimate">
+                    <i data-lucide="file-spreadsheet" aria-hidden="true"></i>
+                    <span>Estimate</span>
+                  </a>
+                </nav>
+              </div>
+
+              <button id="addVoucherBtn" type="button" class="btn btn-primary">
+                <i data-lucide="plus" aria-hidden="true"></i>
+                <span>Add</span>
+              </button>
+            </div>
+          </header>
+
+          <p class="kpi-hero-submodule-page-description">
+            Manage contra, payments, receipts, journals, sales, purchases, credit/debit notes, and estimates with live double-entry ledger updates.
+          </p>
+
+          <!-- Direct Sub-Menu Strip -->
+          <div class="voucher-submenu-wrap">
+            <nav class="voucher-submenu" aria-label="Voucher pages">
+              <a href="modules/erp/vouchers/vouchers.html" class="voucher-submenu-link" data-submenu-type="">
+                <i data-lucide="layers" aria-hidden="true"></i>
+                <span>All</span>
+              </a>
+              <a href="modules/erp/vouchers/contra-voucher.html" class="voucher-submenu-link" data-submenu-type="Contra">
+                <i data-lucide="arrow-left-right" aria-hidden="true"></i>
+                <span>Contra</span>
+              </a>
+              <a href="modules/erp/vouchers/payment-voucher.html" class="voucher-submenu-link" data-submenu-type="Payment">
+                <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+                <span>Payment</span>
+              </a>
+              <a href="modules/erp/vouchers/receipt-voucher.html" class="voucher-submenu-link" data-submenu-type="Receipt">
+                <i data-lucide="arrow-down-left" aria-hidden="true"></i>
+                <span>Receipt</span>
+              </a>
+              <a href="modules/erp/vouchers/journal-voucher.html" class="voucher-submenu-link" data-submenu-type="Journal">
+                <i data-lucide="book-text" aria-hidden="true"></i>
+                <span>Journal</span>
+              </a>
+              <a href="modules/erp/vouchers/sales-voucher.html" class="voucher-submenu-link" data-submenu-type="Sales">
+                <i data-lucide="shopping-bag" aria-hidden="true"></i>
+                <span>Sales</span>
+              </a>
+              <a href="modules/erp/vouchers/purchase-voucher.html" class="voucher-submenu-link" data-submenu-type="Purchase">
+                <i data-lucide="shopping-cart" aria-hidden="true"></i>
+                <span>Purchase</span>
+              </a>
+              <a href="modules/erp/vouchers/credit-note.html" class="voucher-submenu-link" data-submenu-type="Credit Note">
+                <i data-lucide="file-minus-2" aria-hidden="true"></i>
+                <span>Credit Note</span>
+              </a>
+              <a href="modules/erp/vouchers/debit-note.html" class="voucher-submenu-link" data-submenu-type="Debit Note">
+                <i data-lucide="file-plus-2" aria-hidden="true"></i>
+                <span>Debit Note</span>
+              </a>
+              <a href="modules/erp/vouchers/estimate.html" class="voucher-submenu-link" data-submenu-type="Estimate">
+                <i data-lucide="file-spreadsheet" aria-hidden="true"></i>
+                <span>Estimate</span>
+              </a>
+            </nav>
+          </div>
+        </section>
+
+        <div id="erp-error" class="erp-error-banner hidden" role="alert"></div>
+
+        <!-- 4-Card KPI Grid -->
+        <section class="erp-kpi-grid" aria-label="Voucher summary">
+          <article class="ui-card erp-kpi-card">
+            <span class="erp-kpi-label">Total vouchers</span>
+            <span id="kpi-total-vouchers" class="erp-kpi-value">0</span>
+          </article>
+          <article class="ui-card erp-kpi-card">
+            <span class="erp-kpi-label">Receipts &amp; sales</span>
+            <span id="kpi-inflow" class="erp-kpi-value is-success">—</span>
+          </article>
+          <article class="ui-card erp-kpi-card">
+            <span class="erp-kpi-label">Payments &amp; purchases</span>
+            <span id="kpi-outflow" class="erp-kpi-value is-danger">—</span>
+          </article>
+          <article class="ui-card erp-kpi-card">
+            <span class="erp-kpi-label">Posted / Draft</span>
+            <span id="kpi-posted-count" class="erp-kpi-value">0 / 0</span>
+          </article>
+        </section>
+
+        <!-- Voucher Register Card -->
+        <section class="ui-card erp-register-card" aria-label="Voucher register">
+          <div class="erp-register-head">
+            <div class="erp-register-title-row">
+              <h2 id="registerHeading">Voucher Register</h2>
+              <span id="voucherCount" class="erp-count-badge">0 vouchers</span>
+            </div>
+
+            <div class="erp-toolbar">
+              <input id="voucherSearch" type="search" class="field" placeholder="Search voucher no, party, ledger, reference…" aria-label="Search vouchers">
+              <select id="voucherTypeFilter" class="field erp-filter-select" aria-label="Filter by voucher type">
+                <option value="">All types</option>
+                <option value="Contra">Contra</option>
+                <option value="Payment">Payment</option>
+                <option value="Receipt">Receipt</option>
+                <option value="Journal">Journal</option>
+                <option value="Sales">Sales</option>
+                <option value="Purchase">Purchase</option>
+                <option value="Credit Note">Credit Note</option>
+                <option value="Debit Note">Debit Note</option>
+                <option value="Estimate">Estimate</option>
+              </select>
+              <select id="voucherLedgerFilter" class="field erp-filter-select" aria-label="Filter by ledger">
+                <option value="">All ledgers</option>
+              </select>
+              <select id="voucherStatusFilter" class="field erp-filter-select" aria-label="Filter by status">
+                <option value="">All statuses</option>
+                <option value="Posted">Posted</option>
+                <option value="Draft">Draft</option>
+              </select>
+              <input id="voucherFromDate" type="date" class="field erp-date-filter" aria-label="From date" title="From date">
+              <input id="voucherToDate" type="date" class="field erp-date-filter" aria-label="To date" title="To date">
+              <button id="clearVoucherFilters" type="button" class="btn btn-tonal btn-sm">Reset</button>
+            </div>
+          </div>
+
+          <div class="erp-table-scroll">
+            <table class="erp-table" aria-label="Vouchers list">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Voucher</th>
+                  <th>Entry / Party</th>
+                  <th>Mode / Ref</th>
+                  <th>Status</th>
+                  <th class="text-right">Amount</th>
+                  <th class="text-right">Action</th>
+                </tr>
+                <tr class="erp-mobile-head">
+                  <th>Date</th>
+                  <th>Voucher</th>
+                  <th>Entry</th>
+                  <th class="text-right">Amount</th>
+                  <th class="text-right">Act</th>
+                </tr>
+              </thead>
+              <tbody id="voucherRows"></tbody>
+            </table>
+          </div>
+
+          <div id="voucherEmpty" class="erp-empty hidden">
+            No matching vouchers found.
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="app-sidebar-mount"></div>
+    <div id="bottom-nav-mount"></div>
+    <div id="mini-container-mount"></div>
+  </div>
+
+  <!-- Add / Edit Voucher Modal -->
+  <div id="voucherModal" class="erp-modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="voucherModalTitle">
+    <form id="voucherForm" class="ui-card erp-modal-card" novalidate>
+      <div class="erp-modal-head">
+        <div>
+          <h2 id="voucherModalTitle">New Voucher</h2>
+          <p id="voucherModalSub">Posted vouchers update ledger balances immediately.</p>
+        </div>
+        <button id="closeVoucherModal" type="button" class="btn btn-tonal btn-icon btn-sm" aria-label="Close modal">
+          <i data-lucide="x" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="erp-modal-body">
+        <div class="form-grid-3">
+          <label class="form-group">
+            <span>Voucher Type</span>
+            <select id="voucherType" class="field" required>
+              <option value="Contra">Contra</option>
+              <option value="Payment">Payment</option>
+              <option value="Receipt" selected>Receipt</option>
+              <option value="Journal">Journal</option>
+              <option value="Sales">Sales</option>
+              <option value="Purchase">Purchase</option>
+              <option value="Credit Note">Credit Note</option>
+              <option value="Debit Note">Debit Note</option>
+              <option value="Estimate">Estimate</option>
+            </select>
+          </label>
+          <label class="form-group">
+            <span>Voucher No.</span>
+            <input id="voucherNo" class="field" type="text" required>
+          </label>
+          <label class="form-group">
+            <span>Date</span>
+            <input id="voucherDate" class="field" type="date" required>
+          </label>
+        </div>
+
+        <label class="form-group">
+          <span>Party / Account Name</span>
+          <input id="partyName" class="field" type="text" placeholder="Optional customer, supplier, or payee name">
+        </label>
+
+        <div id="ledgerPairFields" class="form-grid-2">
+          <label class="form-group">
+            <span>Debit Ledger (Dr)</span>
+            <select id="debitLedger" class="field" required>
+              <option value="">Select debit ledger</option>
+            </select>
+          </label>
+          <label class="form-group">
+            <span>Credit Ledger (Cr)</span>
+            <select id="creditLedger" class="field" required>
+              <option value="">Select credit ledger</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="form-grid-3">
+          <label class="form-group">
+            <span>Amount</span>
+            <input id="voucherAmount" class="field" type="number" step="0.01" min="0.01" placeholder="0.00" required>
+          </label>
+          <label class="form-group">
+            <span>Mode</span>
+            <select id="paymentMode" class="field">
+              <option value="Bank Transfer">Bank Transfer</option>
+              <option value="UPI">UPI</option>
+              <option value="Cash">Cash</option>
+              <option value="Cheque">Cheque</option>
+              <option value="Adjustment">Adjustment</option>
+            </select>
+          </label>
+          <label class="form-group">
+            <span>Status</span>
+            <select id="voucherStatus" class="field">
+              <option value="Posted">Posted</option>
+              <option value="Draft">Draft</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="form-group">
+          <span>Reference / Invoice No.</span>
+          <input id="referenceNo" class="field" type="text" placeholder="Optional UTR, invoice, bill, or quote number">
+        </label>
+
+        <label class="form-group">
+          <span>Narration</span>
+          <textarea id="voucherNarration" class="field" rows="2" placeholder="Brief note about this voucher"></textarea>
+        </label>
+
+        <p id="voucherFormError" class="form-error-text" role="alert"></p>
+      </div>
+
+      <div class="erp-modal-footer">
+        <button id="cancelVoucherBtn" type="button" class="btn btn-tonal">Cancel</button>
+        <button id="saveVoucherBtn" type="submit" class="btn btn-primary">
+          <i data-lucide="save" aria-hidden="true"></i>
+          <span>Save Voucher</span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/index.js"></script>
+  <script type="module" src="modules/erp/vouchers/vouchers.js"></script>
+</body>
+</html>

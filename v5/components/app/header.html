@@ -1,4 +1,4 @@
-<header class="mobile-app-header" aria-label="Mobile workspace actions">
+<header class="mobile-app-header no-print" aria-label="Mobile workspace actions">
   <a href="index.html" class="mobile-app-brand" aria-label="Home">
     <img src="assets/logo.png" alt="COREBIQ" class="mobile-brand-logo">
   </a>
@@ -14,11 +14,11 @@
     <i data-lucide="search" aria-hidden="true"></i>
   </button>
   <button
-    class="mobile-header-action compliance-refresh-button"
+    class="mobile-header-action module-refresh-button"
     type="button"
-    aria-label="Refresh compliance"
-    title="Refresh compliance"
-    data-compliance-refresh
+    aria-label="Refresh module"
+    title="Refresh module"
+    data-module-refresh
   >
     <i data-lucide="refresh-cw" aria-hidden="true"></i>
   </button>
@@ -46,15 +46,23 @@
 </header>
 
 <style>
-  .mobile-app-header {
-    height: 58px;
+  /* Sticky must be applied to the mount wrapper so it sticks across the full scroll height */
+  #mobile-header-mount {
     position: sticky;
     top: 0;
     z-index: 60;
+    width: 100%;
+  }
+
+  .mobile-app-header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    min-height: calc(58px + env(safe-area-inset-top, 0px));
+    padding: env(safe-area-inset-top, 0px) 14px 0;
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 0 14px;
     background: rgba(255, 255, 255, 0.92);
     border-bottom: 1px solid var(--border-light, #e2e8f0);
     backdrop-filter: blur(12px);
@@ -130,6 +138,17 @@
     stroke-width: 1.8;
   }
 
+  .module-refresh-button.is-refreshing i,
+  .module-refresh-button.is-refreshing svg {
+    animation: mobileRefreshSpin 0.7s linear infinite;
+  }
+
+  @keyframes mobileRefreshSpin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
   .notification-button b {
     position: absolute;
     top: 7px;
@@ -141,17 +160,17 @@
     background: var(--primary-600, #0b57d0);
   }
 
-  .compliance-refresh-button {
-    display: none;
-  }
-
-  body[data-page-title="Compliance"] .compliance-refresh-button {
-    display: grid;
-  }
-
   @media (min-width: 901px) {
+    #mobile-header-mount,
     .mobile-app-header {
       display: none;
+    }
+  }
+
+  @media print {
+    #mobile-header-mount,
+    .mobile-app-header {
+      display: none !important;
     }
   }
 </style>
